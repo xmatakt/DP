@@ -62,7 +62,6 @@ namespace EZKO.UserControls.Dashboard
         {
             get
             {
-                var tmp = 10;
                 List<DatabaseCommunicator.Model.Action> result = new List<DatabaseCommunicator.Model.Action>();
                 foreach (var item in plannedActionsComboBox.Items)
                 {
