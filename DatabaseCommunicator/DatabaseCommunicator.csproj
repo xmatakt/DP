@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8C6675D5-0E8B-474E-B793-AF777376D361}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DatabaseCommunicator</RootNamespace>
+    <AssemblyName>DatabaseCommunicator</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\PasswordController.cs" />
+    <Compile Include="Enums\EventStateEnum.cs" />
+    <Compile Include="Enums\LoginResultEnum.cs" />
+    <Compile Include="Enums\UserRoleEnum.cs" />
+    <Compile Include="Controllers\EzkoController.cs" />
+    <Compile Include="Model\Action.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Address.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Budget.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BudgetItem.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CalendarEvent.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CalendarEventColor.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CalendarEventExecutedAction.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Contact.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EventState.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ExecutedActionNote.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EzkoEntitiesExtension.cs" />
+    <Compile Include="Model\EzkoModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EzkoModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EzkoModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EzkoModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EzkoModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EzkoModelExtension.cs" />
+    <Compile Include="Model\Field.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FieldForm.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FieldType.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FieldValue.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Form.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Infrastructure.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\InsuranceCompany.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Patient.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Question.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Section.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Sex.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\User.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\UserRole.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Model\EzkoModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EzkoModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Model\EzkoModel.edmx.diagram">
+      <DependentUpon>EzkoModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\EzkoModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EzkoModel.edmx</DependentUpon>
+      <LastGenOutput>EzkoModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\EzkoModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EzkoModel.edmx</DependentUpon>
+      <LastGenOutput>EzkoModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExceptionHandler\MessagesHandler.csproj">
+      <Project>{35790a1d-19bb-4f6b-b5f4-adc25859ebae}</Project>
+      <Name>MessagesHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Windows.Forms.Calendar\System.Windows.Forms.Calendar.csproj">
+      <Project>{25649f08-3046-4891-adb8-7ea787b57063}</Project>
+      <Name>System.Windows.Forms.Calendar</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

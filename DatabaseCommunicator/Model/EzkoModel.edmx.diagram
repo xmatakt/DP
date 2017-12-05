@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9c1e851ded3c482a91dde4ed079b0b5e" Name="Diagram1" ZoomLevel="50">
+        <EntityTypeShape EntityType="EzkoModel.Action" Width="1.5" PointX="6" PointY="6.75" />
+        <EntityTypeShape EntityType="EzkoModel.Address" Width="1.5" PointX="0.75" PointY="15" />
+        <EntityTypeShape EntityType="EzkoModel.Budget" Width="1.5" PointX="5.25" PointY="11.75" />
+        <EntityTypeShape EntityType="EzkoModel.BudgetItem" Width="1.5" PointX="7.5" PointY="11.875" />
+        <EntityTypeShape EntityType="EzkoModel.CalendarEvent" Width="1.5" PointX="8.25" PointY="5.25" />
+        <EntityTypeShape EntityType="EzkoModel.CalendarEventColor" Width="1.5" PointX="6" PointY="15.625" />
+        <EntityTypeShape EntityType="EzkoModel.CalendarEventExecutedAction" Width="1.5" PointX="10.5" PointY="7" />
+        <EntityTypeShape EntityType="EzkoModel.Contact" Width="1.5" PointX="0.75" PointY="11.875" />
+        <EntityTypeShape EntityType="EzkoModel.EventState" Width="1.5" PointX="6" PointY="21.375" />
+        <EntityTypeShape EntityType="EzkoModel.ExecutedActionNote" Width="1.5" PointX="8.25" PointY="2.375" />
+        <EntityTypeShape EntityType="EzkoModel.Field" Width="1.5" PointX="3.75" PointY="1.125" />
+        <EntityTypeShape EntityType="EzkoModel.FieldForm" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="EzkoModel.FieldType" Width="1.5" PointX="1.5" PointY="3.25" />
+        <EntityTypeShape EntityType="EzkoModel.FieldValue" Width="1.5" PointX="6" PointY="3.75" />
+        <EntityTypeShape EntityType="EzkoModel.Form" Width="1.5" PointX="3.75" PointY="17.5" />
+        <EntityTypeShape EntityType="EzkoModel.Infrastructure" Width="1.5" PointX="6" PointY="18.25" />
+        <EntityTypeShape EntityType="EzkoModel.InsuranceCompany" Width="1.5" PointX="0.75" PointY="7.875" />
+        <EntityTypeShape EntityType="EzkoModel.Patient" Width="1.5" PointX="3" PointY="6" />
+        <EntityTypeShape EntityType="EzkoModel.Question" Width="1.5" PointX="3.75" PointY="15.125" />
+        <EntityTypeShape EntityType="EzkoModel.Section" Width="1.5" PointX="1.5" PointY="0.875" />
+        <EntityTypeShape EntityType="EzkoModel.Sex" Width="1.5" PointX="0.75" PointY="18.125" />
+        <EntityTypeShape EntityType="EzkoModel.User" Width="1.5" PointX="6" PointY="23.75" />
+        <EntityTypeShape EntityType="EzkoModel.UserRole" Width="1.5" PointX="3.75" PointY="24.375" />
+        <AssociationConnector Association="EzkoModel.FK_Action_di322598275310124509" />
+        <AssociationConnector Association="EzkoModel.FK_Action_di491657968160436312" />
+        <AssociationConnector Association="EzkoModel.FK_CalendarEventExecutedAction_di358140986643252356" />
+        <AssociationConnector Association="EzkoModel.FK_Patient_di957587348570545670" />
+        <AssociationConnector Association="EzkoModel.FK_Budget_di541165593383915344" />
+        <AssociationConnector Association="EzkoModel.FK_BudgetItem_di695309445112100255" />
+        <AssociationConnector Association="EzkoModel.FK_CalendarEvent_di381268337610794711" />
+        <AssociationConnector Association="EzkoModel.FK_CalendarEvent_di647481913942757360" />
+        <AssociationConnector Association="EzkoModel.FK_CalendarEvent_di904417518440335821" />
+        <AssociationConnector Association="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052" />
+        <AssociationConnector Association="EzkoModel.FK_CalendarEventExecutedAction_di616744201698551360" />
+        <AssociationConnector Association="EzkoModel.FK_Patient_di471102226411486371" />
+        <AssociationConnector Association="EzkoModel.FK_Field_di831583428630155059" />
+        <AssociationConnector Association="EzkoModel.FK_Field_di950325270849068985" />
+        <AssociationConnector Association="EzkoModel.FK_FieldForm_di751208784575018668" />
+        <AssociationConnector Association="EzkoModel.FK_FieldValue_di229197202395043558" />
+        <AssociationConnector Association="EzkoModel.FK_FieldForm_di928213701881264490" />
+        <AssociationConnector Association="EzkoModel.FK_FieldForm_di943046351291190184" />
+        <AssociationConnector Association="EzkoModel.FK_Patient_di877313177207316680" />
+        <AssociationConnector Association="EzkoModel.FK_Patient_di971957564590465727" />
+        <AssociationConnector Association="EzkoModel.FK_User_di753237611326192113" />
+        <AssociationConnector Association="EzkoModel.CalendarEventInfrastructure" />
+        <AssociationConnector Association="EzkoModel.CalendarEventPlanedAction" />
+        <AssociationConnector Association="EzkoModel.CalendarEventUser" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,1721 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EzkoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="LongName" Type="nvarchar(max)" />
+          <Property Name="Material" Type="nvarchar(max)" />
+          <Property Name="RecommendedLength" Type="int" Nullable="false" />
+          <Property Name="Costs" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="Margin" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="InsuranceCompanyMargin" Type="decimal" Precision="19" Scale="6" />
+          <Property Name="InsuranceCompanyID" Type="int" />
+          <Property Name="EzkoFieldID" Type="int" />
+          <Property Name="HasSpecification" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Street" Type="nvarchar" MaxLength="80" />
+          <Property Name="StreetNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="City" Type="nvarchar" MaxLength="40" />
+          <Property Name="PostNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="Country" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Budget">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BudgetItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="BudgetID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalendarEvent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ColorID" Type="int" Nullable="false" />
+          <Property Name="GoogleEventID" Type="nvarchar" MaxLength="1024" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="Summary" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsSynchronized" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="NotificationEmails" Type="nvarchar(max)" />
+          <Property Name="PlanedActionText" Type="nvarchar(max)" />
+          <Property Name="ExecutedActionText" Type="nvarchar(max)" />
+          <Property Name="StateID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalendarEventColor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="R" Type="int" Nullable="false" />
+          <Property Name="G" Type="int" Nullable="false" />
+          <Property Name="B" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalendarEventExecutedAction">
+          <Key>
+            <PropertyRef Name="CalendarEventID" />
+            <PropertyRef Name="ActionID" />
+            <PropertyRef Name="NoteID" />
+          </Key>
+          <Property Name="CalendarEventID" Type="int" Nullable="false" />
+          <Property Name="ActionID" Type="int" Nullable="false" />
+          <Property Name="NoteID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalendarEventInfrastructure">
+          <Key>
+            <PropertyRef Name="CalendarEventID" />
+            <PropertyRef Name="InfrastructureID" />
+          </Key>
+          <Property Name="CalendarEventID" Type="int" Nullable="false" />
+          <Property Name="InfrastructureID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalendarEventPlanedAction">
+          <Key>
+            <PropertyRef Name="CalendarEventID" />
+            <PropertyRef Name="ActionID" />
+          </Key>
+          <Property Name="CalendarEventID" Type="int" Nullable="false" />
+          <Property Name="ActionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CalendarEventUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="CalendarEventID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CalendarEventID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="80" />
+          <Property Name="AlternativeEmail" Type="nvarchar" MaxLength="80" />
+          <Property Name="Facebook" Type="nvarchar" MaxLength="80" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="AlternativePhone" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="EventState">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExecutedActionNote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Field">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="StandardNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="OtherName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="SectionID" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldForm">
+          <Key>
+            <PropertyRef Name="FieldID" />
+            <PropertyRef Name="FormID" />
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="FormID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Infrastructure">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Costs" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="Margin" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InsuranceCompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="BirthDate" Type="datetime" />
+          <Property Name="BIFO" Type="nvarchar" MaxLength="10" />
+          <Property Name="LegalRepresentative" Type="nvarchar" MaxLength="80" />
+          <Property Name="TitleBefore" Type="nvarchar" MaxLength="20" />
+          <Property Name="TitleAfter" Type="nvarchar" MaxLength="20" />
+          <Property Name="BirthNumber" Type="nvarchar" MaxLength="11" />
+          <Property Name="InsuranceCompanyID" Type="int" />
+          <Property Name="SexID" Type="int" />
+          <Property Name="Employment" Type="nvarchar(max)" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="AddressID" Type="int" />
+          <Property Name="ContactID" Type="int" />
+          <Property Name="RootDirectoryPath" Type="nvarchar(max)" />
+          <Property Name="AvatarImagePath" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="RootDirectoryPath" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AvatarImagePath" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Action_di322598275310124509">
+          <End Role="InsuranceCompany" Type="Self.InsuranceCompany" Multiplicity="0..1" />
+          <End Role="Action" Type="Self.Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InsuranceCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="InsuranceCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Action_di491657968160436312">
+          <End Role="Field" Type="Self.Field" Multiplicity="0..1" />
+          <End Role="Action" Type="Self.Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="EzkoFieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Budget_di541165593383915344">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Budget" Type="Self.Budget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Budget">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BudgetItem_di695309445112100255">
+          <End Role="Budget" Type="Self.Budget" Multiplicity="1" />
+          <End Role="BudgetItem" Type="Self.BudgetItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budget">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BudgetItem">
+              <PropertyRef Name="BudgetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEvent_di381268337610794711">
+          <End Role="EventState" Type="Self.EventState" Multiplicity="1" />
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventState">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEvent">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEvent_di647481913942757360">
+          <End Role="CalendarEventColor" Type="Self.CalendarEventColor" Multiplicity="1" />
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarEventColor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEvent">
+              <PropertyRef Name="ColorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEvent_di904417518440335821">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEvent">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventExecutedAction_di358140986643252356">
+          <End Role="Action" Type="Self.Action" Multiplicity="1" />
+          <End Role="CalendarEventExecutedAction" Type="Self.CalendarEventExecutedAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventExecutedAction">
+              <PropertyRef Name="ActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventExecutedAction_di504550180463584052">
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="1" />
+          <End Role="CalendarEventExecutedAction" Type="Self.CalendarEventExecutedAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventExecutedAction">
+              <PropertyRef Name="CalendarEventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventExecutedAction_di616744201698551360">
+          <End Role="ExecutedActionNote" Type="Self.ExecutedActionNote" Multiplicity="1" />
+          <End Role="CalendarEventExecutedAction" Type="Self.CalendarEventExecutedAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExecutedActionNote">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventExecutedAction">
+              <PropertyRef Name="CalendarEventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventInfrastructure_di857084768404967382">
+          <End Role="Infrastructure" Type="Self.Infrastructure" Multiplicity="1" />
+          <End Role="CalendarEventInfrastructure" Type="Self.CalendarEventInfrastructure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Infrastructure">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventInfrastructure">
+              <PropertyRef Name="InfrastructureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventInfrastructure_di917830031499002035">
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="1" />
+          <End Role="CalendarEventInfrastructure" Type="Self.CalendarEventInfrastructure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventInfrastructure">
+              <PropertyRef Name="CalendarEventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventPlanedAction_di186769928440073628">
+          <End Role="Action" Type="Self.Action" Multiplicity="1" />
+          <End Role="CalendarEventPlanedAction" Type="Self.CalendarEventPlanedAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventPlanedAction">
+              <PropertyRef Name="ActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventPlanedAction_di892009337352486041">
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="1" />
+          <End Role="CalendarEventPlanedAction" Type="Self.CalendarEventPlanedAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventPlanedAction">
+              <PropertyRef Name="CalendarEventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventUser_di324787021816002034">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="CalendarEventUser" Type="Self.CalendarEventUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventUser">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventUser_di683957273255937795">
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="1" />
+          <End Role="CalendarEventUser" Type="Self.CalendarEventUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventUser">
+              <PropertyRef Name="CalendarEventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Field_di831583428630155059">
+          <End Role="FieldType" Type="Self.FieldType" Multiplicity="1" />
+          <End Role="Field" Type="Self.Field" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Field">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Field_di950325270849068985">
+          <End Role="Section" Type="Self.Section" Multiplicity="1" />
+          <End Role="Field" Type="Self.Field" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Field">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldForm_di751208784575018668">
+          <End Role="Field" Type="Self.Field" Multiplicity="1" />
+          <End Role="FieldForm" Type="Self.FieldForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldForm">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldForm_di928213701881264490">
+          <End Role="Form" Type="Self.Form" Multiplicity="1" />
+          <End Role="FieldForm" Type="Self.FieldForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Form">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldForm">
+              <PropertyRef Name="FormID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldForm_di943046351291190184">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="FieldForm" Type="Self.FieldForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldForm">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValue_di229197202395043558">
+          <End Role="Field" Type="Self.Field" Multiplicity="1" />
+          <End Role="FieldValue" Type="Self.FieldValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValue">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_di471102226411486371">
+          <End Role="Contact" Type="Self.Contact" Multiplicity="0..1" />
+          <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_di877313177207316680">
+          <End Role="InsuranceCompany" Type="Self.InsuranceCompany" Multiplicity="0..1" />
+          <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InsuranceCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="InsuranceCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_di957587348570545670">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_di971957564590465727">
+          <End Role="Sex" Type="Self.Sex" Multiplicity="0..1" />
+          <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="SexID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_di753237611326192113">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EzkoModelStoreContainer">
+          <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Budget" EntityType="Self.Budget" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BudgetItem" EntityType="Self.BudgetItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalendarEvent" EntityType="Self.CalendarEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalendarEventColor" EntityType="Self.CalendarEventColor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalendarEventExecutedAction" EntityType="Self.CalendarEventExecutedAction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalendarEventInfrastructure" EntityType="Self.CalendarEventInfrastructure" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalendarEventPlanedAction" EntityType="Self.CalendarEventPlanedAction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalendarEventUser" EntityType="Self.CalendarEventUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventState" EntityType="Self.EventState" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExecutedActionNote" EntityType="Self.ExecutedActionNote" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Field" EntityType="Self.Field" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldForm" EntityType="Self.FieldForm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldType" EntityType="Self.FieldType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldValue" EntityType="Self.FieldValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Infrastructure" EntityType="Self.Infrastructure" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InsuranceCompany" EntityType="Self.InsuranceCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Action_di322598275310124509" Association="Self.FK_Action_di322598275310124509">
+            <End Role="InsuranceCompany" EntitySet="InsuranceCompany" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Action_di491657968160436312" Association="Self.FK_Action_di491657968160436312">
+            <End Role="Field" EntitySet="Field" />
+            <End Role="Action" EntitySet="Action" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Budget_di541165593383915344" Association="Self.FK_Budget_di541165593383915344">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Budget" EntitySet="Budget" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BudgetItem_di695309445112100255" Association="Self.FK_BudgetItem_di695309445112100255">
+            <End Role="Budget" EntitySet="Budget" />
+            <End Role="BudgetItem" EntitySet="BudgetItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEvent_di381268337610794711" Association="Self.FK_CalendarEvent_di381268337610794711">
+            <End Role="EventState" EntitySet="EventState" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEvent_di647481913942757360" Association="Self.FK_CalendarEvent_di647481913942757360">
+            <End Role="CalendarEventColor" EntitySet="CalendarEventColor" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEvent_di904417518440335821" Association="Self.FK_CalendarEvent_di904417518440335821">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventExecutedAction_di358140986643252356" Association="Self.FK_CalendarEventExecutedAction_di358140986643252356">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventExecutedAction_di504550180463584052" Association="Self.FK_CalendarEventExecutedAction_di504550180463584052">
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
+            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventExecutedAction_di616744201698551360" Association="Self.FK_CalendarEventExecutedAction_di616744201698551360">
+            <End Role="ExecutedActionNote" EntitySet="ExecutedActionNote" />
+            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventInfrastructure_di857084768404967382" Association="Self.FK_CalendarEventInfrastructure_di857084768404967382">
+            <End Role="Infrastructure" EntitySet="Infrastructure" />
+            <End Role="CalendarEventInfrastructure" EntitySet="CalendarEventInfrastructure" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventInfrastructure_di917830031499002035" Association="Self.FK_CalendarEventInfrastructure_di917830031499002035">
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
+            <End Role="CalendarEventInfrastructure" EntitySet="CalendarEventInfrastructure" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventPlanedAction_di186769928440073628" Association="Self.FK_CalendarEventPlanedAction_di186769928440073628">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="CalendarEventPlanedAction" EntitySet="CalendarEventPlanedAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventPlanedAction_di892009337352486041" Association="Self.FK_CalendarEventPlanedAction_di892009337352486041">
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
+            <End Role="CalendarEventPlanedAction" EntitySet="CalendarEventPlanedAction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventUser_di324787021816002034" Association="Self.FK_CalendarEventUser_di324787021816002034">
+            <End Role="User" EntitySet="User" />
+            <End Role="CalendarEventUser" EntitySet="CalendarEventUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventUser_di683957273255937795" Association="Self.FK_CalendarEventUser_di683957273255937795">
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
+            <End Role="CalendarEventUser" EntitySet="CalendarEventUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Field_di831583428630155059" Association="Self.FK_Field_di831583428630155059">
+            <End Role="FieldType" EntitySet="FieldType" />
+            <End Role="Field" EntitySet="Field" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Field_di950325270849068985" Association="Self.FK_Field_di950325270849068985">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="Field" EntitySet="Field" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldForm_di751208784575018668" Association="Self.FK_FieldForm_di751208784575018668">
+            <End Role="Field" EntitySet="Field" />
+            <End Role="FieldForm" EntitySet="FieldForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldForm_di928213701881264490" Association="Self.FK_FieldForm_di928213701881264490">
+            <End Role="Form" EntitySet="Form" />
+            <End Role="FieldForm" EntitySet="FieldForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldForm_di943046351291190184" Association="Self.FK_FieldForm_di943046351291190184">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="FieldForm" EntitySet="FieldForm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValue_di229197202395043558" Association="Self.FK_FieldValue_di229197202395043558">
+            <End Role="Field" EntitySet="Field" />
+            <End Role="FieldValue" EntitySet="FieldValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_di471102226411486371" Association="Self.FK_Patient_di471102226411486371">
+            <End Role="Contact" EntitySet="Contact" />
+            <End Role="Patient" EntitySet="Patient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_di877313177207316680" Association="Self.FK_Patient_di877313177207316680">
+            <End Role="InsuranceCompany" EntitySet="InsuranceCompany" />
+            <End Role="Patient" EntitySet="Patient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_di957587348570545670" Association="Self.FK_Patient_di957587348570545670">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Patient" EntitySet="Patient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_di971957564590465727" Association="Self.FK_Patient_di971957564590465727">
+            <End Role="Sex" EntitySet="Sex" />
+            <End Role="Patient" EntitySet="Patient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_di753237611326192113" Association="Self.FK_User_di753237611326192113">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EzkoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EzkoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actions" EntityType="EzkoModel.Action" />
+          <EntitySet Name="Addresses" EntityType="EzkoModel.Address" />
+          <EntitySet Name="Budgets" EntityType="EzkoModel.Budget" />
+          <EntitySet Name="BudgetItems" EntityType="EzkoModel.BudgetItem" />
+          <EntitySet Name="CalendarEvents" EntityType="EzkoModel.CalendarEvent" />
+          <EntitySet Name="CalendarEventColors" EntityType="EzkoModel.CalendarEventColor" />
+          <EntitySet Name="CalendarEventExecutedActions" EntityType="EzkoModel.CalendarEventExecutedAction" />
+          <EntitySet Name="Contacts" EntityType="EzkoModel.Contact" />
+          <EntitySet Name="EventStates" EntityType="EzkoModel.EventState" />
+          <EntitySet Name="ExecutedActionNotes" EntityType="EzkoModel.ExecutedActionNote" />
+          <EntitySet Name="Fields" EntityType="EzkoModel.Field" />
+          <EntitySet Name="FieldForms" EntityType="EzkoModel.FieldForm" />
+          <EntitySet Name="FieldTypes" EntityType="EzkoModel.FieldType" />
+          <EntitySet Name="FieldValues" EntityType="EzkoModel.FieldValue" />
+          <EntitySet Name="Forms" EntityType="EzkoModel.Form" />
+          <EntitySet Name="Infrastructures" EntityType="EzkoModel.Infrastructure" />
+          <EntitySet Name="InsuranceCompanies" EntityType="EzkoModel.InsuranceCompany" />
+          <EntitySet Name="Patients" EntityType="EzkoModel.Patient" />
+          <EntitySet Name="Questions" EntityType="EzkoModel.Question" />
+          <EntitySet Name="Sections" EntityType="EzkoModel.Section" />
+          <EntitySet Name="Sexes" EntityType="EzkoModel.Sex" />
+          <EntitySet Name="Users" EntityType="EzkoModel.User" />
+          <EntitySet Name="UserRoles" EntityType="EzkoModel.UserRole" />
+          <AssociationSet Name="FK_Action_di322598275310124509" Association="EzkoModel.FK_Action_di322598275310124509">
+            <End Role="InsuranceCompany" EntitySet="InsuranceCompanies" />
+            <End Role="Action" EntitySet="Actions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Action_di491657968160436312" Association="EzkoModel.FK_Action_di491657968160436312">
+            <End Role="Field" EntitySet="Fields" />
+            <End Role="Action" EntitySet="Actions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventExecutedAction_di358140986643252356" Association="EzkoModel.FK_CalendarEventExecutedAction_di358140986643252356">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_di957587348570545670" Association="EzkoModel.FK_Patient_di957587348570545670">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Patient" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Budget_di541165593383915344" Association="EzkoModel.FK_Budget_di541165593383915344">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Budget" EntitySet="Budgets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BudgetItem_di695309445112100255" Association="EzkoModel.FK_BudgetItem_di695309445112100255">
+            <End Role="Budget" EntitySet="Budgets" />
+            <End Role="BudgetItem" EntitySet="BudgetItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEvent_di381268337610794711" Association="EzkoModel.FK_CalendarEvent_di381268337610794711">
+            <End Role="EventState" EntitySet="EventStates" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEvent_di647481913942757360" Association="EzkoModel.FK_CalendarEvent_di647481913942757360">
+            <End Role="CalendarEventColor" EntitySet="CalendarEventColors" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEvent_di904417518440335821" Association="EzkoModel.FK_CalendarEvent_di904417518440335821">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventExecutedAction_di504550180463584052" Association="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052">
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventExecutedAction_di616744201698551360" Association="EzkoModel.FK_CalendarEventExecutedAction_di616744201698551360">
+            <End Role="ExecutedActionNote" EntitySet="ExecutedActionNotes" />
+            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_di471102226411486371" Association="EzkoModel.FK_Patient_di471102226411486371">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="Patient" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Field_di831583428630155059" Association="EzkoModel.FK_Field_di831583428630155059">
+            <End Role="FieldType" EntitySet="FieldTypes" />
+            <End Role="Field" EntitySet="Fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Field_di950325270849068985" Association="EzkoModel.FK_Field_di950325270849068985">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="Field" EntitySet="Fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldForm_di751208784575018668" Association="EzkoModel.FK_FieldForm_di751208784575018668">
+            <End Role="Field" EntitySet="Fields" />
+            <End Role="FieldForm" EntitySet="FieldForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValue_di229197202395043558" Association="EzkoModel.FK_FieldValue_di229197202395043558">
+            <End Role="Field" EntitySet="Fields" />
+            <End Role="FieldValue" EntitySet="FieldValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldForm_di928213701881264490" Association="EzkoModel.FK_FieldForm_di928213701881264490">
+            <End Role="Form" EntitySet="Forms" />
+            <End Role="FieldForm" EntitySet="FieldForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldForm_di943046351291190184" Association="EzkoModel.FK_FieldForm_di943046351291190184">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="FieldForm" EntitySet="FieldForms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_di877313177207316680" Association="EzkoModel.FK_Patient_di877313177207316680">
+            <End Role="InsuranceCompany" EntitySet="InsuranceCompanies" />
+            <End Role="Patient" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_di971957564590465727" Association="EzkoModel.FK_Patient_di971957564590465727">
+            <End Role="Sex" EntitySet="Sexes" />
+            <End Role="Patient" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_di753237611326192113" Association="EzkoModel.FK_User_di753237611326192113">
+            <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="CalendarEventInfrastructure" Association="EzkoModel.CalendarEventInfrastructure">
+            <End Role="Infrastructure" EntitySet="Infrastructures" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="CalendarEventPlanedAction" Association="EzkoModel.CalendarEventPlanedAction">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="CalendarEventUser" Association="EzkoModel.CalendarEventUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="LongName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Material" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RecommendedLength" Type="Int32" Nullable="false" />
+          <Property Name="Costs" Type="Decimal" Nullable="false" Precision="19" Scale="6" />
+          <Property Name="Margin" Type="Decimal" Nullable="false" Precision="19" Scale="6" />
+          <Property Name="InsuranceCompanyMargin" Type="Decimal" Precision="19" Scale="6" />
+          <Property Name="InsuranceCompanyID" Type="Int32" />
+          <Property Name="EzkoFieldID" Type="Int32" />
+          <Property Name="HasSpecification" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="InsuranceCompany" Relationship="EzkoModel.FK_Action_di322598275310124509" FromRole="Action" ToRole="InsuranceCompany" />
+          <NavigationProperty Name="Field" Relationship="EzkoModel.FK_Action_di491657968160436312" FromRole="Action" ToRole="Field" />
+          <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di358140986643252356" FromRole="Action" ToRole="CalendarEventExecutedAction" />
+          <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.CalendarEventPlanedAction" FromRole="Action" ToRole="CalendarEvent" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Street" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="StreetNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="PostNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Patients" Relationship="EzkoModel.FK_Patient_di957587348570545670" FromRole="Address" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="Budget">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Patient" Relationship="EzkoModel.FK_Budget_di541165593383915344" FromRole="Budget" ToRole="Patient" />
+          <NavigationProperty Name="BudgetItems" Relationship="EzkoModel.FK_BudgetItem_di695309445112100255" FromRole="Budget" ToRole="BudgetItem" />
+        </EntityType>
+        <EntityType Name="BudgetItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="6" />
+          <Property Name="BudgetID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Budget" Relationship="EzkoModel.FK_BudgetItem_di695309445112100255" FromRole="BudgetItem" ToRole="Budget" />
+        </EntityType>
+        <EntityType Name="CalendarEvent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ColorID" Type="Int32" Nullable="false" />
+          <Property Name="GoogleEventID" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Summary" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsSynchronized" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="NotificationEmails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PlanedActionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExecutedActionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StateID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EventState" Relationship="EzkoModel.FK_CalendarEvent_di381268337610794711" FromRole="CalendarEvent" ToRole="EventState" />
+          <NavigationProperty Name="CalendarEventColor" Relationship="EzkoModel.FK_CalendarEvent_di647481913942757360" FromRole="CalendarEvent" ToRole="CalendarEventColor" />
+          <NavigationProperty Name="Patient" Relationship="EzkoModel.FK_CalendarEvent_di904417518440335821" FromRole="CalendarEvent" ToRole="Patient" />
+          <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052" FromRole="CalendarEvent" ToRole="CalendarEventExecutedAction" />
+          <NavigationProperty Name="Infrastructures" Relationship="EzkoModel.CalendarEventInfrastructure" FromRole="CalendarEvent" ToRole="Infrastructure" />
+          <NavigationProperty Name="Actions" Relationship="EzkoModel.CalendarEventPlanedAction" FromRole="CalendarEvent" ToRole="Action" />
+          <NavigationProperty Name="Users" Relationship="EzkoModel.CalendarEventUser" FromRole="CalendarEvent" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CalendarEventColor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="R" Type="Int32" Nullable="false" />
+          <Property Name="G" Type="Int32" Nullable="false" />
+          <Property Name="B" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.FK_CalendarEvent_di647481913942757360" FromRole="CalendarEventColor" ToRole="CalendarEvent" />
+        </EntityType>
+        <EntityType Name="CalendarEventExecutedAction">
+          <Key>
+            <PropertyRef Name="CalendarEventID" />
+            <PropertyRef Name="ActionID" />
+            <PropertyRef Name="NoteID" />
+          </Key>
+          <Property Name="CalendarEventID" Type="Int32" Nullable="false" />
+          <Property Name="ActionID" Type="Int32" Nullable="false" />
+          <Property Name="NoteID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Action" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di358140986643252356" FromRole="CalendarEventExecutedAction" ToRole="Action" />
+          <NavigationProperty Name="CalendarEvent" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052" FromRole="CalendarEventExecutedAction" ToRole="CalendarEvent" />
+          <NavigationProperty Name="ExecutedActionNote" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di616744201698551360" FromRole="CalendarEventExecutedAction" ToRole="ExecutedActionNote" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativeEmail" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Facebook" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Patients" Relationship="EzkoModel.FK_Patient_di471102226411486371" FromRole="Contact" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="EventState">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.FK_CalendarEvent_di381268337610794711" FromRole="EventState" ToRole="CalendarEvent" />
+        </EntityType>
+        <EntityType Name="ExecutedActionNote">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di616744201698551360" FromRole="ExecutedActionNote" ToRole="CalendarEventExecutedAction" />
+        </EntityType>
+        <EntityType Name="Field">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="StandardNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="OtherName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="SectionID" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Actions" Relationship="EzkoModel.FK_Action_di491657968160436312" FromRole="Field" ToRole="Action" />
+          <NavigationProperty Name="FieldType" Relationship="EzkoModel.FK_Field_di831583428630155059" FromRole="Field" ToRole="FieldType" />
+          <NavigationProperty Name="Section" Relationship="EzkoModel.FK_Field_di950325270849068985" FromRole="Field" ToRole="Section" />
+          <NavigationProperty Name="FieldForms" Relationship="EzkoModel.FK_FieldForm_di751208784575018668" FromRole="Field" ToRole="FieldForm" />
+          <NavigationProperty Name="FieldValues" Relationship="EzkoModel.FK_FieldValue_di229197202395043558" FromRole="Field" ToRole="FieldValue" />
+        </EntityType>
+        <EntityType Name="FieldForm">
+          <Key>
+            <PropertyRef Name="FieldID" />
+            <PropertyRef Name="FormID" />
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="FormID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Field" Relationship="EzkoModel.FK_FieldForm_di751208784575018668" FromRole="FieldForm" ToRole="Field" />
+          <NavigationProperty Name="Form" Relationship="EzkoModel.FK_FieldForm_di928213701881264490" FromRole="FieldForm" ToRole="Form" />
+          <NavigationProperty Name="Question" Relationship="EzkoModel.FK_FieldForm_di943046351291190184" FromRole="FieldForm" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="FieldType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Fields" Relationship="EzkoModel.FK_Field_di831583428630155059" FromRole="FieldType" ToRole="Field" />
+        </EntityType>
+        <EntityType Name="FieldValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Field" Relationship="EzkoModel.FK_FieldValue_di229197202395043558" FromRole="FieldValue" ToRole="Field" />
+        </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FieldForms" Relationship="EzkoModel.FK_FieldForm_di928213701881264490" FromRole="Form" ToRole="FieldForm" />
+        </EntityType>
+        <EntityType Name="Infrastructure">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Costs" Type="Decimal" Nullable="false" Precision="19" Scale="6" />
+          <Property Name="Margin" Type="Decimal" Nullable="false" Precision="19" Scale="6" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.CalendarEventInfrastructure" FromRole="Infrastructure" ToRole="CalendarEvent" />
+        </EntityType>
+        <EntityType Name="InsuranceCompany">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Actions" Relationship="EzkoModel.FK_Action_di322598275310124509" FromRole="InsuranceCompany" ToRole="Action" />
+          <NavigationProperty Name="Patients" Relationship="EzkoModel.FK_Patient_di877313177207316680" FromRole="InsuranceCompany" ToRole="Patient" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="3" />
+          <Property Name="BIFO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LegalRepresentative" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="TitleBefore" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="TitleAfter" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BirthNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="InsuranceCompanyID" Type="Int32" />
+          <Property Name="SexID" Type="Int32" />
+          <Property Name="Employment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddressID" Type="Int32" />
+          <Property Name="ContactID" Type="Int32" />
+          <Property Name="RootDirectoryPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AvatarImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="EzkoModel.FK_Patient_di957587348570545670" FromRole="Patient" ToRole="Address" />
+          <NavigationProperty Name="Budgets" Relationship="EzkoModel.FK_Budget_di541165593383915344" FromRole="Patient" ToRole="Budget" />
+          <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.FK_CalendarEvent_di904417518440335821" FromRole="Patient" ToRole="CalendarEvent" />
+          <NavigationProperty Name="Contact" Relationship="EzkoModel.FK_Patient_di471102226411486371" FromRole="Patient" ToRole="Contact" />
+          <NavigationProperty Name="InsuranceCompany" Relationship="EzkoModel.FK_Patient_di877313177207316680" FromRole="Patient" ToRole="InsuranceCompany" />
+          <NavigationProperty Name="Sex" Relationship="EzkoModel.FK_Patient_di971957564590465727" FromRole="Patient" ToRole="Sex" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FieldForms" Relationship="EzkoModel.FK_FieldForm_di943046351291190184" FromRole="Question" ToRole="FieldForm" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Fields" Relationship="EzkoModel.FK_Field_di950325270849068985" FromRole="Section" ToRole="Field" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Patients" Relationship="EzkoModel.FK_Patient_di971957564590465727" FromRole="Sex" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="RootDirectoryPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserRole" Relationship="EzkoModel.FK_User_di753237611326192113" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.CalendarEventUser" FromRole="User" ToRole="CalendarEvent" />
+          <Property Name="AvatarImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="EzkoModel.FK_User_di753237611326192113" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Action_di322598275310124509">
+          <End Type="EzkoModel.InsuranceCompany" Role="InsuranceCompany" Multiplicity="0..1" />
+          <End Type="EzkoModel.Action" Role="Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InsuranceCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="InsuranceCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Action_di491657968160436312">
+          <End Type="EzkoModel.Field" Role="Field" Multiplicity="0..1" />
+          <End Type="EzkoModel.Action" Role="Action" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Action">
+              <PropertyRef Name="EzkoFieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventExecutedAction_di358140986643252356">
+          <End Type="EzkoModel.Action" Role="Action" Multiplicity="1" />
+          <End Type="EzkoModel.CalendarEventExecutedAction" Role="CalendarEventExecutedAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventExecutedAction">
+              <PropertyRef Name="ActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_di957587348570545670">
+          <End Type="EzkoModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Budget_di541165593383915344">
+          <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="1" />
+          <End Type="EzkoModel.Budget" Role="Budget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Budget">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BudgetItem_di695309445112100255">
+          <End Type="EzkoModel.Budget" Role="Budget" Multiplicity="1" />
+          <End Type="EzkoModel.BudgetItem" Role="BudgetItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Budget">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BudgetItem">
+              <PropertyRef Name="BudgetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEvent_di381268337610794711">
+          <End Type="EzkoModel.EventState" Role="EventState" Multiplicity="1" />
+          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventState">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEvent">
+              <PropertyRef Name="StateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEvent_di647481913942757360">
+          <End Type="EzkoModel.CalendarEventColor" Role="CalendarEventColor" Multiplicity="1" />
+          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarEventColor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEvent">
+              <PropertyRef Name="ColorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEvent_di904417518440335821">
+          <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="1" />
+          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEvent">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventExecutedAction_di504550180463584052">
+          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="1" />
+          <End Type="EzkoModel.CalendarEventExecutedAction" Role="CalendarEventExecutedAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventExecutedAction">
+              <PropertyRef Name="CalendarEventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventExecutedAction_di616744201698551360">
+          <End Type="EzkoModel.ExecutedActionNote" Role="ExecutedActionNote" Multiplicity="1" />
+          <End Type="EzkoModel.CalendarEventExecutedAction" Role="CalendarEventExecutedAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExecutedActionNote">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventExecutedAction">
+              <PropertyRef Name="CalendarEventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_di471102226411486371">
+          <End Type="EzkoModel.Contact" Role="Contact" Multiplicity="0..1" />
+          <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Field_di831583428630155059">
+          <End Type="EzkoModel.FieldType" Role="FieldType" Multiplicity="1" />
+          <End Type="EzkoModel.Field" Role="Field" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Field">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Field_di950325270849068985">
+          <End Type="EzkoModel.Section" Role="Section" Multiplicity="1" />
+          <End Type="EzkoModel.Field" Role="Field" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Field">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldForm_di751208784575018668">
+          <End Type="EzkoModel.Field" Role="Field" Multiplicity="1" />
+          <End Type="EzkoModel.FieldForm" Role="FieldForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldForm">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValue_di229197202395043558">
+          <End Type="EzkoModel.Field" Role="Field" Multiplicity="1" />
+          <End Type="EzkoModel.FieldValue" Role="FieldValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValue">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldForm_di928213701881264490">
+          <End Type="EzkoModel.Form" Role="Form" Multiplicity="1" />
+          <End Type="EzkoModel.FieldForm" Role="FieldForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Form">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldForm">
+              <PropertyRef Name="FormID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldForm_di943046351291190184">
+          <End Type="EzkoModel.Question" Role="Question" Multiplicity="1" />
+          <End Type="EzkoModel.FieldForm" Role="FieldForm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldForm">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_di877313177207316680">
+          <End Type="EzkoModel.InsuranceCompany" Role="InsuranceCompany" Multiplicity="0..1" />
+          <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InsuranceCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="InsuranceCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_di971957564590465727">
+          <End Type="EzkoModel.Sex" Role="Sex" Multiplicity="0..1" />
+          <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="SexID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_di753237611326192113">
+          <End Type="EzkoModel.UserRole" Role="UserRole" Multiplicity="1" />
+          <End Type="EzkoModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CalendarEventInfrastructure">
+          <End Type="EzkoModel.Infrastructure" Role="Infrastructure" Multiplicity="*" />
+          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="*" />
+        </Association>
+        <Association Name="CalendarEventPlanedAction">
+          <End Type="EzkoModel.Action" Role="Action" Multiplicity="*" />
+          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="*" />
+        </Association>
+        <Association Name="CalendarEventUser">
+          <End Type="EzkoModel.User" Role="User" Multiplicity="*" />
+          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EzkoModelStoreContainer" CdmEntityContainer="EzkoEntities">
+          <EntitySetMapping Name="Actions">
+            <EntityTypeMapping TypeName="EzkoModel.Action">
+              <MappingFragment StoreEntitySet="Action">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="HasSpecification" ColumnName="HasSpecification" />
+                <ScalarProperty Name="EzkoFieldID" ColumnName="EzkoFieldID" />
+                <ScalarProperty Name="InsuranceCompanyID" ColumnName="InsuranceCompanyID" />
+                <ScalarProperty Name="InsuranceCompanyMargin" ColumnName="InsuranceCompanyMargin" />
+                <ScalarProperty Name="Margin" ColumnName="Margin" />
+                <ScalarProperty Name="Costs" ColumnName="Costs" />
+                <ScalarProperty Name="RecommendedLength" ColumnName="RecommendedLength" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="LongName" ColumnName="LongName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="EzkoModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PostNumber" ColumnName="PostNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Budgets">
+            <EntityTypeMapping TypeName="EzkoModel.Budget">
+              <MappingFragment StoreEntitySet="Budget">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BudgetItems">
+            <EntityTypeMapping TypeName="EzkoModel.BudgetItem">
+              <MappingFragment StoreEntitySet="BudgetItem">
+                <ScalarProperty Name="BudgetID" ColumnName="BudgetID" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarEvents">
+            <EntityTypeMapping TypeName="EzkoModel.CalendarEvent">
+              <MappingFragment StoreEntitySet="CalendarEvent">
+                <ScalarProperty Name="StateID" ColumnName="StateID" />
+                <ScalarProperty Name="ExecutedActionText" ColumnName="ExecutedActionText" />
+                <ScalarProperty Name="PlanedActionText" ColumnName="PlanedActionText" />
+                <ScalarProperty Name="NotificationEmails" ColumnName="NotificationEmails" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsSynchronized" ColumnName="IsSynchronized" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="GoogleEventID" ColumnName="GoogleEventID" />
+                <ScalarProperty Name="ColorID" ColumnName="ColorID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarEventColors">
+            <EntityTypeMapping TypeName="EzkoModel.CalendarEventColor">
+              <MappingFragment StoreEntitySet="CalendarEventColor">
+                <ScalarProperty Name="B" ColumnName="B" />
+                <ScalarProperty Name="G" ColumnName="G" />
+                <ScalarProperty Name="R" ColumnName="R" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarEventExecutedActions">
+            <EntityTypeMapping TypeName="EzkoModel.CalendarEventExecutedAction">
+              <MappingFragment StoreEntitySet="CalendarEventExecutedAction">
+                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
+                <ScalarProperty Name="ActionID" ColumnName="ActionID" />
+                <ScalarProperty Name="CalendarEventID" ColumnName="CalendarEventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="EzkoModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="AlternativePhone" ColumnName="AlternativePhone" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="AlternativeEmail" ColumnName="AlternativeEmail" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventStates">
+            <EntityTypeMapping TypeName="EzkoModel.EventState">
+              <MappingFragment StoreEntitySet="EventState">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExecutedActionNotes">
+            <EntityTypeMapping TypeName="EzkoModel.ExecutedActionNote">
+              <MappingFragment StoreEntitySet="ExecutedActionNote">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fields">
+            <EntityTypeMapping TypeName="EzkoModel.Field">
+              <MappingFragment StoreEntitySet="Field">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OtherName" ColumnName="OtherName" />
+                <ScalarProperty Name="StandardNumber" ColumnName="StandardNumber" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldForms">
+            <EntityTypeMapping TypeName="EzkoModel.FieldForm">
+              <MappingFragment StoreEntitySet="FieldForm">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="FormID" ColumnName="FormID" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldTypes">
+            <EntityTypeMapping TypeName="EzkoModel.FieldType">
+              <MappingFragment StoreEntitySet="FieldType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues">
+            <EntityTypeMapping TypeName="EzkoModel.FieldValue">
+              <MappingFragment StoreEntitySet="FieldValue">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forms">
+            <EntityTypeMapping TypeName="EzkoModel.Form">
+              <MappingFragment StoreEntitySet="Form">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Infrastructures">
+            <EntityTypeMapping TypeName="EzkoModel.Infrastructure">
+              <MappingFragment StoreEntitySet="Infrastructure">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Margin" ColumnName="Margin" />
+                <ScalarProperty Name="Costs" ColumnName="Costs" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InsuranceCompanies">
+            <EntityTypeMapping TypeName="EzkoModel.InsuranceCompany">
+              <MappingFragment StoreEntitySet="InsuranceCompany">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="EzkoModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="AvatarImagePath" ColumnName="AvatarImagePath" />
+                <ScalarProperty Name="RootDirectoryPath" ColumnName="RootDirectoryPath" />
+                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Employment" ColumnName="Employment" />
+                <ScalarProperty Name="SexID" ColumnName="SexID" />
+                <ScalarProperty Name="InsuranceCompanyID" ColumnName="InsuranceCompanyID" />
+                <ScalarProperty Name="BirthNumber" ColumnName="BirthNumber" />
+                <ScalarProperty Name="TitleAfter" ColumnName="TitleAfter" />
+                <ScalarProperty Name="TitleBefore" ColumnName="TitleBefore" />
+                <ScalarProperty Name="LegalRepresentative" ColumnName="LegalRepresentative" />
+                <ScalarProperty Name="BIFO" ColumnName="BIFO" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="EzkoModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="EzkoModel.Section">
+              <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexes">
+            <EntityTypeMapping TypeName="EzkoModel.Sex">
+              <MappingFragment StoreEntitySet="Sex">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="EzkoModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="AvatarImagePath" ColumnName="AvatarImagePath" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="RootDirectoryPath" ColumnName="RootDirectoryPath" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="EzkoModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CalendarEventInfrastructure" TypeName="EzkoModel.CalendarEventInfrastructure" StoreEntitySet="CalendarEventInfrastructure">
+            <EndProperty Name="CalendarEvent">
+              <ScalarProperty Name="ID" ColumnName="CalendarEventID" />
+            </EndProperty>
+            <EndProperty Name="Infrastructure">
+              <ScalarProperty Name="ID" ColumnName="InfrastructureID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CalendarEventPlanedAction" TypeName="EzkoModel.CalendarEventPlanedAction" StoreEntitySet="CalendarEventPlanedAction">
+            <EndProperty Name="CalendarEvent">
+              <ScalarProperty Name="ID" ColumnName="CalendarEventID" />
+            </EndProperty>
+            <EndProperty Name="Action">
+              <ScalarProperty Name="ID" ColumnName="ActionID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CalendarEventUser" TypeName="EzkoModel.CalendarEventUser" StoreEntitySet="CalendarEventUser">
+            <EndProperty Name="CalendarEvent">
+              <ScalarProperty Name="ID" ColumnName="CalendarEventID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="ID" ColumnName="UserID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

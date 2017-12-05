@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3AA08C3-5F23-4131-AF0A-F81FC325F19F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EZKO</RootNamespace>
+    <AssemblyName>EZKO</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\DoneActionNotePair.cs" />
+    <Compile Include="Controllers\DirectoriesController.cs" />
+    <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Enums\PanelLoadingEnum.cs" />
+    <Compile Include="Enums\WorkingTypeEnum.cs" />
+    <Compile Include="Forms\AdministrationForms\EditUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditUserForm.Designer.cs">
+      <DependentUpon>EditUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditInsuranceCompanyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditInsuranceCompanyForm.Designer.cs">
+      <DependentUpon>EditInsuranceCompanyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditActionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditActionForm.Designer.cs">
+      <DependentUpon>EditActionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DateTimePickerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DateTimePickerForm.Designer.cs">
+      <DependentUpon>DateTimePickerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EzkoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EzkoForm.Designer.cs">
+      <DependentUpon>EzkoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WorkingInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WorkingInfoForm.Designer.cs">
+      <DependentUpon>WorkingInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalSettings.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Language.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.resx</DependentUpon>
+    </Compile>
+    <Compile Include="StringKeys.cs" />
+    <Compile Include="UserControls\Administration\AdministrationUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Administration\AdministrationUserControl.Designer.cs">
+      <DependentUpon>AdministrationUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Administration\AdminMenuItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Administration\AdminMenuItem.Designer.cs">
+      <DependentUpon>AdminMenuItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Colors.cs" />
+    <Compile Include="UserControls\Dashboard\FindEventUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Dashboard\FindEventUserControl.Designer.cs">
+      <DependentUpon>FindEventUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Dashboard\GoogleIntegratedCalendarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Dashboard\GoogleIntegratedCalendarControl.Designer.cs">
+      <DependentUpon>GoogleIntegratedCalendarControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Dashboard\MenuItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Dashboard\MenuItem.Designer.cs">
+      <DependentUpon>MenuItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Dashboard\VisitControlPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Dashboard\VisitControlPanel.Designer.cs">
+      <DependentUpon>VisitControlPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FlatControls\FlatRichTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\FlatControls\FlatRichTextBox.Designer.cs">
+      <DependentUpon>FlatRichTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FlatControls\RoundButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\Other\AutoCompleteTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\Other\LabeledNumericUpDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\Other\TransparentPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\RoundButtonStylesEnum.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\AdministrationForms\EditUserForm.resx">
+      <DependentUpon>EditUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdministrationForms\EditInsuranceCompanyForm.resx">
+      <DependentUpon>EditInsuranceCompanyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdministrationForms\EditActionForm.resx">
+      <DependentUpon>EditActionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DateTimePickerForm.resx">
+      <DependentUpon>DateTimePickerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EzkoForm.resx">
+      <DependentUpon>EzkoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WorkingInfoForm.resx">
+      <DependentUpon>WorkingInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Language.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Language.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Language.sk.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Administration\AdministrationUserControl.resx">
+      <DependentUpon>AdministrationUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Administration\AdminMenuItem.resx">
+      <DependentUpon>AdminMenuItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Dashboard\FindEventUserControl.resx">
+      <DependentUpon>FindEventUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Dashboard\GoogleIntegratedCalendarControl.resx">
+      <DependentUpon>GoogleIntegratedCalendarControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Dashboard\MenuItem.resx">
+      <DependentUpon>MenuItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Dashboard\VisitControlPanel.resx">
+      <DependentUpon>VisitControlPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\FlatControls\FlatRichTextBox.resx">
+      <DependentUpon>FlatRichTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\addEvent.png" />
+    <None Include="client_secret.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\closeForm_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\closeForm_active_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maximizeForm_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maximizeForm_active_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizeForm_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minimizeForm_active_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toTaskbar_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toTaskbar_active_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dashboard_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dashboard_active_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\adminTools_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\adminTools_active_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\formList_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\formList_active_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\people_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\people_active_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\progressBar.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ezko_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ezko_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insuranceCompany_black_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add_black_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add_white_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\list_black_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\list_white_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\people_black_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\insuranceCompany_white_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\action_black_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\action_white_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CheckBoxComboBox\CheckBoxComboBox.csproj">
+      <Project>{70a25201-8ea4-48f8-a4a6-ed13adf8823c}</Project>
+      <Name>CheckBoxComboBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatabaseCommunicator\DatabaseCommunicator.csproj">
+      <Project>{8c6675d5-0e8b-474e-b793-af777376d361}</Project>
+      <Name>DatabaseCommunicator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExceptionHandler\MessagesHandler.csproj">
+      <Project>{35790a1d-19bb-4f6b-b5f4-adc25859ebae}</Project>
+      <Name>MessagesHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoogleCalendarSynchronizer\GoogleCalendarSynchronizer.csproj">
+      <Project>{99b6b732-f074-45d7-85ea-a56005cc0a27}</Project>
+      <Name>GoogleCalendarSynchronizer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Windows.Forms.Calendar\System.Windows.Forms.Calendar.csproj">
+      <Project>{25649f08-3046-4891-adb8-7ea787b57063}</Project>
+      <Name>System.Windows.Forms.Calendar</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
