@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace EZKO.Enums
 {
+    /// <summary>
+    /// Enum used in MainForm to define which panel has to be loaded
+    /// </summary>
     public enum PanelLoadingEnum
     {
         LoadingDashboardPanel = 1,

@@ -6,16 +6,15 @@ using EZKO.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EZKO.Forms.AdministrationForms
 {
-    public partial class EditUserForm : System.Windows.Forms.Form
+    /// <summary>
+    /// Class which provides functionality to create or edit User entities
+    /// </summary>
+    public partial class EditUserForm : Form
     {
         private WorkingTypeEnum workingType;
         private EzkoController ezkoController;

@@ -15,6 +15,7 @@ namespace EZKO.Forms
     /// </summary>
     public partial class DateTimePickerForm : Form
     {
+        //public property to store date piced by user
         public DateTime PickedDateTime;
 
         public DateTimePickerForm(DateTime? value)
@@ -33,6 +34,10 @@ namespace EZKO.Forms
             infoLabel.Visible = false;
         }
 
+        /// <summary>
+        /// We want to allows only values divisible by 5 for minutes
+        /// </summary>
+        /// <returns>Value or 0 or 5</returns>
         private int GetMinuteValue()
         {
             int result = (int)minuteNumericUpDown.Value;

@@ -19,7 +19,7 @@ namespace EZKO.Controllers
         private static CultureInfo currentCultureInfo = CultureInfo.CreateSpecificCulture(GlobalSettings.LanguagePrefix);
 
         /// <summary>
-        /// 
+        /// Get language localized text with specific key
         /// </summary>
         /// <param name="key">Key of the resource string</param>
         /// <returns>Value with provided key from language resource files</returns>
@@ -29,20 +29,30 @@ namespace EZKO.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Get language localized text with specific key
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
+        /// <param name="key">Key of the resource string</param>
+        /// <returns>Value with provided key from language resource files ended eith "*"</returns>
         public static string GetRequiredText(string key)
         {
             return resourcesManager.GetString(key, currentCultureInfo) + "*";
         }
 
+        /// <summary>
+        /// Get language localized text with specific key
+        /// </summary>
+        /// <param name="key">Key of the resource string</param>
+        /// <returns>Value with provided key from language resource files ended eith ":"</returns>
         public static string GetColonText(string key)
         {
             return resourcesManager.GetString(key, currentCultureInfo) + ":";
         }
 
+        /// <summary>
+        /// Get language localized text with specific key
+        /// </summary>
+        /// <param name="key">Key of the resource string</param>
+        /// <returns>Value with provided key from language resource files ended eith "*:"</returns>
         public static string GetRequiredColonText(string key)
         {
             return resourcesManager.GetString(key, currentCultureInfo) + "*:";

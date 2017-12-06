@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace EZKO.Classes
 {
+    /// <summary>
+    /// Class used in VisitUserControl to store done actions and note
+    /// in paired manner
+    /// </summary>
     class DoneActionNotePair
     {
         public DatabaseCommunicator.Model.Action DoneAction { get; set; }

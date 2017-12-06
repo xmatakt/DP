@@ -3,17 +3,14 @@ using DatabaseCommunicator.Model;
 using ExceptionHandler;
 using EZKO.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EZKO.Forms.AdministrationForms
 {
+    /// <summary>
+    /// Class which provides functionality to create or edit Ation entities
+    /// </summary>
     public partial class EditActionForm : System.Windows.Forms.Form
     {
         private WorkingTypeEnum workingType;

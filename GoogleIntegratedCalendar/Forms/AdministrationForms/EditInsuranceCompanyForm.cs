@@ -2,17 +2,14 @@
 using ExceptionHandler;
 using EZKO.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EZKO.Forms.AdministrationForms
 {
+    /// <summary>
+    /// Class which provides functionality to create or edit InsuranceCompany entities
+    /// </summary>
     public partial class EditInsuranceCompanyForm : Form
     {
         private WorkingTypeEnum workingType;
