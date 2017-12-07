@@ -275,8 +275,10 @@ namespace System.Windows.Forms.Calendar
                 color2 = e.Item.BackgroundColor;
             }
 
-            ItemFill(e, e.Bounds, Color.FromArgb(alpha, color1), Color.FromArgb(alpha, color2));
-
+            if(e.Item.Selected)
+                ItemFill(e, e.Bounds, ColorTable.SelectedItemBackground, ColorTable.SelectedItemBackground);
+           else
+                ItemFill(e, e.Bounds, Color.FromArgb(alpha, color1), Color.FromArgb(alpha, color2));
         }
 
         public override void OnDrawItemShadow(CalendarRendererItemBoundsEventArgs e)
@@ -306,7 +308,6 @@ namespace System.Windows.Forms.Calendar
             Color c = Color.FromArgb(e.Item.IsDragging ? 120 : 255, b);
 
             ItemBorder(e, e.Bounds, c, e.Item.Selected && !e.Item.IsDragging ? SelectedItemBorder : 1f);
-            
         }
 
         public override void OnDrawItemStartTime(CalendarRendererBoxEventArgs e)

@@ -17,11 +17,13 @@ namespace DatabaseCommunicator.Model
         public EventState()
         {
             this.CalendarEvents = new HashSet<CalendarEvent>();
+            this.CalendarEventColors = new HashSet<CalendarEventColor>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
     
         public virtual ICollection<CalendarEvent> CalendarEvents { get; set; }
+        public virtual ICollection<CalendarEventColor> CalendarEventColors { get; set; }
     }
 }

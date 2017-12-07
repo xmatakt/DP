@@ -547,7 +547,7 @@
             this.doneActionsTablePanel.ColumnCount = 3;
             this.doneActionsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.46729F));
             this.doneActionsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.53271F));
-            this.doneActionsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 86F));
+            this.doneActionsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.doneActionsTablePanel.Location = new System.Drawing.Point(0, 23);
             this.doneActionsTablePanel.Margin = new System.Windows.Forms.Padding(2);
             this.doneActionsTablePanel.MinimumSize = new System.Drawing.Size(350, 28);
@@ -813,6 +813,7 @@
             this.resetEventButton.TabIndex = 0;
             this.resetEventButton.Text = "Reset";
             this.resetEventButton.UseVisualStyleBackColor = false;
+            this.resetEventButton.Click += new System.EventHandler(this.resetEventButton_Click);
             // 
             // updateEventPanel
             // 

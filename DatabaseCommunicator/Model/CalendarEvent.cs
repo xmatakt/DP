@@ -38,11 +38,11 @@ namespace DatabaseCommunicator.Model
         public int StateID { get; set; }
     
         public virtual EventState EventState { get; set; }
-        public virtual CalendarEventColor CalendarEventColor { get; set; }
         public virtual Patient Patient { get; set; }
         public virtual ICollection<CalendarEventExecutedAction> CalendarEventExecutedActions { get; set; }
         public virtual ICollection<Infrastructure> Infrastructures { get; set; }
         public virtual ICollection<Action> Actions { get; set; }
         public virtual ICollection<User> Users { get; set; }
+        public virtual CalendarEventColor CalendarEventColor { get; set; }
     }
 }

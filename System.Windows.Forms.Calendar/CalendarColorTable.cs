@@ -49,6 +49,8 @@ namespace System.Windows.Forms.Calendar
 
         #region Colors
 
+        public Color SelectedItemBackground = Color.FromArgb(255, 240, 173, 78);
+
         /// <summary>
         /// Background color of calendar
         /// </summary>

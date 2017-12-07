@@ -1416,7 +1416,7 @@ namespace System.Windows.Forms.Calendar
         {
             base.OnDoubleClick(e);
 
-            //we don't want to create itenms on double click
+            //we don't want to create items on double click
             //CreateItemOnSelection(string.Empty, true);
         }
 
@@ -1533,20 +1533,20 @@ namespace System.Windows.Forms.Calendar
             ICalendarSelectableElement sStart = null;
             ICalendarSelectableElement sEnd = null;
 
-            if (e.KeyCode == Keys.F2)
-            {
-                ActivateEditMode();
-            }
-            else if (e.KeyCode == Keys.Delete)
-            {
-                DeleteSelectedItems();
-            }
-            else if (e.KeyCode == Keys.Insert)
-            {
-                if (AllowNew)
-                    CreateItemOnSelection(string.Empty, true);
-            }
-            else if (e.KeyCode == Keys.Down)
+            //if (e.KeyCode == Keys.F2)
+            //{
+            //    ActivateEditMode();
+            //}
+            //else if (e.KeyCode == Keys.Delete)
+            //{
+            //    DeleteSelectedItems();
+            //}
+            //else if (e.KeyCode == Keys.Insert)
+            //{
+            //    if (AllowNew)
+            //        CreateItemOnSelection(string.Empty, true);
+            //}
+            /*else*/ if (e.KeyCode == Keys.Down)
             {
                 if (e.Shift)
                     sStart = SelectedElementStart;
@@ -1647,23 +1647,24 @@ namespace System.Windows.Forms.Calendar
                         itemOnState = hittedItem;
                         itemOnStateChanged = false;
 
-                        if (AllowItemEdit)
-                        {
-                            if (itemOnState.ResizeStartDateZone(e.Location) && AllowItemResize)
-                            {
-                                SetState(CalendarState.ResizingItem);
-                                itemOnState.SetIsResizingStartDate(true);
-                            }
-                            else if (itemOnState.ResizeEndDateZone(e.Location) && AllowItemResize)
-                            {
-                                SetState(CalendarState.ResizingItem);
-                                itemOnState.SetIsResizingEndDate(true);
-                            }
-                            else
-                            {
-                                SetState(CalendarState.DraggingItem);
-                            } 
-                        }
+                        //we don't want to allow moveing and resizing CalendarItems item using mouse
+                        //if (AllowItemEdit)
+                        //{
+                        //    if (itemOnState.ResizeStartDateZone(e.Location) && AllowItemResize)
+                        //    {
+                        //        SetState(CalendarState.ResizingItem);
+                        //        itemOnState.SetIsResizingStartDate(true);
+                        //    }
+                        //    else if (itemOnState.ResizeEndDateZone(e.Location) && AllowItemResize)
+                        //    {
+                        //        SetState(CalendarState.ResizingItem);
+                        //        itemOnState.SetIsResizingEndDate(true);
+                        //    }
+                        //    else
+                        //    {
+                        //        SetState(CalendarState.DraggingItem);
+                        //    }
+                        //}
 
                         SetSelectionRange(null, null);
                     }
@@ -1695,7 +1696,6 @@ namespace System.Windows.Forms.Calendar
                     break;
                 case CalendarState.EditingItemText:
                     break;
-                    
             }
         }
 

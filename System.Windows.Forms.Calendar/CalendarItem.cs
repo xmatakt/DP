@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -575,7 +575,7 @@ namespace System.Windows.Forms.Calendar
         /// </summary>
         public virtual string Text
         {
-            get { return _text; }
+            get { return _text + "\n" + "CalendarItem public string Text property - sem dat text co potrebujem"; }
             set { _text = value; }
         }
 

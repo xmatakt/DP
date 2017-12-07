@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
@@ -465,46 +465,73 @@ namespace System.Windows.Forms.Calendar
                 (evtData.Item.MinuteEndTop != 0 && evtData.Item.MinuteStartTop != 0) &&
                 ! evtData.Item.IsOnDayTop && evtData.Calendar.DaysMode == CalendarDaysMode.Expanded)
             {
+                ///*
+                // * Trace pointed item
+                // * 
+                // *     C--------------------D
+                // *     |                    |
+                // * A---B                    |
+                // * |                        |
+                // * H---G                    |
+                // *     |                    |
+                // *     F--------------------E
+                //*/
+
+                //int sq = ItemRoundness * 2;
+                //Point a = new Point(bounds.Left, evtData.Item.MinuteStartTop);
+                //Point b = new Point(a.X + pointerPadding, a.Y);
+                //Point c = new Point(b.X, bounds.Top);
+                //Point d = new Point(bounds.Right, c.Y);
+                //Point e = new Point(d.X, bounds.Bottom);
+                //Point f = new Point(b.X, e.Y);
+                //Point g = new Point(b.X, evtData.Item.MinuteEndTop);
+                //Point h = new Point(a.X, g.Y);
+
+
+                //GraphicsPath path = new GraphicsPath();
+
+                //path.AddLine(a, b);
+                //path.AddLine(b, c);
+                //path.AddLine(c, new Point(d.X - sq, d.Y));
+                //path.AddArc(new Rectangle(d.X - sq, d.Y, sq, sq), -90, 90);
+                //path.AddLine(new Point(d.X, d.Y + sq), new Point(d.X, e.Y - sq));
+                //path.AddArc(new Rectangle(e.X - sq, e.Y - sq, sq, sq), 0, 90);
+                //path.AddLine(new Point(e.X - sq, e.Y), f);
+                //path.AddLine(f, g);
+                //path.AddLine(g, h);
+                //path.AddLine(h, a);
+
+                //path.CloseFigure();
+
                 /*
-                 * Trace pointed item
-                 * 
-                 *     C--------------------D
-                 *     |                    |
-                 * A---B                    |
-                 * |                        |
-                 * H---G                    |
-                 *     |                    |
-                 *     F--------------------E
-                */
+               * Trace pointed item
+               * 
+               * B------------------------C
+               * |                        |
+               * |                        |
+               * |                        |
+               * |                        |
+               * |                        |
+               * A------------------------D
+              */
 
                 int sq = ItemRoundness * 2;
-                Point a = new Point(bounds.Left, evtData.Item.MinuteStartTop);
-                Point b = new Point(a.X + pointerPadding, a.Y);
-                Point c = new Point(b.X, bounds.Top);
-                Point d = new Point(bounds.Right, c.Y);
-                Point e = new Point(d.X, bounds.Bottom);
-                Point f = new Point(b.X, e.Y);
-                Point g = new Point(b.X, evtData.Item.MinuteEndTop);
-                Point h = new Point(a.X, g.Y);
-                
+                Point a = new Point(bounds.Left, bounds.Bottom);
+                Point b = new Point(bounds.Left, bounds.Top);
+                Point c = new Point(bounds.Right, bounds.Top);
+                Point d = new Point(bounds.Right, bounds.Bottom);
+
 
                 GraphicsPath path = new GraphicsPath();
 
                 path.AddLine(a, b);
                 path.AddLine(b, c);
-                path.AddLine(c, new Point(d.X - sq, d.Y));
-                path.AddArc(new Rectangle(d.X - sq, d.Y, sq, sq), -90, 90);
-                path.AddLine(new Point(d.X, d.Y + sq), new Point(d.X, e.Y - sq));
-                path.AddArc(new Rectangle(e.X - sq, e.Y - sq, sq, sq), 0, 90);
-                path.AddLine(new Point(e.X - sq, e.Y), f);
-                path.AddLine(f, g);
-                path.AddLine(g, h);
-                path.AddLine(h, a);
+                path.AddLine(c, d);
+                path.AddLine(d, a);
 
                 path.CloseFigure();
 
                 return path;
-
             }
             else
             {
@@ -1516,37 +1543,16 @@ namespace System.Windows.Forms.Calendar
             bool doClip = e.Calendar.DaysMode == CalendarDaysMode.Expanded;
             bool clipped = false;
 
-            #region Shadows
-            foreach (CalendarItem item in e.Calendar.Items)
-            {
-                clipped = false;
-
-                if (doClip && !item.IsOnDayTop && item.Bounds.Top < days.Top)
-                {
-                    e.Graphics.SetClip(days, CombineMode.Intersect);
-                    clipped = true;
-                }
-
-                List<Rectangle> rects = new List<Rectangle>(item.GetAllBounds());
-
-                for (int i = 0; i < rects.Count; i++)
-                {
-                    CalendarRendererItemBoundsEventArgs evt = new CalendarRendererItemBoundsEventArgs(
-                        new CalendarRendererItemEventArgs(e, item),
-                        rects[i],
-                        i == 0 && !item.IsOpenStart,
-                        (i == rects.Count - 1) && !item.IsOpenEnd);
-                    OnDrawItemShadow(evt);
-                }
-
-                if (clipped)
-                    e.Graphics.SetClip(oldclip, CombineMode.Replace);
-            } 
-            #endregion
-
             #region Items
+            CalendarItem selectedItem = null;
             foreach (CalendarItem item in e.Calendar.Items)
             {
+                if (item.Selected)
+                {
+                    selectedItem = item;
+                    continue;
+                }
+
                 clipped = false;
 
                 if (doClip && !item.IsOnDayTop && item.Bounds.Top < days.Top)
@@ -1559,33 +1565,48 @@ namespace System.Windows.Forms.Calendar
 
                 if (clipped)
                     e.Graphics.SetClip(oldclip, CombineMode.Replace);
-            } 
+            }
+
+            if(selectedItem != null)
+            {
+                clipped = false;
+
+                if (doClip && !selectedItem.IsOnDayTop && selectedItem.Bounds.Top < days.Top)
+                {
+                    e.Graphics.SetClip(days, CombineMode.Intersect);
+                    clipped = true;
+                }
+
+                OnDrawItem(new CalendarRendererItemEventArgs(e, selectedItem));
+
+                if (clipped)
+                    e.Graphics.SetClip(oldclip, CombineMode.Replace);
+            }
             #endregion
 
             #region Borders of selected items
-            foreach (CalendarItem item in e.Calendar.Items)
-            {
-                if (!item.Selected) continue;
+            //foreach (CalendarItem item in e.Calendar.Items)
+            //{
+            //    if (!item.Selected) continue;
 
-                List<Rectangle> rects = new List<Rectangle>(item.GetAllBounds());
+            //    List<Rectangle> rects = new List<Rectangle>(item.GetAllBounds());
 
-                for (int i = 0; i < rects.Count; i++)
-                {
-                    CalendarRendererItemBoundsEventArgs evt = new CalendarRendererItemBoundsEventArgs(
-                        new CalendarRendererItemEventArgs(e, item),
-                        rects[i],
-                        i == 0 && !item.IsOpenStart,
-                        (i == rects.Count - 1) && !item.IsOpenEnd);
+            //    for (int i = 0; i < rects.Count; i++)
+            //    {
+            //        CalendarRendererItemBoundsEventArgs evt = new CalendarRendererItemBoundsEventArgs(
+            //            new CalendarRendererItemEventArgs(e, item),
+            //            rects[i],
+            //            i == 0 && !item.IsOpenStart,
+            //            (i == rects.Count - 1) && !item.IsOpenEnd);
 
-                    SmoothingMode smbuff = e.Graphics.SmoothingMode;
-                    e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+            //        SmoothingMode smbuff = e.Graphics.SmoothingMode;
+            //        e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-                    OnDrawItemBorder(evt);
+            //        OnDrawItemBorder(evt);
 
-                    e.Graphics.SmoothingMode = smbuff;
-                }
-
-            } 
+            //        e.Graphics.SmoothingMode = smbuff;
+            //    }
+            //}
             #endregion
         }
 
@@ -1597,11 +1618,19 @@ namespace System.Windows.Forms.Calendar
         {
             List<Rectangle> rects = new List<Rectangle>(e.Item.GetAllBounds());
 
+            Rectangle r = e.Item.Bounds;
+            if (e.Item.Selected)
+            {
+                var size = e.Graphics.MeasureString(e.Item.Text, e.Item.Calendar.Font, r.Width, StringFormat.GenericTypographic);
+                if(size.Height > r.Height)
+                    r.Height = (int)Math.Ceiling(size.Height);
+            }
+
             for (int i = 0; i < rects.Count; i++)
             {
                 CalendarRendererItemBoundsEventArgs evt = new CalendarRendererItemBoundsEventArgs(
                     e, 
-                    rects[i], 
+                    r,//rects[i], 
                     i == 0 && !e.Item.IsOpenStart, 
                     (i == rects.Count - 1) && !e.Item.IsOpenEnd);
 
@@ -1692,6 +1721,11 @@ namespace System.Windows.Forms.Calendar
                     bounds.Top + ItemTextMargin.Top,
                     bounds.Right - ItemTextMargin.Right - rEndTime.Width,
                     bounds.Bottom - ItemTextMargin.Bottom);
+
+                if(e.Item.Selected)
+                {
+                    r.Height = e.Bounds.Height;
+                }
 
                 CalendarRendererBoxEventArgs evt = new CalendarRendererBoxEventArgs(e, r, e.Item.Text, TextFormatFlags.Left | TextFormatFlags.Top);
 

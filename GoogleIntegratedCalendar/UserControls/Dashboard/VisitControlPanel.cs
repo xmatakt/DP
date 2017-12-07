@@ -19,12 +19,44 @@ namespace EZKO.UserControls.Dashboard
         private WorkingTypeEnum workingType = WorkingTypeEnum.Editing;
 
         #region Private properties
-        private Patient patient { get { return (Patient)patientNameTextBox.Tag; } }
-        private bool isNew { get { return newPatientCheckBox.Checked; } }
-        private string patientName { get { return newPatientNameTextBox.Text.Trim(); } }
-        private string patientSurame { get { return newPatientSurnameTextBox.Text.Trim(); } }
-        private string patientEmail { get { return newPatientEmailTextBox.Text.Trim(); } }
-        private string patientPhone { get { return newPatientPhoneTextBox.Text.Trim(); } }
+        private Patient patient { get { return patientNameTextBox.Tag as Patient; } }
+        private bool isNew
+        {
+            get { return newPatientCheckBox.Checked; }
+            set { newPatientCheckBox.Checked = value; }
+        }
+        private string patientName
+        {
+            get
+            {
+                string result = newPatientNameTextBox.Text.Trim();
+                return (result != "") ? result : null;
+            }
+        }
+        private string patientSurame
+        {
+            get
+            {
+                string result = newPatientSurnameTextBox.Text.Trim();
+                return (result != "") ? result : null;
+            }
+        }
+        private string patientEmail
+        {
+            get
+            {
+                string result = newPatientEmailTextBox.Text.Trim();
+                return (result != "") ? result : null;
+            }
+        }
+        private string patientPhone
+        {
+            get
+            {
+                string result = newPatientPhoneTextBox.Text.Trim();
+                return (result != "") ? result : null;
+            }
+        }
         private List<User> doctors
         {
             get
@@ -41,7 +73,11 @@ namespace EZKO.UserControls.Dashboard
                 return result;
             }
         }
-        private decimal duration { get { return durationNumericUpDown.Value; } }
+        private decimal eventDuration
+        {
+            get { return durationNumericUpDown.Value; }
+            set { durationNumericUpDown.Value = value; }
+        }
         private List<string> notificationEmails
         {
             get
@@ -248,6 +284,7 @@ namespace EZKO.UserControls.Dashboard
             doneActionsForTablePanel.Visible = false;
             updateEventPanel.Visible = false;
             plannedTextPanel.Visible = false;
+            newEventButtonsPanel.Visible = true;
 
             foreach (EventState item in eventStateComboBox.Items)
             {
@@ -337,7 +374,8 @@ namespace EZKO.UserControls.Dashboard
                     Name = "flatRichTextBox",
                     Dock = DockStyle.Fill,
                     Height = 22,
-                    Tag = action
+                    Tag = action,
+                    Enabled = action.HasSpecification,
                     //TextAlign = HorizontalAlignment.Right
                 };
                 textBox.MaximumSize = new Size(textBox.MaximumSize.Width, 22);
@@ -349,8 +387,8 @@ namespace EZKO.UserControls.Dashboard
                     TextAlign = ContentAlignment.MiddleCenter,
                     Dock = DockStyle.Fill,
                     RoundButtonStyle = RoundButtonStylesEnum.FlatRed,
-                    //AutoSize = true,
-                    //AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                    AutoSize = true,
+                    AutoSizeMode = AutoSizeMode.GrowAndShrink,
                     Radius = 0
                 };
                 btn.MaximumSize = new Size(btn.MaximumSize.Width, 22);
@@ -362,6 +400,7 @@ namespace EZKO.UserControls.Dashboard
 
                 doneActionsTablePanel.Visible = true;
                 doneActionTextBox.Text = "";
+                doneActionTextBox.Tag = null;
             }
             catch (Exception ex)
             {
@@ -419,24 +458,139 @@ namespace EZKO.UserControls.Dashboard
             doneActionsForTablePanel.Visible = value;
         }
 
+        #region Reseting panel
         private void ResetVisitPanel()
+        {
+            eventStartDateTime = null;
+            isNew = false;
+            eventDuration = 0m;
+            ResetTextFields();
+            ResetComboBoxes();
+            SetControlWorkingBehavior();
+        }
+
+        private void ResetTextFields()
         {
             patientNameTextBox.Text = "";
             newPatientNameTextBox.Text = "";
             newPatientSurnameTextBox.Text = "";
             newPatientEmailTextBox.Text = "";
             newPatientPhoneTextBox.Text = "";
-            eventStartDateTime = null;
             eventStartTextBox.Text = "";
             eventNoteRichTextBox.Text = "";
             doneTextTextBox.Text = "";
             doneActionTextBox.Text = "";
             planedTextTextBox.Text = "";
+            InitializeEmailsRichTextBox();
+        }
+
+        private void ResetComboBoxes()
+        {
+            SetComboBoxCheckBoxValues(doctorsCheckBoxComboBox, false);
+            SetComboBoxCheckBoxValues(plannedActionsComboBox, false);
+            if (GlobalSettings.User != null)
+                doctorsCheckBoxComboBox.CheckBoxItems[GlobalSettings.User.ToString()].Checked = true;
+        }
+
+        private void SetComboBoxCheckBoxValues(PresentationControls.CheckBoxComboBox control, bool value)
+        {
+            if (control == null)
+                return;
+
+            foreach(var item in control.Items)
+                control.CheckBoxItems[item.ToString()].Checked = value;
+        }
+        #endregion
+
+        private bool ValidateData()
+        {
+            bool result = true;
+
+            if(isNew)
+            {
+                if(patientName == null)
+                {
+                    result = false;
+                    BasicMessagesHandler.ShowInformationMessage("Musíte zadať meno pacienta");
+                    newPatientNameTextBox.Focus();
+                }
+                else if (patientSurame == null)
+                {
+                    result = false;
+                    BasicMessagesHandler.ShowInformationMessage("Musíte zadať priezvisko pacienta");
+                    newPatientSurnameTextBox.Focus();
+                }
+                else if (patientPhone == null)
+                {
+                    result = false;
+                    BasicMessagesHandler.ShowInformationMessage("Musíte zadať telefón na pacienta");
+                    newPatientPhoneTextBox.Focus();
+                }
+                else if (patientEmail == null)
+                {
+                    result = false;
+                    BasicMessagesHandler.ShowInformationMessage("Musíte zadať email na pacienta");
+                    newPatientEmailTextBox.Focus();
+                }
+            }
+            else
+            {
+                if(patient == null)
+                {
+                    result = false;
+                    BasicMessagesHandler.ShowInformationMessage("Musíte zvoliť pacienta");
+                    patientNameTextBox.Focus();
+                }
+            }
+
+            if (!result)
+                return result;
+
+            if (eventStartDateTime == null)
+            {
+                result = false;
+                BasicMessagesHandler.ShowInformationMessage("Musíte si zvoliť dátum začiatku návštevy");
+                eventStartTextBox.Focus();
+            }
+            else if (eventDuration == 0)
+            {
+                result = false;
+                BasicMessagesHandler.ShowInformationMessage("Musíte si zvoliť dĺžku návštevy");
+                durationNumericUpDown.Focus();
+            }
+            else if(eventState == null)
+            {
+                result = false;
+                BasicMessagesHandler.ShowInformationMessage("Musíte si vybrať stav návštevy");
+                eventStateComboBox.Focus();
+            }
+
+            return result;
         }
 
         private void CreateEvent()
         {
+            if (!ValidateData())
+                return;
 
+            Patient eventPatient = patient;
+            if (isNew)
+            {
+                eventPatient = ezkoController.CreatePatient(patientName, patientSurame, patientEmail, patientPhone);
+                if (eventPatient == null)
+                {
+                    BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa vytvoriť nového pacienta");
+                    return;
+                }
+            }
+
+            if (ezkoController.CreateCalendarEvent(eventPatient, doctors, eventStartDateTime.Value, eventDuration, notificationEmails,
+                    eventNote, plannedActions, plannedText, eventState))
+            {
+                //TODO: refresh calendar
+            }
+            else
+                BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa vytvoriť návštevu");
         }
 
         #endregion
@@ -567,6 +721,7 @@ namespace EZKO.UserControls.Dashboard
 
         private void newVisitButton_Click(object sender, EventArgs e)
         {
+            workingType = WorkingTypeEnum.Creating;
             ResetVisitPanel();
         }
         private void resetEventButton_Click(object sender, EventArgs e)

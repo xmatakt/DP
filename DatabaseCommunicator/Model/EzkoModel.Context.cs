@@ -30,9 +30,7 @@ namespace DatabaseCommunicator.Model
         public virtual DbSet<Budget> Budgets { get; set; }
         public virtual DbSet<BudgetItem> BudgetItems { get; set; }
         public virtual DbSet<CalendarEvent> CalendarEvents { get; set; }
-        public virtual DbSet<CalendarEventColor> CalendarEventColors { get; set; }
         public virtual DbSet<CalendarEventExecutedAction> CalendarEventExecutedActions { get; set; }
-        public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<EventState> EventStates { get; set; }
         public virtual DbSet<ExecutedActionNote> ExecutedActionNotes { get; set; }
         public virtual DbSet<Field> Fields { get; set; }
@@ -48,5 +46,7 @@ namespace DatabaseCommunicator.Model
         public virtual DbSet<Sex> Sexes { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<CalendarEventColor> CalendarEventColors { get; set; }
     }
 }

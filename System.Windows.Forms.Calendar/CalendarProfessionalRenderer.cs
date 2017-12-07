@@ -137,52 +137,53 @@ namespace System.Windows.Forms.Calendar
         {
             base.OnDrawItemBorder(e);
 
-            using (Pen p = new Pen(Color.FromArgb(150, Color.White)))
-            {
-                e.Graphics.DrawLine(p, e.Bounds.Left + ItemRoundness, e.Bounds.Top + 1, e.Bounds.Right - ItemRoundness, e.Bounds.Top + 1); 
-            }
+            //using (Pen p = new Pen(Color.FromArgb(150, Color.White)))
+            //{
+            //    e.Graphics.DrawLine(p, e.Bounds.Left + ItemRoundness, e.Bounds.Top + 1, e.Bounds.Right - ItemRoundness, e.Bounds.Top + 1); 
+            //}
 
-            if (e.Item.Selected && !e.Item.IsDragging)
-            {
-                bool horizontal = false;
-                bool vertical = false;
-                Rectangle r1 = new Rectangle(0, 0, 5, 5);
-                Rectangle r2 = new Rectangle(0, 0, 5, 5);
+            //we don't want to draw rectangles for resizing CalendarItems
+            //if (e.Item.Selected && !e.Item.IsDragging)
+            //{
+            //    bool horizontal = false;
+            //    bool vertical = false;
+            //    Rectangle r1 = new Rectangle(0, 0, 5, 5);
+            //    Rectangle r2 = new Rectangle(0, 0, 5, 5);
 
-                horizontal = e.Item.IsOnDayTop;
-                vertical = !e.Item.IsOnDayTop && e.Calendar.DaysMode == CalendarDaysMode.Expanded;
+            //    horizontal = e.Item.IsOnDayTop;
+            //    vertical = !e.Item.IsOnDayTop && e.Calendar.DaysMode == CalendarDaysMode.Expanded;
 
-                if (horizontal)
-                {
-                    r1.X = e.Bounds.Left - 2;
-                    r2.X = e.Bounds.Right - r1.Width + 2;
-                    r1.Y = e.Bounds.Top + (e.Bounds.Height - r1.Height) / 2;
-                    r2.Y = r1.Y;
-                }
+            //    if (horizontal)
+            //    {
+            //        r1.X = e.Bounds.Left - 2;
+            //        r2.X = e.Bounds.Right - r1.Width + 2;
+            //        r1.Y = e.Bounds.Top + (e.Bounds.Height - r1.Height) / 2;
+            //        r2.Y = r1.Y;
+            //    }
 
-                if (vertical)
-                {
-                    r1.Y = e.Bounds.Top - 2;
-                    r2.Y = e.Bounds.Bottom - r1.Height + 2;
-                    r1.X = e.Bounds.Left + (e.Bounds.Width - r1.Width) / 2;
-                    r2.X = r1.X;
-                }
+            //    if (vertical)
+            //    {
+            //        r1.Y = e.Bounds.Top - 2;
+            //        r2.Y = e.Bounds.Bottom - r1.Height + 2;
+            //        r1.X = e.Bounds.Left + (e.Bounds.Width - r1.Width) / 2;
+            //        r2.X = r1.X;
+            //    }
 
-                if ((horizontal || vertical) && Calendar.AllowItemResize)
-                {
-                    if (!e.Item.IsOpenStart && e.IsFirst)
-                    {
-                        e.Graphics.FillRectangle(Brushes.White, r1);
-                        e.Graphics.DrawRectangle(Pens.Black, r1);
-                    }
+            //    if ((horizontal || vertical) && Calendar.AllowItemResize)
+            //    {
+            //        if (!e.Item.IsOpenStart && e.IsFirst)
+            //        {
+            //            e.Graphics.FillRectangle(Brushes.White, r1);
+            //            e.Graphics.DrawRectangle(Pens.Black, r1);
+            //        }
 
-                    if (!e.Item.IsOpenEnd && e.IsLast)
-                    {
-                        e.Graphics.FillRectangle(Brushes.White, r2);
-                        e.Graphics.DrawRectangle(Pens.Black, r2);
-                    }
-                } 
-            }
+            //        if (!e.Item.IsOpenEnd && e.IsLast)
+            //        {
+            //            e.Graphics.FillRectangle(Brushes.White, r2);
+            //            e.Graphics.DrawRectangle(Pens.Black, r2);
+            //        }
+            //    } 
+            //}
         }
 
         #endregion

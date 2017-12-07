@@ -34,7 +34,7 @@ namespace DatabaseCommunicator.Model
         public string Employment { get; set; }
         public string Note { get; set; }
         public Nullable<int> AddressID { get; set; }
-        public Nullable<int> ContactID { get; set; }
+        public int ContactID { get; set; }
         public string RootDirectoryPath { get; set; }
         public string AvatarImagePath { get; set; }
         public bool IsDeleted { get; set; }
@@ -42,8 +42,8 @@ namespace DatabaseCommunicator.Model
         public virtual Address Address { get; set; }
         public virtual ICollection<Budget> Budgets { get; set; }
         public virtual ICollection<CalendarEvent> CalendarEvents { get; set; }
-        public virtual Contact Contact { get; set; }
         public virtual InsuranceCompany InsuranceCompany { get; set; }
         public virtual Sex Sex { get; set; }
+        public virtual Contact Contact { get; set; }
     }
 }

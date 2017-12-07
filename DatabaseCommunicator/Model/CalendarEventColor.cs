@@ -23,7 +23,9 @@ namespace DatabaseCommunicator.Model
         public int R { get; set; }
         public int G { get; set; }
         public int B { get; set; }
+        public int EventStateID { get; set; }
     
         public virtual ICollection<CalendarEvent> CalendarEvents { get; set; }
+        public virtual EventState EventState { get; set; }
     }
 }

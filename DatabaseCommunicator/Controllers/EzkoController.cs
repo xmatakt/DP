@@ -97,6 +97,7 @@ namespace DatabaseCommunicator.Controllers
         /// <returns>Value indicating whether items was added successfully</returns>
         public bool AddCalendarEvents(List<CalendarItem> newItems)
         {
+            throw new NotImplementedException();
             bool result = true;
             if (newItems.Count == 0)
                 return result;
@@ -116,7 +117,7 @@ namespace DatabaseCommunicator.Controllers
 
                     var newItem = new CalendarEvent()
                     {
-                        GoogleEventID = item.GoogleEventID ?? item.StartDate.Date.ToString("ddMMyyyy") + "id" + lastEventId,
+                        GoogleEventID = item.GoogleEventID ?? (DateTime.UtcNow.Subtract(item.StartDate)).TotalSeconds.ToString(),
                         Summary = item.Text,
                         Description = item.Description,
                         StartDate = item.StartDate,
@@ -222,6 +223,57 @@ namespace DatabaseCommunicator.Controllers
 
             return result;
         }
+
+        public Patient CreatePatient(string name, string surame, string email, string phone)
+        {
+            Patient result = null;
+            try
+            {
+                Contact contact = CreateContact(email, phone);
+
+                if (contact != null)
+                {
+                    result = new Patient()
+                    {
+                        Name = name,
+                        Surname = surame,
+                        Contact = contact,
+                    };
+                    db.Patients.Add(result);
+
+                    if (!SaveChanges())
+                        result = null;
+                }
+            }
+            catch (Exception e)
+            {
+                result = null;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        private Contact CreateContact(string email, string phone)
+        {
+            Contact result = null;
+            try
+            {
+                result = new Contact()
+                {
+                    Email = email,
+                    Phone = phone,
+                };
+                db.Contacts.Add(result);
+            }
+            catch (Exception e)
+            {
+                result = null;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
         #endregion
 
         #region Users
@@ -236,7 +288,7 @@ namespace DatabaseCommunicator.Controllers
             LoginResultEnum result = LoginResultEnum.BadLoginData;
 
             var user = db.Users.FirstOrDefault(x => x.Login == login);
-            if(user != null)
+            if (user != null)
             {
                 if (user.IsDeleted)
                     result = LoginResultEnum.InactiveUser;
@@ -540,6 +592,7 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region Others
+
         /// <summary>
         /// Get EventState entities from the database
         /// </summary>
@@ -559,6 +612,32 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        public bool CreateCalendarEvent(Patient eventPatient, List<User> doctors, DateTime eventStartDateTime, decimal eventDuration, List<string> notificationEmails, string eventNote, List<Model.Action> plannedActions, string plannedText, EventState eventState)
+        {
+            bool result = false;
+
+            try
+            {
+                CalendarEvent calendarEvent = new CalendarEvent()
+                {
+                    ColorID = db.CalendarEventColors.First(x => x.EventStateID == eventState.ID).ID,
+                    GoogleEventID = UnixTimestamp(eventStartDateTime),
+                    StartDate = eventStartDateTime,
+                    EndDate = GetEventEndDate(eventStartDateTime, eventDuration),
+                    //Summary =
+                };
+            }
+            catch (Exception e)
+            {
+                result = false;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+
+
         /// <summary>
         /// Saves all made changes
         /// </summary>
@@ -576,6 +655,18 @@ namespace DatabaseCommunicator.Controllers
                 BasicMessagesHandler.LogException(e);
             }
             return result;
+        }
+        #endregion
+
+        #region Private methods
+        private string UnixTimestamp(DateTime dateTime)
+        {
+            return (DateTime.UtcNow.Subtract(dateTime)).TotalSeconds.ToString();
+        }
+
+        private DateTime GetEventEndDate(DateTime eventStartDateTime, decimal eventDuration)
+        {
+            return eventStartDateTime.AddMinutes((double)eventDuration);
         }
         #endregion
 
@@ -600,6 +691,6 @@ namespace DatabaseCommunicator.Controllers
 
             disposed = true;
         }
-#endregion
+        #endregion
     }
 }

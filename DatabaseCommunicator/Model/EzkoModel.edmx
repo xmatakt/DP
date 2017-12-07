@@ -79,6 +79,7 @@
           <Property Name="R" Type="int" Nullable="false" />
           <Property Name="G" Type="int" Nullable="false" />
           <Property Name="B" Type="int" Nullable="false" />
+          <Property Name="EventStateID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CalendarEventExecutedAction">
           <Key>
@@ -119,10 +120,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="80" />
+          <Property Name="Email" Type="nvarchar" MaxLength="80" Nullable="false" />
           <Property Name="AlternativeEmail" Type="nvarchar" MaxLength="80" />
           <Property Name="Facebook" Type="nvarchar" MaxLength="80" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="AlternativePhone" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="EventState">
@@ -223,7 +224,7 @@
           <Property Name="Employment" Type="nvarchar(max)" />
           <Property Name="Note" Type="nvarchar(max)" />
           <Property Name="AddressID" Type="int" />
-          <Property Name="ContactID" Type="int" />
+          <Property Name="ContactID" Type="int" Nullable="false" />
           <Property Name="RootDirectoryPath" Type="nvarchar(max)" />
           <Property Name="AvatarImagePath" Type="nvarchar(max)" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -350,6 +351,18 @@
             </Principal>
             <Dependent Role="CalendarEvent">
               <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventColor_di728571752914817129">
+          <End Role="EventState" Type="Self.EventState" Multiplicity="1" />
+          <End Role="CalendarEventColor" Type="Self.CalendarEventColor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventState">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventColor">
+              <PropertyRef Name="EventStateID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -534,7 +547,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Patient_di471102226411486371">
-          <End Role="Contact" Type="Self.Contact" Multiplicity="0..1" />
+          <End Role="Contact" Type="Self.Contact" Multiplicity="1" />
           <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Contact">
@@ -648,6 +661,10 @@
             <End Role="Patient" EntitySet="Patient" />
             <End Role="CalendarEvent" EntitySet="CalendarEvent" />
           </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventColor_di728571752914817129" Association="Self.FK_CalendarEventColor_di728571752914817129">
+            <End Role="EventState" EntitySet="EventState" />
+            <End Role="CalendarEventColor" EntitySet="CalendarEventColor" />
+          </AssociationSet>
           <AssociationSet Name="FK_CalendarEventExecutedAction_di358140986643252356" Association="Self.FK_CalendarEventExecutedAction_di358140986643252356">
             <End Role="Action" EntitySet="Action" />
             <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedAction" />
@@ -739,9 +756,7 @@
           <EntitySet Name="Budgets" EntityType="EzkoModel.Budget" />
           <EntitySet Name="BudgetItems" EntityType="EzkoModel.BudgetItem" />
           <EntitySet Name="CalendarEvents" EntityType="EzkoModel.CalendarEvent" />
-          <EntitySet Name="CalendarEventColors" EntityType="EzkoModel.CalendarEventColor" />
           <EntitySet Name="CalendarEventExecutedActions" EntityType="EzkoModel.CalendarEventExecutedAction" />
-          <EntitySet Name="Contacts" EntityType="EzkoModel.Contact" />
           <EntitySet Name="EventStates" EntityType="EzkoModel.EventState" />
           <EntitySet Name="ExecutedActionNotes" EntityType="EzkoModel.ExecutedActionNote" />
           <EntitySet Name="Fields" EntityType="EzkoModel.Field" />
@@ -785,10 +800,6 @@
             <End Role="EventState" EntitySet="EventStates" />
             <End Role="CalendarEvent" EntitySet="CalendarEvents" />
           </AssociationSet>
-          <AssociationSet Name="FK_CalendarEvent_di647481913942757360" Association="EzkoModel.FK_CalendarEvent_di647481913942757360">
-            <End Role="CalendarEventColor" EntitySet="CalendarEventColors" />
-            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
-          </AssociationSet>
           <AssociationSet Name="FK_CalendarEvent_di904417518440335821" Association="EzkoModel.FK_CalendarEvent_di904417518440335821">
             <End Role="Patient" EntitySet="Patients" />
             <End Role="CalendarEvent" EntitySet="CalendarEvents" />
@@ -800,10 +811,6 @@
           <AssociationSet Name="FK_CalendarEventExecutedAction_di616744201698551360" Association="EzkoModel.FK_CalendarEventExecutedAction_di616744201698551360">
             <End Role="ExecutedActionNote" EntitySet="ExecutedActionNotes" />
             <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedActions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Patient_di471102226411486371" Association="EzkoModel.FK_Patient_di471102226411486371">
-            <End Role="Contact" EntitySet="Contacts" />
-            <End Role="Patient" EntitySet="Patients" />
           </AssociationSet>
           <AssociationSet Name="FK_Field_di831583428630155059" Association="EzkoModel.FK_Field_di831583428630155059">
             <End Role="FieldType" EntitySet="FieldTypes" />
@@ -852,6 +859,20 @@
           <AssociationSet Name="CalendarEventUser" Association="EzkoModel.CalendarEventUser">
             <End Role="User" EntitySet="Users" />
             <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <EntitySet Name="Contacts" EntityType="EzkoModel.Contact" />
+          <AssociationSet Name="FK_Patient_di471102226411486371" Association="EzkoModel.FK_Patient_di471102226411486371">
+            <End Role="Contact" EntitySet="Contacts" />
+            <End Role="Patient" EntitySet="Patients" />
+          </AssociationSet>
+          <EntitySet Name="CalendarEventColors" EntityType="EzkoModel.CalendarEventColor" />
+          <AssociationSet Name="FK_CalendarEvent_di647481913942757360" Association="EzkoModel.FK_CalendarEvent_di647481913942757360">
+            <End Role="CalendarEventColor" EntitySet="CalendarEventColors" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventColor_di728571752914817129" Association="EzkoModel.FK_CalendarEventColor_di728571752914817129">
+            <End Role="EventState" EntitySet="EventStates" />
+            <End Role="CalendarEventColor" EntitySet="CalendarEventColors" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Action">
@@ -928,22 +949,12 @@
           <Property Name="ExecutedActionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="StateID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EventState" Relationship="EzkoModel.FK_CalendarEvent_di381268337610794711" FromRole="CalendarEvent" ToRole="EventState" />
-          <NavigationProperty Name="CalendarEventColor" Relationship="EzkoModel.FK_CalendarEvent_di647481913942757360" FromRole="CalendarEvent" ToRole="CalendarEventColor" />
           <NavigationProperty Name="Patient" Relationship="EzkoModel.FK_CalendarEvent_di904417518440335821" FromRole="CalendarEvent" ToRole="Patient" />
           <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052" FromRole="CalendarEvent" ToRole="CalendarEventExecutedAction" />
           <NavigationProperty Name="Infrastructures" Relationship="EzkoModel.CalendarEventInfrastructure" FromRole="CalendarEvent" ToRole="Infrastructure" />
           <NavigationProperty Name="Actions" Relationship="EzkoModel.CalendarEventPlanedAction" FromRole="CalendarEvent" ToRole="Action" />
           <NavigationProperty Name="Users" Relationship="EzkoModel.CalendarEventUser" FromRole="CalendarEvent" ToRole="User" />
-        </EntityType>
-        <EntityType Name="CalendarEventColor">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="R" Type="Int32" Nullable="false" />
-          <Property Name="G" Type="Int32" Nullable="false" />
-          <Property Name="B" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.FK_CalendarEvent_di647481913942757360" FromRole="CalendarEventColor" ToRole="CalendarEvent" />
+          <NavigationProperty Name="CalendarEventColor" Relationship="EzkoModel.FK_CalendarEvent_di647481913942757360" FromRole="CalendarEvent" ToRole="CalendarEventColor" />
         </EntityType>
         <EntityType Name="CalendarEventExecutedAction">
           <Key>
@@ -958,18 +969,6 @@
           <NavigationProperty Name="CalendarEvent" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052" FromRole="CalendarEventExecutedAction" ToRole="CalendarEvent" />
           <NavigationProperty Name="ExecutedActionNote" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di616744201698551360" FromRole="CalendarEventExecutedAction" ToRole="ExecutedActionNote" />
         </EntityType>
-        <EntityType Name="Contact">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="AlternativeEmail" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="Facebook" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="AlternativePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Patients" Relationship="EzkoModel.FK_Patient_di471102226411486371" FromRole="Contact" ToRole="Patient" />
-        </EntityType>
         <EntityType Name="EventState">
           <Key>
             <PropertyRef Name="ID" />
@@ -977,6 +976,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.FK_CalendarEvent_di381268337610794711" FromRole="EventState" ToRole="CalendarEvent" />
+          <NavigationProperty Name="CalendarEventColors" Relationship="EzkoModel.FK_CalendarEventColor_di728571752914817129" FromRole="EventState" ToRole="CalendarEventColor" />
         </EntityType>
         <EntityType Name="ExecutedActionNote">
           <Key>
@@ -1084,16 +1084,16 @@
           <Property Name="Employment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AddressID" Type="Int32" />
-          <Property Name="ContactID" Type="Int32" />
+          <Property Name="ContactID" Type="Int32" Nullable="false" />
           <Property Name="RootDirectoryPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AvatarImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Address" Relationship="EzkoModel.FK_Patient_di957587348570545670" FromRole="Patient" ToRole="Address" />
           <NavigationProperty Name="Budgets" Relationship="EzkoModel.FK_Budget_di541165593383915344" FromRole="Patient" ToRole="Budget" />
           <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.FK_CalendarEvent_di904417518440335821" FromRole="Patient" ToRole="CalendarEvent" />
-          <NavigationProperty Name="Contact" Relationship="EzkoModel.FK_Patient_di471102226411486371" FromRole="Patient" ToRole="Contact" />
           <NavigationProperty Name="InsuranceCompany" Relationship="EzkoModel.FK_Patient_di877313177207316680" FromRole="Patient" ToRole="InsuranceCompany" />
           <NavigationProperty Name="Sex" Relationship="EzkoModel.FK_Patient_di971957564590465727" FromRole="Patient" ToRole="Sex" />
+          <NavigationProperty Name="Contact" Relationship="EzkoModel.FK_Patient_di471102226411486371" FromRole="Patient" ToRole="Contact" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -1226,18 +1226,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CalendarEvent_di647481913942757360">
-          <End Type="EzkoModel.CalendarEventColor" Role="CalendarEventColor" Multiplicity="1" />
-          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CalendarEventColor">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CalendarEvent">
-              <PropertyRef Name="ColorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CalendarEvent_di904417518440335821">
           <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="1" />
           <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="*" />
@@ -1271,18 +1259,6 @@
             </Principal>
             <Dependent Role="CalendarEventExecutedAction">
               <PropertyRef Name="CalendarEventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Patient_di471102226411486371">
-          <End Type="EzkoModel.Contact" Role="Contact" Multiplicity="0..1" />
-          <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Contact">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Patient">
-              <PropertyRef Name="ContactID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1406,6 +1382,66 @@
           <End Type="EzkoModel.User" Role="User" Multiplicity="*" />
           <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="*" />
         </Association>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativeEmail" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Facebook" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Patients" Relationship="EzkoModel.FK_Patient_di471102226411486371" FromRole="Contact" ToRole="Patient" />
+        </EntityType>
+        <Association Name="FK_Patient_di471102226411486371">
+          <End Type="EzkoModel.Contact" Role="Contact" Multiplicity="1" />
+          <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contact">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CalendarEventColor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="R" Type="Int32" Nullable="false" />
+          <Property Name="G" Type="Int32" Nullable="false" />
+          <Property Name="B" Type="Int32" Nullable="false" />
+          <Property Name="EventStateID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.FK_CalendarEvent_di647481913942757360" FromRole="CalendarEventColor" ToRole="CalendarEvent" />
+          <NavigationProperty Name="EventState" Relationship="EzkoModel.FK_CalendarEventColor_di728571752914817129" FromRole="CalendarEventColor" ToRole="EventState" />
+        </EntityType>
+        <Association Name="FK_CalendarEvent_di647481913942757360">
+          <End Type="EzkoModel.CalendarEventColor" Role="CalendarEventColor" Multiplicity="1" />
+          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarEventColor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEvent">
+              <PropertyRef Name="ColorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventColor_di728571752914817129">
+          <End Type="EzkoModel.EventState" Role="EventState" Multiplicity="1" />
+          <End Type="EzkoModel.CalendarEventColor" Role="CalendarEventColor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventState">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventColor">
+              <PropertyRef Name="EventStateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1483,34 +1519,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CalendarEventColors">
-            <EntityTypeMapping TypeName="EzkoModel.CalendarEventColor">
-              <MappingFragment StoreEntitySet="CalendarEventColor">
-                <ScalarProperty Name="B" ColumnName="B" />
-                <ScalarProperty Name="G" ColumnName="G" />
-                <ScalarProperty Name="R" ColumnName="R" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CalendarEventExecutedActions">
             <EntityTypeMapping TypeName="EzkoModel.CalendarEventExecutedAction">
               <MappingFragment StoreEntitySet="CalendarEventExecutedAction">
                 <ScalarProperty Name="NoteID" ColumnName="NoteID" />
                 <ScalarProperty Name="ActionID" ColumnName="ActionID" />
                 <ScalarProperty Name="CalendarEventID" ColumnName="CalendarEventID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Contacts">
-            <EntityTypeMapping TypeName="EzkoModel.Contact">
-              <MappingFragment StoreEntitySet="Contact">
-                <ScalarProperty Name="AlternativePhone" ColumnName="AlternativePhone" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
-                <ScalarProperty Name="AlternativeEmail" ColumnName="AlternativeEmail" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1695,6 +1709,29 @@
               <ScalarProperty Name="ID" ColumnName="UserID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="EzkoModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="AlternativePhone" ColumnName="AlternativePhone" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="AlternativeEmail" ColumnName="AlternativeEmail" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarEventColors">
+            <EntityTypeMapping TypeName="EzkoModel.CalendarEventColor">
+              <MappingFragment StoreEntitySet="CalendarEventColor">
+                <ScalarProperty Name="EventStateID" ColumnName="EventStateID" />
+                <ScalarProperty Name="B" ColumnName="B" />
+                <ScalarProperty Name="G" ColumnName="G" />
+                <ScalarProperty Name="R" ColumnName="R" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
