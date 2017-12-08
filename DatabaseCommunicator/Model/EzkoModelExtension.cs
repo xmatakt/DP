@@ -28,6 +28,11 @@ namespace DatabaseCommunicator.Model
         {
             get { return Name + " " + Surname; }
         }
+
+        public override string ToString()
+        {
+            return FullName;
+        }
     }
 
     public partial class User

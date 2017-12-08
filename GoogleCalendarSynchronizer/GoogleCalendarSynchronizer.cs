@@ -56,7 +56,7 @@ namespace GoogleCalendarSynchronizer
         }
 
         /// <summary>
-        /// Method to obtain google calnedar events from required time period
+        /// Method to obtain google calendar events from required time period
         /// </summary>
         /// <param name="startDate">Beginig of required time periond</param>
         /// <param name="endDate">End of required time periond</param>
@@ -174,7 +174,7 @@ namespace GoogleCalendarSynchronizer
             catch (Exception e)
             {
                 result = false;
-                BasicMessagesHandler.LogException(e);
+                BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa vytvoriť Google eventy", e);
             }
 
             return result;

@@ -575,7 +575,7 @@ namespace System.Windows.Forms.Calendar
         /// </summary>
         public virtual string Text
         {
-            get { return _text + "\n" + "CalendarItem public string Text property - sem dat text co potrebujem"; }
+            get { return _text + "\n" + _description; }
             set { _text = value; }
         }
 
@@ -618,11 +618,11 @@ namespace System.Windows.Forms.Calendar
         public void ApplyColor(Color color)
         {
             BackgroundColor = color;
-            //BackgroundColorLighter = color;
-            BackgroundColorLighter = Color.FromArgb(
-                color.R + (255 - color.R) / 2 + (255 - color.R) / 3,
-                color.G + (255 - color.G) / 2 + (255 - color.G) / 3,
-                color.B + (255 - color.B) / 2 + (255 - color.B) / 3);
+            BackgroundColorLighter = color;
+            //BackgroundColorLighter = Color.FromArgb(
+            //    color.R + (255 - color.R) / 2 + (255 - color.R) / 3,
+            //    color.G + (255 - color.G) / 2 + (255 - color.G) / 3,
+            //    color.B + (255 - color.B) / 2 + (255 - color.B) / 3);
 
             BorderColor = Color.FromArgb(
                 Convert.ToInt32(Convert.ToSingle(color.R) * .8f),

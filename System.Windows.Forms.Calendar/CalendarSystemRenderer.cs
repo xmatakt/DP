@@ -249,18 +249,18 @@ namespace System.Windows.Forms.Calendar
 
             int alpha = 255;
 
-            if (e.Item.IsDragging)
-            {
-                alpha = 120;
-            }
-            else if (!e.Item.IsSynchronized)
-            {
-                alpha = 60;
-            }
-            else if (e.Calendar.DaysMode == CalendarDaysMode.Short)
-            {
-                alpha = 200;
-            }
+            //if (e.Item.IsDragging)
+            //{
+            //    alpha = 120;
+            //}
+            //else if (!e.Item.IsSynchronized)
+            //{
+            //    alpha = 60;
+            //}
+            //else if (e.Calendar.DaysMode == CalendarDaysMode.Short)
+            //{
+            //    alpha = 200;
+            //}
 
             Color color1 = Color.White;
             Color color2 = e.Item.Selected ? ColorTable.ItemSelectedBackground : ColorTable.ItemBackground;

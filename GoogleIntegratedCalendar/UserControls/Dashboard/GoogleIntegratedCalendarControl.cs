@@ -83,6 +83,8 @@ namespace EZKO.UserControls.Dashboard
         {
             IQueryable<CalendarEvent> dbEvents = ezkoController.GetEvents(startDate, endDate);
 
+            // for future use - color of days in monthview can differs based on count of events on day
+            // not implemented yet
             foreach (var dbEvent in dbEvents)
             {
                 if (!eventsCountByDate.ContainsKey(dbEvent.StartDate.Date))
@@ -128,11 +130,11 @@ namespace EZKO.UserControls.Dashboard
                 dbEvents.Where(y => y.GoogleEventID != null).Select(y => y.GoogleEventID).Contains(x)).ToList();
 
             // if events are only on google, mark them as unsynchronized and show to user
-            foreach (var googleEvent in onlyGoogleEvents)
-            {
-                googleEvent.IsSynchronized = false;
-                result.Add(googleEvent);
-            }
+            //foreach (var googleEvent in onlyGoogleEvents)
+            //{
+            //    googleEvent.IsSynchronized = false;
+            //    result.Add(googleEvent);
+            //}
 
             // if events are only in database
             foreach (var dbEvent in onlyDbEvents)
@@ -144,8 +146,12 @@ namespace EZKO.UserControls.Dashboard
                     result.Add(dbEvent);
                 }
                 // if event has GoogleId, mark it as deleted
+                //else
+                //    dbEventIdsToDelete.Add(dbEvent.DatabaseEntityID.Value);
+                // if event has GoogleId, show it to the user
                 else
-                    dbEventIdsToDelete.Add(dbEvent.DatabaseEntityID.Value);
+                    result.Add(dbEvent);
+
             }
 
             // events which are common
@@ -329,6 +335,12 @@ namespace EZKO.UserControls.Dashboard
         private void GoogleIntegratedCalendarControl_Resize(object sender, EventArgs e)
         {
             visitUserControl1.SetMaximumHeight(Size.Height);
+        }
+
+        private void calendar_ItemClick(object sender, CalendarItemEventArgs e)
+        {
+            if (e.Item != null)
+                MessageBox.Show(e.Item.Text);
         }
     }
 }

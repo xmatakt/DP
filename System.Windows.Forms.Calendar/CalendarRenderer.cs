@@ -1623,7 +1623,7 @@ namespace System.Windows.Forms.Calendar
             {
                 var size = e.Graphics.MeasureString(e.Item.Text, e.Item.Calendar.Font, r.Width, StringFormat.GenericTypographic);
                 if(size.Height > r.Height)
-                    r.Height = (int)Math.Ceiling(size.Height);
+                    r.Height = (int)Math.Ceiling(size.Height) + 5;
             }
 
             for (int i = 0; i < rects.Count; i++)

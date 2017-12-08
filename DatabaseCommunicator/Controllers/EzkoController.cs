@@ -591,6 +591,45 @@ namespace DatabaseCommunicator.Controllers
         }
         #endregion
 
+        #region CalnedarEvents
+        public bool CreateCalendarEvent(Patient eventPatient, List<User> doctors, DateTime eventStartDateTime, decimal eventDuration, string notificationEmails, string eventNote, List<Model.Action> plannedActions, string plannedText, EventState eventState)
+        {
+            bool result = false;
+
+            try
+            {
+                CalendarEvent calendarEvent = new CalendarEvent()
+                {
+                    ColorID = db.CalendarEventColors.First(x => x.EventStateID == eventState.ID).ID,
+                    GoogleEventID = UnixTimestamp(eventStartDateTime),
+                    StartDate = eventStartDateTime,
+                    EndDate = GetEventEndDate(eventStartDateTime, eventDuration),
+                    Summary = CreateEventSummary(eventPatient, plannedActions),
+                    Description = CreateEventDescription(eventPatient, eventNote),
+                    Patient = eventPatient,
+                    NotificationEmails = notificationEmails,
+                    Actions = plannedActions,
+                    Users = doctors,
+                    PlanedActionText = plannedText,
+                    EventState = eventState,
+
+                    IsSynchronized = false,
+                    IsDeleted = false,
+                };
+                db.CalendarEvents.Add(calendarEvent);
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                result = false;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+        #endregion
+
         #region Others
 
         /// <summary>
@@ -611,32 +650,6 @@ namespace DatabaseCommunicator.Controllers
 
             return result;
         }
-
-        public bool CreateCalendarEvent(Patient eventPatient, List<User> doctors, DateTime eventStartDateTime, decimal eventDuration, List<string> notificationEmails, string eventNote, List<Model.Action> plannedActions, string plannedText, EventState eventState)
-        {
-            bool result = false;
-
-            try
-            {
-                CalendarEvent calendarEvent = new CalendarEvent()
-                {
-                    ColorID = db.CalendarEventColors.First(x => x.EventStateID == eventState.ID).ID,
-                    GoogleEventID = UnixTimestamp(eventStartDateTime),
-                    StartDate = eventStartDateTime,
-                    EndDate = GetEventEndDate(eventStartDateTime, eventDuration),
-                    //Summary =
-                };
-            }
-            catch (Exception e)
-            {
-                result = false;
-                BasicMessagesHandler.LogException(e);
-            }
-
-            return result;
-        }
-
-
 
         /// <summary>
         /// Saves all made changes
@@ -661,12 +674,43 @@ namespace DatabaseCommunicator.Controllers
         #region Private methods
         private string UnixTimestamp(DateTime dateTime)
         {
-            return (DateTime.UtcNow.Subtract(dateTime)).TotalSeconds.ToString();
+            return ((Int32)(dateTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
         }
 
         private DateTime GetEventEndDate(DateTime eventStartDateTime, decimal eventDuration)
         {
             return eventStartDateTime.AddMinutes((double)eventDuration);
+        }
+
+        private string CreateEventSummary(Patient patient, List<Model.Action> actions)
+        {
+            string result = patient.FullName;
+
+            if (actions.Count > 0)
+                result += " / ";
+
+            bool isFirst = true;
+            foreach (var item in actions)
+            {
+                if (isFirst)
+                {
+                    result += item.ShortName;
+                    isFirst = false;
+                }
+                else
+                    result += ", " + item.ShortName;
+            }
+
+            return result;
+        }
+        private string CreateEventDescription(Patient patient, string eventNote)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine("Telefón: " + patient.Contact.Phone);
+            stringBuilder.AppendLine("Email: " + patient.Contact.Email);
+            stringBuilder.AppendLine("Poznámka: " + eventNote);
+
+            return stringBuilder.ToString();
         }
         #endregion
 

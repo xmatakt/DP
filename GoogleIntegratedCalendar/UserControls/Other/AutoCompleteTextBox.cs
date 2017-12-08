@@ -104,7 +104,10 @@ namespace EZKO.UserControls.Other
                 if (_values == null)
                     return;
                 if (!_listBox.Focused && _values.FirstOrDefault(x => x.ToString().Trim() == Text.Trim()) == null)
+                {
                     Text = string.Empty;
+                    Tag = null;
+                }
             }
         }
 

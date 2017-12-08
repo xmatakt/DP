@@ -78,12 +78,20 @@ namespace EZKO.UserControls.Dashboard
             get { return durationNumericUpDown.Value; }
             set { durationNumericUpDown.Value = value; }
         }
-        private List<string> notificationEmails
+        //private List<string> notificationEmails
+        //{
+        //    get
+        //    {
+        //        var splittedText = emailsRichTextBox.Text.Split(new[] { ',' });
+        //        return splittedText.Select(x => x.Trim()).ToList();
+        //    }
+        //}
+        private string notificationEmails
         {
             get
             {
-                var splittedText = emailsRichTextBox.Text.Split(new[] { ',' });
-                return splittedText.Select(x => x.Trim()).ToList();
+                string result = emailsRichTextBox.Text.Trim();
+                return (result != "") ? result : null;
             }
         }
         private string eventNote
@@ -587,7 +595,8 @@ namespace EZKO.UserControls.Dashboard
             if (ezkoController.CreateCalendarEvent(eventPatient, doctors, eventStartDateTime.Value, eventDuration, notificationEmails,
                     eventNote, plannedActions, plannedText, eventState))
             {
-                //TODO: refresh calendar
+                //TODO: 
+                // - sync with google callendar && refresh calendar
             }
             else
                 BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa vytvoriť návštevu");
