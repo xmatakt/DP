@@ -883,6 +883,7 @@
             this.deleteEventButton.TabIndex = 0;
             this.deleteEventButton.Text = "Zmazať";
             this.deleteEventButton.UseVisualStyleBackColor = false;
+            this.deleteEventButton.Click += new System.EventHandler(this.deleteEventButton_Click);
             // 
             // panel1
             // 

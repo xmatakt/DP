@@ -592,20 +592,20 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region CalnedarEvents
-        public bool CreateCalendarEvent(Patient eventPatient, List<User> doctors, DateTime eventStartDateTime, decimal eventDuration, string notificationEmails, string eventNote, List<Model.Action> plannedActions, string plannedText, EventState eventState)
+        public CalendarEvent CreateCalendarEvent(Patient eventPatient, List<User> doctors, DateTime eventStartDateTime, decimal eventDuration, string notificationEmails, string eventNote, List<Model.Action> plannedActions, string plannedText, EventState eventState)
         {
-            bool result = false;
+            CalendarEvent result = null;
 
             try
             {
-                CalendarEvent calendarEvent = new CalendarEvent()
+                result = new CalendarEvent()
                 {
                     ColorID = db.CalendarEventColors.First(x => x.EventStateID == eventState.ID).ID,
                     GoogleEventID = UnixTimestamp(eventStartDateTime),
                     StartDate = eventStartDateTime,
                     EndDate = GetEventEndDate(eventStartDateTime, eventDuration),
                     Summary = CreateEventSummary(eventPatient, plannedActions),
-                    Description = CreateEventDescription(eventPatient, eventNote),
+                    Description = eventNote,
                     Patient = eventPatient,
                     NotificationEmails = notificationEmails,
                     Actions = plannedActions,
@@ -616,8 +616,42 @@ namespace DatabaseCommunicator.Controllers
                     IsSynchronized = false,
                     IsDeleted = false,
                 };
-                db.CalendarEvents.Add(calendarEvent);
+                db.CalendarEvents.Add(result);
 
+                if (!SaveChanges())
+                    result = null;
+            }
+            catch (Exception e)
+            {
+                result = null;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public CalendarEvent GetEvent(int calendarEventID)
+        {
+            CalendarEvent result = null;
+
+            try
+            {
+                result = db.CalendarEvents.FirstOrDefault(x => x.ID == calendarEventID);
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+        public bool DeleteEvent(CalendarEvent calendarEvent)
+        {
+            bool result = false;
+
+            try
+            {
+                calendarEvent.IsDeleted = true;
                 result = SaveChanges();
             }
             catch (Exception e)
@@ -628,6 +662,7 @@ namespace DatabaseCommunicator.Controllers
 
             return result;
         }
+
         #endregion
 
         #region Others
@@ -702,15 +737,6 @@ namespace DatabaseCommunicator.Controllers
             }
 
             return result;
-        }
-        private string CreateEventDescription(Patient patient, string eventNote)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("Telefón: " + patient.Contact.Phone);
-            stringBuilder.AppendLine("Email: " + patient.Contact.Email);
-            stringBuilder.AppendLine("Poznámka: " + eventNote);
-
-            return stringBuilder.ToString();
         }
         #endregion
 

@@ -51,6 +51,19 @@ namespace DatabaseCommunicator.Model
         }
     }
 
+    public partial class CalendarEvent
+    {
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine("Telefón: " + Patient.Contact.Phone);
+            stringBuilder.AppendLine("Email: " + Patient.Contact.Email);
+            stringBuilder.AppendLine("Poznámka: " + Description);
+
+            return stringBuilder.ToString();
+        }
+    }
+
 
     public partial class EventState
     {

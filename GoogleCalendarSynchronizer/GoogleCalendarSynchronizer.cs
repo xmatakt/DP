@@ -180,6 +180,76 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
+        public bool UploadEvent(CalendarItem newEvent)
+        {
+            bool result = false;
+
+            try
+            {
+                if (!newEvent.IsDeleted)
+                {
+                    Event calendarEvent = new Event();
+
+                    calendarEvent.Id = newEvent.GoogleEventID;
+                    calendarEvent.Summary = newEvent.Text;
+                    //calendarEvent.Location = "Mytna 36, Bratislava, Slovensko";
+                    calendarEvent.Description = newEvent.Description;
+
+                    DateTime startDateTime = newEvent.StartDate;
+                    EventDateTime start = new EventDateTime();
+                    start.DateTime = startDateTime;
+                    //start.TimeZone = "Europe/Prague";
+                    calendarEvent.Start = start;
+
+                    DateTime endDateTime = newEvent.EndDate;
+                    EventDateTime end = new EventDateTime();
+                    end.DateTime = endDateTime;
+                    //end.TimeZone = "Europe/Prague";
+                    calendarEvent.End = end;
+
+                    //String[] recurrence = new String[] { "RRULE:FREQ=DAILY;COUNT=2" };
+                    //calendarEvent.Recurrence = recurrence;
+
+                    //EventAttendee[] attendees = new EventAttendee[] {
+                    //    new EventAttendee()
+                    //    {
+                    //        Email = "motii131@gmail.com"
+                    //    }
+                    //};
+                    //calendarEvent.Attendees = attendees;
+
+                    //EventReminder[] reminderOverrides = new EventReminder[]
+                    //{
+                    //    new EventReminder()
+                    //    {
+                    //        Method = "email",
+                    //        Minutes = 10
+                    //    },
+                    //    new EventReminder()
+                    //    {
+                    //        Method = "popup",
+                    //        Minutes = 10
+                    //    }
+                    //};
+
+                    //Event.RemindersData reminders = new Event.RemindersData();
+                    //reminders.UseDefault = false;
+                    //reminders.Overrides = reminderOverrides;
+
+                    //calendarEvent.Reminders = reminders;
+
+                    service.Events.Insert(calendarEvent, calendarID).Execute();
+                }
+            }
+            catch (Exception e)
+            {
+                result = false;
+                BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa vytvoriť Google event", e);
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Updates/deletes existing Google Calendat events
         /// </summary>
@@ -218,7 +288,37 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
-#endregion
+        public bool UpdateEvent(CalendarItem updatedItem)
+        {
+            bool result = true;
+            if (updatedItem == null)
+                return result;
+
+            try
+            {
+                Event googleEvent = service.Events.Get(calendarID, updatedItem.GoogleEventID).Execute();
+
+                if (updatedItem.IsDeleted)
+                    service.Events.Delete(calendarID, googleEvent.Id).Execute();
+                else
+                {
+                    googleEvent.Summary = updatedItem.Text;
+                    googleEvent.Description = updatedItem.Description;
+                    googleEvent.Start.DateTime = updatedItem.StartDate;
+                    googleEvent.End.DateTime = updatedItem.EndDate;
+                    service.Events.Update(googleEvent, calendarID, googleEvent.Id).Execute();
+                }
+            }
+            catch (Exception e)
+            {
+                result = false;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        #endregion
 
         #region private
         /// <summary>

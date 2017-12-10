@@ -9,14 +9,17 @@ using DatabaseCommunicator.Controllers;
 using EZKO.Enums;
 using DatabaseCommunicator.Model;
 using System.Collections.Generic;
+using DatabaseCommunicator.Enums;
 
 namespace EZKO.UserControls.Dashboard
 {
     public partial class VisitUserControl : UserControl
     {
         private DateTime? eventStartDateTime = null;
+        private CalendarEvent calendarEvent = null;
         private EzkoController ezkoController;
-        private WorkingTypeEnum workingType = WorkingTypeEnum.Editing;
+        private GoogleIntegratedCalendarControl calendarControl;
+        private WorkingTypeEnum workingType = WorkingTypeEnum.Creating;
 
         #region Private properties
         private Patient patient { get { return patientNameTextBox.Tag as Patient; } }
@@ -32,6 +35,7 @@ namespace EZKO.UserControls.Dashboard
                 string result = newPatientNameTextBox.Text.Trim();
                 return (result != "") ? result : null;
             }
+            set { patientNameTextBox.Text = value; }
         }
         private string patientSurame
         {
@@ -73,6 +77,20 @@ namespace EZKO.UserControls.Dashboard
                 return result;
             }
         }
+        private string eventStartDateText
+        {
+            get{ return eventStartTextBox.Text.Trim(); }
+        }
+        private void SetEventStartDateText()
+        {
+            string format = "";
+            if (DateTime.Now.Year == eventStartDateTime.Value.Year)
+                format = "dd.MM, HH:mm";
+            else
+                format = "dd.MM.yyyy, HH:mm";
+
+            eventStartTextBox.Text = eventStartDateTime.Value.ToString(format);
+        }
         private decimal eventDuration
         {
             get { return durationNumericUpDown.Value; }
@@ -93,6 +111,7 @@ namespace EZKO.UserControls.Dashboard
                 string result = emailsRichTextBox.Text.Trim();
                 return (result != "") ? result : null;
             }
+            set { emailsRichTextBox.Text = value; }
         }
         private string eventNote
         {
@@ -101,6 +120,7 @@ namespace EZKO.UserControls.Dashboard
                 string note = eventNoteRichTextBox.Text.Trim();
                 return (note != "") ? note : null;
             }
+            set { eventNoteRichTextBox.Text = value; }
         }
         private List<DatabaseCommunicator.Model.Action> plannedActions
         {
@@ -125,6 +145,7 @@ namespace EZKO.UserControls.Dashboard
                 string result = planedTextTextBox.Text.Trim();
                 return (result != "") ? result : null;
             }
+            set { planedTextTextBox.Text = value; }
         }
         private List<Classes.DoneActionNotePair> doneActions
         {
@@ -158,6 +179,7 @@ namespace EZKO.UserControls.Dashboard
                 string result = doneTextTextBox.Text.Trim();
                 return (result != "") ? result : null;
             }
+            set { doneActionTextBox.Text = value; }
         }
         private EventState eventState { get { return eventStateComboBox.SelectedItem as EventState; } }
         #endregion
@@ -194,6 +216,17 @@ namespace EZKO.UserControls.Dashboard
             this.ezkoController = ezkoController;
 
             InitializeFormElements();
+        }
+
+        public void SetCalendarControl (GoogleIntegratedCalendarControl calendarControl)
+        {
+            this.calendarControl = calendarControl;
+        }
+
+        public void LoadEvent(int calendarEventID)
+        {
+            LoadEventDetails(calendarEventID);
+            SetControlWorkingType(WorkingTypeEnum.Editing);
         }
 
         public void SetMaximumHeight(int height)
@@ -322,6 +355,51 @@ namespace EZKO.UserControls.Dashboard
             updateEventPanel.Visible = true;
             reorderButton.Visible = false;
             plannedTextPanel.Visible = false;
+        }
+
+        private void LoadEventDetails(int calendarEventID)
+        {
+            try
+            {
+                calendarEvent = ezkoController.GetEvent(calendarEventID);
+
+                patientName = calendarEvent.Patient.FullName;
+                eventStartDateTime = calendarEvent.StartDate;
+                SetEventStartDateText();
+                eventDuration = (int)(calendarEvent.EndDate - calendarEvent.StartDate).TotalMinutes;
+                notificationEmails = calendarEvent.NotificationEmails;
+                eventNote = calendarEvent.Description;
+                plannedText = calendarEvent.PlanedActionText;
+                doneText = calendarEvent.ExecutedActionText;
+
+                ResetComboBoxes();
+                foreach (var item in calendarEvent.Users)
+                {
+                    if (item.RoleID == (int)UserRoleEnum.Doctor)
+                        doctorsCheckBoxComboBox.CheckBoxItems[item.ToString()].Checked = true;
+                }
+
+                foreach (var item in calendarEvent.Actions)
+                    plannedActionsComboBox.CheckBoxItems[item.ToString()].Checked = true;
+
+                eventStateComboBox.SelectedItem = calendarEvent.EventState;
+            }
+            catch(Exception e)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Udalosť nepodarilo sa načítať", e);
+            }
+        }
+
+        private void DeleteEvent()
+        {
+            if(ezkoController.DeleteEvent(calendarEvent))
+            {
+                calendarControl.RemoveCalendarItem(calendarEvent);
+                //TODO:
+                //refresh calendar
+            }
+            else
+                BasicMessagesHandler.ShowErrorMessage("Udalosť sa nepodarilo odstrániť");
         }
 
         /// <summary>
@@ -592,11 +670,12 @@ namespace EZKO.UserControls.Dashboard
                 }
             }
 
-            if (ezkoController.CreateCalendarEvent(eventPatient, doctors, eventStartDateTime.Value, eventDuration, notificationEmails,
-                    eventNote, plannedActions, plannedText, eventState))
+            CalendarEvent newEvent = ezkoController.CreateCalendarEvent(eventPatient, doctors, eventStartDateTime.Value, eventDuration, notificationEmails,
+                    eventNote, plannedActions, plannedText, eventState);
+            if (newEvent != null)
             {
-                //TODO: 
-                // - sync with google callendar && refresh calendar
+                calendarControl.AddCalendarEvent(newEvent);
+                //TODO: sync. with google calendar
             }
             else
                 BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa vytvoriť návštevu");
@@ -612,6 +691,13 @@ namespace EZKO.UserControls.Dashboard
                 case true:
                     patientNamePanel.Visible = false;
                     newPatientPanel.Visible = true;
+                    if(workingType != WorkingTypeEnum.Creating)
+                    {
+                        calendarEvent = null;
+                        ResetVisitPanel();
+                    }
+
+                    workingType = WorkingTypeEnum.Creating;
                     break;
                 case false:
                     patientNamePanel.Visible = true;
@@ -631,13 +717,7 @@ namespace EZKO.UserControls.Dashboard
                     form.Close();
                     eventStartDateTime = form.PickedDateTime;
 
-                    string format = "";
-                    if (DateTime.Now.Year == eventStartDateTime.Value.Year)
-                        format = "dd.MM, HH:mm";
-                    else
-                        format = "dd.MM.yyyy, HH:mm";
-
-                    eventStartTextBox.Text = eventStartDateTime.Value.ToString(format);
+                    SetEventStartDateText();
                 };
                 form.StartPosition = FormStartPosition.Manual;
                 form.Location = new Point(locationOnForm.X - 2, locationOnForm.Y + eventStartTextBox.Bounds.Height);
@@ -749,6 +829,11 @@ namespace EZKO.UserControls.Dashboard
             //    var action = (DatabaseCommunicator.Model.Action)item.Tag;
             //    var answer = item.Text;
             //}
+        }
+
+        private void deleteEventButton_Click(object sender, EventArgs e)
+        {
+            DeleteEvent();
         }
     }
 }

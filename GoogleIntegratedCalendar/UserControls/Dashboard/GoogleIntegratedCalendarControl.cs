@@ -23,32 +23,6 @@ namespace EZKO.UserControls.Dashboard
         private GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer;
         private Dictionary<DateTime, int> eventsCountByDate;
 
-        public GoogleIntegratedCalendarControl(EzkoController ezkoController)
-        {
-            InitializeComponent();
-
-            CultureInfo culture = new CultureInfo(GlobalSettings.LanguagePrefix);
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
-
-            //Monthview colors
-            monthView.MonthTitleColor = monthView.MonthTitleColorInactive = CalendarColorTable.FromHex("#C2DAFC");
-            monthView.ArrowsColor = CalendarColorTable.FromHex("#77A1D3");
-            monthView.DaySelectedBackgroundColor = CalendarColorTable.FromHex("#F4CC52");
-            monthView.DaySelectedTextColor = monthView.ForeColor;
-
-            eventsCountByDate = new Dictionary<DateTime, int>();
-            DateTime now = DateTime.Now;
-            calendar.ViewStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
-            calendar.ViewEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);
-            findEventUserControl.SetPickedDateLabel(calendar.ViewStart, calendar.ViewEnd);
-
-            this.ezkoController = ezkoController;
-            visitUserControl1.SetEzkoController(ezkoController);
-
-            InitializeControl();
-        }
-
         private void InitializeControl()
         {
             try
@@ -102,12 +76,22 @@ namespace EZKO.UserControls.Dashboard
             List<CalendarItem> result = new List<CalendarItem>();
             foreach (var item in dbEvents)
             {
-                CalendarItem newItem = new CalendarItem(calendar, item.StartDate, item.EndDate, item.Summary, item.Description, item.IsDeleted);
-                newItem.GoogleEventID = item.GoogleEventID;
-                newItem.DatabaseEntityID = item.ID;
-                newItem.ApplyColor(Color.FromArgb(item.CalendarEventColor.R, item.CalendarEventColor.G, item.CalendarEventColor.B));
-                result.Add(newItem);
+                result.Add(CreateCalendarItem(item));
             }
+            return result;
+        }
+
+        private CalendarItem CreateCalendarItem(CalendarEvent calendarEvent)
+        {
+            CalendarItem result = new CalendarItem(calendar, calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.Summary,
+                calendarEvent.ToString(), calendarEvent.IsDeleted);
+            result.GoogleEventID = calendarEvent.GoogleEventID;
+            result.DatabaseEntityID = calendarEvent.ID;
+            result.ApplyColor(Color.FromArgb(
+                calendarEvent.CalendarEventColor.R,
+                calendarEvent.CalendarEventColor.G,
+                calendarEvent.CalendarEventColor.B));
+
             return result;
         }
 
@@ -151,7 +135,6 @@ namespace EZKO.UserControls.Dashboard
                 // if event has GoogleId, show it to the user
                 else
                     result.Add(dbEvent);
-
             }
 
             // events which are common
@@ -211,6 +194,64 @@ namespace EZKO.UserControls.Dashboard
         }
         #endregion
 
+        #region public methods
+        public GoogleIntegratedCalendarControl(EzkoController ezkoController)
+        {
+            InitializeComponent();
+
+            CultureInfo culture = new CultureInfo(GlobalSettings.LanguagePrefix);
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+
+            //Monthview colors
+            monthView.MonthTitleColor = monthView.MonthTitleColorInactive = CalendarColorTable.FromHex("#C2DAFC");
+            monthView.ArrowsColor = CalendarColorTable.FromHex("#77A1D3");
+            monthView.DaySelectedBackgroundColor = CalendarColorTable.FromHex("#F4CC52");
+            monthView.DaySelectedTextColor = monthView.ForeColor;
+
+            eventsCountByDate = new Dictionary<DateTime, int>();
+            DateTime now = DateTime.Now;
+            calendar.ViewStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
+            calendar.ViewEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);
+            findEventUserControl.SetPickedDateLabel(calendar.ViewStart, calendar.ViewEnd);
+
+            this.ezkoController = ezkoController;
+            visitUserControl1.SetCalendarControl(this);
+            visitUserControl1.SetEzkoController(ezkoController);
+
+            InitializeControl();
+        }
+
+        public void AddCalendarEvent(CalendarEvent calendarEvent)
+        {
+            CalendarItem newItem = CreateCalendarItem(calendarEvent);
+            calendarItems.Add(newItem);
+            ShowItems();
+
+            calendarSynchronizer.UploadEvent(newItem);
+        }
+
+        public void RemoveCalendarItem(CalendarEvent calendarEvent)
+        {
+            CalendarItem calendarItem = calendarItems.FirstOrDefault(x => x.DatabaseEntityID == calendarEvent.ID);
+
+            if (calendarItem != null)
+                calendarItem.IsDeleted = true;
+
+            if(calendarSynchronizer.UpdateEvent(calendarItem))
+            {
+                //TODO: MessageBox?
+            }
+            else
+            {
+                //TODO: MessageBox?
+            }
+
+            ShowItems();
+        }
+        #endregion
+
+        #region private methods
         private bool SynchronizeEvents()
         {
             List<CalendarItem> googleUploadItems = new List<CalendarItem>();
@@ -266,7 +307,9 @@ namespace EZKO.UserControls.Dashboard
                 item.IsSynchronized = value;
             }
         }
+        #endregion
 
+        #region UI events
         private void button1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Treba vyriesit uploadovanie eventov z google kalendara" +
@@ -339,8 +382,11 @@ namespace EZKO.UserControls.Dashboard
 
         private void calendar_ItemClick(object sender, CalendarItemEventArgs e)
         {
-            if (e.Item != null)
-                MessageBox.Show(e.Item.Text);
+            if (e.Item != null && e.Item.DatabaseEntityID.HasValue)
+            {
+                visitUserControl1.LoadEvent(e.Item.DatabaseEntityID.Value);
+            }
         }
+        #endregion
     }
 }
