@@ -75,6 +75,8 @@ namespace EZKO.UserControls.Other
                             _formerValue = Text;
                             this.Select(this.Text.Length, 0);
                             e.Handled = true;
+
+                            this.OnTextChanged(new EventArgs());
                         }
                         break;
                     }
@@ -107,6 +109,8 @@ namespace EZKO.UserControls.Other
                 {
                     Text = string.Empty;
                     Tag = null;
+
+                    this.OnTextChanged(new EventArgs());
                 }
             }
         }
@@ -136,6 +140,8 @@ namespace EZKO.UserControls.Other
                 this.Select(this.Text.Length, 0);
                 UpdateListBox();
                 _listBox.Visible = false;
+
+                this.OnTextChanged(new EventArgs());
             }
         }
 

@@ -147,11 +147,11 @@ namespace EZKO.UserControls.Dashboard
             }
             set { planedTextTextBox.Text = value; }
         }
-        private List<Classes.DoneActionNotePair> doneActions
+        private List<DoneActionNotePair> doneActions
         {
             get
             {
-                List<Classes.DoneActionNotePair> result = new List<Classes.DoneActionNotePair>();
+                List<DoneActionNotePair> result = new List<DoneActionNotePair>();
                 Control[] controls = doneActionsTablePanel.Controls.Find("flatRichTextBox", true);
 
                 foreach (var item in controls)
@@ -161,7 +161,7 @@ namespace EZKO.UserControls.Dashboard
                         if(frtbItem.Tag is DatabaseCommunicator.Model.Action action)
                         {
                             string actionNote = frtbItem.Text;
-                            result.Add(new Classes.DoneActionNotePair()
+                            result.Add(new DoneActionNotePair()
                             {
                                 DoneAction = action,
                                 ActionNote = actionNote
@@ -179,7 +179,7 @@ namespace EZKO.UserControls.Dashboard
                 string result = doneTextTextBox.Text.Trim();
                 return (result != "") ? result : null;
             }
-            set { doneActionTextBox.Text = value; }
+            set { doneTextTextBox.Text = value; }
         }
         private EventState eventState { get { return eventStateComboBox.SelectedItem as EventState; } }
         #endregion
@@ -293,12 +293,16 @@ namespace EZKO.UserControls.Dashboard
                 eventStateComboBox.Items.Add(state);
         }
 
-        private void InitializeEmailsRichTextBox()
+        private void InitializeEmailsRichTextBox(string email = null)
         {
             if (GlobalSettings.User != null)
                 emailsRichTextBox.Text = GlobalSettings.User.Email + ", ";
             emailsRichTextBox.Text += "sangreazul@3Dent.sk, ";
-            emailsRichTextBox.Text += "EMAILNAPACIENTA@BODKAESKA.com";
+
+            if(email != null)
+                emailsRichTextBox.Text += email;
+            else if (patient != null && !isNew)
+                emailsRichTextBox.Text += patient.Contact.Email;
         }
 
         private void SetControlWorkingBehavior()
@@ -321,6 +325,9 @@ namespace EZKO.UserControls.Dashboard
 
         private void SetCreatingControlBeahvior()
         {
+            newPatientCheckBox.Checked = false;
+            newPatientCheckBox.Visible = true;
+            patientNameTextBox.ReadOnly = false;
             doneActionsPanel.Visible = false;
             doneActionsForTablePanel.Visible = false;
             updateEventPanel.Visible = false;
@@ -339,12 +346,16 @@ namespace EZKO.UserControls.Dashboard
 
         private void SetEditingControlBehavior()
         {
+            newPatientCheckBox.Checked = false;
+            newPatientCheckBox.Visible = false;
+
             doneActionsPanel.Visible = true;
             //doneActionsForTablePanel.Visible = false;
             newEventButtonsPanel.Visible = false;
             updateEventPanel.Visible = true;
             reorderButton.Visible = true;
             plannedTextPanel.Visible = true;
+            patientNameTextBox.ReadOnly = true;
         }
 
         private void SetRecreatingControlBehavior()
@@ -364,6 +375,7 @@ namespace EZKO.UserControls.Dashboard
                 calendarEvent = ezkoController.GetEvent(calendarEventID);
 
                 patientName = calendarEvent.Patient.FullName;
+                patientNameTextBox.Tag = calendarEvent.Patient;
                 eventStartDateTime = calendarEvent.StartDate;
                 SetEventStartDateText();
                 eventDuration = (int)(calendarEvent.EndDate - calendarEvent.StartDate).TotalMinutes;
@@ -372,7 +384,7 @@ namespace EZKO.UserControls.Dashboard
                 plannedText = calendarEvent.PlanedActionText;
                 doneText = calendarEvent.ExecutedActionText;
 
-                ResetComboBoxes();
+                ResetComboBoxes(false);
                 foreach (var item in calendarEvent.Users)
                 {
                     if (item.RoleID == (int)UserRoleEnum.Doctor)
@@ -382,24 +394,16 @@ namespace EZKO.UserControls.Dashboard
                 foreach (var item in calendarEvent.Actions)
                     plannedActionsComboBox.CheckBoxItems[item.ToString()].Checked = true;
 
+                doneActionsTablePanel.Controls.Clear();
+                foreach (var item in calendarEvent.CalendarEventExecutedActions)
+                    AddAction(item.Action, item.ExecutedActionNote.Note);
+
                 eventStateComboBox.SelectedItem = calendarEvent.EventState;
             }
             catch(Exception e)
             {
-                BasicMessagesHandler.ShowErrorMessage("Udalosť nepodarilo sa načítať", e);
+                BasicMessagesHandler.ShowErrorMessage("Návštevu nepodarilo sa načítať", e);
             }
-        }
-
-        private void DeleteEvent()
-        {
-            if(ezkoController.DeleteEvent(calendarEvent))
-            {
-                calendarControl.RemoveCalendarItem(calendarEvent);
-                //TODO:
-                //refresh calendar
-            }
-            else
-                BasicMessagesHandler.ShowErrorMessage("Udalosť sa nepodarilo odstrániť");
         }
 
         /// <summary>
@@ -425,11 +429,12 @@ namespace EZKO.UserControls.Dashboard
                 durationInfoLabel.Visible = false;
         }
 
-        private void AddAction()
+        private void AddAction(DatabaseCommunicator.Model.Action action = null, string actionText = null)
         {
             try
             {
-                DatabaseCommunicator.Model.Action action = doneActionTextBox.Tag as DatabaseCommunicator.Model.Action;
+                if(action == null)
+                    action = doneActionTextBox.Tag as DatabaseCommunicator.Model.Action;
 
                 if (action == null)
                     return;
@@ -445,9 +450,8 @@ namespace EZKO.UserControls.Dashboard
 
                 var label = new Label()
                 {
-                    Text = doneActionTextBox.Text,
-                    //Name = "label",
-                    Name = doneActionTextBox.Text + "_label",
+                    Text = action.Name,
+                    //Name = doneActionTextBox.Text + "_label",
                     //Name = doneActionsTablePanel.Name + "_" + "label_" + lastRowIndex,
                     TextAlign = ContentAlignment.MiddleLeft,
                     Dock = DockStyle.Fill,
@@ -456,19 +460,19 @@ namespace EZKO.UserControls.Dashboard
 
                 var textBox = new FlatRichTextBox()
                 {
-                    //Name = doneActionsTablePanel.Name + "_" + "txt_" + lastRowIndex,
                     Name = "flatRichTextBox",
                     Dock = DockStyle.Fill,
                     Height = 22,
                     Tag = action,
                     Enabled = action.HasSpecification,
-                    //TextAlign = HorizontalAlignment.Right
                 };
                 textBox.MaximumSize = new Size(textBox.MaximumSize.Width, 22);
+                if (actionText != null)
+                    textBox.Text = actionText;
 
                 var btn = new RoundButton()
                 {
-                    Name = doneActionsTablePanel.Name + "_" + "btn_" + lastRowIndex,
+                    //Name = doneActionsTablePanel.Name + "_" + "btn_" + lastRowIndex,
                     Text = "x",
                     TextAlign = ContentAlignment.MiddleCenter,
                     Dock = DockStyle.Fill,
@@ -545,13 +549,14 @@ namespace EZKO.UserControls.Dashboard
         }
 
         #region Reseting panel
-        private void ResetVisitPanel()
+        private void ResetVisitPanel(WorkingTypeEnum type)
         {
+            workingType = type;
             eventStartDateTime = null;
             isNew = false;
             eventDuration = 0m;
             ResetTextFields();
-            ResetComboBoxes();
+            ResetComboBoxes(true);
             SetControlWorkingBehavior();
         }
 
@@ -570,11 +575,12 @@ namespace EZKO.UserControls.Dashboard
             InitializeEmailsRichTextBox();
         }
 
-        private void ResetComboBoxes()
+        private void ResetComboBoxes(bool setDefaultDoctor)
         {
             SetComboBoxCheckBoxValues(doctorsCheckBoxComboBox, false);
             SetComboBoxCheckBoxValues(plannedActionsComboBox, false);
-            if (GlobalSettings.User != null)
+
+            if (setDefaultDoctor && GlobalSettings.User != null)
                 doctorsCheckBoxComboBox.CheckBoxItems[GlobalSettings.User.ToString()].Checked = true;
         }
 
@@ -681,6 +687,32 @@ namespace EZKO.UserControls.Dashboard
                 BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa vytvoriť návštevu");
         }
 
+        private void UpdateEvent()
+        {
+            if (!ValidateData())
+                return;
+
+            if (ezkoController.UpdateCalendarEvent(calendarEvent, doctors, eventStartDateTime.Value, eventDuration, notificationEmails,
+                    eventNote, plannedActions, plannedText, eventState, doneActions, doneText))
+            {
+                //sync & show
+                calendarControl.UpdateCalendarEvent(calendarEvent);
+            }
+            else
+                BasicMessagesHandler.ShowErrorMessage("Návštevu sa nepodarilo upraviť");
+        }
+
+        private void DeleteEvent()
+        {
+            if (ezkoController.DeleteEvent(calendarEvent))
+            {
+                calendarControl.RemoveCalendarItem(calendarEvent);
+                ResetVisitPanel(WorkingTypeEnum.Creating);
+            }
+            else
+                BasicMessagesHandler.ShowErrorMessage("Návštevu sa nepodarilo odstrániť");
+        }
+
         #endregion
 
         #region UI events
@@ -691,13 +723,11 @@ namespace EZKO.UserControls.Dashboard
                 case true:
                     patientNamePanel.Visible = false;
                     newPatientPanel.Visible = true;
-                    if(workingType != WorkingTypeEnum.Creating)
-                    {
-                        calendarEvent = null;
-                        ResetVisitPanel();
-                    }
-
-                    workingType = WorkingTypeEnum.Creating;
+                    //if(workingType != WorkingTypeEnum.Creating)
+                    //{
+                    //    calendarEvent = null;
+                    //    ResetVisitPanel(WorkingTypeEnum.Creating);
+                    //}
                     break;
                 case false:
                     patientNamePanel.Visible = true;
@@ -810,30 +840,32 @@ namespace EZKO.UserControls.Dashboard
 
         private void newVisitButton_Click(object sender, EventArgs e)
         {
-            workingType = WorkingTypeEnum.Creating;
-            ResetVisitPanel();
+            ResetVisitPanel(WorkingTypeEnum.Creating);
         }
         private void resetEventButton_Click(object sender, EventArgs e)
         {
-            ResetVisitPanel();
+            ResetVisitPanel(WorkingTypeEnum.Creating);
         }
-        #endregion
 
         private void saveEventButton_Click(object sender, EventArgs e)
         {
-            var tmp = plannedActions;
-            //var tmp = doneActionsTablePanel.Controls.Find("flatRichTextBox", true);
-
-            //foreach (FlatRichTextBox item in tmp)
-            //{
-            //    var action = (DatabaseCommunicator.Model.Action)item.Tag;
-            //    var answer = item.Text;
-            //}
+            UpdateEvent();
         }
 
         private void deleteEventButton_Click(object sender, EventArgs e)
         {
             DeleteEvent();
         }
+
+        private void newPatientEmailTextBox_TextChanged(object sender, EventArgs e)
+        {
+            InitializeEmailsRichTextBox(patientEmail);
+        }
+
+        private void patientNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            InitializeEmailsRichTextBox();
+        }
+        #endregion
     }
 }

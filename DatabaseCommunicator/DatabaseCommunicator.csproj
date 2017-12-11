@@ -80,6 +80,7 @@
     <Compile Include="Model\Contact.cs">
       <DependentUpon>EzkoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\DoneActionNotePair.cs" />
     <Compile Include="Model\EventState.cs">
       <DependentUpon>EzkoModel.tt</DependentUpon>
     </Compile>

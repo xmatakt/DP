@@ -16,8 +16,8 @@ namespace DatabaseCommunicator.Model
     {
         public Action()
         {
-            this.CalendarEventExecutedActions = new HashSet<CalendarEventExecutedAction>();
             this.CalendarEvents = new HashSet<CalendarEvent>();
+            this.CalendarEventExecutedActions = new HashSet<CalendarEventExecutedAction>();
         }
     
         public int ID { get; set; }
@@ -36,7 +36,7 @@ namespace DatabaseCommunicator.Model
     
         public virtual InsuranceCompany InsuranceCompany { get; set; }
         public virtual Field Field { get; set; }
-        public virtual ICollection<CalendarEventExecutedAction> CalendarEventExecutedActions { get; set; }
         public virtual ICollection<CalendarEvent> CalendarEvents { get; set; }
+        public virtual ICollection<CalendarEventExecutedAction> CalendarEventExecutedActions { get; set; }
     }
 }

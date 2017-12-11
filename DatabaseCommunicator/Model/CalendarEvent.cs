@@ -16,10 +16,10 @@ namespace DatabaseCommunicator.Model
     {
         public CalendarEvent()
         {
-            this.CalendarEventExecutedActions = new HashSet<CalendarEventExecutedAction>();
             this.Infrastructures = new HashSet<Infrastructure>();
             this.Actions = new HashSet<Action>();
             this.Users = new HashSet<User>();
+            this.CalendarEventExecutedActions = new HashSet<CalendarEventExecutedAction>();
         }
     
         public int ID { get; set; }
@@ -39,10 +39,10 @@ namespace DatabaseCommunicator.Model
     
         public virtual EventState EventState { get; set; }
         public virtual Patient Patient { get; set; }
-        public virtual ICollection<CalendarEventExecutedAction> CalendarEventExecutedActions { get; set; }
         public virtual ICollection<Infrastructure> Infrastructures { get; set; }
         public virtual ICollection<Action> Actions { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual CalendarEventColor CalendarEventColor { get; set; }
+        public virtual ICollection<CalendarEventExecutedAction> CalendarEventExecutedActions { get; set; }
     }
 }

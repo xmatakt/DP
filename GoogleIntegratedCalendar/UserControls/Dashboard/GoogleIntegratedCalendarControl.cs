@@ -231,6 +231,34 @@ namespace EZKO.UserControls.Dashboard
             calendarSynchronizer.UploadEvent(newItem);
         }
 
+        public void UpdateCalendarEvent(CalendarEvent calendarEvent)
+        {
+            CalendarItem calendarItem = calendarItems.FirstOrDefault(x => x.DatabaseEntityID == calendarEvent.ID);
+
+            calendarItem.Text = calendarEvent.Summary;
+            calendarItem.Description = calendarEvent.ToString();
+            calendarItem.StartDate = calendarEvent.StartDate;
+            calendarItem.EndDate = calendarEvent.EndDate;
+
+            if (calendarItem != null)
+            {
+                if (calendarSynchronizer.UpdateEvent(calendarItem))
+                {
+                    //TODO: MessageBox?
+                }
+                else
+                {
+                    //TODO: MessageBox?
+                }
+
+                ShowItems();
+            }
+            else
+            {
+                //TODO: ?
+            }
+        }
+
         public void RemoveCalendarItem(CalendarEvent calendarEvent)
         {
             CalendarItem calendarItem = calendarItems.FirstOrDefault(x => x.DatabaseEntityID == calendarEvent.ID);

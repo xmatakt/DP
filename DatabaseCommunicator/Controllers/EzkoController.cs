@@ -601,7 +601,7 @@ namespace DatabaseCommunicator.Controllers
                 result = new CalendarEvent()
                 {
                     ColorID = db.CalendarEventColors.First(x => x.EventStateID == eventState.ID).ID,
-                    GoogleEventID = UnixTimestamp(eventStartDateTime),
+                    GoogleEventID = UnixTimestamp(DateTime.Now),
                     StartDate = eventStartDateTime,
                     EndDate = GetEventEndDate(eventStartDateTime, eventDuration),
                     Summary = CreateEventSummary(eventPatient, plannedActions),
@@ -645,6 +645,37 @@ namespace DatabaseCommunicator.Controllers
 
             return result;
         }
+
+        public bool UpdateCalendarEvent(CalendarEvent calendarEvent, List<User> doctors, DateTime startDate, decimal eventDuration,
+           string notificationEmails, string eventNote, List<Model.Action> plannedActions, string plannedText, EventState eventState,
+           List<DoneActionNotePair> doneActions, string doneText)
+        {
+            bool result = false;
+
+            try
+            {
+                calendarEvent.Users = doctors;
+                calendarEvent.StartDate = startDate;
+                calendarEvent.EndDate = GetEventEndDate(startDate, eventDuration);
+                calendarEvent.NotificationEmails = notificationEmails;
+                calendarEvent.Summary = CreateEventSummary(calendarEvent.Patient, plannedActions);
+                calendarEvent.Description = eventNote;
+                calendarEvent.Actions = plannedActions;
+                calendarEvent.PlanedActionText = plannedText;
+                calendarEvent.EventState = eventState;
+                calendarEvent.CalendarEventExecutedActions = GetEventExecutedActions(calendarEvent, doneActions);
+                calendarEvent.ExecutedActionText = doneText;
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
         public bool DeleteEvent(CalendarEvent calendarEvent)
         {
             bool result = false;
@@ -735,6 +766,36 @@ namespace DatabaseCommunicator.Controllers
                 else
                     result += ", " + item.ShortName;
             }
+
+            return result;
+        }
+
+        private ICollection<CalendarEventExecutedAction> GetEventExecutedActions(CalendarEvent calendarEvent, List<DoneActionNotePair> doneActions)
+        {
+            List<CalendarEventExecutedAction> result = new List<CalendarEventExecutedAction>();
+
+            try
+            {
+                foreach (var item in doneActions)
+                {
+                    ExecutedActionNote note = new ExecutedActionNote() { Note = item.ActionNote };
+
+                    result.Add(new CalendarEventExecutedAction()
+                    {
+                        Action = item.DoneAction,
+                        ExecutedActionNote = note,
+                        CalendarEvent = calendarEvent,
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                result = null;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            if (result != null && result.Count <= 0)
+                result = null;
 
             return result;
         }

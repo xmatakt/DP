@@ -390,7 +390,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CalendarEventExecutedAction_di616744201698551360">
+        <Association Name="FK_CalendarEventExecutedAction_di711958227498691178">
           <End Role="ExecutedActionNote" Type="Self.ExecutedActionNote" Multiplicity="1" />
           <End Role="CalendarEventExecutedAction" Type="Self.CalendarEventExecutedAction" Multiplicity="*" />
           <ReferentialConstraint>
@@ -398,7 +398,7 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="CalendarEventExecutedAction">
-              <PropertyRef Name="CalendarEventID" />
+              <PropertyRef Name="NoteID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -673,7 +673,7 @@
             <End Role="CalendarEvent" EntitySet="CalendarEvent" />
             <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedAction" />
           </AssociationSet>
-          <AssociationSet Name="FK_CalendarEventExecutedAction_di616744201698551360" Association="Self.FK_CalendarEventExecutedAction_di616744201698551360">
+          <AssociationSet Name="FK_CalendarEventExecutedAction_di711958227498691178" Association="Self.FK_CalendarEventExecutedAction_di711958227498691178">
             <End Role="ExecutedActionNote" EntitySet="ExecutedActionNote" />
             <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedAction" />
           </AssociationSet>
@@ -756,7 +756,6 @@
           <EntitySet Name="Budgets" EntityType="EzkoModel.Budget" />
           <EntitySet Name="BudgetItems" EntityType="EzkoModel.BudgetItem" />
           <EntitySet Name="CalendarEvents" EntityType="EzkoModel.CalendarEvent" />
-          <EntitySet Name="CalendarEventExecutedActions" EntityType="EzkoModel.CalendarEventExecutedAction" />
           <EntitySet Name="EventStates" EntityType="EzkoModel.EventState" />
           <EntitySet Name="ExecutedActionNotes" EntityType="EzkoModel.ExecutedActionNote" />
           <EntitySet Name="Fields" EntityType="EzkoModel.Field" />
@@ -780,10 +779,6 @@
             <End Role="Field" EntitySet="Fields" />
             <End Role="Action" EntitySet="Actions" />
           </AssociationSet>
-          <AssociationSet Name="FK_CalendarEventExecutedAction_di358140986643252356" Association="EzkoModel.FK_CalendarEventExecutedAction_di358140986643252356">
-            <End Role="Action" EntitySet="Actions" />
-            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedActions" />
-          </AssociationSet>
           <AssociationSet Name="FK_Patient_di957587348570545670" Association="EzkoModel.FK_Patient_di957587348570545670">
             <End Role="Address" EntitySet="Addresses" />
             <End Role="Patient" EntitySet="Patients" />
@@ -803,14 +798,6 @@
           <AssociationSet Name="FK_CalendarEvent_di904417518440335821" Association="EzkoModel.FK_CalendarEvent_di904417518440335821">
             <End Role="Patient" EntitySet="Patients" />
             <End Role="CalendarEvent" EntitySet="CalendarEvents" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CalendarEventExecutedAction_di504550180463584052" Association="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052">
-            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
-            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedActions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CalendarEventExecutedAction_di616744201698551360" Association="EzkoModel.FK_CalendarEventExecutedAction_di616744201698551360">
-            <End Role="ExecutedActionNote" EntitySet="ExecutedActionNotes" />
-            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedActions" />
           </AssociationSet>
           <AssociationSet Name="FK_Field_di831583428630155059" Association="EzkoModel.FK_Field_di831583428630155059">
             <End Role="FieldType" EntitySet="FieldTypes" />
@@ -874,6 +861,19 @@
             <End Role="EventState" EntitySet="EventStates" />
             <End Role="CalendarEventColor" EntitySet="CalendarEventColors" />
           </AssociationSet>
+          <EntitySet Name="CalendarEventExecutedActions" EntityType="EzkoModel.CalendarEventExecutedAction" />
+          <AssociationSet Name="FK_CalendarEventExecutedAction_di358140986643252356" Association="EzkoModel.FK_CalendarEventExecutedAction_di358140986643252356">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventExecutedAction_di504550180463584052" Association="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052">
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedActions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarEventExecutedAction_di711958227498691178" Association="EzkoModel.FK_CalendarEventExecutedAction_di711958227498691178">
+            <End Role="ExecutedActionNote" EntitySet="ExecutedActionNotes" />
+            <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedActions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Action">
           <Key>
@@ -894,8 +894,8 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="InsuranceCompany" Relationship="EzkoModel.FK_Action_di322598275310124509" FromRole="Action" ToRole="InsuranceCompany" />
           <NavigationProperty Name="Field" Relationship="EzkoModel.FK_Action_di491657968160436312" FromRole="Action" ToRole="Field" />
-          <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di358140986643252356" FromRole="Action" ToRole="CalendarEventExecutedAction" />
           <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.CalendarEventPlanedAction" FromRole="Action" ToRole="CalendarEvent" />
+          <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di358140986643252356" FromRole="Action" ToRole="CalendarEventExecutedAction" />
         </EntityType>
         <EntityType Name="Address">
           <Key>
@@ -950,24 +950,11 @@
           <Property Name="StateID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EventState" Relationship="EzkoModel.FK_CalendarEvent_di381268337610794711" FromRole="CalendarEvent" ToRole="EventState" />
           <NavigationProperty Name="Patient" Relationship="EzkoModel.FK_CalendarEvent_di904417518440335821" FromRole="CalendarEvent" ToRole="Patient" />
-          <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052" FromRole="CalendarEvent" ToRole="CalendarEventExecutedAction" />
           <NavigationProperty Name="Infrastructures" Relationship="EzkoModel.CalendarEventInfrastructure" FromRole="CalendarEvent" ToRole="Infrastructure" />
           <NavigationProperty Name="Actions" Relationship="EzkoModel.CalendarEventPlanedAction" FromRole="CalendarEvent" ToRole="Action" />
           <NavigationProperty Name="Users" Relationship="EzkoModel.CalendarEventUser" FromRole="CalendarEvent" ToRole="User" />
           <NavigationProperty Name="CalendarEventColor" Relationship="EzkoModel.FK_CalendarEvent_di647481913942757360" FromRole="CalendarEvent" ToRole="CalendarEventColor" />
-        </EntityType>
-        <EntityType Name="CalendarEventExecutedAction">
-          <Key>
-            <PropertyRef Name="CalendarEventID" />
-            <PropertyRef Name="ActionID" />
-            <PropertyRef Name="NoteID" />
-          </Key>
-          <Property Name="CalendarEventID" Type="Int32" Nullable="false" />
-          <Property Name="ActionID" Type="Int32" Nullable="false" />
-          <Property Name="NoteID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Action" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di358140986643252356" FromRole="CalendarEventExecutedAction" ToRole="Action" />
-          <NavigationProperty Name="CalendarEvent" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052" FromRole="CalendarEventExecutedAction" ToRole="CalendarEvent" />
-          <NavigationProperty Name="ExecutedActionNote" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di616744201698551360" FromRole="CalendarEventExecutedAction" ToRole="ExecutedActionNote" />
+          <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052" FromRole="CalendarEvent" ToRole="CalendarEventExecutedAction" />
         </EntityType>
         <EntityType Name="EventState">
           <Key>
@@ -984,7 +971,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Note" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di616744201698551360" FromRole="ExecutedActionNote" ToRole="CalendarEventExecutedAction" />
+          <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di711958227498691178" FromRole="ExecutedActionNote" ToRole="CalendarEventExecutedAction" />
         </EntityType>
         <EntityType Name="Field">
           <Key>
@@ -1166,18 +1153,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CalendarEventExecutedAction_di358140986643252356">
-          <End Type="EzkoModel.Action" Role="Action" Multiplicity="1" />
-          <End Type="EzkoModel.CalendarEventExecutedAction" Role="CalendarEventExecutedAction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Action">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CalendarEventExecutedAction">
-              <PropertyRef Name="ActionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Patient_di957587348570545670">
           <End Type="EzkoModel.Address" Role="Address" Multiplicity="0..1" />
           <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="*" />
@@ -1235,30 +1210,6 @@
             </Principal>
             <Dependent Role="CalendarEvent">
               <PropertyRef Name="PatientID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CalendarEventExecutedAction_di504550180463584052">
-          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="1" />
-          <End Type="EzkoModel.CalendarEventExecutedAction" Role="CalendarEventExecutedAction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CalendarEvent">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CalendarEventExecutedAction">
-              <PropertyRef Name="CalendarEventID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CalendarEventExecutedAction_di616744201698551360">
-          <End Type="EzkoModel.ExecutedActionNote" Role="ExecutedActionNote" Multiplicity="1" />
-          <End Type="EzkoModel.CalendarEventExecutedAction" Role="CalendarEventExecutedAction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ExecutedActionNote">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CalendarEventExecutedAction">
-              <PropertyRef Name="CalendarEventID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1442,6 +1393,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CalendarEventExecutedAction">
+          <Key>
+            <PropertyRef Name="CalendarEventID" />
+            <PropertyRef Name="ActionID" />
+            <PropertyRef Name="NoteID" />
+          </Key>
+          <Property Name="CalendarEventID" Type="Int32" Nullable="false" />
+          <Property Name="ActionID" Type="Int32" Nullable="false" />
+          <Property Name="NoteID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Action" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di358140986643252356" FromRole="CalendarEventExecutedAction" ToRole="Action" />
+          <NavigationProperty Name="CalendarEvent" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052" FromRole="CalendarEventExecutedAction" ToRole="CalendarEvent" />
+          <NavigationProperty Name="ExecutedActionNote" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di711958227498691178" FromRole="CalendarEventExecutedAction" ToRole="ExecutedActionNote" />
+        </EntityType>
+        <Association Name="FK_CalendarEventExecutedAction_di358140986643252356">
+          <End Type="EzkoModel.Action" Role="Action" Multiplicity="1" />
+          <End Type="EzkoModel.CalendarEventExecutedAction" Role="CalendarEventExecutedAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventExecutedAction">
+              <PropertyRef Name="ActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventExecutedAction_di504550180463584052">
+          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="1" />
+          <End Type="EzkoModel.CalendarEventExecutedAction" Role="CalendarEventExecutedAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventExecutedAction">
+              <PropertyRef Name="CalendarEventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarEventExecutedAction_di711958227498691178">
+          <End Type="EzkoModel.ExecutedActionNote" Role="ExecutedActionNote" Multiplicity="1" />
+          <End Type="EzkoModel.CalendarEventExecutedAction" Role="CalendarEventExecutedAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExecutedActionNote">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CalendarEventExecutedAction">
+              <PropertyRef Name="NoteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1516,15 +1516,6 @@
                 <ScalarProperty Name="GoogleEventID" ColumnName="GoogleEventID" />
                 <ScalarProperty Name="ColorID" ColumnName="ColorID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CalendarEventExecutedActions">
-            <EntityTypeMapping TypeName="EzkoModel.CalendarEventExecutedAction">
-              <MappingFragment StoreEntitySet="CalendarEventExecutedAction">
-                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
-                <ScalarProperty Name="ActionID" ColumnName="ActionID" />
-                <ScalarProperty Name="CalendarEventID" ColumnName="CalendarEventID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1729,6 +1720,15 @@
                 <ScalarProperty Name="G" ColumnName="G" />
                 <ScalarProperty Name="R" ColumnName="R" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarEventExecutedActions">
+            <EntityTypeMapping TypeName="EzkoModel.CalendarEventExecutedAction">
+              <MappingFragment StoreEntitySet="CalendarEventExecutedAction">
+                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
+                <ScalarProperty Name="ActionID" ColumnName="ActionID" />
+                <ScalarProperty Name="CalendarEventID" ColumnName="CalendarEventID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
