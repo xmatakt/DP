@@ -84,7 +84,7 @@ namespace EZKO.UserControls.Dashboard
         private CalendarItem CreateCalendarItem(CalendarEvent calendarEvent)
         {
             CalendarItem result = new CalendarItem(calendar, calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.Summary,
-                calendarEvent.ToString(), calendarEvent.IsDeleted);
+                calendarEvent.Details, calendarEvent.IsDeleted);
             result.GoogleEventID = calendarEvent.GoogleEventID;
             result.DatabaseEntityID = calendarEvent.ID;
             result.ApplyColor(Color.FromArgb(
@@ -236,9 +236,13 @@ namespace EZKO.UserControls.Dashboard
             CalendarItem calendarItem = calendarItems.FirstOrDefault(x => x.DatabaseEntityID == calendarEvent.ID);
 
             calendarItem.Text = calendarEvent.Summary;
-            calendarItem.Description = calendarEvent.ToString();
+            calendarItem.Description = calendarEvent.Details;
             calendarItem.StartDate = calendarEvent.StartDate;
             calendarItem.EndDate = calendarEvent.EndDate;
+            calendarItem.ApplyColor(Color.FromArgb(
+                calendarEvent.CalendarEventColor.R,
+                calendarEvent.CalendarEventColor.G,
+                calendarEvent.CalendarEventColor.B));
 
             if (calendarItem != null)
             {

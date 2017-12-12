@@ -575,7 +575,7 @@ namespace System.Windows.Forms.Calendar
         /// </summary>
         public virtual string Text
         {
-            get { return _text + "\n" + _description; }
+            get { return _text; }
             set { _text = value; }
         }
 
@@ -586,6 +586,11 @@ namespace System.Windows.Forms.Calendar
         {
             get { return _description; }
             set { _description = value; }
+        }
+
+        public virtual string TextWithDescription
+        {
+            get { return _text + "\n" + _description; }
         }
 
         #endregion

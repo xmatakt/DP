@@ -121,10 +121,10 @@
             this.mainFlowLayoutPanel.Controls.Add(this.panel1);
             this.mainFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainFlowLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.mainFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
-            this.mainFlowLayoutPanel.MaximumSize = new System.Drawing.Size(385, 800);
+            this.mainFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.mainFlowLayoutPanel.MaximumSize = new System.Drawing.Size(513, 985);
             this.mainFlowLayoutPanel.Name = "mainFlowLayoutPanel";
-            this.mainFlowLayoutPanel.Size = new System.Drawing.Size(385, 800);
+            this.mainFlowLayoutPanel.Size = new System.Drawing.Size(513, 985);
             this.mainFlowLayoutPanel.TabIndex = 0;
             // 
             // newVisitPanel
@@ -132,20 +132,19 @@
             this.newVisitPanel.BackColor = System.Drawing.Color.White;
             this.newVisitPanel.Controls.Add(this.newVisitButton);
             this.newVisitPanel.Controls.Add(this.newVisitLabel);
-            this.newVisitPanel.Location = new System.Drawing.Point(2, 2);
-            this.newVisitPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.newVisitPanel.Location = new System.Drawing.Point(3, 2);
+            this.newVisitPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.newVisitPanel.Name = "newVisitPanel";
-            this.newVisitPanel.Size = new System.Drawing.Size(376, 34);
+            this.newVisitPanel.Size = new System.Drawing.Size(501, 42);
             this.newVisitPanel.TabIndex = 0;
             // 
             // newVisitLabel
             // 
             this.newVisitLabel.AutoSize = true;
             this.newVisitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newVisitLabel.Location = new System.Drawing.Point(2, 6);
-            this.newVisitLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.newVisitLabel.Location = new System.Drawing.Point(3, 7);
             this.newVisitLabel.Name = "newVisitLabel";
-            this.newVisitLabel.Size = new System.Drawing.Size(112, 20);
+            this.newVisitLabel.Size = new System.Drawing.Size(142, 25);
             this.newVisitLabel.TabIndex = 0;
             this.newVisitLabel.Text = "Nová návšteva";
             // 
@@ -153,30 +152,29 @@
             // 
             this.patientNamePanel.Controls.Add(this.patientNameLabel);
             this.patientNamePanel.Controls.Add(this.patientNameTextBox);
-            this.patientNamePanel.Location = new System.Drawing.Point(2, 40);
-            this.patientNamePanel.Margin = new System.Windows.Forms.Padding(2);
+            this.patientNamePanel.Location = new System.Drawing.Point(3, 48);
+            this.patientNamePanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.patientNamePanel.Name = "patientNamePanel";
-            this.patientNamePanel.Size = new System.Drawing.Size(266, 20);
+            this.patientNamePanel.Size = new System.Drawing.Size(355, 25);
             this.patientNamePanel.TabIndex = 1;
             // 
             // patientNameLabel
             // 
             this.patientNameLabel.AutoSize = true;
             this.patientNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.patientNameLabel.Location = new System.Drawing.Point(2, 2);
-            this.patientNameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.patientNameLabel.Location = new System.Drawing.Point(3, 2);
             this.patientNameLabel.Name = "patientNameLabel";
-            this.patientNameLabel.Size = new System.Drawing.Size(59, 13);
+            this.patientNameLabel.Size = new System.Drawing.Size(73, 17);
             this.patientNameLabel.TabIndex = 0;
             this.patientNameLabel.Text = "Pacient*:";
             // 
             // newPatientCheckBox
             // 
             this.newPatientCheckBox.AutoSize = true;
-            this.newPatientCheckBox.Location = new System.Drawing.Point(278, 40);
-            this.newPatientCheckBox.Margin = new System.Windows.Forms.Padding(8, 2, 2, 2);
+            this.newPatientCheckBox.Location = new System.Drawing.Point(372, 48);
+            this.newPatientCheckBox.Margin = new System.Windows.Forms.Padding(11, 2, 3, 2);
             this.newPatientCheckBox.Name = "newPatientCheckBox";
-            this.newPatientCheckBox.Size = new System.Drawing.Size(89, 17);
+            this.newPatientCheckBox.Size = new System.Drawing.Size(112, 21);
             this.newPatientCheckBox.TabIndex = 2;
             this.newPatientCheckBox.Text = "Nový pacient";
             this.newPatientCheckBox.UseVisualStyleBackColor = true;
@@ -193,18 +191,18 @@
             this.newPatientPanel.Controls.Add(this.newPatientSurnameLabel);
             this.newPatientPanel.Controls.Add(this.newPatientNameTextBox);
             this.newPatientPanel.Controls.Add(this.newPatientNameLabel);
-            this.newPatientPanel.Location = new System.Drawing.Point(2, 64);
-            this.newPatientPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.newPatientPanel.Location = new System.Drawing.Point(3, 77);
+            this.newPatientPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.newPatientPanel.Name = "newPatientPanel";
-            this.newPatientPanel.Size = new System.Drawing.Size(376, 88);
+            this.newPatientPanel.Size = new System.Drawing.Size(501, 108);
             this.newPatientPanel.TabIndex = 3;
             // 
             // newPatientEmailTextBox
             // 
-            this.newPatientEmailTextBox.Location = new System.Drawing.Point(193, 58);
-            this.newPatientEmailTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.newPatientEmailTextBox.Location = new System.Drawing.Point(257, 71);
+            this.newPatientEmailTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.newPatientEmailTextBox.Name = "newPatientEmailTextBox";
-            this.newPatientEmailTextBox.Size = new System.Drawing.Size(163, 20);
+            this.newPatientEmailTextBox.Size = new System.Drawing.Size(216, 22);
             this.newPatientEmailTextBox.TabIndex = 7;
             this.newPatientEmailTextBox.TextChanged += new System.EventHandler(this.newPatientEmailTextBox_TextChanged);
             // 
@@ -212,67 +210,63 @@
             // 
             this.newPatientEmailLabel.AutoSize = true;
             this.newPatientEmailLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newPatientEmailLabel.Location = new System.Drawing.Point(190, 43);
-            this.newPatientEmailLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.newPatientEmailLabel.Location = new System.Drawing.Point(253, 53);
             this.newPatientEmailLabel.Name = "newPatientEmailLabel";
-            this.newPatientEmailLabel.Size = new System.Drawing.Size(42, 13);
+            this.newPatientEmailLabel.Size = new System.Drawing.Size(53, 17);
             this.newPatientEmailLabel.TabIndex = 6;
             this.newPatientEmailLabel.Text = "Email*";
             // 
             // newPatientPhoneTextBox
             // 
-            this.newPatientPhoneTextBox.Location = new System.Drawing.Point(19, 58);
-            this.newPatientPhoneTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.newPatientPhoneTextBox.Location = new System.Drawing.Point(25, 71);
+            this.newPatientPhoneTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.newPatientPhoneTextBox.Name = "newPatientPhoneTextBox";
-            this.newPatientPhoneTextBox.Size = new System.Drawing.Size(163, 20);
+            this.newPatientPhoneTextBox.Size = new System.Drawing.Size(216, 22);
             this.newPatientPhoneTextBox.TabIndex = 5;
             // 
             // newPatientPhoneLabel
             // 
             this.newPatientPhoneLabel.AutoSize = true;
             this.newPatientPhoneLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newPatientPhoneLabel.Location = new System.Drawing.Point(17, 43);
-            this.newPatientPhoneLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.newPatientPhoneLabel.Location = new System.Drawing.Point(23, 53);
             this.newPatientPhoneLabel.Name = "newPatientPhoneLabel";
-            this.newPatientPhoneLabel.Size = new System.Drawing.Size(55, 13);
+            this.newPatientPhoneLabel.Size = new System.Drawing.Size(69, 17);
             this.newPatientPhoneLabel.TabIndex = 4;
             this.newPatientPhoneLabel.Text = "Telefón*";
             // 
             // newPatientSurnameTextBox
             // 
-            this.newPatientSurnameTextBox.Location = new System.Drawing.Point(193, 21);
-            this.newPatientSurnameTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.newPatientSurnameTextBox.Location = new System.Drawing.Point(257, 26);
+            this.newPatientSurnameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.newPatientSurnameTextBox.Name = "newPatientSurnameTextBox";
-            this.newPatientSurnameTextBox.Size = new System.Drawing.Size(163, 20);
+            this.newPatientSurnameTextBox.Size = new System.Drawing.Size(216, 22);
             this.newPatientSurnameTextBox.TabIndex = 3;
             // 
             // newPatientSurnameLabel
             // 
             this.newPatientSurnameLabel.AutoSize = true;
             this.newPatientSurnameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newPatientSurnameLabel.Location = new System.Drawing.Point(190, 6);
-            this.newPatientSurnameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.newPatientSurnameLabel.Location = new System.Drawing.Point(253, 7);
             this.newPatientSurnameLabel.Name = "newPatientSurnameLabel";
-            this.newPatientSurnameLabel.Size = new System.Drawing.Size(70, 13);
+            this.newPatientSurnameLabel.Size = new System.Drawing.Size(88, 17);
             this.newPatientSurnameLabel.TabIndex = 2;
             this.newPatientSurnameLabel.Text = "Priezvisko*";
             // 
             // newPatientNameTextBox
             // 
-            this.newPatientNameTextBox.Location = new System.Drawing.Point(19, 21);
-            this.newPatientNameTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.newPatientNameTextBox.Location = new System.Drawing.Point(25, 26);
+            this.newPatientNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.newPatientNameTextBox.Name = "newPatientNameTextBox";
-            this.newPatientNameTextBox.Size = new System.Drawing.Size(163, 20);
+            this.newPatientNameTextBox.Size = new System.Drawing.Size(216, 22);
             this.newPatientNameTextBox.TabIndex = 1;
             // 
             // newPatientNameLabel
             // 
             this.newPatientNameLabel.AutoSize = true;
             this.newPatientNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newPatientNameLabel.Location = new System.Drawing.Point(17, 6);
-            this.newPatientNameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.newPatientNameLabel.Location = new System.Drawing.Point(23, 7);
             this.newPatientNameLabel.Name = "newPatientNameLabel";
-            this.newPatientNameLabel.Size = new System.Drawing.Size(43, 13);
+            this.newPatientNameLabel.Size = new System.Drawing.Size(53, 17);
             this.newPatientNameLabel.TabIndex = 0;
             this.newPatientNameLabel.Text = "Meno*";
             // 
@@ -302,10 +296,10 @@
             this.middlePanel.Controls.Add(this.eventStartLabel);
             this.middlePanel.Controls.Add(this.doctorsCheckBoxComboBox);
             this.middlePanel.Controls.Add(this.doctorsLabel);
-            this.middlePanel.Location = new System.Drawing.Point(2, 156);
-            this.middlePanel.Margin = new System.Windows.Forms.Padding(2);
+            this.middlePanel.Location = new System.Drawing.Point(3, 189);
+            this.middlePanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.middlePanel.Name = "middlePanel";
-            this.middlePanel.Size = new System.Drawing.Size(379, 377);
+            this.middlePanel.Size = new System.Drawing.Size(504, 463);
             this.middlePanel.TabIndex = 4;
             // 
             // doneActionsPanel
@@ -313,20 +307,19 @@
             this.doneActionsPanel.Controls.Add(this.doneActionTextBox);
             this.doneActionsPanel.Controls.Add(this.doneActionsLabel);
             this.doneActionsPanel.Controls.Add(this.addDoneActionButton);
-            this.doneActionsPanel.Location = new System.Drawing.Point(6, 281);
-            this.doneActionsPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.doneActionsPanel.Location = new System.Drawing.Point(8, 346);
+            this.doneActionsPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.doneActionsPanel.Name = "doneActionsPanel";
-            this.doneActionsPanel.Size = new System.Drawing.Size(369, 46);
+            this.doneActionsPanel.Size = new System.Drawing.Size(492, 57);
             this.doneActionsPanel.TabIndex = 34;
             // 
             // doneActionsLabel
             // 
             this.doneActionsLabel.AutoSize = true;
             this.doneActionsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.doneActionsLabel.Location = new System.Drawing.Point(-3, 5);
-            this.doneActionsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.doneActionsLabel.Location = new System.Drawing.Point(-4, 6);
             this.doneActionsLabel.Name = "doneActionsLabel";
-            this.doneActionsLabel.Size = new System.Drawing.Size(111, 13);
+            this.doneActionsLabel.Size = new System.Drawing.Size(139, 17);
             this.doneActionsLabel.TabIndex = 22;
             this.doneActionsLabel.Text = "Vykonané výkony:";
             // 
@@ -334,10 +327,9 @@
             // 
             this.durationInfoLabel.AutoSize = true;
             this.durationInfoLabel.ForeColor = System.Drawing.Color.Red;
-            this.durationInfoLabel.Location = new System.Drawing.Point(176, 68);
-            this.durationInfoLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.durationInfoLabel.Location = new System.Drawing.Point(235, 84);
             this.durationInfoLabel.Name = "durationInfoLabel";
-            this.durationInfoLabel.Size = new System.Drawing.Size(191, 13);
+            this.durationInfoLabel.Size = new System.Drawing.Size(251, 17);
             this.durationInfoLabel.TabIndex = 12;
             this.durationInfoLabel.Text = "Zadaná hodnota musí byť násobkom 5";
             // 
@@ -348,20 +340,21 @@
             this.doneActionsForTablePanel.Controls.Add(this.secondColumnLabel);
             this.doneActionsForTablePanel.Controls.Add(this.doneActionsTablePanel);
             this.doneActionsForTablePanel.Controls.Add(this.firstColumnLabel);
-            this.doneActionsForTablePanel.Location = new System.Drawing.Point(5, 322);
-            this.doneActionsForTablePanel.Margin = new System.Windows.Forms.Padding(2);
-            this.doneActionsForTablePanel.MaximumSize = new System.Drawing.Size(370, 107);
+            this.doneActionsForTablePanel.Location = new System.Drawing.Point(7, 396);
+            this.doneActionsForTablePanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.doneActionsForTablePanel.MaximumSize = new System.Drawing.Size(493, 132);
             this.doneActionsForTablePanel.Name = "doneActionsForTablePanel";
-            this.doneActionsForTablePanel.Size = new System.Drawing.Size(370, 53);
+            this.doneActionsForTablePanel.Size = new System.Drawing.Size(493, 65);
             this.doneActionsForTablePanel.TabIndex = 25;
             // 
             // secondColumnLabel
             // 
             this.secondColumnLabel.AutoSize = true;
             this.secondColumnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.secondColumnLabel.Location = new System.Drawing.Point(157, 8);
+            this.secondColumnLabel.Location = new System.Drawing.Point(209, 10);
+            this.secondColumnLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.secondColumnLabel.Name = "secondColumnLabel";
-            this.secondColumnLabel.Size = new System.Drawing.Size(45, 13);
+            this.secondColumnLabel.Size = new System.Drawing.Size(57, 17);
             this.secondColumnLabel.TabIndex = 26;
             this.secondColumnLabel.Text = "Výstup";
             // 
@@ -373,31 +366,32 @@
             this.doneActionsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.46729F));
             this.doneActionsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.53271F));
             this.doneActionsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.doneActionsTablePanel.Location = new System.Drawing.Point(0, 23);
-            this.doneActionsTablePanel.Margin = new System.Windows.Forms.Padding(2);
-            this.doneActionsTablePanel.MinimumSize = new System.Drawing.Size(350, 28);
+            this.doneActionsTablePanel.Location = new System.Drawing.Point(0, 28);
+            this.doneActionsTablePanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.doneActionsTablePanel.MinimumSize = new System.Drawing.Size(467, 34);
             this.doneActionsTablePanel.Name = "doneActionsTablePanel";
             this.doneActionsTablePanel.RowCount = 1;
             this.doneActionsTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.doneActionsTablePanel.Size = new System.Drawing.Size(350, 28);
+            this.doneActionsTablePanel.Size = new System.Drawing.Size(467, 34);
             this.doneActionsTablePanel.TabIndex = 27;
             // 
             // firstColumnLabel
             // 
             this.firstColumnLabel.AutoSize = true;
             this.firstColumnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.firstColumnLabel.Location = new System.Drawing.Point(3, 8);
+            this.firstColumnLabel.Location = new System.Drawing.Point(4, 10);
+            this.firstColumnLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.firstColumnLabel.Name = "firstColumnLabel";
-            this.firstColumnLabel.Size = new System.Drawing.Size(42, 13);
+            this.firstColumnLabel.Size = new System.Drawing.Size(52, 17);
             this.firstColumnLabel.TabIndex = 26;
             this.firstColumnLabel.Text = "Výkon";
             // 
             // planedTextTextBox
             // 
-            this.planedTextTextBox.Location = new System.Drawing.Point(6, 260);
-            this.planedTextTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.planedTextTextBox.Location = new System.Drawing.Point(8, 320);
+            this.planedTextTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.planedTextTextBox.Name = "planedTextTextBox";
-            this.planedTextTextBox.Size = new System.Drawing.Size(370, 20);
+            this.planedTextTextBox.Size = new System.Drawing.Size(492, 22);
             this.planedTextTextBox.TabIndex = 23;
             // 
             // plannedActionsComboBox
@@ -406,20 +400,19 @@
             this.plannedActionsComboBox.CheckBoxProperties = checkBoxProperties1;
             this.plannedActionsComboBox.DisplayMemberSingleItem = "";
             this.plannedActionsComboBox.FormattingEnabled = true;
-            this.plannedActionsComboBox.Location = new System.Drawing.Point(5, 222);
-            this.plannedActionsComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.plannedActionsComboBox.Location = new System.Drawing.Point(7, 273);
+            this.plannedActionsComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.plannedActionsComboBox.Name = "plannedActionsComboBox";
-            this.plannedActionsComboBox.Size = new System.Drawing.Size(369, 21);
+            this.plannedActionsComboBox.Size = new System.Drawing.Size(491, 24);
             this.plannedActionsComboBox.TabIndex = 19;
             // 
             // planedTextLabel
             // 
             this.planedTextLabel.AutoSize = true;
             this.planedTextLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.planedTextLabel.Location = new System.Drawing.Point(3, 245);
-            this.planedTextLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.planedTextLabel.Location = new System.Drawing.Point(4, 302);
             this.planedTextLabel.Name = "planedTextLabel";
-            this.planedTextLabel.Size = new System.Drawing.Size(96, 13);
+            this.planedTextLabel.Size = new System.Drawing.Size(120, 17);
             this.planedTextLabel.TabIndex = 22;
             this.planedTextLabel.Text = "Plánované text:";
             // 
@@ -427,10 +420,9 @@
             // 
             this.planedActionsLabel.AutoSize = true;
             this.planedActionsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.planedActionsLabel.Location = new System.Drawing.Point(2, 207);
-            this.planedActionsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.planedActionsLabel.Location = new System.Drawing.Point(3, 255);
             this.planedActionsLabel.Name = "planedActionsLabel";
-            this.planedActionsLabel.Size = new System.Drawing.Size(115, 13);
+            this.planedActionsLabel.Size = new System.Drawing.Size(144, 17);
             this.planedActionsLabel.TabIndex = 18;
             this.planedActionsLabel.Text = "Plánované výkony:";
             // 
@@ -438,10 +430,9 @@
             // 
             this.eventNoteLabel.AutoSize = true;
             this.eventNoteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.eventNoteLabel.Location = new System.Drawing.Point(2, 141);
-            this.eventNoteLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.eventNoteLabel.Location = new System.Drawing.Point(3, 174);
             this.eventNoteLabel.Name = "eventNoteLabel";
-            this.eventNoteLabel.Size = new System.Drawing.Size(143, 13);
+            this.eventNoteLabel.Size = new System.Drawing.Size(179, 17);
             this.eventNoteLabel.TabIndex = 16;
             this.eventNoteLabel.Text = "Poznámka ku návšteve:";
             // 
@@ -449,10 +440,9 @@
             // 
             this.emailsLabel.AutoSize = true;
             this.emailsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.emailsLabel.Location = new System.Drawing.Point(2, 75);
-            this.emailsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.emailsLabel.Location = new System.Drawing.Point(3, 92);
             this.emailsLabel.Name = "emailsLabel";
-            this.emailsLabel.Size = new System.Drawing.Size(227, 13);
+            this.emailsLabel.Size = new System.Drawing.Size(288, 17);
             this.emailsLabel.TabIndex = 13;
             this.emailsLabel.Text = "Notifikačné emaily (oddeľujte čiarkou):";
             // 
@@ -460,10 +450,9 @@
             // 
             this.fastDurationLabel.AutoSize = true;
             this.fastDurationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fastDurationLabel.Location = new System.Drawing.Point(258, 29);
-            this.fastDurationLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.fastDurationLabel.Location = new System.Drawing.Point(344, 36);
             this.fastDurationLabel.Name = "fastDurationLabel";
-            this.fastDurationLabel.Size = new System.Drawing.Size(116, 13);
+            this.fastDurationLabel.Size = new System.Drawing.Size(146, 17);
             this.fastDurationLabel.TabIndex = 7;
             this.fastDurationLabel.Text = "Rýchle nastavenie:";
             // 
@@ -471,20 +460,19 @@
             // 
             this.eventDurationLabel.AutoSize = true;
             this.eventDurationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.eventDurationLabel.Location = new System.Drawing.Point(162, 29);
-            this.eventDurationLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.eventDurationLabel.Location = new System.Drawing.Point(216, 36);
             this.eventDurationLabel.Name = "eventDurationLabel";
-            this.eventDurationLabel.Size = new System.Drawing.Size(59, 13);
+            this.eventDurationLabel.Size = new System.Drawing.Size(74, 17);
             this.eventDurationLabel.TabIndex = 4;
             this.eventDurationLabel.Text = "Trvanie*:";
             // 
             // eventStartTextBox
             // 
-            this.eventStartTextBox.Location = new System.Drawing.Point(5, 47);
-            this.eventStartTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.eventStartTextBox.Location = new System.Drawing.Point(7, 58);
+            this.eventStartTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.eventStartTextBox.Name = "eventStartTextBox";
             this.eventStartTextBox.ReadOnly = true;
-            this.eventStartTextBox.Size = new System.Drawing.Size(157, 20);
+            this.eventStartTextBox.Size = new System.Drawing.Size(208, 22);
             this.eventStartTextBox.TabIndex = 3;
             this.eventStartTextBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.eventStartTextBox_MouseClick);
             // 
@@ -492,10 +480,9 @@
             // 
             this.eventStartLabel.AutoSize = true;
             this.eventStartLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.eventStartLabel.Location = new System.Drawing.Point(3, 29);
-            this.eventStartLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.eventStartLabel.Location = new System.Drawing.Point(4, 36);
             this.eventStartLabel.Name = "eventStartLabel";
-            this.eventStartLabel.Size = new System.Drawing.Size(66, 13);
+            this.eventStartLabel.Size = new System.Drawing.Size(81, 17);
             this.eventStartLabel.TabIndex = 2;
             this.eventStartLabel.Text = "Začiatok*:";
             // 
@@ -510,10 +497,10 @@
             this.doctorsCheckBoxComboBox.CheckBoxProperties = checkBoxProperties2;
             this.doctorsCheckBoxComboBox.DisplayMemberSingleItem = "";
             this.doctorsCheckBoxComboBox.FormattingEnabled = true;
-            this.doctorsCheckBoxComboBox.Location = new System.Drawing.Point(62, 4);
-            this.doctorsCheckBoxComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.doctorsCheckBoxComboBox.Location = new System.Drawing.Point(83, 5);
+            this.doctorsCheckBoxComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.doctorsCheckBoxComboBox.Name = "doctorsCheckBoxComboBox";
-            this.doctorsCheckBoxComboBox.Size = new System.Drawing.Size(312, 21);
+            this.doctorsCheckBoxComboBox.Size = new System.Drawing.Size(415, 24);
             this.doctorsCheckBoxComboBox.Sorted = true;
             this.doctorsCheckBoxComboBox.TabIndex = 1;
             // 
@@ -521,10 +508,9 @@
             // 
             this.doctorsLabel.AutoSize = true;
             this.doctorsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.doctorsLabel.Location = new System.Drawing.Point(2, 7);
-            this.doctorsLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.doctorsLabel.Location = new System.Drawing.Point(3, 9);
             this.doctorsLabel.Name = "doctorsLabel";
-            this.doctorsLabel.Size = new System.Drawing.Size(49, 13);
+            this.doctorsLabel.Size = new System.Drawing.Size(61, 17);
             this.doctorsLabel.TabIndex = 0;
             this.doctorsLabel.Text = "Doktor:";
             // 
@@ -534,30 +520,30 @@
             this.plannedTextPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.plannedTextPanel.Controls.Add(this.doneTextLabel);
             this.plannedTextPanel.Controls.Add(this.doneTextTextBox);
-            this.plannedTextPanel.Location = new System.Drawing.Point(2, 537);
-            this.plannedTextPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.plannedTextPanel.Location = new System.Drawing.Point(3, 656);
+            this.plannedTextPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.plannedTextPanel.Name = "plannedTextPanel";
-            this.plannedTextPanel.Size = new System.Drawing.Size(377, 37);
+            this.plannedTextPanel.Size = new System.Drawing.Size(502, 42);
             this.plannedTextPanel.TabIndex = 26;
             // 
             // doneTextLabel
             // 
             this.doneTextLabel.AutoSize = true;
             this.doneTextLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.doneTextLabel.Location = new System.Drawing.Point(3, 0);
-            this.doneTextLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.doneTextLabel.Location = new System.Drawing.Point(4, 0);
             this.doneTextLabel.Name = "doneTextLabel";
-            this.doneTextLabel.Size = new System.Drawing.Size(92, 13);
+            this.doneTextLabel.Size = new System.Drawing.Size(115, 17);
             this.doneTextLabel.TabIndex = 24;
             this.doneTextLabel.Text = "Vykonané text:";
             // 
             // doneTextTextBox
             // 
-            this.doneTextTextBox.Location = new System.Drawing.Point(5, 15);
-            this.doneTextTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.doneTextTextBox.Location = new System.Drawing.Point(7, 18);
+            this.doneTextTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.doneTextTextBox.Name = "doneTextTextBox";
-            this.doneTextTextBox.Size = new System.Drawing.Size(370, 20);
+            this.doneTextTextBox.Size = new System.Drawing.Size(492, 22);
             this.doneTextTextBox.TabIndex = 25;
+            this.doneTextTextBox.TextChanged += new System.EventHandler(this.doneTextTextBox_TextChanged);
             // 
             // statePanel
             // 
@@ -565,28 +551,29 @@
             this.statePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.statePanel.Controls.Add(this.eventStateComboBox);
             this.statePanel.Controls.Add(this.stateLabel);
-            this.statePanel.Location = new System.Drawing.Point(3, 579);
+            this.statePanel.Location = new System.Drawing.Point(4, 704);
+            this.statePanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.statePanel.Name = "statePanel";
-            this.statePanel.Size = new System.Drawing.Size(378, 27);
+            this.statePanel.Size = new System.Drawing.Size(502, 32);
             this.statePanel.TabIndex = 27;
             // 
             // eventStateComboBox
             // 
             this.eventStateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.eventStateComboBox.FormattingEnabled = true;
-            this.eventStateComboBox.Location = new System.Drawing.Point(181, 3);
+            this.eventStateComboBox.Location = new System.Drawing.Point(241, 4);
+            this.eventStateComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.eventStateComboBox.Name = "eventStateComboBox";
-            this.eventStateComboBox.Size = new System.Drawing.Size(194, 21);
+            this.eventStateComboBox.Size = new System.Drawing.Size(257, 24);
             this.eventStateComboBox.TabIndex = 27;
             // 
             // stateLabel
             // 
             this.stateLabel.AutoSize = true;
             this.stateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stateLabel.Location = new System.Drawing.Point(5, 6);
-            this.stateLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.stateLabel.Location = new System.Drawing.Point(7, 7);
             this.stateLabel.Name = "stateLabel";
-            this.stateLabel.Size = new System.Drawing.Size(37, 13);
+            this.stateLabel.Size = new System.Drawing.Size(45, 17);
             this.stateLabel.TabIndex = 26;
             this.stateLabel.Text = "Stav:";
             // 
@@ -594,10 +581,10 @@
             // 
             this.newEventButtonsPanel.Controls.Add(this.createEventButton);
             this.newEventButtonsPanel.Controls.Add(this.resetEventButton);
-            this.newEventButtonsPanel.Location = new System.Drawing.Point(2, 611);
-            this.newEventButtonsPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.newEventButtonsPanel.Location = new System.Drawing.Point(3, 742);
+            this.newEventButtonsPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.newEventButtonsPanel.Name = "newEventButtonsPanel";
-            this.newEventButtonsPanel.Size = new System.Drawing.Size(383, 31);
+            this.newEventButtonsPanel.Size = new System.Drawing.Size(511, 38);
             this.newEventButtonsPanel.TabIndex = 28;
             // 
             // updateEventPanel
@@ -605,17 +592,17 @@
             this.updateEventPanel.Controls.Add(this.reorderButton);
             this.updateEventPanel.Controls.Add(this.saveEventButton);
             this.updateEventPanel.Controls.Add(this.deleteEventButton);
-            this.updateEventPanel.Location = new System.Drawing.Point(2, 646);
-            this.updateEventPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.updateEventPanel.Location = new System.Drawing.Point(3, 784);
+            this.updateEventPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.updateEventPanel.Name = "updateEventPanel";
-            this.updateEventPanel.Size = new System.Drawing.Size(383, 31);
+            this.updateEventPanel.Size = new System.Drawing.Size(511, 38);
             this.updateEventPanel.TabIndex = 29;
             // 
             // panel1
             // 
             this.panel1.AutoSize = true;
-            this.panel1.Location = new System.Drawing.Point(2, 681);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Location = new System.Drawing.Point(3, 826);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(0, 0);
             this.panel1.TabIndex = 31;
@@ -631,10 +618,11 @@
             this.newVisitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.newVisitButton.ForeColor = System.Drawing.Color.White;
             this.newVisitButton.Location = new System.Drawing.Point(0, 0);
+            this.newVisitButton.Margin = new System.Windows.Forms.Padding(4);
             this.newVisitButton.Name = "newVisitButton";
             this.newVisitButton.Radius = 5;
             this.newVisitButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.newVisitButton.Size = new System.Drawing.Size(376, 34);
+            this.newVisitButton.Size = new System.Drawing.Size(501, 42);
             this.newVisitButton.TabIndex = 2;
             this.newVisitButton.Text = "Nová návšteva";
             this.newVisitButton.UseVisualStyleBackColor = false;
@@ -642,9 +630,10 @@
             // 
             // patientNameTextBox
             // 
-            this.patientNameTextBox.Location = new System.Drawing.Point(66, 0);
+            this.patientNameTextBox.Location = new System.Drawing.Point(88, 0);
+            this.patientNameTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.patientNameTextBox.Name = "patientNameTextBox";
-            this.patientNameTextBox.Size = new System.Drawing.Size(199, 20);
+            this.patientNameTextBox.Size = new System.Drawing.Size(264, 22);
             this.patientNameTextBox.TabIndex = 32;
             this.patientNameTextBox.Values = null;
             this.patientNameTextBox.TextChanged += new System.EventHandler(this.patientNameTextBox_TextChanged);
@@ -652,10 +641,10 @@
             // doneActionTextBox
             // 
             this.doneActionTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.doneActionTextBox.Location = new System.Drawing.Point(2, 19);
-            this.doneActionTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.doneActionTextBox.Location = new System.Drawing.Point(3, 23);
+            this.doneActionTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.doneActionTextBox.Name = "doneActionTextBox";
-            this.doneActionTextBox.Size = new System.Drawing.Size(321, 20);
+            this.doneActionTextBox.Size = new System.Drawing.Size(427, 22);
             this.doneActionTextBox.TabIndex = 30;
             this.doneActionTextBox.Values = null;
             // 
@@ -668,12 +657,12 @@
             this.addDoneActionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addDoneActionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.addDoneActionButton.ForeColor = System.Drawing.Color.White;
-            this.addDoneActionButton.Location = new System.Drawing.Point(326, 17);
-            this.addDoneActionButton.Margin = new System.Windows.Forms.Padding(2);
+            this.addDoneActionButton.Location = new System.Drawing.Point(435, 21);
+            this.addDoneActionButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addDoneActionButton.Name = "addDoneActionButton";
             this.addDoneActionButton.Radius = 5;
             this.addDoneActionButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.addDoneActionButton.Size = new System.Drawing.Size(43, 22);
+            this.addDoneActionButton.Size = new System.Drawing.Size(57, 27);
             this.addDoneActionButton.TabIndex = 31;
             this.addDoneActionButton.Text = "✓";
             this.addDoneActionButton.UseVisualStyleBackColor = false;
@@ -687,15 +676,15 @@
             0,
             0});
             this.durationNumericUpDown.LabelText = "minút";
-            this.durationNumericUpDown.Location = new System.Drawing.Point(165, 47);
-            this.durationNumericUpDown.Margin = new System.Windows.Forms.Padding(2);
+            this.durationNumericUpDown.Location = new System.Drawing.Point(220, 58);
+            this.durationNumericUpDown.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.durationNumericUpDown.Maximum = new decimal(new int[] {
             1440,
             0,
             0,
             0});
             this.durationNumericUpDown.Name = "durationNumericUpDown";
-            this.durationNumericUpDown.Size = new System.Drawing.Size(94, 20);
+            this.durationNumericUpDown.Size = new System.Drawing.Size(125, 22);
             this.durationNumericUpDown.TabIndex = 33;
             this.durationNumericUpDown.ValueChanged += new System.EventHandler(this.durationNumericUpDown_ValueChanged);
             // 
@@ -708,12 +697,12 @@
             this.duration90Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.duration90Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.duration90Button.ForeColor = System.Drawing.Color.White;
-            this.duration90Button.Location = new System.Drawing.Point(341, 44);
-            this.duration90Button.Margin = new System.Windows.Forms.Padding(2);
+            this.duration90Button.Location = new System.Drawing.Point(455, 54);
+            this.duration90Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.duration90Button.Name = "duration90Button";
             this.duration90Button.Radius = 5;
             this.duration90Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.duration90Button.Size = new System.Drawing.Size(33, 22);
+            this.duration90Button.Size = new System.Drawing.Size(44, 27);
             this.duration90Button.TabIndex = 30;
             this.duration90Button.Text = "90";
             this.duration90Button.UseVisualStyleBackColor = false;
@@ -728,12 +717,12 @@
             this.duration60Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.duration60Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.duration60Button.ForeColor = System.Drawing.Color.White;
-            this.duration60Button.Location = new System.Drawing.Point(315, 44);
-            this.duration60Button.Margin = new System.Windows.Forms.Padding(2);
+            this.duration60Button.Location = new System.Drawing.Point(420, 54);
+            this.duration60Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.duration60Button.Name = "duration60Button";
             this.duration60Button.Radius = 5;
             this.duration60Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.duration60Button.Size = new System.Drawing.Size(33, 22);
+            this.duration60Button.Size = new System.Drawing.Size(44, 27);
             this.duration60Button.TabIndex = 29;
             this.duration60Button.Text = "60";
             this.duration60Button.UseVisualStyleBackColor = false;
@@ -748,12 +737,12 @@
             this.duration30Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.duration30Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.duration30Button.ForeColor = System.Drawing.Color.White;
-            this.duration30Button.Location = new System.Drawing.Point(289, 44);
-            this.duration30Button.Margin = new System.Windows.Forms.Padding(2);
+            this.duration30Button.Location = new System.Drawing.Point(385, 54);
+            this.duration30Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.duration30Button.Name = "duration30Button";
             this.duration30Button.Radius = 5;
             this.duration30Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.duration30Button.Size = new System.Drawing.Size(33, 22);
+            this.duration30Button.Size = new System.Drawing.Size(44, 27);
             this.duration30Button.TabIndex = 28;
             this.duration30Button.Text = "30";
             this.duration30Button.UseVisualStyleBackColor = false;
@@ -768,12 +757,12 @@
             this.duration15Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.duration15Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.duration15Button.ForeColor = System.Drawing.Color.White;
-            this.duration15Button.Location = new System.Drawing.Point(263, 44);
-            this.duration15Button.Margin = new System.Windows.Forms.Padding(2);
+            this.duration15Button.Location = new System.Drawing.Point(351, 54);
+            this.duration15Button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.duration15Button.Name = "duration15Button";
             this.duration15Button.Radius = 5;
             this.duration15Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.duration15Button.Size = new System.Drawing.Size(33, 22);
+            this.duration15Button.Size = new System.Drawing.Size(44, 27);
             this.duration15Button.TabIndex = 27;
             this.duration15Button.Text = "15";
             this.duration15Button.UseVisualStyleBackColor = false;
@@ -782,19 +771,19 @@
             // eventNoteRichTextBox
             // 
             this.eventNoteRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.eventNoteRichTextBox.Location = new System.Drawing.Point(6, 157);
-            this.eventNoteRichTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.eventNoteRichTextBox.Location = new System.Drawing.Point(8, 193);
+            this.eventNoteRichTextBox.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.eventNoteRichTextBox.Name = "eventNoteRichTextBox";
-            this.eventNoteRichTextBox.Size = new System.Drawing.Size(369, 47);
+            this.eventNoteRichTextBox.Size = new System.Drawing.Size(491, 57);
             this.eventNoteRichTextBox.TabIndex = 26;
             // 
             // emailsRichTextBox
             // 
             this.emailsRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.emailsRichTextBox.Location = new System.Drawing.Point(5, 91);
-            this.emailsRichTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.emailsRichTextBox.Location = new System.Drawing.Point(7, 112);
+            this.emailsRichTextBox.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.emailsRichTextBox.Name = "emailsRichTextBox";
-            this.emailsRichTextBox.Size = new System.Drawing.Size(369, 47);
+            this.emailsRichTextBox.Size = new System.Drawing.Size(491, 57);
             this.emailsRichTextBox.TabIndex = 26;
             // 
             // createEventButton
@@ -806,12 +795,12 @@
             this.createEventButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createEventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.createEventButton.ForeColor = System.Drawing.Color.White;
-            this.createEventButton.Location = new System.Drawing.Point(233, 2);
-            this.createEventButton.Margin = new System.Windows.Forms.Padding(2);
+            this.createEventButton.Location = new System.Drawing.Point(311, 2);
+            this.createEventButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.createEventButton.Name = "createEventButton";
             this.createEventButton.Radius = 5;
             this.createEventButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatGreen;
-            this.createEventButton.Size = new System.Drawing.Size(143, 27);
+            this.createEventButton.Size = new System.Drawing.Size(191, 33);
             this.createEventButton.TabIndex = 1;
             this.createEventButton.Text = "+ Vytvoriť návštevu";
             this.createEventButton.UseVisualStyleBackColor = false;
@@ -826,12 +815,12 @@
             this.resetEventButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetEventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.resetEventButton.ForeColor = System.Drawing.Color.White;
-            this.resetEventButton.Location = new System.Drawing.Point(5, 2);
-            this.resetEventButton.Margin = new System.Windows.Forms.Padding(2);
+            this.resetEventButton.Location = new System.Drawing.Point(7, 2);
+            this.resetEventButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.resetEventButton.Name = "resetEventButton";
             this.resetEventButton.Radius = 5;
             this.resetEventButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatRed;
-            this.resetEventButton.Size = new System.Drawing.Size(50, 27);
+            this.resetEventButton.Size = new System.Drawing.Size(67, 33);
             this.resetEventButton.TabIndex = 0;
             this.resetEventButton.Text = "Reset";
             this.resetEventButton.UseVisualStyleBackColor = false;
@@ -846,12 +835,12 @@
             this.reorderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.reorderButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.reorderButton.ForeColor = System.Drawing.Color.White;
-            this.reorderButton.Location = new System.Drawing.Point(176, 2);
-            this.reorderButton.Margin = new System.Windows.Forms.Padding(2);
+            this.reorderButton.Location = new System.Drawing.Point(235, 2);
+            this.reorderButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reorderButton.Name = "reorderButton";
             this.reorderButton.Radius = 5;
             this.reorderButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.reorderButton.Size = new System.Drawing.Size(121, 27);
+            this.reorderButton.Size = new System.Drawing.Size(161, 33);
             this.reorderButton.TabIndex = 2;
             this.reorderButton.Text = "Znovu objednať";
             this.reorderButton.UseVisualStyleBackColor = false;
@@ -865,12 +854,12 @@
             this.saveEventButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveEventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.saveEventButton.ForeColor = System.Drawing.Color.White;
-            this.saveEventButton.Location = new System.Drawing.Point(301, 2);
-            this.saveEventButton.Margin = new System.Windows.Forms.Padding(2);
+            this.saveEventButton.Location = new System.Drawing.Point(401, 2);
+            this.saveEventButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.saveEventButton.Name = "saveEventButton";
             this.saveEventButton.Radius = 5;
             this.saveEventButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatGreen;
-            this.saveEventButton.Size = new System.Drawing.Size(77, 27);
+            this.saveEventButton.Size = new System.Drawing.Size(103, 33);
             this.saveEventButton.TabIndex = 1;
             this.saveEventButton.Text = "Uložiť";
             this.saveEventButton.UseVisualStyleBackColor = false;
@@ -885,12 +874,12 @@
             this.deleteEventButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteEventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.deleteEventButton.ForeColor = System.Drawing.Color.White;
-            this.deleteEventButton.Location = new System.Drawing.Point(5, 2);
-            this.deleteEventButton.Margin = new System.Windows.Forms.Padding(2);
+            this.deleteEventButton.Location = new System.Drawing.Point(7, 2);
+            this.deleteEventButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.deleteEventButton.Name = "deleteEventButton";
             this.deleteEventButton.Radius = 5;
             this.deleteEventButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatRed;
-            this.deleteEventButton.Size = new System.Drawing.Size(74, 27);
+            this.deleteEventButton.Size = new System.Drawing.Size(99, 33);
             this.deleteEventButton.TabIndex = 0;
             this.deleteEventButton.Text = "Zmazať";
             this.deleteEventButton.UseVisualStyleBackColor = false;
@@ -898,13 +887,13 @@
             // 
             // VisitUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.mainFlowLayoutPanel);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "VisitUserControl";
-            this.Size = new System.Drawing.Size(389, 800);
+            this.Size = new System.Drawing.Size(519, 985);
             this.Load += new System.EventHandler(this.VisitUserControl_Load);
             this.mainFlowLayoutPanel.ResumeLayout(false);
             this.mainFlowLayoutPanel.PerformLayout();

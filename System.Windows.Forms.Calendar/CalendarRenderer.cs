@@ -1621,7 +1621,7 @@ namespace System.Windows.Forms.Calendar
             Rectangle r = e.Item.Bounds;
             if (e.Item.Selected)
             {
-                var size = e.Graphics.MeasureString(e.Item.Text, e.Item.Calendar.Font, r.Width, StringFormat.GenericTypographic);
+                var size = e.Graphics.MeasureString(e.Item.TextWithDescription, e.Item.Calendar.Font, r.Width, StringFormat.GenericTypographic);
                 if(size.Height > r.Height)
                     r.Height = (int)Math.Ceiling(size.Height) + 5;
             }
@@ -1727,7 +1727,7 @@ namespace System.Windows.Forms.Calendar
                     r.Height = e.Bounds.Height;
                 }
 
-                CalendarRendererBoxEventArgs evt = new CalendarRendererBoxEventArgs(e, r, e.Item.Text, TextFormatFlags.Left | TextFormatFlags.Top);
+                CalendarRendererBoxEventArgs evt = new CalendarRendererBoxEventArgs(e, r, e.Item.TextWithDescription, TextFormatFlags.Left | TextFormatFlags.Top);
 
                 if (e.Item.ShowStartTime || e.Item.ShowEndTime) 
                     evt.Font = new Font(evt.Font, FontStyle.Bold);

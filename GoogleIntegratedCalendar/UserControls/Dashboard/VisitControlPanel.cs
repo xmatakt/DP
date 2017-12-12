@@ -181,7 +181,11 @@ namespace EZKO.UserControls.Dashboard
             }
             set { doneTextTextBox.Text = value; }
         }
-        private EventState eventState { get { return eventStateComboBox.SelectedItem as EventState; } }
+        private EventState eventState
+        {
+            get { return eventStateComboBox.SelectedItem as EventState; }
+            set { eventStateComboBox.SelectedItem = value; }
+        }
         #endregion
 
         public VisitUserControl()
@@ -395,8 +399,14 @@ namespace EZKO.UserControls.Dashboard
                     plannedActionsComboBox.CheckBoxItems[item.ToString()].Checked = true;
 
                 doneActionsTablePanel.Controls.Clear();
-                foreach (var item in calendarEvent.CalendarEventExecutedActions)
-                    AddAction(item.Action, item.ExecutedActionNote.Note);
+                doneActionsTablePanel.RowCount = 0;
+                
+
+                if(calendarEvent.CalendarEventExecutedActions != null)
+                {
+                    foreach (var item in calendarEvent.CalendarEventExecutedActions)
+                        AddAction(item.Action, item.ExecutedActionNote.Note);
+                }
 
                 eventStateComboBox.SelectedItem = calendarEvent.EventState;
             }
@@ -702,6 +712,12 @@ namespace EZKO.UserControls.Dashboard
                 BasicMessagesHandler.ShowErrorMessage("Návštevu sa nepodarilo upraviť");
         }
 
+        private void UpdateEventState()
+        {
+            if (doneActionsTablePanel.RowCount > 0 || doneText != null)
+                eventState = ezkoController.GetEventState(EventStateEnum.Done);
+        }
+
         private void DeleteEvent()
         {
             if (ezkoController.DeleteEvent(calendarEvent))
@@ -712,7 +728,6 @@ namespace EZKO.UserControls.Dashboard
             else
                 BasicMessagesHandler.ShowErrorMessage("Návštevu sa nepodarilo odstrániť");
         }
-
         #endregion
 
         #region UI events
@@ -793,6 +808,7 @@ namespace EZKO.UserControls.Dashboard
         private void addDoneActionButton_Click(object sender, EventArgs e)
         {
             AddAction();
+            UpdateEventState();
         }
 
         private void createEventButton_Click(object sender, EventArgs e)
@@ -865,6 +881,11 @@ namespace EZKO.UserControls.Dashboard
         private void patientNameTextBox_TextChanged(object sender, EventArgs e)
         {
             InitializeEmailsRichTextBox();
+        }
+
+        private void doneTextTextBox_TextChanged(object sender, EventArgs e)
+        {
+            UpdateEventState();
         }
         #endregion
     }

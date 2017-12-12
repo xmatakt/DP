@@ -654,6 +654,7 @@ namespace DatabaseCommunicator.Controllers
 
             try
             {
+                calendarEvent.ColorID = db.CalendarEventColors.First(x => x.EventStateID == eventState.ID).ID;
                 calendarEvent.Users = doctors;
                 calendarEvent.StartDate = startDate;
                 calendarEvent.EndDate = GetEventEndDate(startDate, eventDuration);
@@ -821,6 +822,23 @@ namespace DatabaseCommunicator.Controllers
             // Free any unmanaged objects here.
 
             disposed = true;
+        }
+
+        public EventState GetEventState(EventStateEnum state)
+        {
+            EventState result = null;
+
+            try
+            {
+                result = db.EventStates.FirstOrDefault(x => x.ID == (int)state);
+            }
+            catch (Exception e)
+            {
+                result = null;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
         }
         #endregion
     }
