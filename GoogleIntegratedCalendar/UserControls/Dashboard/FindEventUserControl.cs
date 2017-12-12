@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using EZKO.Controllers;
+using DatabaseCommunicator.Controllers;
+using System.Linq;
+using DatabaseCommunicator.Model;
 
 namespace EZKO.UserControls.Dashboard
 {
@@ -9,9 +12,24 @@ namespace EZKO.UserControls.Dashboard
     /// </summary>
     public partial class FindEventUserControl : UserControl
     {
+        private EzkoController ezkoController;
+        private VisitUserControl visitUserControl;
+        private CalendarEvent calendarEvent { get { return searchInEventsTextBox.Tag as CalendarEvent; } }
         public FindEventUserControl()
         {
             InitializeComponent();
+        }
+
+        #region Public methods
+        public void SetEzkoController(EzkoController ezkoController)
+        {
+            this.ezkoController = ezkoController;
+            InitializeSearchInEventsTextBox();
+        }
+
+        public void SetVisitUserControl(VisitUserControl visitUserControl)
+        {
+            this.visitUserControl = visitUserControl;
         }
 
         /// <summary>
@@ -36,7 +54,16 @@ namespace EZKO.UserControls.Dashboard
         {
             pickedDateTimeLabel.Text = date.ToString("dddd d.MMMM yyyy");
         }
-        
+        #endregion
+
+        #region Private methods
+        private void InitializeSearchInEventsTextBox()
+        {
+            searchInEventsTextBox.Values = ezkoController.GetEvents().ToArray();
+        }
+        #endregion
+
+        #region UI events
         /// <summary>
         /// Loads the texts for for this UserControl based on current language of the application
         /// </summary>
@@ -46,5 +73,12 @@ namespace EZKO.UserControls.Dashboard
             if (GlobalSettings.User != null)
                 doctorScheduleLabel.Text += " " + GlobalSettings.User;
         }
+
+        private void searchInEventsTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (calendarEvent != null && visitUserControl != null)
+                visitUserControl.LoadEvent(calendarEvent);
+        }
+        #endregion
     }
 }

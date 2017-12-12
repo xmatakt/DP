@@ -630,6 +630,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        public IQueryable<CalendarEvent> GetEvents()
+        {
+            return db.CalendarEvents.Where(x => !x.IsDeleted);
+        }
         public CalendarEvent GetEvent(int calendarEventID)
         {
             CalendarEvent result = null;

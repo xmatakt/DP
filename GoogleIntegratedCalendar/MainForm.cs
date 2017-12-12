@@ -46,6 +46,9 @@ namespace EZKO
             {
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+
+                var workingArea = Screen.FromHandle(Handle).WorkingArea;
+                MaximizedBounds = new Rectangle(-8, -8, workingArea.Width + 16, workingArea.Height + 16);
             }
         }
         #endregion
@@ -223,6 +226,7 @@ namespace EZKO
                     {
                         mainPanel.Controls.Add(dashboardPanel);
                         dashboardPanel.Dock = DockStyle.Fill;
+                        dashboardPanel.UpdateControl();
                     }
                     break;
                 case PanelLoadingEnum.LoadingAmbulantionPanel:
@@ -298,6 +302,12 @@ namespace EZKO
             ambulantionMenuItem.MenuItemText = LanguageController.GetText(StringKeys.Ambulantion);
             patientsMenuItem.MenuItemText = LanguageController.GetText(StringKeys.Patients);
             administrationMenuItem.MenuItemText = LanguageController.GetText(StringKeys.Administration);
+        }
+
+        private void MainForm_LocationChanged(object sender, EventArgs e)
+        {
+            var workingArea = Screen.FromHandle(Handle).WorkingArea;
+            MaximizedBounds = new Rectangle(-8, -8, workingArea.Width + 16, workingArea.Height + 16);
         }
     }
 }

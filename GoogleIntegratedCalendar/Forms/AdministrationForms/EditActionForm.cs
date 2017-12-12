@@ -1,6 +1,7 @@
 ﻿using DatabaseCommunicator.Controllers;
 using DatabaseCommunicator.Model;
 using ExceptionHandler;
+using EZKO.Classes;
 using EZKO.Enums;
 using System;
 using System.ComponentModel;
@@ -214,7 +215,10 @@ namespace EZKO.Forms.AdministrationForms
                  if(ezkoController.CreateAction(actionName, shortcut, longName,
                         material, recommendedLength, costs, margin, insuranceCompanyMargin,
                         insuranceCompany, field, hasSpecification))
+                    {
                         BasicMessagesHandler.ShowInformationMessage("Výkon bol úspešne vytvorený");
+                        ChangesHolder.ActionsChanged = true;
+                    }
                     else
                         BasicMessagesHandler.ShowErrorMessage("Počas vytvárania výkonu sa vyskytla chyba");
                 }
@@ -238,6 +242,7 @@ namespace EZKO.Forms.AdministrationForms
                 if (ValidateData())
                 {
 
+                    ChangesHolder.ActionsChanged = true;
                 }
                 else
                     DialogResult = DialogResult.None;

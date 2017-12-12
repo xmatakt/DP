@@ -10,6 +10,7 @@ using EZKO.Enums;
 using DatabaseCommunicator.Model;
 using System.Collections.Generic;
 using DatabaseCommunicator.Enums;
+using EZKO.Classes;
 
 namespace EZKO.UserControls.Dashboard
 {
@@ -233,9 +234,35 @@ namespace EZKO.UserControls.Dashboard
             SetControlWorkingType(WorkingTypeEnum.Editing);
         }
 
+        public void LoadEvent(CalendarEvent calEvent)
+        {
+            LoadEventDetails(calEvent);
+            SetControlWorkingType(WorkingTypeEnum.Editing);
+        }
+
         public void SetMaximumHeight(int height)
         {
             mainFlowLayoutPanel.MaximumSize = new Size(0, height);
+        }
+
+        public void UpdateControl()
+        {
+            if (ChangesHolder.PatientsChanged)
+            {
+                InitializePatientNameTextBox();
+                ChangesHolder.PatientsChanged = false;
+            }
+            if (ChangesHolder.DoctorsChanged)
+            {
+                InitializeDoctorsComboBox();
+                ChangesHolder.DoctorsChanged = false;
+            }
+            if (ChangesHolder.ActionsChanged)
+            {
+                InitializePlannedActionsComboBox();
+                InitializeDoneActionsTextBox();
+                ChangesHolder.ActionsChanged = false;
+            }
         }
         #endregion
 
@@ -262,6 +289,7 @@ namespace EZKO.UserControls.Dashboard
 
         private void InitializeDoctorsComboBox()
         {
+            doctorsCheckBoxComboBox.Items.Clear();
             var doctors = ezkoController.GetDoctors();
             foreach (var doctor in doctors)
             {
@@ -278,6 +306,7 @@ namespace EZKO.UserControls.Dashboard
 
         private void InitializePlannedActionsComboBox()
         {
+            plannedActionsComboBox.Items.Clear();
             var actions = ezkoController.GetActions();
             foreach (var action in actions)
                 plannedActionsComboBox.Items.Add(action);
@@ -377,7 +406,31 @@ namespace EZKO.UserControls.Dashboard
             try
             {
                 calendarEvent = ezkoController.GetEvent(calendarEventID);
+                LoadEventDetails();
+            }
+            catch(Exception e)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Návštevu nepodarilo sa načítať", e);
+            }
+        }
 
+        private void LoadEventDetails(CalendarEvent calendarEvent)
+        {
+            try
+            {
+                this.calendarEvent = calendarEvent;
+                LoadEventDetails();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Návštevu nepodarilo sa načítať", e);
+            }
+        }
+
+        private void LoadEventDetails()
+        {
+            try
+            {
                 patientName = calendarEvent.Patient.FullName;
                 patientNameTextBox.Tag = calendarEvent.Patient;
                 eventStartDateTime = calendarEvent.StartDate;
@@ -400,9 +453,9 @@ namespace EZKO.UserControls.Dashboard
 
                 doneActionsTablePanel.Controls.Clear();
                 doneActionsTablePanel.RowCount = 0;
-                
+                doneActionsForTablePanel.Visible = false;
 
-                if(calendarEvent.CalendarEventExecutedActions != null)
+                if (calendarEvent.CalendarEventExecutedActions != null)
                 {
                     foreach (var item in calendarEvent.CalendarEventExecutedActions)
                         AddAction(item.Action, item.ExecutedActionNote.Note);
@@ -410,11 +463,12 @@ namespace EZKO.UserControls.Dashboard
 
                 eventStateComboBox.SelectedItem = calendarEvent.EventState;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 BasicMessagesHandler.ShowErrorMessage("Návštevu nepodarilo sa načítať", e);
             }
         }
+            
 
         /// <summary>
         /// Set UI element properties to match column properties from corresponding database tables
@@ -684,6 +738,7 @@ namespace EZKO.UserControls.Dashboard
                     BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa vytvoriť nového pacienta");
                     return;
                 }
+                ChangesHolder.PatientsChanged = true;
             }
 
             CalendarEvent newEvent = ezkoController.CreateCalendarEvent(eventPatient, doctors, eventStartDateTime.Value, eventDuration, notificationEmails,
@@ -691,11 +746,12 @@ namespace EZKO.UserControls.Dashboard
             if (newEvent != null)
             {
                 calendarControl.AddCalendarEvent(newEvent);
-                //TODO: sync. with google calendar
             }
             else
                 BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa vytvoriť návštevu");
-        }
+
+            UpdateControl();
+        }       
 
         private void UpdateEvent()
         {

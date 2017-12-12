@@ -53,15 +53,42 @@ namespace DatabaseCommunicator.Model
 
     public partial class CalendarEvent
     {
-        //public override string ToString()
-        //{
-        //    StringBuilder stringBuilder = new StringBuilder();
-        //    stringBuilder.AppendLine("Telefón: " + Patient.Contact.Phone);
-        //    stringBuilder.AppendLine("Email: " + Patient.Contact.Email);
-        //    stringBuilder.AppendLine("Poznámka: " + Description);
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append(StartDate.ToString("dd.MM. hh:mm"));
+            stringBuilder.Append(" / ");
+            stringBuilder.Append(((int)((EndDate - StartDate)).TotalMinutes).ToString());
+            stringBuilder.Append(" / ");
+            stringBuilder.Append(EventSummary);
 
-        //    return stringBuilder.ToString();
-        //}
+            return stringBuilder.ToString();
+        }
+
+        public string EventSummary
+        {
+            get
+            {
+                string result = Patient.FullName;
+
+                if (Actions.Count > 0)
+                    result += " / ";
+
+                bool isFirst = true;
+                foreach (var item in Actions)
+                {
+                    if (isFirst)
+                    {
+                        result += item.Name;
+                        isFirst = false;
+                    }
+                    else
+                        result += ", " + item.Name;
+                }
+
+                return result;
+            }
+        }
 
         public string Details
         {

@@ -35,11 +35,11 @@
             this.minimizeFormPictureBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.mainMenuFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.administrationMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
-            this.patientsMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
-            this.ambulantionMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
-            this.dashboardMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
             this.ezkoMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
+            this.dashboardMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
+            this.ambulantionMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
+            this.patientsMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
+            this.administrationMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
             this.topMenuPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.closeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximizeFormPictureBox)).BeginInit();
@@ -105,7 +105,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(46, 17);
             this.label1.TabIndex = 2;
             this.label1.Text = "label1";
             // 
@@ -123,87 +123,15 @@
             this.mainMenuFlowPanel.Controls.Add(this.administrationMenuItem);
             this.mainMenuFlowPanel.Location = new System.Drawing.Point(0, 3);
             this.mainMenuFlowPanel.Name = "mainMenuFlowPanel";
-            this.mainMenuFlowPanel.Size = new System.Drawing.Size(706, 31);
+            this.mainMenuFlowPanel.Size = new System.Drawing.Size(880, 37);
             this.mainMenuFlowPanel.TabIndex = 3;
-            // 
-            // administrationMenuItem
-            // 
-            this.administrationMenuItem.AutoSize = true;
-            this.administrationMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.administrationMenuItem.Location = new System.Drawing.Point(543, 2);
-            this.administrationMenuItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.administrationMenuItem.MenuItemImage = global::EZKO.Properties.Resources.adminTools_32;
-            this.administrationMenuItem.MenuItemText = "Administrácia";
-            this.administrationMenuItem.Name = "administrationMenuItem";
-            this.administrationMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.adminTools_active_32;
-            this.administrationMenuItem.OnHoverTextForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(240)))));
-            this.administrationMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.adminTools_32;
-            this.administrationMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.administrationMenuItem.Size = new System.Drawing.Size(161, 27);
-            this.administrationMenuItem.TabIndex = 3;
-            this.administrationMenuItem.TextForeColor = System.Drawing.Color.White;
-            this.administrationMenuItem.TransparentPanelMouseClick += new System.Windows.Forms.MouseEventHandler(this.administrationMenuItem_TransparentPanelMouseClick);
-            this.administrationMenuItem.Load += new System.EventHandler(this.administrationMenuItem_Load);
-            // 
-            // patientsMenuItem
-            // 
-            this.patientsMenuItem.AutoSize = true;
-            this.patientsMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.patientsMenuItem.Location = new System.Drawing.Point(417, 2);
-            this.patientsMenuItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.patientsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.people_32;
-            this.patientsMenuItem.MenuItemText = "Pacienti";
-            this.patientsMenuItem.Name = "patientsMenuItem";
-            this.patientsMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.people_active_32;
-            this.patientsMenuItem.OnHoverTextForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(240)))));
-            this.patientsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.people_32;
-            this.patientsMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.patientsMenuItem.Size = new System.Drawing.Size(122, 27);
-            this.patientsMenuItem.TabIndex = 4;
-            this.patientsMenuItem.TextForeColor = System.Drawing.Color.White;
-            // 
-            // ambulantionMenuItem
-            // 
-            this.ambulantionMenuItem.AutoSize = true;
-            this.ambulantionMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ambulantionMenuItem.Location = new System.Drawing.Point(264, 2);
-            this.ambulantionMenuItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.ambulantionMenuItem.MenuItemImage = global::EZKO.Properties.Resources.formList_32;
-            this.ambulantionMenuItem.MenuItemText = "Ambulancia";
-            this.ambulantionMenuItem.Name = "ambulantionMenuItem";
-            this.ambulantionMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.formList_active_32;
-            this.ambulantionMenuItem.OnHoverTextForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(240)))));
-            this.ambulantionMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.formList_32;
-            this.ambulantionMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.ambulantionMenuItem.Size = new System.Drawing.Size(149, 27);
-            this.ambulantionMenuItem.TabIndex = 2;
-            this.ambulantionMenuItem.TextForeColor = System.Drawing.Color.White;
-            this.ambulantionMenuItem.TransparentPanelMouseClick += new System.Windows.Forms.MouseEventHandler(this.ambulantionMenuItem_TransparentPanelMouseClick);
-            // 
-            // dashboardMenuItem
-            // 
-            this.dashboardMenuItem.AutoSize = true;
-            this.dashboardMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dashboardMenuItem.Location = new System.Drawing.Point(115, 2);
-            this.dashboardMenuItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.dashboardMenuItem.MenuItemImage = global::EZKO.Properties.Resources.dashboard_32;
-            this.dashboardMenuItem.MenuItemText = "Dashboard";
-            this.dashboardMenuItem.Name = "dashboardMenuItem";
-            this.dashboardMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.dashboard_active_32;
-            this.dashboardMenuItem.OnHoverTextForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(240)))));
-            this.dashboardMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.dashboard_32;
-            this.dashboardMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.dashboardMenuItem.Size = new System.Drawing.Size(145, 27);
-            this.dashboardMenuItem.TabIndex = 1;
-            this.dashboardMenuItem.TextForeColor = System.Drawing.Color.White;
-            this.dashboardMenuItem.TransparentPanelMouseClick += new System.Windows.Forms.MouseEventHandler(this.dashboardMenuItem_TransparentPanelMouseClick);
             // 
             // ezkoMenuItem
             // 
             this.ezkoMenuItem.AutoSize = true;
             this.ezkoMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ezkoMenuItem.Location = new System.Drawing.Point(2, 2);
-            this.ezkoMenuItem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ezkoMenuItem.Margin = new System.Windows.Forms.Padding(2);
             this.ezkoMenuItem.MenuItemImage = null;
             this.ezkoMenuItem.MenuItemText = "EZKO";
             this.ezkoMenuItem.Name = "ezkoMenuItem";
@@ -211,9 +139,81 @@
             this.ezkoMenuItem.OnHoverTextForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(240)))));
             this.ezkoMenuItem.OnLeaveMenuItemImage = null;
             this.ezkoMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.ezkoMenuItem.Size = new System.Drawing.Size(109, 27);
+            this.ezkoMenuItem.Size = new System.Drawing.Size(139, 33);
             this.ezkoMenuItem.TabIndex = 0;
             this.ezkoMenuItem.TextForeColor = System.Drawing.Color.White;
+            // 
+            // dashboardMenuItem
+            // 
+            this.dashboardMenuItem.AutoSize = true;
+            this.dashboardMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dashboardMenuItem.Location = new System.Drawing.Point(145, 2);
+            this.dashboardMenuItem.Margin = new System.Windows.Forms.Padding(2);
+            this.dashboardMenuItem.MenuItemImage = global::EZKO.Properties.Resources.dashboard_32;
+            this.dashboardMenuItem.MenuItemText = "Dashboard";
+            this.dashboardMenuItem.Name = "dashboardMenuItem";
+            this.dashboardMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.dashboard_active_32;
+            this.dashboardMenuItem.OnHoverTextForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(240)))));
+            this.dashboardMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.dashboard_32;
+            this.dashboardMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.dashboardMenuItem.Size = new System.Drawing.Size(180, 33);
+            this.dashboardMenuItem.TabIndex = 1;
+            this.dashboardMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.dashboardMenuItem.TransparentPanelMouseClick += new System.Windows.Forms.MouseEventHandler(this.dashboardMenuItem_TransparentPanelMouseClick);
+            // 
+            // ambulantionMenuItem
+            // 
+            this.ambulantionMenuItem.AutoSize = true;
+            this.ambulantionMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.ambulantionMenuItem.Location = new System.Drawing.Point(329, 2);
+            this.ambulantionMenuItem.Margin = new System.Windows.Forms.Padding(2);
+            this.ambulantionMenuItem.MenuItemImage = global::EZKO.Properties.Resources.formList_32;
+            this.ambulantionMenuItem.MenuItemText = "Ambulancia";
+            this.ambulantionMenuItem.Name = "ambulantionMenuItem";
+            this.ambulantionMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.formList_active_32;
+            this.ambulantionMenuItem.OnHoverTextForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(240)))));
+            this.ambulantionMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.formList_32;
+            this.ambulantionMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.ambulantionMenuItem.Size = new System.Drawing.Size(187, 33);
+            this.ambulantionMenuItem.TabIndex = 2;
+            this.ambulantionMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.ambulantionMenuItem.TransparentPanelMouseClick += new System.Windows.Forms.MouseEventHandler(this.ambulantionMenuItem_TransparentPanelMouseClick);
+            // 
+            // patientsMenuItem
+            // 
+            this.patientsMenuItem.AutoSize = true;
+            this.patientsMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.patientsMenuItem.Location = new System.Drawing.Point(520, 2);
+            this.patientsMenuItem.Margin = new System.Windows.Forms.Padding(2);
+            this.patientsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.people_32;
+            this.patientsMenuItem.MenuItemText = "Pacienti";
+            this.patientsMenuItem.Name = "patientsMenuItem";
+            this.patientsMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.people_active_32;
+            this.patientsMenuItem.OnHoverTextForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(240)))));
+            this.patientsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.people_32;
+            this.patientsMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.patientsMenuItem.Size = new System.Drawing.Size(153, 33);
+            this.patientsMenuItem.TabIndex = 4;
+            this.patientsMenuItem.TextForeColor = System.Drawing.Color.White;
+            // 
+            // administrationMenuItem
+            // 
+            this.administrationMenuItem.AutoSize = true;
+            this.administrationMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.administrationMenuItem.Location = new System.Drawing.Point(677, 2);
+            this.administrationMenuItem.Margin = new System.Windows.Forms.Padding(2);
+            this.administrationMenuItem.MenuItemImage = global::EZKO.Properties.Resources.adminTools_32;
+            this.administrationMenuItem.MenuItemText = "Administrácia";
+            this.administrationMenuItem.Name = "administrationMenuItem";
+            this.administrationMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.adminTools_active_32;
+            this.administrationMenuItem.OnHoverTextForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(109)))), ((int)(((byte)(240)))));
+            this.administrationMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.adminTools_32;
+            this.administrationMenuItem.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.administrationMenuItem.Size = new System.Drawing.Size(201, 33);
+            this.administrationMenuItem.TabIndex = 3;
+            this.administrationMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.administrationMenuItem.TransparentPanelMouseClick += new System.Windows.Forms.MouseEventHandler(this.administrationMenuItem_TransparentPanelMouseClick);
+            this.administrationMenuItem.Load += new System.EventHandler(this.administrationMenuItem_Load);
             // 
             // topMenuPanel
             // 
@@ -241,6 +241,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
             ((System.ComponentModel.ISupportInitialize)(this.closeFormPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximizeFormPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).EndInit();

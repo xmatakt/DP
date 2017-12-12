@@ -1,6 +1,7 @@
 ﻿using DatabaseCommunicator.Controllers;
 using DatabaseCommunicator.Enums;
 using ExceptionHandler;
+using EZKO.Classes;
 using EZKO.Controllers;
 using EZKO.Enums;
 using System;
@@ -150,6 +151,7 @@ namespace EZKO.Forms.AdministrationForms
                     DirectoriesController.CopyFile(avatarImagePath, ezkoAvatarImagePath))
                 {
                     BasicMessagesHandler.ShowInformationMessage("Požívateľ bol úspešne vytvorený");
+                    ChangesHolder.DoctorsChanged = true;
                 }
                 else
                 {
@@ -162,6 +164,8 @@ namespace EZKO.Forms.AdministrationForms
 
         private void EditUser()
         {
+            //this row has to be here
+            ChangesHolder.DoctorsChanged = true;
             throw new NotImplementedException();
         }
 

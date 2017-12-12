@@ -218,6 +218,8 @@ namespace EZKO.UserControls.Dashboard
             this.ezkoController = ezkoController;
             visitUserControl1.SetCalendarControl(this);
             visitUserControl1.SetEzkoController(ezkoController);
+            findEventUserControl.SetEzkoController(ezkoController);
+            findEventUserControl.SetVisitUserControl(visitUserControl1);
 
             InitializeControl();
         }
@@ -280,6 +282,11 @@ namespace EZKO.UserControls.Dashboard
             }
 
             ShowItems();
+        }
+
+        public void UpdateControl()
+        {
+            visitUserControl1.UpdateControl();
         }
         #endregion
 
