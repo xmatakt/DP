@@ -29,30 +29,37 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange11 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange12 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange13 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange14 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange15 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange6 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange7 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange8 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange9 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange10 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.findEventUserControl = new EZKO.UserControls.Dashboard.FindEventUserControl();
+            this.middleTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.calendar = new System.Windows.Forms.Calendar.Calendar();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.leftTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.monthView = new System.Windows.Forms.Calendar.MonthView();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.leftBottomPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.rightPanel = new System.Windows.Forms.Panel();
-            this.visitUserControl1 = new EZKO.UserControls.Dashboard.VisitUserControl();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.monthviewSettingsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.timeIntervalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.minuteInterval5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.minuteInterval10ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.minuteInterval15ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.minuteInterval30ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.minuteInterval60ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findEventUserControl = new EZKO.UserControls.Dashboard.FindEventUserControl();
+            this.visitUserControl = new EZKO.UserControls.Dashboard.VisitUserControl();
             this.mainTableLayoutPanel.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.middleTableLayoutPanel.SuspendLayout();
+            this.leftTableLayoutPanel.SuspendLayout();
+            this.leftBottomPanel.SuspendLayout();
             this.rightPanel.SuspendLayout();
+            this.monthviewSettingsMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTableLayoutPanel
@@ -65,8 +72,8 @@
             this.mainTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 290F));
             this.mainTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.mainTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 395F));
-            this.mainTableLayoutPanel.Controls.Add(this.tableLayoutPanel2, 1, 0);
-            this.mainTableLayoutPanel.Controls.Add(this.tableLayoutPanel3, 0, 0);
+            this.mainTableLayoutPanel.Controls.Add(this.middleTableLayoutPanel, 1, 0);
+            this.mainTableLayoutPanel.Controls.Add(this.leftTableLayoutPanel, 0, 0);
             this.mainTableLayoutPanel.Controls.Add(this.rightPanel, 2, 0);
             this.mainTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.mainTableLayoutPanel.Name = "mainTableLayoutPanel";
@@ -75,31 +82,20 @@
             this.mainTableLayoutPanel.Size = new System.Drawing.Size(1289, 761);
             this.mainTableLayoutPanel.TabIndex = 1;
             // 
-            // tableLayoutPanel2
+            // middleTableLayoutPanel
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.findEventUserControl, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.calendar, 0, 1);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(293, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(598, 755);
-            this.tableLayoutPanel2.TabIndex = 2;
-            // 
-            // findEventUserControl
-            // 
-            this.findEventUserControl.AutoSize = true;
-            this.findEventUserControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.findEventUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.findEventUserControl.Location = new System.Drawing.Point(2, 2);
-            this.findEventUserControl.Margin = new System.Windows.Forms.Padding(2);
-            this.findEventUserControl.Name = "findEventUserControl";
-            this.findEventUserControl.Size = new System.Drawing.Size(594, 88);
-            this.findEventUserControl.TabIndex = 0;
+            this.middleTableLayoutPanel.ColumnCount = 1;
+            this.middleTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.middleTableLayoutPanel.Controls.Add(this.findEventUserControl, 0, 0);
+            this.middleTableLayoutPanel.Controls.Add(this.calendar, 0, 1);
+            this.middleTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.middleTableLayoutPanel.Location = new System.Drawing.Point(293, 3);
+            this.middleTableLayoutPanel.Name = "middleTableLayoutPanel";
+            this.middleTableLayoutPanel.RowCount = 2;
+            this.middleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.middleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.middleTableLayoutPanel.Size = new System.Drawing.Size(598, 755);
+            this.middleTableLayoutPanel.TabIndex = 2;
             // 
             // calendar
             // 
@@ -107,27 +103,27 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.calendar.Font = new System.Drawing.Font("Segoe UI", 11.4F);
-            calendarHighlightRange11.DayOfWeek = System.DayOfWeek.Monday;
-            calendarHighlightRange11.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange11.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange12.DayOfWeek = System.DayOfWeek.Tuesday;
-            calendarHighlightRange12.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange12.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange13.DayOfWeek = System.DayOfWeek.Wednesday;
-            calendarHighlightRange13.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange13.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange14.DayOfWeek = System.DayOfWeek.Thursday;
-            calendarHighlightRange14.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange14.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange15.DayOfWeek = System.DayOfWeek.Friday;
-            calendarHighlightRange15.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange15.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange6.DayOfWeek = System.DayOfWeek.Monday;
+            calendarHighlightRange6.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange6.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange7.DayOfWeek = System.DayOfWeek.Tuesday;
+            calendarHighlightRange7.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange7.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange8.DayOfWeek = System.DayOfWeek.Wednesday;
+            calendarHighlightRange8.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange8.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange9.DayOfWeek = System.DayOfWeek.Thursday;
+            calendarHighlightRange9.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange9.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange10.DayOfWeek = System.DayOfWeek.Friday;
+            calendarHighlightRange10.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange10.StartTime = System.TimeSpan.Parse("08:00:00");
             this.calendar.HighlightRanges = new System.Windows.Forms.Calendar.CalendarHighlightRange[] {
-        calendarHighlightRange11,
-        calendarHighlightRange12,
-        calendarHighlightRange13,
-        calendarHighlightRange14,
-        calendarHighlightRange15};
+        calendarHighlightRange6,
+        calendarHighlightRange7,
+        calendarHighlightRange8,
+        calendarHighlightRange9,
+        calendarHighlightRange10};
             this.calendar.Location = new System.Drawing.Point(3, 95);
             this.calendar.Name = "calendar";
             this.calendar.Size = new System.Drawing.Size(592, 673);
@@ -141,21 +137,22 @@
             this.calendar.ItemDatesChanged += new System.Windows.Forms.Calendar.Calendar.CalendarItemEventHandler(this.calendar_ItemDatesChanged);
             this.calendar.ItemClick += new System.Windows.Forms.Calendar.Calendar.CalendarItemEventHandler(this.calendar_ItemClick);
             this.calendar.ItemDoubleClick += new System.Windows.Forms.Calendar.Calendar.CalendarItemEventHandler(this.calendar_ItemDoubleClick);
+            this.calendar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.calendar_MouseClick);
             // 
-            // tableLayoutPanel3
+            // leftTableLayoutPanel
             // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.monthView, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.panel3, 0, 1);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(284, 755);
-            this.tableLayoutPanel3.TabIndex = 3;
+            this.leftTableLayoutPanel.ColumnCount = 1;
+            this.leftTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.leftTableLayoutPanel.Controls.Add(this.monthView, 0, 0);
+            this.leftTableLayoutPanel.Controls.Add(this.leftBottomPanel, 0, 1);
+            this.leftTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.leftTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.leftTableLayoutPanel.Name = "leftTableLayoutPanel";
+            this.leftTableLayoutPanel.RowCount = 2;
+            this.leftTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.leftTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.leftTableLayoutPanel.Size = new System.Drawing.Size(284, 755);
+            this.leftTableLayoutPanel.TabIndex = 3;
             // 
             // monthView
             // 
@@ -181,13 +178,13 @@
             this.monthView.TodayBorderColor = System.Drawing.Color.Maroon;
             this.monthView.SelectionChanged += new System.EventHandler(this.monthView_SelectionChanged);
             // 
-            // panel3
+            // leftBottomPanel
             // 
-            this.panel3.Controls.Add(this.button1);
-            this.panel3.Location = new System.Drawing.Point(3, 380);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(278, 372);
-            this.panel3.TabIndex = 1;
+            this.leftBottomPanel.Controls.Add(this.button1);
+            this.leftBottomPanel.Location = new System.Drawing.Point(3, 380);
+            this.leftBottomPanel.Name = "leftBottomPanel";
+            this.leftBottomPanel.Size = new System.Drawing.Size(278, 372);
+            this.leftBottomPanel.TabIndex = 1;
             // 
             // button1
             // 
@@ -203,23 +200,12 @@
             // 
             this.rightPanel.AutoScroll = true;
             this.rightPanel.AutoSize = true;
-            this.rightPanel.Controls.Add(this.visitUserControl1);
+            this.rightPanel.Controls.Add(this.visitUserControl);
             this.rightPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightPanel.Location = new System.Drawing.Point(897, 3);
             this.rightPanel.Name = "rightPanel";
             this.rightPanel.Size = new System.Drawing.Size(389, 755);
             this.rightPanel.TabIndex = 4;
-            // 
-            // visitUserControl1
-            // 
-            this.visitUserControl1.AutoScroll = true;
-            this.visitUserControl1.BackColor = System.Drawing.Color.White;
-            this.visitUserControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.visitUserControl1.Location = new System.Drawing.Point(0, 0);
-            this.visitUserControl1.Margin = new System.Windows.Forms.Padding(2);
-            this.visitUserControl1.Name = "visitUserControl1";
-            this.visitUserControl1.Size = new System.Drawing.Size(389, 755);
-            this.visitUserControl1.TabIndex = 0;
             // 
             // contextMenuStrip1
             // 
@@ -227,11 +213,82 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // contextMenuStrip2
+            // monthviewSettingsMenuStrip
             // 
-            this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
+            this.monthviewSettingsMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.monthviewSettingsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.timeIntervalToolStripMenuItem});
+            this.monthviewSettingsMenuStrip.Name = "monthviewSettingsMenuStrip";
+            this.monthviewSettingsMenuStrip.Size = new System.Drawing.Size(178, 28);
+            // 
+            // timeIntervalToolStripMenuItem
+            // 
+            this.timeIntervalToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.minuteInterval5ToolStripMenuItem,
+            this.minuteInterval10ToolStripMenuItem,
+            this.minuteInterval15ToolStripMenuItem,
+            this.minuteInterval30ToolStripMenuItem,
+            this.minuteInterval60ToolStripMenuItem});
+            this.timeIntervalToolStripMenuItem.Name = "timeIntervalToolStripMenuItem";
+            this.timeIntervalToolStripMenuItem.Size = new System.Drawing.Size(177, 24);
+            this.timeIntervalToolStripMenuItem.Text = "Časový interval";
+            // 
+            // minuteInterval5ToolStripMenuItem
+            // 
+            this.minuteInterval5ToolStripMenuItem.Name = "minuteInterval5ToolStripMenuItem";
+            this.minuteInterval5ToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
+            this.minuteInterval5ToolStripMenuItem.Text = "5 minút";
+            this.minuteInterval5ToolStripMenuItem.Click += new System.EventHandler(this.minuteInterval5ToolStripMenuItem_Click);
+            // 
+            // minuteInterval10ToolStripMenuItem
+            // 
+            this.minuteInterval10ToolStripMenuItem.Name = "minuteInterval10ToolStripMenuItem";
+            this.minuteInterval10ToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
+            this.minuteInterval10ToolStripMenuItem.Text = "10 minút";
+            this.minuteInterval10ToolStripMenuItem.Click += new System.EventHandler(this.minuteInterval10ToolStripMenuItem_Click);
+            // 
+            // minuteInterval15ToolStripMenuItem
+            // 
+            this.minuteInterval15ToolStripMenuItem.Name = "minuteInterval15ToolStripMenuItem";
+            this.minuteInterval15ToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
+            this.minuteInterval15ToolStripMenuItem.Text = "15 minút";
+            this.minuteInterval15ToolStripMenuItem.Click += new System.EventHandler(this.minuteInterval15ToolStripMenuItem_Click);
+            // 
+            // minuteInterval30ToolStripMenuItem
+            // 
+            this.minuteInterval30ToolStripMenuItem.Name = "minuteInterval30ToolStripMenuItem";
+            this.minuteInterval30ToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
+            this.minuteInterval30ToolStripMenuItem.Text = "30 minút";
+            this.minuteInterval30ToolStripMenuItem.Click += new System.EventHandler(this.minuteInterval30ToolStripMenuItem_Click);
+            // 
+            // minuteInterval60ToolStripMenuItem
+            // 
+            this.minuteInterval60ToolStripMenuItem.Name = "minuteInterval60ToolStripMenuItem";
+            this.minuteInterval60ToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
+            this.minuteInterval60ToolStripMenuItem.Text = "60 minút";
+            this.minuteInterval60ToolStripMenuItem.Click += new System.EventHandler(this.minuteInterval60ToolStripMenuItem_Click);
+            // 
+            // findEventUserControl
+            // 
+            this.findEventUserControl.AutoSize = true;
+            this.findEventUserControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.findEventUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.findEventUserControl.Location = new System.Drawing.Point(2, 2);
+            this.findEventUserControl.Margin = new System.Windows.Forms.Padding(2);
+            this.findEventUserControl.Name = "findEventUserControl";
+            this.findEventUserControl.Size = new System.Drawing.Size(594, 88);
+            this.findEventUserControl.TabIndex = 0;
+            // 
+            // visitUserControl
+            // 
+            this.visitUserControl.AutoScroll = true;
+            this.visitUserControl.BackColor = System.Drawing.Color.White;
+            this.visitUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.visitUserControl.Location = new System.Drawing.Point(0, 0);
+            this.visitUserControl.Margin = new System.Windows.Forms.Padding(2);
+            this.visitUserControl.Name = "visitUserControl";
+            this.visitUserControl.Size = new System.Drawing.Size(389, 755);
+            this.visitUserControl.TabIndex = 0;
             // 
             // GoogleIntegratedCalendarControl
             // 
@@ -243,11 +300,12 @@
             this.Resize += new System.EventHandler(this.GoogleIntegratedCalendarControl_Resize);
             this.mainTableLayoutPanel.ResumeLayout(false);
             this.mainTableLayoutPanel.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
+            this.middleTableLayoutPanel.ResumeLayout(false);
+            this.middleTableLayoutPanel.PerformLayout();
+            this.leftTableLayoutPanel.ResumeLayout(false);
+            this.leftBottomPanel.ResumeLayout(false);
             this.rightPanel.ResumeLayout(false);
+            this.monthviewSettingsMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -257,15 +315,21 @@
         private System.Windows.Forms.Calendar.Calendar calendar;
         private System.Windows.Forms.Calendar.MonthView monthView;
         private System.Windows.Forms.TableLayoutPanel mainTableLayoutPanel;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel middleTableLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel leftTableLayoutPanel;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel leftBottomPanel;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private FindEventUserControl findEventUserControl;
         private System.Windows.Forms.Panel rightPanel;
-        private VisitUserControl visitUserControl1;
+        private VisitUserControl visitUserControl;
+        private System.Windows.Forms.ContextMenuStrip monthviewSettingsMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem timeIntervalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem minuteInterval5ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem minuteInterval10ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem minuteInterval15ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem minuteInterval30ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem minuteInterval60ToolStripMenuItem;
     }
 }

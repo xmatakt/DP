@@ -11,6 +11,8 @@ using DatabaseCommunicator.Model;
 using System.Collections.Generic;
 using DatabaseCommunicator.Enums;
 using EZKO.Classes;
+using EZKO.UserControls.Ambulantion;
+using System.Windows.Forms.Calendar;
 
 namespace EZKO.UserControls.Dashboard
 {
@@ -20,10 +22,15 @@ namespace EZKO.UserControls.Dashboard
         private CalendarEvent calendarEvent = null;
         private EzkoController ezkoController;
         private GoogleIntegratedCalendarControl calendarControl;
+        private GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer;
+        private AmbulantionUserControl ambulantionControl;
         private WorkingTypeEnum workingType = WorkingTypeEnum.Creating;
 
         #region Private properties
-        private Patient patient { get { return patientNameTextBox.Tag as Patient; } }
+        private Patient patient {
+            get { return patientNameTextBox.Tag as Patient; }
+            set { patientNameTextBox.Tag = value; }
+        }
         private bool isNew
         {
             get { return newPatientCheckBox.Checked; }
@@ -206,6 +213,8 @@ namespace EZKO.UserControls.Dashboard
             mainFlowLayoutPanel.AutoScroll = true;
             //----
 
+            calendarSynchronizer = new GoogleCalendarSynchronizer.GoogleCalendarSynchronizer(GlobalSettings.GoogleCalendarUserName);
+
             SetPanelElementsProperties();
         }
 
@@ -220,12 +229,32 @@ namespace EZKO.UserControls.Dashboard
         {
             this.ezkoController = ezkoController;
 
-            InitializeFormElements();
+            InitializeUserControl();
         }
 
-        public void SetCalendarControl (GoogleIntegratedCalendarControl calendarControl)
+        public void SetCalendarControl(GoogleIntegratedCalendarControl calendarControl)
         {
             this.calendarControl = calendarControl;
+        }
+
+        public void SetAmbulantionControl(AmbulantionUserControl ambulantionControl)
+        {
+            this.ambulantionControl = ambulantionControl;
+        }
+
+        public void InitializeUserControl()
+        {
+            InitializePatientNameTextBox();
+            InitializeDoctorsComboBox();
+            InitializePlannedActionsComboBox();
+            InitializeDoneActionsTextBox();
+            InitializeEventStateComboBox();
+            InitializeEmailsRichTextBox();
+
+            SetControlWorkingBehavior();
+
+            if (calendarEvent != null)
+                LoadEvent(calendarEvent);
         }
 
         public void LoadEvent(int calendarEventID)
@@ -267,19 +296,6 @@ namespace EZKO.UserControls.Dashboard
         #endregion
 
         #region Private methods
-
-        private void InitializeFormElements()
-        {
-            InitializePatientNameTextBox();
-            InitializeDoctorsComboBox();
-            InitializePlannedActionsComboBox();
-            InitializeDoneActionsTextBox();
-            InitializeEventStateComboBox();
-            InitializeEmailsRichTextBox();
-
-            SetControlWorkingBehavior();
-        }
-
         private void InitializePatientNameTextBox()
         {
             Patient[] values = ezkoController.GetPatients().ToArray();
@@ -321,6 +337,7 @@ namespace EZKO.UserControls.Dashboard
 
         private void InitializeEventStateComboBox()
         {
+            eventStateComboBox.Items.Clear();
             var states = ezkoController.GetEventStates();
             foreach (var state in states)
                 eventStateComboBox.Items.Add(state);
@@ -615,10 +632,12 @@ namespace EZKO.UserControls.Dashboard
         #region Reseting panel
         private void ResetVisitPanel(WorkingTypeEnum type)
         {
+            calendarEvent = null;
             workingType = type;
             eventStartDateTime = null;
             isNew = false;
             eventDuration = 0m;
+            patient = null;
             ResetTextFields();
             ResetComboBoxes(true);
             SetControlWorkingBehavior();
@@ -745,7 +764,12 @@ namespace EZKO.UserControls.Dashboard
                     eventNote, plannedActions, plannedText, eventState);
             if (newEvent != null)
             {
-                calendarControl.AddCalendarEvent(newEvent);
+                if(calendarControl != null)
+                    calendarControl.AddCalendarEvent(newEvent);
+                else if(calendarSynchronizer != null)
+                    calendarSynchronizer.UploadEvent(newEvent.GoogleEventID, newEvent.Summary, newEvent.Description, newEvent.StartDate, newEvent.EndDate);
+                if (ambulantionControl != null)
+                    ambulantionControl.LoadEvents();
             }
             else
                 BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa vytvoriť návštevu");
@@ -762,7 +786,13 @@ namespace EZKO.UserControls.Dashboard
                     eventNote, plannedActions, plannedText, eventState, doneActions, doneText))
             {
                 //sync & show
-                calendarControl.UpdateCalendarEvent(calendarEvent);
+                if (calendarControl != null)
+                    calendarControl.UpdateCalendarEvent(calendarEvent);
+                else if (calendarSynchronizer != null)
+                    calendarSynchronizer.UpdateEvent(calendarEvent.GoogleEventID, calendarEvent.Summary, calendarEvent.Description,
+                        calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.IsDeleted);
+                if (ambulantionControl != null)
+                    ambulantionControl.LoadEvents();
             }
             else
                 BasicMessagesHandler.ShowErrorMessage("Návštevu sa nepodarilo upraviť");
@@ -778,7 +808,14 @@ namespace EZKO.UserControls.Dashboard
         {
             if (ezkoController.DeleteEvent(calendarEvent))
             {
-                calendarControl.RemoveCalendarItem(calendarEvent);
+                if (calendarControl != null)
+                    calendarControl.RemoveCalendarItem(calendarEvent);
+                else if (calendarSynchronizer != null)
+                    calendarSynchronizer.UpdateEvent(calendarEvent.GoogleEventID, calendarEvent.Summary, calendarEvent.Description,
+                        calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.IsDeleted);
+                if (ambulantionControl != null)
+                    ambulantionControl.LoadEvents();
+
                 ResetVisitPanel(WorkingTypeEnum.Creating);
             }
             else

@@ -27,10 +27,9 @@ namespace EZKO.UserControls.Dashboard
         {
             try
             {
-                calendarSynchronizer = new GoogleCalendarSynchronizer.GoogleCalendarSynchronizer(calendar, "timo");
+                calendarSynchronizer = new GoogleCalendarSynchronizer.GoogleCalendarSynchronizer(calendar, GlobalSettings.GoogleCalendarUserName);
 
                 LoadEvents(DateTime.Now.AddMonths(-6), DateTime.Now.AddYears(1));
-                ShowItems();
             }
             catch (Exception e)
             {
@@ -41,10 +40,13 @@ namespace EZKO.UserControls.Dashboard
         #region Calendar events loading
         private void LoadEvents(DateTime startDate, DateTime endDate)
         {
+            eventsCountByDate = new Dictionary<DateTime, int>();
+
             List<CalendarItem> googleEvents = LoadGoogleCalendarEvents(startDate, endDate);
             List<CalendarItem> dbEvents = LoadDbCalendarItems(startDate, endDate);
 
             calendarItems = UniteEvents(googleEvents, dbEvents);
+            ShowItems();
         }
 
         private List<CalendarItem> LoadGoogleCalendarEvents(DateTime startDate, DateTime endDate)
@@ -216,10 +218,10 @@ namespace EZKO.UserControls.Dashboard
             findEventUserControl.SetPickedDateLabel(calendar.ViewStart, calendar.ViewEnd);
 
             this.ezkoController = ezkoController;
-            visitUserControl1.SetCalendarControl(this);
-            visitUserControl1.SetEzkoController(ezkoController);
+            visitUserControl.SetCalendarControl(this);
+            visitUserControl.SetEzkoController(ezkoController);
             findEventUserControl.SetEzkoController(ezkoController);
-            findEventUserControl.SetVisitUserControl(visitUserControl1);
+            findEventUserControl.SetVisitUserControl(visitUserControl);
 
             InitializeControl();
         }
@@ -237,17 +239,17 @@ namespace EZKO.UserControls.Dashboard
         {
             CalendarItem calendarItem = calendarItems.FirstOrDefault(x => x.DatabaseEntityID == calendarEvent.ID);
 
-            calendarItem.Text = calendarEvent.Summary;
-            calendarItem.Description = calendarEvent.Details;
-            calendarItem.StartDate = calendarEvent.StartDate;
-            calendarItem.EndDate = calendarEvent.EndDate;
-            calendarItem.ApplyColor(Color.FromArgb(
-                calendarEvent.CalendarEventColor.R,
-                calendarEvent.CalendarEventColor.G,
-                calendarEvent.CalendarEventColor.B));
-
             if (calendarItem != null)
             {
+                calendarItem.Text = calendarEvent.Summary;
+                calendarItem.Description = calendarEvent.Details;
+                calendarItem.StartDate = calendarEvent.StartDate;
+                calendarItem.EndDate = calendarEvent.EndDate;
+                calendarItem.ApplyColor(Color.FromArgb(
+                    calendarEvent.CalendarEventColor.R,
+                    calendarEvent.CalendarEventColor.G,
+                    calendarEvent.CalendarEventColor.B));
+
                 if (calendarSynchronizer.UpdateEvent(calendarItem))
                 {
                     //TODO: MessageBox?
@@ -286,7 +288,8 @@ namespace EZKO.UserControls.Dashboard
 
         public void UpdateControl()
         {
-            visitUserControl1.UpdateControl();
+            visitUserControl.InitializeUserControl();
+            LoadEvents(DateTime.Now.AddMonths(-6), DateTime.Now.AddYears(1));
         }
         #endregion
 
@@ -416,15 +419,48 @@ namespace EZKO.UserControls.Dashboard
 
         private void GoogleIntegratedCalendarControl_Resize(object sender, EventArgs e)
         {
-            visitUserControl1.SetMaximumHeight(Size.Height);
+            visitUserControl.SetMaximumHeight(Size.Height);
         }
 
         private void calendar_ItemClick(object sender, CalendarItemEventArgs e)
         {
             if (e.Item != null && e.Item.DatabaseEntityID.HasValue)
             {
-                visitUserControl1.LoadEvent(e.Item.DatabaseEntityID.Value);
+                visitUserControl.LoadEvent(e.Item.DatabaseEntityID.Value);
             }
+        }
+
+        private void calendar_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                monthviewSettingsMenuStrip.Show(calendar, e.Location);
+            }
+        }
+
+        private void minuteInterval5ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            calendar.TimeScale = CalendarTimeScale.FiveMinutes;
+        }
+
+        private void minuteInterval10ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            calendar.TimeScale = CalendarTimeScale.TenMinutes;
+        }
+
+        private void minuteInterval15ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            calendar.TimeScale = CalendarTimeScale.FifteenMinutes;
+        }
+
+        private void minuteInterval30ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            calendar.TimeScale = CalendarTimeScale.ThirtyMinutes;
+        }
+
+        private void minuteInterval60ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            calendar.TimeScale = CalendarTimeScale.SixtyMinutes;
         }
         #endregion
     }

@@ -4,6 +4,7 @@ using EZKO.Controllers;
 using EZKO.Enums;
 using EZKO.Forms;
 using EZKO.UserControls.Administration;
+using EZKO.UserControls.Ambulantion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,7 @@ namespace EZKO
         //  Panels
         private UserControls.Dashboard.GoogleIntegratedCalendarControl dashboardPanel = null;
         private AdministrationUserControl administrationPanel = null;
+        private AmbulantionUserControl ambulantionPanel = null;
 
         // enum to hold the information which panel has to be shown to the user
         private PanelLoadingEnum workingInfoEnum;
@@ -198,6 +200,8 @@ namespace EZKO
                         dashboardPanel = new UserControls.Dashboard.GoogleIntegratedCalendarControl(ezkoController);
                     break;
                 case PanelLoadingEnum.LoadingAmbulantionPanel:
+                    if(ambulantionPanel == null)
+                        ambulantionPanel = new AmbulantionUserControl(ezkoController);
                     break;
                 case PanelLoadingEnum.LoadingPatientsPanel:
                     break;
@@ -208,6 +212,8 @@ namespace EZKO
                 case PanelLoadingEnum.LoadAll:
                     if (dashboardPanel == null)
                         dashboardPanel = new UserControls.Dashboard.GoogleIntegratedCalendarControl(ezkoController);
+                    if (ambulantionPanel == null)
+                        ambulantionPanel = new AmbulantionUserControl(ezkoController);
                     if (administrationPanel == null)
                         administrationPanel = new AdministrationUserControl(ezkoController);
                     break;
@@ -230,6 +236,13 @@ namespace EZKO
                     }
                     break;
                 case PanelLoadingEnum.LoadingAmbulantionPanel:
+                    if(ambulantionPanel != null)
+                    {
+                        mainPanel.Controls.Add(ambulantionPanel);
+                        ambulantionPanel.Dock = DockStyle.Fill;
+                        ambulantionPanel.UpdateControl();
+                        ambulantionPanel.LoadEvents();
+                    }
                     break;
                 case PanelLoadingEnum.LoadingPatientsPanel:
                     break;
@@ -246,6 +259,11 @@ namespace EZKO
                         mainPanel.Controls.Add(dashboardPanel);
                         dashboardPanel.Dock = DockStyle.Fill;
                     }
+                    if (ambulantionPanel != null)
+                    {
+                        mainPanel.Controls.Add(ambulantionPanel);
+                        ambulantionPanel.Dock = DockStyle.Fill;
+                    }
                     if (administrationPanel != null)
                     {
                         mainPanel.Controls.Add(administrationPanel);
@@ -261,19 +279,22 @@ namespace EZKO
 
         private void ambulantionMenuItem_TransparentPanelMouseClick(object sender, MouseEventArgs e)
         {
-            var tmpform = new WorkingInfoForm("","");
-            tmpform.Show();
-             
-            mainPanel.Controls.Clear();
-            tmpform.Invalidate();
-            var tmpPanel = new Panel();
-            tmpPanel.BackColor = Color.Red;
+            workingInfoEnum = PanelLoadingEnum.LoadingAmbulantionPanel;
 
+            // Configure a BackgroundWorker to perform your long running operation.
+            BackgroundWorker bg = new BackgroundWorker();
+            bg.DoWork += new DoWorkEventHandler(bg_DoWork);
+            bg.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bg_RunWorkerCompleted);
 
-            mainPanel.Controls.Add(tmpPanel);
-            tmpPanel.Dock = DockStyle.Fill;
+            // Start the worker.
+            bg.RunWorkerAsync();
 
-            tmpform.Close();
+            if (ambulantionPanel == null)
+            {
+                workingInfoForm = new WorkingInfoForm(LanguageController.GetText(StringKeys.Working),
+                    LanguageController.GetText(StringKeys.LoadingDataTitle));
+                workingInfoForm.ShowDialog();
+            }
         }
 
         private void administrationMenuItem_TransparentPanelMouseClick(object sender, MouseEventArgs e)

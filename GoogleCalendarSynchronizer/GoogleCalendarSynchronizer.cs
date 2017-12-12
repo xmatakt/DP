@@ -36,12 +36,27 @@ namespace GoogleCalendarSynchronizer
         /// <summary>
         /// Creates new instance of GoogleCalendarSynchronizer class
         /// </summary>
-        /// <param name="calendar">User name for Google Calendar API</param>
+        /// <param name="calendar">System.Windows.Forms.Calendar calendar</param>
         /// <param name="userName">User name for Google Calendar API</param>
-        /// <param name="calendarID">System.Windows.Forms.Calendar calendar</param>
+        /// <param name="calendarID">Google calendar ID</param>
         public GoogleCalendarSynchronizer(System.Windows.Forms.Calendar.Calendar calendar, string userName, string calendarID = null)
         {
             this.calendar = calendar;
+            this.userName = userName;
+            this.calendarID = calendarID ?? "primary";
+
+            try
+            {
+                service = GetGoogleService();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa vytvoriť Google Calendar Service", e);
+            }
+        }
+
+        public GoogleCalendarSynchronizer(string userName, string calendarID = null)
+        {
             this.userName = userName;
             this.calendarID = calendarID ?? "primary";
 
@@ -250,6 +265,39 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
+        public bool UploadEvent(string googleEventId,string summary, string description, DateTime startDate, DateTime endDate)
+        {
+            bool result = false;
+
+            try
+            {
+                    Event calendarEvent = new Event();
+
+                    calendarEvent.Id = googleEventId;
+                    calendarEvent.Summary = summary;
+                    calendarEvent.Description = description;
+
+                    DateTime startDateTime = startDate;
+                    EventDateTime start = new EventDateTime();
+                    start.DateTime = startDateTime;
+                    calendarEvent.Start = start;
+
+                    DateTime endDateTime = endDate;
+                    EventDateTime end = new EventDateTime();
+                    end.DateTime = endDateTime;
+                    calendarEvent.End = end;
+
+                    service.Events.Insert(calendarEvent, calendarID).Execute();
+            }
+            catch (Exception e)
+            {
+                result = false;
+                BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa vytvoriť Google event", e);
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Updates/deletes existing Google Calendat events
         /// </summary>
@@ -306,6 +354,34 @@ namespace GoogleCalendarSynchronizer
                     googleEvent.Description = updatedItem.Description;
                     googleEvent.Start.DateTime = updatedItem.StartDate;
                     googleEvent.End.DateTime = updatedItem.EndDate;
+                    service.Events.Update(googleEvent, calendarID, googleEvent.Id).Execute();
+                }
+            }
+            catch (Exception e)
+            {
+                result = false;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool UpdateEvent(string googleEventId, string summary, string description, DateTime startDate, DateTime endDate, bool isDeleted)
+        {
+            bool result = true;
+
+            try
+            {
+                Event googleEvent = service.Events.Get(calendarID, googleEventId).Execute();
+
+                if (isDeleted)
+                    service.Events.Delete(calendarID, googleEvent.Id).Execute();
+                else
+                {
+                    googleEvent.Summary = summary;
+                    googleEvent.Description = description;
+                    googleEvent.Start.DateTime = startDate;
+                    googleEvent.End.DateTime = endDate;
                     service.Events.Update(googleEvent, calendarID, googleEvent.Id).Execute();
                 }
             }
