@@ -279,6 +279,7 @@ namespace DatabaseCommunicator.Controllers
 
             return result;
         }
+
         #endregion
 
         #region Users
@@ -316,6 +317,21 @@ namespace DatabaseCommunicator.Controllers
         public User GetUserByLogin(string login)
         {
             return db.Users.FirstOrDefault(x => x.Login == login);
+        }
+
+        public IQueryable<User> GetUsers()
+        {
+            IQueryable<User> result = null;
+            try
+            {
+                result = db.Users.Where(x => !x.IsDeleted);
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -391,6 +407,49 @@ namespace DatabaseCommunicator.Controllers
             db.Users.Add(newUser);
 
             return SaveChanges();
+        }
+
+        public bool EditUser(User user, string email, int roleID, string password, string avatarImagePath)
+        {
+            bool result = false;
+            try
+            {
+                user.Email = email;
+                user.RoleID = roleID;
+                //user has not to edit existing password
+                if (password != null)
+                    user.Password = PasswordController.GetPwdHash(password);
+                //user has not to choose avatar image
+                if (avatarImagePath != null)
+                    user.AvatarImagePath = avatarImagePath;
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+                result = false;
+            }
+
+            return result;
+        }
+
+        public bool RemoveUser(User user)
+        {
+            bool result = false;
+
+            try
+            {
+                user.IsDeleted = true;
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+                result = false;
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -504,6 +563,43 @@ namespace DatabaseCommunicator.Controllers
 
             return SaveChanges();
         }
+
+        public bool EditInsuranceCompany(InsuranceCompany insuranceCompany, string insuranceCompanyName, string insuranceCompanyCode)
+        {
+            bool result = false;
+
+            try
+            {
+                insuranceCompany.Name = insuranceCompanyName;
+                insuranceCompany.Code = insuranceCompanyCode;
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                result = false;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool RemoveInsuranceCompany(InsuranceCompany item)
+        {
+            bool result = false;
+
+            try
+            {
+                item.IsDeleted = true;
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                result = false;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
         #endregion
 
         #region EZKO fields
@@ -574,12 +670,35 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        public bool ActionExists(Model.Action action, string actionName, string shortName)
+        {
+            bool result = true;
+
+            try
+            {
+                List<Model.Action> foundedActions = db.Actions.Where(x =>
+                (x.Name.Equals(actionName) || x.ShortName.Equals(shortName)) &&
+                !x.IsDeleted).ToList();
+
+                if (foundedActions.Count == 0)
+                    result = false;
+                else if(foundedActions.Count == 1 && foundedActions[0].ID == action.ID)
+                    result = false;
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Create action
         /// </summary>
         /// <returns>VAlue indicating whether the creation of new action was successfull</returns>
-        public bool CreateAction(string actionName, string shortcut, string longName, string material,
-            int recommendedLength, decimal costs, decimal margin, decimal insuranceCompanyMargin, InsuranceCompany insuranceCompany, Field field, bool hasSpecification)
+        public bool CreateAction(string actionName, string shortName, string longName, string material,
+            int recommendedLength, decimal costs, decimal margin, decimal? insuranceCompanyMargin, InsuranceCompany insuranceCompany, Field field, bool hasSpecification)
         {
             bool result = false;
             try
@@ -587,7 +706,7 @@ namespace DatabaseCommunicator.Controllers
                 Model.Action action = new Model.Action()
                 {
                     Name = actionName,
-                    ShortName = shortcut,
+                    ShortName = shortName,
                     LongName = longName,
                     Material = material,
                     RecommendedLength = recommendedLength,
@@ -605,6 +724,52 @@ namespace DatabaseCommunicator.Controllers
             catch (Exception e)
             {
                 BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool EditAction(Model.Action action, string actionName, string shortName, string longName, string material, int recommendedLength, decimal costs, decimal margin, decimal? insuranceCompanyMargin, InsuranceCompany insuranceCompany, Field field, bool hasSpecification)
+        {
+            bool result = false;
+            try
+            {
+                action.Name = actionName;
+                action.ShortName = shortName;
+                action.LongName = longName;
+                action.Material = material;
+                action.RecommendedLength = recommendedLength;
+                action.Costs = costs;
+                action.Margin = margin;
+                action.InsuranceCompanyMargin = insuranceCompanyMargin;
+                action.InsuranceCompany = insuranceCompany;
+                action.Field = field;
+                action.HasSpecification = hasSpecification;
+                action.IsDeleted = false;
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool RemoveAction(Model.Action action)
+        {
+            bool result = false;
+
+            try
+            {
+                action.IsDeleted = true;
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+                result = false;
             }
 
             return result;

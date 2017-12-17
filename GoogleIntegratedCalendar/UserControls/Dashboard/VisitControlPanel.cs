@@ -232,7 +232,6 @@ namespace EZKO.UserControls.Dashboard
             this.workingType = workingType;
             SetControlWorkingBehavior();
         }
-
         public void SetEzkoController(EzkoController ezkoController)
         {
             this.ezkoController = ezkoController;
@@ -365,6 +364,7 @@ namespace EZKO.UserControls.Dashboard
         private void InitializePlannedActionsComboBox()
         {
             plannedActionsComboBox.Items.Clear();
+            plannedActionsComboBox.CheckBoxItems.Clear();
             var actions = ezkoController.GetActions();
             foreach (var action in actions)
                 plannedActionsComboBox.Items.Add(action);

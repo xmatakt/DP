@@ -62,7 +62,7 @@ namespace EZKO
             GlobalSettings.Load();
             BasicMessagesHandler.SetLogFilePath(GlobalSettings.LogFilePath);
 
-            ezkoController = new EzkoController(GlobalSettings.ConnectionString);
+            ezkoController = GlobalSettings.EzkoController;
             //ezkoController.CreateFirstUser();
 
             //loggin in the user
@@ -181,25 +181,25 @@ namespace EZKO
             {
                 case PanelLoadingEnum.LoadingDashboardPanel:
                     if (dashboardPanel == null)
-                        dashboardPanel = new UserControls.Dashboard.GoogleIntegratedCalendarControl(ezkoController, ref calendarSynchronizer);
+                        dashboardPanel = new UserControls.Dashboard.GoogleIntegratedCalendarControl(ref calendarSynchronizer);
                     break;
                 case PanelLoadingEnum.LoadingAmbulantionPanel:
                     if(ambulantionPanel == null)
-                        ambulantionPanel = new AmbulantionUserControl(ezkoController, calendarSynchronizer);
+                        ambulantionPanel = new AmbulantionUserControl(calendarSynchronizer);
                     break;
                 case PanelLoadingEnum.LoadingPatientsPanel:
                     break;
                 case PanelLoadingEnum.LoadingAdministrationPanel:
                     if (administrationPanel == null)
-                        administrationPanel = new AdministrationUserControl(ezkoController);
+                        administrationPanel = new AdministrationUserControl();
                     break;
                 case PanelLoadingEnum.LoadAll:
                     if (dashboardPanel == null)
-                        dashboardPanel = new UserControls.Dashboard.GoogleIntegratedCalendarControl(ezkoController, ref calendarSynchronizer);
+                        dashboardPanel = new UserControls.Dashboard.GoogleIntegratedCalendarControl(ref calendarSynchronizer);
                     if (ambulantionPanel == null)
-                        ambulantionPanel = new AmbulantionUserControl(ezkoController, calendarSynchronizer);
+                        ambulantionPanel = new AmbulantionUserControl(calendarSynchronizer);
                     if (administrationPanel == null)
-                        administrationPanel = new AdministrationUserControl(ezkoController);
+                        administrationPanel = new AdministrationUserControl();
                     break;
                 default:
                     break;

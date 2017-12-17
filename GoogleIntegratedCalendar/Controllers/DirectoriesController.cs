@@ -1,6 +1,7 @@
 ﻿using ExceptionHandler;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -115,6 +116,14 @@ namespace EZKO.Controllers
             }
 
             return result;
+        }
+
+        public static Image GetImage(string path, Image defaultImage)
+        {
+            if (path != null && System.IO.File.Exists(path))
+                return Image.FromFile(path);
+            else
+                return defaultImage;
         }
     }
 }

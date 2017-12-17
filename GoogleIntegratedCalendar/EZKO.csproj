@@ -124,6 +124,12 @@
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
     <Compile Include="StringKeys.cs" />
+    <Compile Include="UserControls\Administration\ActionsControlPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Administration\ActionsControlPanel.Designer.cs">
+      <DependentUpon>ActionsControlPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Administration\AdministrationUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -135,6 +141,18 @@
     </Compile>
     <Compile Include="UserControls\Administration\AdminMenuItem.Designer.cs">
       <DependentUpon>AdminMenuItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Administration\InsuranceCompaniesControlPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Administration\InsuranceCompaniesControlPanel.Designer.cs">
+      <DependentUpon>InsuranceCompaniesControlPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Administration\UsersControlPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Administration\UsersControlPanel.Designer.cs">
+      <DependentUpon>UsersControlPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Ambulantion\AmbulantionUserControl.cs">
       <SubType>UserControl</SubType>
@@ -237,11 +255,20 @@
     <EmbeddedResource Include="Resources\Language.sk.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Administration\ActionsControlPanel.resx">
+      <DependentUpon>ActionsControlPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Administration\AdministrationUserControl.resx">
       <DependentUpon>AdministrationUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Administration\AdminMenuItem.resx">
       <DependentUpon>AdminMenuItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Administration\InsuranceCompaniesControlPanel.resx">
+      <DependentUpon>InsuranceCompaniesControlPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Administration\UsersControlPanel.resx">
+      <DependentUpon>UsersControlPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Ambulantion\AmbulantionUserControl.resx">
       <DependentUpon>AmbulantionUserControl.cs</DependentUpon>
@@ -402,6 +429,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\noUserImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\noUserImage_white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -16,6 +16,7 @@ namespace EZKO
         public static string ConnectionString = @"data source=DELLWIN8;initial catalog=Ezko2;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework;";
         //public static string User = "";
         public static DatabaseCommunicator.Model.User User = null;
+        public static DatabaseCommunicator.Controllers.EzkoController EzkoController = null;
         //public static string LanguagePrefix = "sk-SK";
         //public static string LanguagePrefix = "en-US";
         public static string LanguagePrefix = "";
@@ -36,6 +37,8 @@ namespace EZKO
             PatientsRootFolderPath = ConfigurationManager.AppSettings["PatientsRootFolderPath"];
             GoogleCalendarUserName = ConfigurationManager.AppSettings["GoogleCalendarUserName"];
             LogFilePath = ConfigurationManager.AppSettings["LogFilePath"];
+
+            EzkoController = new DatabaseCommunicator.Controllers.EzkoController(ConnectionString);
         }
     }
 }

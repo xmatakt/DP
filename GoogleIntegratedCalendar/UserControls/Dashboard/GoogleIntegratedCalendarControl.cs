@@ -207,7 +207,7 @@ namespace EZKO.UserControls.Dashboard
         #endregion
 
         #region public methods
-        public GoogleIntegratedCalendarControl(EzkoController ezkoController, ref GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer)
+        public GoogleIntegratedCalendarControl(ref GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer)
         {
             InitializeComponent();
 
@@ -227,7 +227,7 @@ namespace EZKO.UserControls.Dashboard
             calendar.ViewEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);
             findEventUserControl.SetPickedDateLabel(calendar.ViewStart, calendar.ViewEnd);
 
-            this.ezkoController = ezkoController;
+            ezkoController = GlobalSettings.EzkoController;
             visitUserControl.SetCalendarControl(this);
             visitUserControl.SetEzkoController(ezkoController);
 

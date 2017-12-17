@@ -17,16 +17,33 @@ namespace EZKO.Forms.AdministrationForms
         private WorkingTypeEnum workingType;
         private EzkoController ezkoController;
         private WorkingInfoForm workingInfoForm;
+        private DatabaseCommunicator.Model.Action action;
 
         #region Private properties
         private string actionName
         {
-            get { return actionNameTextBox.Text.Trim(); }
+            get
+            {
+                string result = actionNameTextBox.Text.Trim();
+                if (result == "")
+                    result = null;
+
+                return result;
+            }
+            set { actionNameTextBox.Text = value; }
         }
 
-        private string shortcut
+        private string shortName
         {
-            get { return actionShortcutTextBox.Text.Trim(); }
+            get
+            {
+                string result = actionShortcutTextBox.Text.Trim();
+                if (result == "")
+                    result = null;
+
+                return result;
+            }
+            set { actionShortcutTextBox.Text = value; }
         }
 
         private string longName
@@ -39,6 +56,7 @@ namespace EZKO.Forms.AdministrationForms
                 else
                     return longActionName;
             }
+            set { longNameTextBox.Text = value; }
         }
 
         private string material
@@ -51,26 +69,31 @@ namespace EZKO.Forms.AdministrationForms
                 else
                     return trimmedMaterial;
             }
+            set { materialRichTextBox.Text = value; }
         }
 
         private int recommendedLength
         {
             get { return (int)recommendedLengthUpDown.Value; }
+            set { recommendedLengthUpDown.Value = value; }
         }
 
         private decimal costs
         {
             get { return costsUpDown.Value; }
+            set { costsUpDown.Value = value; }
         }
 
         private decimal margin
         {
             get { return marginUpDown.Value; }
+            set { marginUpDown.Value = value; }
         }
 
-        private decimal insuranceCompanyMargin
+        private decimal? insuranceCompanyMargin
         {
             get { return companyMarginUpDown.Value; }
+            set { companyMarginUpDown.Value = value.Value; }
         }
 
         private InsuranceCompany insuranceCompany
@@ -82,6 +105,7 @@ namespace EZKO.Forms.AdministrationForms
 
                 return (InsuranceCompany)companyCodeComboBox.SelectedItem;
             }
+            set { companyCodeComboBox.SelectedItem = value; }
         }
 
         private Field field
@@ -93,36 +117,78 @@ namespace EZKO.Forms.AdministrationForms
 
                 return (Field)ezkoFieldComboBox.SelectedItem;
             }
+            set
+            {
+                ezkoFieldComboBox.SelectedItem = value;
+            }
         }
 
         private bool hasSpecification
         {
             get { return hasSpecificationCheckBox.Checked; }
+            set { hasSpecificationCheckBox.Checked = value; }
         }
         #endregion
 
         //Just for testing purpose
+        //public EditActionForm(WorkingTypeEnum workingType)
+        //{
+        //    InitializeComponent();
+
+        //    ezkoController = new EzkoController(GlobalSettings.ConnectionString);
+        //    this.workingType = workingType;
+
+        //    InitializeForm();
+        //}
+
         public EditActionForm(WorkingTypeEnum workingType)
         {
             InitializeComponent();
 
-            ezkoController = new EzkoController(GlobalSettings.ConnectionString);
+            ezkoController = GlobalSettings.EzkoController;
             this.workingType = workingType;
 
             InitializeForm();
         }
 
-        public EditActionForm(EzkoController ezkoController, WorkingTypeEnum workingType)
+        public EditActionForm(DatabaseCommunicator.Model.Action action)
         {
             InitializeComponent();
 
-            this.ezkoController = ezkoController;
-            this.workingType = workingType;
+            workingType = WorkingTypeEnum.Editing;
+            ezkoController = GlobalSettings.EzkoController;
+            this.action = action;
+            addButton.Text = "Upraviť výkon";
 
             InitializeForm();
         }
 
         #region Private methods
+
+        private void LoadAction()
+        {
+            if (action == null)
+                return;
+            try
+            {
+                actionName = action.Name;
+                shortName = action.ShortName;
+                longName = action.LongName;
+                material = action.Material;
+                recommendedLength = action.RecommendedLength;
+                costs = action.Costs;
+                margin = action.Margin;
+                if(action.Field != null)
+                    field = action.Field;
+                insuranceCompany = action.InsuranceCompany;
+                insuranceCompanyMargin = action.InsuranceCompanyMargin;
+                hasSpecification = action.HasSpecification;
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Pri načítavaní výkonu sa vyskytla chyba", e);
+            }
+        }
         private void InitializeForm(InsuranceCompany company = null)
         {
             InitializeInsuranceCompaniesComboBox();
@@ -131,23 +197,41 @@ namespace EZKO.Forms.AdministrationForms
 
         private void InitializeInsuranceCompaniesComboBox()
         {
+            //int selectedIndex = -1;
             var companies = ezkoController.GetInsuranceCompanies();
             if (companies == null)
                 return;
 
             foreach (var company in companies)
-                companyCodeComboBox.Items.Add(company);
+            {
+                /*int index =*/ companyCodeComboBox.Items.Add(company);
+                //if (action != null && action.InsuranceCompanyID == company.ID)
+                //    selectedIndex = index;
+            }
+
+            //if (selectedIndex >= 0)
+            //    companyCodeComboBox.SelectedIndex = selectedIndex;
         }
 
         private void InitializeEZKOFieldsComboBox()
         {
+            //int selectedIndex = -1;
             ezkoFieldComboBox.Items.Add("Bez prepojenia na EZKO pole");
             var fields = ezkoController.GetFields();
             if (fields == null)
                 return;
 
             foreach (var field in fields)
-                ezkoFieldComboBox.Items.Add(field);
+            {
+                /*int index =*/ ezkoFieldComboBox.Items.Add(field);
+                //if (action != null && action.EzkoFieldID == field.ID)
+                //    selectedIndex = index;
+            }
+
+            //if (selectedIndex >= 0)
+            //    ezkoFieldComboBox.SelectedIndex = selectedIndex;
+            if(action != null && action.EzkoFieldID == null)
+                ezkoFieldComboBox.SelectedIndex = 0;
         }
 
         private void CreateOrUpdate()
@@ -177,7 +261,7 @@ namespace EZKO.Forms.AdministrationForms
                     actionNameTextBox.Focus();
                     result = false;
                 }
-                else if(shortcut.Length < 1)
+                else if(shortName.Length < 1)
                 {
                     BasicMessagesHandler.ShowInformationMessage("Nezadali ste skratku výkonu");
                     actionShortcutTextBox.Focus();
@@ -189,7 +273,13 @@ namespace EZKO.Forms.AdministrationForms
                     companyCodeComboBox.Focus();
                     result = false;
                 }
-                else if(ezkoController.ActionExists(actionName, shortcut))
+                else if(action == null && ezkoController.ActionExists(actionName, shortName))
+                {
+                    BasicMessagesHandler.ShowInformationMessage("Výkon s daným názvom alebo skratkou už existuje");
+                    actionNameTextBox.Focus();
+                    result = false;
+                }
+                else if (action != null  && ezkoController.ActionExists(action, actionName, shortName))
                 {
                     BasicMessagesHandler.ShowInformationMessage("Výkon s daným názvom alebo skratkou už existuje");
                     actionNameTextBox.Focus();
@@ -212,13 +302,10 @@ namespace EZKO.Forms.AdministrationForms
                 Cursor = Cursors.WaitCursor;
                 if (ValidateData())
                 {
-                 if(ezkoController.CreateAction(actionName, shortcut, longName,
+                 if(ezkoController.CreateAction(actionName, shortName, longName,
                         material, recommendedLength, costs, margin, insuranceCompanyMargin,
                         insuranceCompany, field, hasSpecification))
-                    {
                         BasicMessagesHandler.ShowInformationMessage("Výkon bol úspešne vytvorený");
-                        ChangesHolder.ActionsChanged = true;
-                    }
                     else
                         BasicMessagesHandler.ShowErrorMessage("Počas vytvárania výkonu sa vyskytla chyba");
                 }
@@ -241,8 +328,10 @@ namespace EZKO.Forms.AdministrationForms
                 Cursor = Cursors.WaitCursor;
                 if (ValidateData())
                 {
-
-                    ChangesHolder.ActionsChanged = true;
+                    if (!ezkoController.EditAction(action, actionName, shortName, longName,
+                            material, recommendedLength, costs, margin, insuranceCompanyMargin,
+                            insuranceCompany, field, hasSpecification))
+                        BasicMessagesHandler.ShowErrorMessage("Počas úpravy výkonu sa vyskytla chyba");
                 }
                 else
                     DialogResult = DialogResult.None;
@@ -259,6 +348,7 @@ namespace EZKO.Forms.AdministrationForms
         #region MainPannelDragging
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
+
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
@@ -327,10 +417,17 @@ namespace EZKO.Forms.AdministrationForms
             actionNameTextBox.MaxLength = 30;
             actionShortcutTextBox.MaxLength = 12;
 
-            recommendedLengthUpDown.Maximum = decimal.MaxValue;
+            recommendedLengthUpDown.DecimalPlaces = 0;
+            costsUpDown.DecimalPlaces = 2;
+            marginUpDown.DecimalPlaces = 2;
+            companyMarginUpDown.DecimalPlaces = 2;
+
             costsUpDown.Maximum = decimal.MaxValue;
             companyMarginUpDown.Maximum = decimal.MaxValue;
             recommendedLengthUpDown.Maximum = decimal.MaxValue;
+            marginUpDown.Maximum = decimal.MaxValue;
+
+            LoadAction();
         }
 
         private void addButton_Click(object sender, EventArgs e)

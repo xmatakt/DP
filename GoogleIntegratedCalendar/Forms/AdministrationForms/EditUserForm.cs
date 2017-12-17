@@ -9,18 +9,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using DatabaseCommunicator.Model;
 
 namespace EZKO.Forms.AdministrationForms
 {
     /// <summary>
     /// Class which provides functionality to create or edit User entities
     /// </summary>
-    public partial class EditUserForm : Form
+    public partial class EditUserForm : System.Windows.Forms.Form
     {
         private WorkingTypeEnum workingType;
         private EzkoController ezkoController;
         private WorkingInfoForm workingInfoForm;
         private Dictionary<string, int> userRolesDictionary;
+        private User user;
 
         #region UserData
         private string login
@@ -36,13 +38,27 @@ namespace EZKO.Forms.AdministrationForms
 
         private string password
         {
-            get { return passwordTextBox.Text.Trim(); }
+            get
+            {
+                string result = passwordTextBox.Text.Trim();
+                if (result == "")
+                    result = null;
+
+                return result;
+            }
             set { passwordTextBox.Text = value.Trim(); }
         }
 
         private string confirmedPassword
         {
-            get { return confirmPasswordTextBox.Text.Trim(); }
+            get
+            {
+                string result = confirmPasswordTextBox.Text.Trim();
+                if (result == "")
+                    result = null;
+
+                return result;
+            }
             set { confirmPasswordTextBox.Text = value.Trim(); }
         }
 
@@ -64,6 +80,7 @@ namespace EZKO.Forms.AdministrationForms
         #region MainPannelDragging
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
+
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
@@ -80,45 +97,71 @@ namespace EZKO.Forms.AdministrationForms
         #endregion
 
         //Constructor just for testing purpose
+        //public EditUserForm(WorkingTypeEnum workingType)
+        //{
+        //    InitializeComponent();
+        //    ezkoController = new EzkoController(GlobalSettings.ConnectionString);
+
+        //    InitializeForm();
+
+        //    this.workingType = workingType;
+        //}
+
         public EditUserForm(WorkingTypeEnum workingType)
         {
             InitializeComponent();
-            ezkoController = new EzkoController(GlobalSettings.ConnectionString);
 
-            InitializeForm();
-
+            ezkoController = GlobalSettings.EzkoController;
             this.workingType = workingType;
+            InitializeForm();
         }
 
-        public EditUserForm(EzkoController ezkoController, WorkingTypeEnum workingType)
+        public EditUserForm(User user)
         {
             InitializeComponent();
+            ezkoController = GlobalSettings.EzkoController;
+            this.user = user;
+            workingType = WorkingTypeEnum.Editing;
+            addButton.Text = "Upraviť používateľa";
 
-            this.ezkoController = ezkoController;
-            this.workingType = workingType;
             InitializeForm();
         }
 
         private void InitializeForm()
         {
+            if(user != null)
+            {
+                login = user.Login;
+                email = user.Email;
+                avatarPictureBox.Image = DirectoriesController.GetImage(user.AvatarImagePath, Properties.Resources.noUserImage);
+                userNameTextBox.ReadOnly = true;
+            }
+
             userRolesDictionary = new Dictionary<string, int>();
             InitializeRoleComboBox();
         }
 
         private void InitializeRoleComboBox()
         {
+            int selectedIndex = -1;
             var roles = ezkoController.GetUserRoles();
 
             if(roles != null)
                 foreach (var role in roles)
                 {
                     var localizedRoleName = GetLocalizedRoleName(role.ID);
-                    roleComboBox.Items.Add(localizedRoleName);
+                    int index = roleComboBox.Items.Add(localizedRoleName);
                     userRolesDictionary.Add(localizedRoleName, role.ID);
+
+                    if (user != null && role.ID == user.RoleID)
+                        selectedIndex = index;
                 }
+
+            if (selectedIndex >= 0)
+                roleComboBox.SelectedIndex = selectedIndex;
         }
 
-        private void CreateOrUpdateUser()
+        private void CreateOrUpdate()
         {
             switch (workingType)
             {
@@ -139,7 +182,7 @@ namespace EZKO.Forms.AdministrationForms
 
         private void CreateUser()
         {
-            if (ValidateUserData())
+            if (ValidateData())
             {
                 string rootDirectoryPath = DirectoriesController.GetUserRootFolder(login);
                 string ezkoAvatarImagePath = DirectoriesController.GetEzkoUserImagePath(login, avatarImagePath);
@@ -164,12 +207,27 @@ namespace EZKO.Forms.AdministrationForms
 
         private void EditUser()
         {
-            //this row has to be here
-            ChangesHolder.DoctorsChanged = true;
-            throw new NotImplementedException();
+            if(ValidateData())
+            {
+                string rootDirectoryPath = user.RootDirectoryPath;
+                string ezkoAvatarImagePath = DirectoriesController.GetEzkoUserImagePath(user.Login, avatarImagePath);
+
+                //if editing of the user is succesful, we need to copy choosen image into users EZKO root folder
+                if (ezkoController.EditUser(user, email, roleID, password, ezkoAvatarImagePath) &&
+                    DirectoriesController.CopyFile(avatarImagePath, ezkoAvatarImagePath))
+                {
+                    //BasicMessagesHandler.ShowInformationMessage("Požívateľ bol úspešne upravený");
+                }
+                else
+                {
+                    BasicMessagesHandler.ShowErrorMessage("Pri editovaní požívateľa sa vyskytla chyba");
+                }
+            }
+            else
+                DialogResult = DialogResult.None;
         }
 
-        private bool ValidateUserData()
+        private bool ValidateData()
         {
             bool result = false;
 
@@ -197,19 +255,19 @@ namespace EZKO.Forms.AdministrationForms
                 roleComboBox.Focus();
                 result = false;
             }
-            else if (password.Length < 1)
+            else if (password == null && workingType == WorkingTypeEnum.Creating)
             {
                 BasicMessagesHandler.ShowInformationMessage("Nezadali ste heslo");
                 passwordTextBox.Focus();
                 result = false;
             }
-            else if (!password.Equals(confirmedPassword))
+            else if (workingType == WorkingTypeEnum.Creating && (confirmedPassword == null || !password.Equals(confirmedPassword)))
             {
                 BasicMessagesHandler.ShowInformationMessage("Heslá sa nezhodujú");
                 confirmPasswordTextBox.Focus();
                 result = false;
             }
-            else if(ezkoController.LoginExists(login))
+            else if(workingType == WorkingTypeEnum.Creating && ezkoController.LoginExists(login))
             {
                 BasicMessagesHandler.ShowInformationMessage("Zadané používateľské meno už existuje");
                 userNameTextBox.Focus();
@@ -249,7 +307,7 @@ namespace EZKO.Forms.AdministrationForms
         #region Events
         private void addButton_Click(object sender, EventArgs e)
         {
-            CreateOrUpdateUser();
+            CreateOrUpdate();
         }
 
         private void chooseImageButton_Click(object sender, EventArgs e)
@@ -279,7 +337,7 @@ namespace EZKO.Forms.AdministrationForms
         private void confirmPasswordTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                CreateOrUpdateUser();
+                CreateOrUpdate();
         }
 
         private void cancelButton_Click(object sender, EventArgs e)

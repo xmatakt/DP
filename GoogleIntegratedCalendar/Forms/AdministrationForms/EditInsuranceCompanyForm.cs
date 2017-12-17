@@ -4,45 +4,62 @@ using EZKO.Enums;
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using DatabaseCommunicator.Model;
 
 namespace EZKO.Forms.AdministrationForms
 {
     /// <summary>
     /// Class which provides functionality to create or edit InsuranceCompany entities
     /// </summary>
-    public partial class EditInsuranceCompanyForm : Form
+    public partial class EditInsuranceCompanyForm : System.Windows.Forms.Form
     {
         private WorkingTypeEnum workingType;
         private EzkoController ezkoController;
         private WorkingInfoForm workingInfoForm;
+        private InsuranceCompany insuranceCompany;
 
         #region Private properties
         private string insuranceCompanyName
         {
             get { return insuranceNameTextBox.Text.Trim(); }
+            set { insuranceNameTextBox.Text = value; }
         }
 
         private string insuranceCompanyCode
         {
             get { return insuranceCodeTextBox.Text.Trim(); }
+            set { insuranceCodeTextBox.Text = value; }
         }
         #endregion
 
         //Just for testing purpose
+        //public EditInsuranceCompanyForm(WorkingTypeEnum workingType)
+        //{
+        //    InitializeComponent();
+
+        //    ezkoController = new EzkoController(GlobalSettings.ConnectionString);
+        //    this.workingType = workingType;
+        //}
+
         public EditInsuranceCompanyForm(WorkingTypeEnum workingType)
         {
             InitializeComponent();
 
-            ezkoController = new EzkoController(GlobalSettings.ConnectionString);
+            ezkoController = GlobalSettings.EzkoController;
             this.workingType = workingType;
         }
 
-        public EditInsuranceCompanyForm(EzkoController ezkoController, WorkingTypeEnum workingType)
+        public EditInsuranceCompanyForm(InsuranceCompany insuranceCompany)
         {
             InitializeComponent();
 
-            this.ezkoController = ezkoController;
-            this.workingType = workingType;
+            this.insuranceCompany = insuranceCompany;
+            ezkoController = GlobalSettings.EzkoController;
+            workingType = WorkingTypeEnum.Editing;
+
+            addButton.Text = "Upraviť poisťovňu";
+            insuranceCompanyName = insuranceCompany.Name;
+            insuranceCompanyCode = insuranceCompany.Code;
         }
 
         #region Private methods
@@ -79,13 +96,25 @@ namespace EZKO.Forms.AdministrationForms
                     insuranceCodeTextBox.Focus();
                     result = false;
                 }
-                else if (ezkoController.InsuranceCompanyNameExists(insuranceCompanyName))
+                else if (insuranceCompany == null && ezkoController.InsuranceCompanyNameExists(insuranceCompanyName))
                 {
                     BasicMessagesHandler.ShowInformationMessage("Zadaný názov poisťovne už existuje");
                     insuranceNameTextBox.Focus();
                     result = false;
                 }
-                else if (ezkoController.InsuranceCompanyCodeExists(insuranceCompanyCode))
+                else if (insuranceCompany != null && insuranceCompany.Name != insuranceCompanyName && ezkoController.InsuranceCompanyNameExists(insuranceCompanyName))
+                {
+                    BasicMessagesHandler.ShowInformationMessage("Zadaný názov poisťovne už existuje");
+                    insuranceNameTextBox.Focus();
+                    result = false;
+                }
+                else if (insuranceCompany == null && ezkoController.InsuranceCompanyCodeExists(insuranceCompanyCode))
+                {
+                    BasicMessagesHandler.ShowInformationMessage("Zadaný kód poisťovne už existuje");
+                    insuranceCodeTextBox.Focus();
+                    result = false;
+                }
+                else if (insuranceCompany != null && insuranceCompany.Code != insuranceCompanyCode && ezkoController.InsuranceCompanyCodeExists(insuranceCompanyCode))
                 {
                     BasicMessagesHandler.ShowInformationMessage("Zadaný kód poisťovne už existuje");
                     insuranceCodeTextBox.Focus();
@@ -130,6 +159,13 @@ namespace EZKO.Forms.AdministrationForms
             try
             {
                 Cursor = Cursors.WaitCursor;
+                if (ValidateData())
+                {
+                    if (!ezkoController.EditInsuranceCompany(insuranceCompany, insuranceCompanyName, insuranceCompanyCode))
+                        BasicMessagesHandler.ShowErrorMessage("Pri editovaní poisťovňe sa vyskytla chyba!");
+                }
+                else
+                    DialogResult = DialogResult.None;
             }
             catch (Exception e)
             {
@@ -143,6 +179,8 @@ namespace EZKO.Forms.AdministrationForms
         #region MainPannelDragging
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
+        private InsuranceCompany item;
+
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]

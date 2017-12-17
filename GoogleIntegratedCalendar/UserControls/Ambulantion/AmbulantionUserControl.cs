@@ -13,7 +13,7 @@ namespace EZKO.UserControls.Ambulantion
         private EzkoController ezkoController;
         private DateTime firstDateTime;
         //private GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer;
-        public AmbulantionUserControl(EzkoController ezkoController, GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer)
+        public AmbulantionUserControl(GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer)
         {
             InitializeComponent();
 
@@ -23,7 +23,7 @@ namespace EZKO.UserControls.Ambulantion
             monthView.DaySelectedTextColor = monthView.ForeColor;
             DateTime now = DateTime.Now;
 
-            this.ezkoController = ezkoController;
+            ezkoController = GlobalSettings.EzkoController;
 
             visitUserControl.SetEzkoController(ezkoController);
             visitUserControl.SetAmbulantionControl(this);
