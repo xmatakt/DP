@@ -7,6 +7,7 @@ using DatabaseCommunicator.Model;
 using System.Windows.Forms.Calendar;
 using ExceptionHandler;
 using DatabaseCommunicator.Enums;
+using DatabaseCommunicator.Classes;
 
 namespace DatabaseCommunicator.Controllers
 {
@@ -58,6 +59,21 @@ namespace DatabaseCommunicator.Controllers
                 !x.IsDeleted);
         }
 
+        public IEnumerable<CalendarEvent> GetEvents(CalendarEventFilter filter)
+        {
+            IEnumerable<CalendarEvent> result;
+            result = db.CalendarEvents.Where(x => !x.IsDeleted);
+
+            if (filter.Doctor != null)
+                result = result.Where(x => x.Users.Contains(filter.Doctor));
+            if (filter.Nurse != null)
+                result = result.Where(x => x.Users.Contains(filter.Nurse));
+            if (filter.Infrastructure != null)
+                result = result.Where(x => x.Infrastructures.Contains(filter.Infrastructure));
+
+            return result;
+        }
+
         /// <summary>
         /// Use this method to delete desired CalendarEvents by their ids
         /// </summary>
@@ -97,40 +113,34 @@ namespace DatabaseCommunicator.Controllers
         /// <returns>Value indicating whether items was added successfully</returns>
         public bool AddCalendarEvents(List<CalendarItem> newItems)
         {
-            throw new NotImplementedException();
             bool result = true;
             if (newItems.Count == 0)
                 return result;
 
             try
             {
-                int lastEventId = db.CalendarEvents.OrderByDescending(x => x.ID).Select(x => x.ID).FirstOrDefault() + 1;
                 List<CalendarEvent> newEvents = new List<CalendarEvent>();
                 foreach (var item in newItems)
                 {
-                    var eventColor = new CalendarEventColor()
-                    {
-                        R = item.BackgroundColor.IsEmpty ? 203 : item.BackgroundColor.R,
-                        G = item.BackgroundColor.IsEmpty ? 219 : item.BackgroundColor.G,
-                        B = item.BackgroundColor.IsEmpty ? 238 : item.BackgroundColor.B,
-                    };
-
                     var newItem = new CalendarEvent()
                     {
-                        GoogleEventID = item.GoogleEventID ?? (DateTime.UtcNow.Subtract(item.StartDate)).TotalSeconds.ToString(),
+                        GoogleEventID = item.GoogleEventID ?? UnixTimestamp(DateTime.Now),
                         Summary = item.Text,
                         Description = item.Description,
                         StartDate = item.StartDate,
                         EndDate = item.EndDate,
                         IsSynchronized = true,
                         IsDeleted = item.IsDeleted,
-                        CalendarEventColor = eventColor,
+                        IsTemporaryGoogleEvent = true,
+                        StateID = (int)EventStateEnum.IsTemporaryGoogleEvent,
+                        ColorID = db.CalendarEventColors.First(x => x.EventStateID == (int)EventStateEnum.IsTemporaryGoogleEvent).ID,
                     };
                     newEvents.Add(newItem);
                     item.GoogleEventID = newItem.GoogleEventID;
                 }
 
                 db.CalendarEvents.AddRange(newEvents);
+                result = SaveChanges();
             }
             catch (Exception e)
             {
@@ -158,21 +168,16 @@ namespace DatabaseCommunicator.Controllers
                 {
                     var calendarEvent = db.CalendarEvents.First(x => x.ID == item.DatabaseEntityID.Value);
 
-                    var eventColor = calendarEvent.CalendarEventColor;
-
-                    eventColor.R = item.BackgroundColor.IsEmpty ? 203 : item.BackgroundColor.R;
-                    eventColor.G = item.BackgroundColor.IsEmpty ? 219 : item.BackgroundColor.G;
-                    eventColor.B = item.BackgroundColor.IsEmpty ? 238 : item.BackgroundColor.B;
-
-                    calendarEvent.GoogleEventID = item.GoogleEventID;
-                    calendarEvent.Summary = item.Text;
-                    calendarEvent.Description = item.Description;
+                    //calendarEvent.GoogleEventID = item.GoogleEventID;
+                    //calendarEvent.Summary = item.Text;
+                    //calendarEvent.Description = item.Description;
                     calendarEvent.StartDate = item.StartDate;
                     calendarEvent.EndDate = item.EndDate;
                     calendarEvent.IsSynchronized = true;
                     calendarEvent.IsDeleted = item.IsDeleted;
-                    calendarEvent.CalendarEventColor = eventColor;
                 }
+
+                result = SaveChanges();
             }
             catch (Exception e)
             {
@@ -323,6 +328,21 @@ namespace DatabaseCommunicator.Controllers
             try
             {
                 result = db.Users.Where(x => (x.RoleID == (int)UserRoleEnum.Doctor) && !x.IsDeleted);
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public IQueryable<User> GetNurses()
+        {
+            IQueryable<User> result = null;
+            try
+            {
+                result = db.Users.Where(x => (x.RoleID == (int)UserRoleEnum.Nurse) && !x.IsDeleted);
             }
             catch (Exception e)
             {
@@ -612,6 +632,7 @@ namespace DatabaseCommunicator.Controllers
                     Users = doctors,
                     PlanedActionText = plannedText,
                     EventState = eventState,
+                    IsTemporaryGoogleEvent = false,
 
                     IsSynchronized = false,
                     IsDeleted = false,
@@ -641,6 +662,21 @@ namespace DatabaseCommunicator.Controllers
             try
             {
                 result = db.CalendarEvents.FirstOrDefault(x => x.ID == calendarEventID);
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+        public CalendarEvent GetEvent(string googleEventID)
+        {
+            CalendarEvent result = null;
+
+            try
+            {
+                result = db.CalendarEvents.FirstOrDefault(x => x.GoogleEventID == googleEventID);
             }
             catch (Exception e)
             {
@@ -713,6 +749,21 @@ namespace DatabaseCommunicator.Controllers
             try
             {
                 result = db.EventStates;
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public IQueryable<Infrastructure> GetInfrastructure()
+        {
+            IQueryable<Infrastructure> result = null;
+            try
+            {
+                result = db.Infrastructures.Where(x => !x.IsDeleted);
             }
             catch (Exception e)
             {

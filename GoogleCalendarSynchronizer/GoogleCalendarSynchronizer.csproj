@@ -81,6 +81,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DatabaseCommunicator\DatabaseCommunicator.csproj">
+      <Project>{8C6675D5-0E8B-474E-B793-AF777376D361}</Project>
+      <Name>DatabaseCommunicator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExceptionHandler\MessagesHandler.csproj">
       <Project>{35790a1d-19bb-4f6b-b5f4-adc25859ebae}</Project>
       <Name>MessagesHandler</Name>

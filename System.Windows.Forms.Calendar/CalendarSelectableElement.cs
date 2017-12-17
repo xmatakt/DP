@@ -14,6 +14,7 @@ namespace System.Windows.Forms.Calendar
         #region Fields
         private Calendar _calendar;
         private Rectangle _bounds;
+        private Rectangle? _boundsIfSelected;
         private DateTime _date;
         private bool _selected;
         #endregion
@@ -58,11 +59,27 @@ namespace System.Windows.Forms.Calendar
             get { return _bounds; }
         }
 
+        public virtual Rectangle? BoundsIfSelected
+        {
+            get
+            {
+                if (Selected)
+                    return _boundsIfSelected;
+                else
+                    return null;
+            }
+            set { _boundsIfSelected = value; }
+        }
+
         /// <summary>
         /// Gets a value indicating if the element is currently selected
         /// </summary>
         public virtual bool Selected
         {
+            set
+            {
+                _selected = value;
+            }
             get
             {
                 return _selected;

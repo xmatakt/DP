@@ -65,11 +65,12 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="IsSynchronized" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="PatientID" Type="int" />
           <Property Name="NotificationEmails" Type="nvarchar(max)" />
           <Property Name="PlanedActionText" Type="nvarchar(max)" />
           <Property Name="ExecutedActionText" Type="nvarchar(max)" />
           <Property Name="StateID" Type="int" Nullable="false" />
+          <Property Name="IsTemporaryGoogleEvent" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CalendarEventColor">
           <Key>
@@ -343,7 +344,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CalendarEvent_di904417518440335821">
-          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
           <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Patient">
@@ -943,7 +944,7 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsSynchronized" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="PatientID" Type="Int32" />
           <Property Name="NotificationEmails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PlanedActionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ExecutedActionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -955,6 +956,7 @@
           <NavigationProperty Name="Users" Relationship="EzkoModel.CalendarEventUser" FromRole="CalendarEvent" ToRole="User" />
           <NavigationProperty Name="CalendarEventColor" Relationship="EzkoModel.FK_CalendarEvent_di647481913942757360" FromRole="CalendarEvent" ToRole="CalendarEventColor" />
           <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052" FromRole="CalendarEvent" ToRole="CalendarEventExecutedAction" />
+          <Property Name="IsTemporaryGoogleEvent" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="EventState">
           <Key>
@@ -1202,7 +1204,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CalendarEvent_di904417518440335821">
-          <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="1" />
+          <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="0..1" />
           <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Patient">
@@ -1502,6 +1504,7 @@
           <EntitySetMapping Name="CalendarEvents">
             <EntityTypeMapping TypeName="EzkoModel.CalendarEvent">
               <MappingFragment StoreEntitySet="CalendarEvent">
+                <ScalarProperty Name="IsTemporaryGoogleEvent" ColumnName="IsTemporaryGoogleEvent" />
                 <ScalarProperty Name="StateID" ColumnName="StateID" />
                 <ScalarProperty Name="ExecutedActionText" ColumnName="ExecutedActionText" />
                 <ScalarProperty Name="PlanedActionText" ColumnName="PlanedActionText" />

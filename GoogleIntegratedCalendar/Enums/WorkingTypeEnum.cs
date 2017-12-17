@@ -16,6 +16,7 @@ namespace EZKO.Enums
     {
         Creating = 1,
         Editing = 2,
-        Recreating = 3
+        Recreating = 3,
+        CreatingFromGoogleEvent = 4,
     }
 }

@@ -14,6 +14,8 @@ using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using ExceptionHandler;
+using DatabaseCommunicator.Controllers;
+using DatabaseCommunicator.Model;
 
 namespace GoogleCalendarSynchronizer
 {
@@ -31,7 +33,7 @@ namespace GoogleCalendarSynchronizer
         private CalendarService service;
         private System.Windows.Forms.Calendar.Calendar calendar;
 
-        #region public
+        #region Public methods
 
         /// <summary>
         /// Creates new instance of GoogleCalendarSynchronizer class
@@ -76,7 +78,7 @@ namespace GoogleCalendarSynchronizer
         /// <param name="startDate">Beginig of required time periond</param>
         /// <param name="endDate">End of required time periond</param>
         /// <returns>Returns list of google events saved as winforms calendar items</returns>
-        public List<CalendarItem> GetCalendarItems(DateTime startDate, DateTime endDate)
+        public List<CalendarItem> GetGoogleCalendarItems(DateTime startDate, DateTime endDate)
         {
             List<CalendarItem> result = new List<CalendarItem>();
             try
@@ -105,6 +107,28 @@ namespace GoogleCalendarSynchronizer
                             //service.Events.Delete("vul8uj8500f0oimq588h9n8v90@group.calendar.google.com", eventItem.Id).Execute();    
                         }
                     }
+                }
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa načítať udalosti z Google kalendára", e);
+                result = new List<CalendarItem>();
+            }
+
+            return result;
+        }
+
+        public List<CalendarItem> GetDbCalendarItems(EzkoController ezkoController, DateTime startDate, DateTime endDate)
+        {
+            List<CalendarItem> result = new List<CalendarItem>();
+            try
+            {
+                foreach (var eventItem in ezkoController.GetEvents().Where(x => x.StartDate >= startDate && x.EndDate <= endDate))
+                {
+                    var resultItem = new CalendarItem(calendar, eventItem.StartDate, eventItem.EndDate,
+                        eventItem.Summary, eventItem.Description, eventItem.IsDeleted);
+                    resultItem.GoogleEventID = eventItem.GoogleEventID;
+                    result.Add(resultItem);
                 }
             }
             catch (Exception e)
@@ -394,9 +418,58 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
+        public bool SynchronizeEvents(EzkoController ezkoController)
+        {
+            List<CalendarItem> googleItems = GetGoogleCalendarItems(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
+            List<CalendarItem> dbItems = GetDbCalendarItems(ezkoController, DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
+
+            List<CalendarItem> dbUpdateItems = new List<CalendarItem>();
+            List<CalendarItem> dbUploadItems = new List<CalendarItem>();
+
+            foreach (var googleItem in googleItems)
+            {
+                CalendarEvent dbItem = ezkoController.GetEvent(googleItem.GoogleEventID);
+
+                if (dbItem != null)
+                {
+                    // if event dates were changed in Google Calendar, transfer changes onto database items
+                    if (!dbItem.IsDeleted)
+                    {
+                        CalendarItem updateItem = new CalendarItem(calendar, dbItem.StartDate, dbItem.EndDate,
+                            dbItem.Summary, dbItem.Description, dbItem.IsDeleted);
+                        updateItem.GoogleEventID = dbItem.GoogleEventID;
+
+                        if (!googleItem.Equals(updateItem))
+                        {
+                            updateItem.StartDate = googleItem.StartDate;
+                            updateItem.EndDate = googleItem.EndDate;
+                            updateItem.DatabaseEntityID = dbItem.ID;
+
+                            dbUpdateItems.Add(updateItem);
+                        }
+                    }
+                }
+                // if there is not such an item in database, create new one - only temporary item which tells to doctor or nurse
+                // to create new event from EZKO application
+                else
+                {
+                    dbUploadItems.Add(googleItem);
+                }
+            }
+
+            bool dbUploadResult = ezkoController.AddCalendarEvents(dbUploadItems);
+            bool dbUpdateResult = ezkoController.UpdateCalendarEvents(dbUpdateItems);
+
+            if (!dbUploadResult)
+                BasicMessagesHandler.ShowErrorMessage("Počas vytvárania nových udalostí do databázy sa vyskytla chyba");
+            if (!dbUpdateResult)
+                BasicMessagesHandler.ShowErrorMessage("Počas synchronizácie udalostí v databáze sa vyskytla chyba");
+
+            return dbUploadResult && dbUpdateResult;
+        }
         #endregion
 
-        #region private
+        #region Private methods
         /// <summary>
         /// Creates new google CalendarService used to CRUD operations
         /// </summary>
@@ -428,6 +501,6 @@ namespace GoogleCalendarSynchronizer
 
             return service;
         }
-#endregion
+        #endregion
     }
 }

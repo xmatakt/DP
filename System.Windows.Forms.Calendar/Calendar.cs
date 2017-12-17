@@ -869,6 +869,12 @@ namespace System.Windows.Forms.Calendar
             if(!ignoreItems)
                 foreach (CalendarItem item in Items)
                 {
+                    if(item.BoundsIfSelected != null)
+                    {
+                        if (item.BoundsIfSelected.Value.Contains(p))
+                            return item;
+                    }
+
                     foreach (Rectangle r in item.GetAllBounds())
                     {
                         if (r.Contains(p))
@@ -1648,23 +1654,23 @@ namespace System.Windows.Forms.Calendar
                         itemOnStateChanged = false;
 
                         //we don't want to allow moveing and resizing CalendarItems item using mouse
-                        //if (AllowItemEdit)
-                        //{
-                        //    if (itemOnState.ResizeStartDateZone(e.Location) && AllowItemResize)
-                        //    {
-                        //        SetState(CalendarState.ResizingItem);
-                        //        itemOnState.SetIsResizingStartDate(true);
-                        //    }
-                        //    else if (itemOnState.ResizeEndDateZone(e.Location) && AllowItemResize)
-                        //    {
-                        //        SetState(CalendarState.ResizingItem);
-                        //        itemOnState.SetIsResizingEndDate(true);
-                        //    }
-                        //    else
-                        //    {
-                        //        SetState(CalendarState.DraggingItem);
-                        //    }
-                        //}
+                        if (AllowItemEdit)
+                        {
+                            if (itemOnState.ResizeStartDateZone(e.Location) && AllowItemResize)
+                            {
+                                SetState(CalendarState.ResizingItem);
+                                itemOnState.SetIsResizingStartDate(true);
+                            }
+                            else if (itemOnState.ResizeEndDateZone(e.Location) && AllowItemResize)
+                            {
+                                SetState(CalendarState.ResizingItem);
+                                itemOnState.SetIsResizingEndDate(true);
+                            }
+                            else
+                            {
+                                SetState(CalendarState.DraggingItem);
+                            }
+                        }
 
                         SetSelectionRange(null, null);
                     }

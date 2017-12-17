@@ -148,6 +148,12 @@
     <Compile Include="UserControls\Ambulantion\CalendarEventCard.Designer.cs">
       <DependentUpon>CalendarEventCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Ambulantion\FilterEventUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Ambulantion\FilterEventUserControl.Designer.cs">
+      <DependentUpon>FilterEventUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Colors.cs" />
     <Compile Include="UserControls\Dashboard\FindEventUserControl.cs">
       <SubType>UserControl</SubType>
@@ -242,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Ambulantion\CalendarEventCard.resx">
       <DependentUpon>CalendarEventCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Ambulantion\FilterEventUserControl.resx">
+      <DependentUpon>FilterEventUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Dashboard\FindEventUserControl.resx">
       <DependentUpon>FindEventUserControl.cs</DependentUpon>

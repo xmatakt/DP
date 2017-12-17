@@ -14,7 +14,16 @@ namespace EZKO.UserControls.Dashboard
     {
         private EzkoController ezkoController;
         private VisitUserControl visitUserControl;
-        private CalendarEvent calendarEvent { get { return searchInEventsTextBox.Tag as CalendarEvent; } }
+        private GoogleIntegratedCalendarControl calendarControl;
+        private CalendarEvent calendarEvent
+        {
+            get { return searchInEventsTextBox.Tag as CalendarEvent; }
+            set
+            {
+                searchInEventsTextBox.Tag = value;
+                searchInEventsTextBox.Text = "";
+            }
+        }
         public FindEventUserControl()
         {
             InitializeComponent();
@@ -30,6 +39,11 @@ namespace EZKO.UserControls.Dashboard
         public void SetVisitUserControl(VisitUserControl visitUserControl)
         {
             this.visitUserControl = visitUserControl;
+        }
+
+        public void SetCalendarControl(GoogleIntegratedCalendarControl calendarControl)
+        {
+            this.calendarControl = calendarControl;
         }
 
         /// <summary>
@@ -54,6 +68,11 @@ namespace EZKO.UserControls.Dashboard
         {
             pickedDateTimeLabel.Text = date.ToString("dddd d.MMMM yyyy");
         }
+
+        public void UpdateControl()
+        {
+            InitializeSearchInEventsTextBox();
+        }
         #endregion
 
         #region Private methods
@@ -77,7 +96,13 @@ namespace EZKO.UserControls.Dashboard
         private void searchInEventsTextBox_TextChanged(object sender, EventArgs e)
         {
             if (calendarEvent != null && visitUserControl != null)
-                visitUserControl.LoadEvent(calendarEvent);
+                if(calendarEvent.ToString() == searchInEventsTextBox.Text)
+                {
+                    visitUserControl.LoadEvent(calendarEvent);
+                    calendarControl.ShowEvent(calendarEvent);
+                    calendarEvent = null;
+
+                }
         }
         #endregion
     }

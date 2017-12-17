@@ -16,6 +16,12 @@ namespace ExceptionHandler
     {
         private static string logFilePath = "errorLog.log";
 
+        public static void SetLogFilePath(string path)
+        {
+            logFilePath = path;
+            File.SetAttributes(path, File.GetAttributes(path) | FileAttributes.Hidden);
+        }
+
         /// <summary>
         /// Dispalys error message on the screen and logs the exception into text file
         /// </summary>

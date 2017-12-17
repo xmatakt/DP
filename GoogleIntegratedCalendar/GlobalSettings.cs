@@ -21,6 +21,7 @@ namespace EZKO
         public static string LanguagePrefix = "";
         public static string UserRootFolderPath = @"C:\EZKO\Users";
         public static string PatientsRootFolderPath = @"C:\EZKO\Patients";
+        public static string LogFilePath = @"C:\EZKO\.errorLog.log";
 
         public static string GoogleCalendarUserName = "timo";
 
@@ -34,6 +35,7 @@ namespace EZKO
             UserRootFolderPath = ConfigurationManager.AppSettings["UserRootFolderPath"];
             PatientsRootFolderPath = ConfigurationManager.AppSettings["PatientsRootFolderPath"];
             GoogleCalendarUserName = ConfigurationManager.AppSettings["GoogleCalendarUserName"];
+            LogFilePath = ConfigurationManager.AppSettings["LogFilePath"];
         }
     }
 }

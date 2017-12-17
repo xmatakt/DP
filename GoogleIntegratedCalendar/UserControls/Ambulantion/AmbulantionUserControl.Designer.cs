@@ -30,10 +30,10 @@
         {
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.leftTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.middleTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.findEventUserControl = new EZKO.UserControls.Dashboard.FindEventUserControl();
-            this.eventsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.monthView = new System.Windows.Forms.Calendar.MonthView();
+            this.middleTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.eventsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.filterEventUserControl = new EZKO.UserControls.Ambulantion.FilterEventUserControl();
             this.visitUserControl = new EZKO.UserControls.Dashboard.VisitUserControl();
             this.mainTableLayoutPanel.SuspendLayout();
             this.leftTableLayoutPanel.SuspendLayout();
@@ -72,43 +72,6 @@
             this.leftTableLayoutPanel.Size = new System.Drawing.Size(284, 863);
             this.leftTableLayoutPanel.TabIndex = 0;
             // 
-            // middleTableLayoutPanel
-            // 
-            this.middleTableLayoutPanel.ColumnCount = 1;
-            this.middleTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.middleTableLayoutPanel.Controls.Add(this.findEventUserControl, 0, 0);
-            this.middleTableLayoutPanel.Controls.Add(this.eventsFlowLayoutPanel, 0, 1);
-            this.middleTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.middleTableLayoutPanel.Location = new System.Drawing.Point(293, 3);
-            this.middleTableLayoutPanel.Name = "middleTableLayoutPanel";
-            this.middleTableLayoutPanel.RowCount = 2;
-            this.middleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.middleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.middleTableLayoutPanel.Size = new System.Drawing.Size(687, 863);
-            this.middleTableLayoutPanel.TabIndex = 1;
-            // 
-            // findEventUserControl
-            // 
-            this.findEventUserControl.AutoSize = true;
-            this.findEventUserControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.findEventUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.findEventUserControl.Location = new System.Drawing.Point(3, 2);
-            this.findEventUserControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.findEventUserControl.Name = "findEventUserControl";
-            this.findEventUserControl.Size = new System.Drawing.Size(681, 88);
-            this.findEventUserControl.TabIndex = 0;
-            // 
-            // eventsFlowLayoutPanel
-            // 
-            this.eventsFlowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.eventsFlowLayoutPanel.AutoScroll = true;
-            this.eventsFlowLayoutPanel.Location = new System.Drawing.Point(3, 95);
-            this.eventsFlowLayoutPanel.Name = "eventsFlowLayoutPanel";
-            this.eventsFlowLayoutPanel.Size = new System.Drawing.Size(681, 767);
-            this.eventsFlowLayoutPanel.TabIndex = 1;
-            // 
             // monthView
             // 
             this.monthView.ArrowsColor = System.Drawing.SystemColors.Window;
@@ -127,11 +90,47 @@
             this.monthView.MonthTitleTextColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.monthView.MonthTitleTextColorInactive = System.Drawing.SystemColors.InactiveCaptionText;
             this.monthView.Name = "monthView";
-            this.monthView.Size = new System.Drawing.Size(278, 426);
+            this.monthView.Size = new System.Drawing.Size(278, 425);
             this.monthView.TabIndex = 0;
             this.monthView.Text = "monthView1";
             this.monthView.TodayBorderColor = System.Drawing.Color.Maroon;
             this.monthView.SelectionChanged += new System.EventHandler(this.monthView_SelectionChanged);
+            // 
+            // middleTableLayoutPanel
+            // 
+            this.middleTableLayoutPanel.ColumnCount = 1;
+            this.middleTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.middleTableLayoutPanel.Controls.Add(this.eventsFlowLayoutPanel, 0, 1);
+            this.middleTableLayoutPanel.Controls.Add(this.filterEventUserControl, 0, 0);
+            this.middleTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.middleTableLayoutPanel.Location = new System.Drawing.Point(293, 3);
+            this.middleTableLayoutPanel.Name = "middleTableLayoutPanel";
+            this.middleTableLayoutPanel.RowCount = 2;
+            this.middleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.middleTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.middleTableLayoutPanel.Size = new System.Drawing.Size(687, 863);
+            this.middleTableLayoutPanel.TabIndex = 1;
+            // 
+            // eventsFlowLayoutPanel
+            // 
+            this.eventsFlowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.eventsFlowLayoutPanel.AutoScroll = true;
+            this.eventsFlowLayoutPanel.Location = new System.Drawing.Point(3, 91);
+            this.eventsFlowLayoutPanel.Name = "eventsFlowLayoutPanel";
+            this.eventsFlowLayoutPanel.Size = new System.Drawing.Size(681, 769);
+            this.eventsFlowLayoutPanel.TabIndex = 1;
+            // 
+            // filterEventUserControl
+            // 
+            this.filterEventUserControl.AutoSize = true;
+            this.filterEventUserControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.filterEventUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filterEventUserControl.Location = new System.Drawing.Point(3, 3);
+            this.filterEventUserControl.Name = "filterEventUserControl";
+            this.filterEventUserControl.Size = new System.Drawing.Size(681, 82);
+            this.filterEventUserControl.TabIndex = 2;
             // 
             // visitUserControl
             // 
@@ -164,9 +163,9 @@
         private System.Windows.Forms.TableLayoutPanel mainTableLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel leftTableLayoutPanel;
         private System.Windows.Forms.TableLayoutPanel middleTableLayoutPanel;
-        private Dashboard.FindEventUserControl findEventUserControl;
         private System.Windows.Forms.FlowLayoutPanel eventsFlowLayoutPanel;
         private System.Windows.Forms.Calendar.MonthView monthView;
         private Dashboard.VisitUserControl visitUserControl;
+        private FilterEventUserControl filterEventUserControl;
     }
 }

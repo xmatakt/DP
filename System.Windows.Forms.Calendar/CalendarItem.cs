@@ -607,9 +607,9 @@ namespace System.Windows.Forms.Calendar
             }
 
             return this.StartDate == item.StartDate &&
-                   this.EndDate == item.EndDate &&
-                   this.Text == item.Text &&
-                   this.Description == item.Description;
+                   this.EndDate == item.EndDate;// &&
+                   //this.Text == item.Text &&
+                   //this.Description == item.Description;
         }
 
         public void GenerateGoogleEventID()
@@ -708,6 +708,11 @@ namespace System.Windows.Forms.Calendar
             List<Rectangle> rects = new List<Rectangle>(GetAllBounds());
             Rectangle first = rects[0];
             Rectangle last = rects[rects.Count - 1];
+
+            if(BoundsIfSelected.HasValue)
+            {
+                last = BoundsIfSelected.Value;
+            }
 
             if (IsOnDayTop || Calendar.DaysMode == CalendarDaysMode.Short)
             {

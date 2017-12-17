@@ -26,6 +26,8 @@ namespace EZKO
         private UserControls.Dashboard.GoogleIntegratedCalendarControl dashboardPanel = null;
         private AdministrationUserControl administrationPanel = null;
         private AmbulantionUserControl ambulantionPanel = null;
+        private GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer;
+
 
         // enum to hold the information which panel has to be shown to the user
         private PanelLoadingEnum workingInfoEnum;
@@ -58,6 +60,8 @@ namespace EZKO
         public MainForm()
         {
             GlobalSettings.Load();
+            BasicMessagesHandler.SetLogFilePath(GlobalSettings.LogFilePath);
+
             ezkoController = new EzkoController(GlobalSettings.ConnectionString);
             //ezkoController.CreateFirstUser();
 
@@ -167,26 +171,6 @@ namespace EZKO
         }
         #endregion
 
-        private void dashboardMenuItem_TransparentPanelMouseClick(object sender, MouseEventArgs e)
-        {
-            workingInfoEnum = PanelLoadingEnum.LoadingDashboardPanel;
-
-            // Configure a BackgroundWorker to perform your long running operation.
-            BackgroundWorker bg = new BackgroundWorker();
-            bg.DoWork += new DoWorkEventHandler(bg_DoWork);
-            bg.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bg_RunWorkerCompleted);
-
-            // Start the worker.
-            bg.RunWorkerAsync();
-
-            if(dashboardPanel == null)
-            {
-                workingInfoForm = new WorkingInfoForm(LanguageController.GetText(StringKeys.LoadingDataTitle),
-                    LanguageController.GetText(StringKeys.LoadingDashboardPanel));
-                workingInfoForm.ShowDialog();
-            }
-        }
-
         /// <summary>
         /// Loads the panels in the separated thread to be able to show WorkingInfoForm
         /// to the user
@@ -197,11 +181,11 @@ namespace EZKO
             {
                 case PanelLoadingEnum.LoadingDashboardPanel:
                     if (dashboardPanel == null)
-                        dashboardPanel = new UserControls.Dashboard.GoogleIntegratedCalendarControl(ezkoController);
+                        dashboardPanel = new UserControls.Dashboard.GoogleIntegratedCalendarControl(ezkoController, ref calendarSynchronizer);
                     break;
                 case PanelLoadingEnum.LoadingAmbulantionPanel:
                     if(ambulantionPanel == null)
-                        ambulantionPanel = new AmbulantionUserControl(ezkoController);
+                        ambulantionPanel = new AmbulantionUserControl(ezkoController, calendarSynchronizer);
                     break;
                 case PanelLoadingEnum.LoadingPatientsPanel:
                     break;
@@ -211,9 +195,9 @@ namespace EZKO
                     break;
                 case PanelLoadingEnum.LoadAll:
                     if (dashboardPanel == null)
-                        dashboardPanel = new UserControls.Dashboard.GoogleIntegratedCalendarControl(ezkoController);
+                        dashboardPanel = new UserControls.Dashboard.GoogleIntegratedCalendarControl(ezkoController, ref calendarSynchronizer);
                     if (ambulantionPanel == null)
-                        ambulantionPanel = new AmbulantionUserControl(ezkoController);
+                        ambulantionPanel = new AmbulantionUserControl(ezkoController, calendarSynchronizer);
                     if (administrationPanel == null)
                         administrationPanel = new AdministrationUserControl(ezkoController);
                     break;
@@ -230,6 +214,7 @@ namespace EZKO
                 case PanelLoadingEnum.LoadingDashboardPanel:
                     if (dashboardPanel != null)
                     {
+                        calendarSynchronizer.SynchronizeEvents(ezkoController);
                         mainPanel.Controls.Add(dashboardPanel);
                         dashboardPanel.Dock = DockStyle.Fill;
                         dashboardPanel.UpdateControl();
@@ -238,6 +223,7 @@ namespace EZKO
                 case PanelLoadingEnum.LoadingAmbulantionPanel:
                     if(ambulantionPanel != null)
                     {
+                        calendarSynchronizer.SynchronizeEvents(ezkoController);
                         mainPanel.Controls.Add(ambulantionPanel);
                         ambulantionPanel.Dock = DockStyle.Fill;
                         ambulantionPanel.UpdateControl();
@@ -275,6 +261,26 @@ namespace EZKO
             }
 
             workingInfoForm.Close();
+        }
+
+        private void dashboardMenuItem_TransparentPanelMouseClick(object sender, MouseEventArgs e)
+        {
+            workingInfoEnum = PanelLoadingEnum.LoadingDashboardPanel;
+
+            // Configure a BackgroundWorker to perform your long running operation.
+            BackgroundWorker bg = new BackgroundWorker();
+            bg.DoWork += new DoWorkEventHandler(bg_DoWork);
+            bg.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bg_RunWorkerCompleted);
+
+            // Start the worker.
+            bg.RunWorkerAsync();
+
+            if (dashboardPanel == null)
+            {
+                workingInfoForm = new WorkingInfoForm(LanguageController.GetText(StringKeys.LoadingDataTitle),
+                    LanguageController.GetText(StringKeys.LoadingDashboardPanel));
+                workingInfoForm.ShowDialog();
+            }
         }
 
         private void ambulantionMenuItem_TransparentPanelMouseClick(object sender, MouseEventArgs e)

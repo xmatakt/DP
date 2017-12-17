@@ -165,7 +165,7 @@
             this.newVisitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newVisitLabel.Location = new System.Drawing.Point(3, 7);
             this.newVisitLabel.Name = "newVisitLabel";
-            this.newVisitLabel.Size = new System.Drawing.Size(142, 25);
+            this.newVisitLabel.Size = new System.Drawing.Size(112, 20);
             this.newVisitLabel.TabIndex = 0;
             this.newVisitLabel.Text = "Nová návšteva";
             // 
@@ -185,7 +185,7 @@
             this.patientNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.patientNameLabel.Location = new System.Drawing.Point(3, 2);
             this.patientNameLabel.Name = "patientNameLabel";
-            this.patientNameLabel.Size = new System.Drawing.Size(73, 17);
+            this.patientNameLabel.Size = new System.Drawing.Size(59, 13);
             this.patientNameLabel.TabIndex = 0;
             this.patientNameLabel.Text = "Pacient*:";
             // 
@@ -205,7 +205,7 @@
             this.newPatientCheckBox.Location = new System.Drawing.Point(372, 48);
             this.newPatientCheckBox.Margin = new System.Windows.Forms.Padding(11, 2, 3, 2);
             this.newPatientCheckBox.Name = "newPatientCheckBox";
-            this.newPatientCheckBox.Size = new System.Drawing.Size(112, 21);
+            this.newPatientCheckBox.Size = new System.Drawing.Size(106, 20);
             this.newPatientCheckBox.TabIndex = 2;
             this.newPatientCheckBox.Text = "Nový pacient";
             this.newPatientCheckBox.UseVisualStyleBackColor = true;
@@ -243,7 +243,7 @@
             this.newPatientEmailLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newPatientEmailLabel.Location = new System.Drawing.Point(253, 53);
             this.newPatientEmailLabel.Name = "newPatientEmailLabel";
-            this.newPatientEmailLabel.Size = new System.Drawing.Size(53, 17);
+            this.newPatientEmailLabel.Size = new System.Drawing.Size(42, 13);
             this.newPatientEmailLabel.TabIndex = 6;
             this.newPatientEmailLabel.Text = "Email*";
             // 
@@ -261,7 +261,7 @@
             this.newPatientPhoneLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newPatientPhoneLabel.Location = new System.Drawing.Point(23, 53);
             this.newPatientPhoneLabel.Name = "newPatientPhoneLabel";
-            this.newPatientPhoneLabel.Size = new System.Drawing.Size(69, 17);
+            this.newPatientPhoneLabel.Size = new System.Drawing.Size(55, 13);
             this.newPatientPhoneLabel.TabIndex = 4;
             this.newPatientPhoneLabel.Text = "Telefón*";
             // 
@@ -279,7 +279,7 @@
             this.newPatientSurnameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newPatientSurnameLabel.Location = new System.Drawing.Point(253, 7);
             this.newPatientSurnameLabel.Name = "newPatientSurnameLabel";
-            this.newPatientSurnameLabel.Size = new System.Drawing.Size(88, 17);
+            this.newPatientSurnameLabel.Size = new System.Drawing.Size(70, 13);
             this.newPatientSurnameLabel.TabIndex = 2;
             this.newPatientSurnameLabel.Text = "Priezvisko*";
             // 
@@ -297,7 +297,7 @@
             this.newPatientNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.newPatientNameLabel.Location = new System.Drawing.Point(23, 7);
             this.newPatientNameLabel.Name = "newPatientNameLabel";
-            this.newPatientNameLabel.Size = new System.Drawing.Size(53, 17);
+            this.newPatientNameLabel.Size = new System.Drawing.Size(43, 13);
             this.newPatientNameLabel.TabIndex = 0;
             this.newPatientNameLabel.Text = "Meno*";
             // 
@@ -360,7 +360,7 @@
             this.doneActionsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.doneActionsLabel.Location = new System.Drawing.Point(-4, 6);
             this.doneActionsLabel.Name = "doneActionsLabel";
-            this.doneActionsLabel.Size = new System.Drawing.Size(139, 17);
+            this.doneActionsLabel.Size = new System.Drawing.Size(111, 13);
             this.doneActionsLabel.TabIndex = 22;
             this.doneActionsLabel.Text = "Vykonané výkony:";
             // 
@@ -508,7 +508,7 @@
             this.durationInfoLabel.ForeColor = System.Drawing.Color.Red;
             this.durationInfoLabel.Location = new System.Drawing.Point(235, 84);
             this.durationInfoLabel.Name = "durationInfoLabel";
-            this.durationInfoLabel.Size = new System.Drawing.Size(251, 17);
+            this.durationInfoLabel.Size = new System.Drawing.Size(237, 16);
             this.durationInfoLabel.TabIndex = 12;
             this.durationInfoLabel.Text = "Zadaná hodnota musí byť násobkom 5";
             // 
@@ -533,7 +533,7 @@
             this.secondColumnLabel.Location = new System.Drawing.Point(209, 10);
             this.secondColumnLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.secondColumnLabel.Name = "secondColumnLabel";
-            this.secondColumnLabel.Size = new System.Drawing.Size(57, 17);
+            this.secondColumnLabel.Size = new System.Drawing.Size(45, 13);
             this.secondColumnLabel.TabIndex = 26;
             this.secondColumnLabel.Text = "Výstup";
             // 
@@ -561,7 +561,7 @@
             this.firstColumnLabel.Location = new System.Drawing.Point(4, 10);
             this.firstColumnLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.firstColumnLabel.Name = "firstColumnLabel";
-            this.firstColumnLabel.Size = new System.Drawing.Size(52, 17);
+            this.firstColumnLabel.Size = new System.Drawing.Size(42, 13);
             this.firstColumnLabel.TabIndex = 26;
             this.firstColumnLabel.Text = "Výkon";
             // 
@@ -591,7 +591,7 @@
             this.planedTextLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.planedTextLabel.Location = new System.Drawing.Point(4, 302);
             this.planedTextLabel.Name = "planedTextLabel";
-            this.planedTextLabel.Size = new System.Drawing.Size(120, 17);
+            this.planedTextLabel.Size = new System.Drawing.Size(96, 13);
             this.planedTextLabel.TabIndex = 22;
             this.planedTextLabel.Text = "Plánované text:";
             // 
@@ -601,7 +601,7 @@
             this.planedActionsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.planedActionsLabel.Location = new System.Drawing.Point(3, 255);
             this.planedActionsLabel.Name = "planedActionsLabel";
-            this.planedActionsLabel.Size = new System.Drawing.Size(144, 17);
+            this.planedActionsLabel.Size = new System.Drawing.Size(115, 13);
             this.planedActionsLabel.TabIndex = 18;
             this.planedActionsLabel.Text = "Plánované výkony:";
             // 
@@ -611,7 +611,7 @@
             this.eventNoteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.eventNoteLabel.Location = new System.Drawing.Point(3, 174);
             this.eventNoteLabel.Name = "eventNoteLabel";
-            this.eventNoteLabel.Size = new System.Drawing.Size(179, 17);
+            this.eventNoteLabel.Size = new System.Drawing.Size(143, 13);
             this.eventNoteLabel.TabIndex = 16;
             this.eventNoteLabel.Text = "Poznámka ku návšteve:";
             // 
@@ -621,7 +621,7 @@
             this.emailsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.emailsLabel.Location = new System.Drawing.Point(3, 92);
             this.emailsLabel.Name = "emailsLabel";
-            this.emailsLabel.Size = new System.Drawing.Size(288, 17);
+            this.emailsLabel.Size = new System.Drawing.Size(227, 13);
             this.emailsLabel.TabIndex = 13;
             this.emailsLabel.Text = "Notifikačné emaily (oddeľujte čiarkou):";
             // 
@@ -631,7 +631,7 @@
             this.fastDurationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fastDurationLabel.Location = new System.Drawing.Point(344, 36);
             this.fastDurationLabel.Name = "fastDurationLabel";
-            this.fastDurationLabel.Size = new System.Drawing.Size(146, 17);
+            this.fastDurationLabel.Size = new System.Drawing.Size(116, 13);
             this.fastDurationLabel.TabIndex = 7;
             this.fastDurationLabel.Text = "Rýchle nastavenie:";
             // 
@@ -641,7 +641,7 @@
             this.eventDurationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.eventDurationLabel.Location = new System.Drawing.Point(216, 36);
             this.eventDurationLabel.Name = "eventDurationLabel";
-            this.eventDurationLabel.Size = new System.Drawing.Size(74, 17);
+            this.eventDurationLabel.Size = new System.Drawing.Size(59, 13);
             this.eventDurationLabel.TabIndex = 4;
             this.eventDurationLabel.Text = "Trvanie*:";
             // 
@@ -661,7 +661,7 @@
             this.eventStartLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.eventStartLabel.Location = new System.Drawing.Point(4, 36);
             this.eventStartLabel.Name = "eventStartLabel";
-            this.eventStartLabel.Size = new System.Drawing.Size(81, 17);
+            this.eventStartLabel.Size = new System.Drawing.Size(66, 13);
             this.eventStartLabel.TabIndex = 2;
             this.eventStartLabel.Text = "Začiatok*:";
             // 
@@ -689,7 +689,7 @@
             this.doctorsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.doctorsLabel.Location = new System.Drawing.Point(3, 9);
             this.doctorsLabel.Name = "doctorsLabel";
-            this.doctorsLabel.Size = new System.Drawing.Size(61, 17);
+            this.doctorsLabel.Size = new System.Drawing.Size(49, 13);
             this.doctorsLabel.TabIndex = 0;
             this.doctorsLabel.Text = "Doktor:";
             // 
@@ -711,7 +711,7 @@
             this.doneTextLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.doneTextLabel.Location = new System.Drawing.Point(4, 0);
             this.doneTextLabel.Name = "doneTextLabel";
-            this.doneTextLabel.Size = new System.Drawing.Size(115, 17);
+            this.doneTextLabel.Size = new System.Drawing.Size(92, 13);
             this.doneTextLabel.TabIndex = 24;
             this.doneTextLabel.Text = "Vykonané text:";
             // 
@@ -752,7 +752,7 @@
             this.stateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.stateLabel.Location = new System.Drawing.Point(7, 7);
             this.stateLabel.Name = "stateLabel";
-            this.stateLabel.Size = new System.Drawing.Size(45, 17);
+            this.stateLabel.Size = new System.Drawing.Size(37, 13);
             this.stateLabel.TabIndex = 26;
             this.stateLabel.Text = "Stav:";
             // 
@@ -835,6 +835,7 @@
             this.reorderButton.TabIndex = 2;
             this.reorderButton.Text = "Znovu objednať";
             this.reorderButton.UseVisualStyleBackColor = false;
+            this.reorderButton.Click += new System.EventHandler(this.reorderButton_Click);
             // 
             // saveEventButton
             // 

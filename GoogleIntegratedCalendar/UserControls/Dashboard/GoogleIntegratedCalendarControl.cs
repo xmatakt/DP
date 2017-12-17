@@ -42,17 +42,18 @@ namespace EZKO.UserControls.Dashboard
         {
             eventsCountByDate = new Dictionary<DateTime, int>();
 
-            List<CalendarItem> googleEvents = LoadGoogleCalendarEvents(startDate, endDate);
+            //List<CalendarItem> googleEvents = LoadGoogleCalendarEvents(startDate, endDate);
             List<CalendarItem> dbEvents = LoadDbCalendarItems(startDate, endDate);
 
-            calendarItems = UniteEvents(googleEvents, dbEvents);
+            //calendarItems = UniteEvents(googleEvents, dbEvents);
+            calendarItems = dbEvents;
             ShowItems();
         }
 
         private List<CalendarItem> LoadGoogleCalendarEvents(DateTime startDate, DateTime endDate)
         {
             // Exception handled in GetCalendarItem method
-            return calendarSynchronizer.GetCalendarItems(startDate, endDate);
+            return calendarSynchronizer.GetGoogleCalendarItems(startDate, endDate);
         }
 
         private List<CalendarItem> LoadDbCalendarItems(DateTime startDate, DateTime endDate)
@@ -85,15 +86,24 @@ namespace EZKO.UserControls.Dashboard
 
         private CalendarItem CreateCalendarItem(CalendarEvent calendarEvent)
         {
-            CalendarItem result = new CalendarItem(calendar, calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.Summary,
-                calendarEvent.Details, calendarEvent.IsDeleted);
+            CalendarItem result = null;
+            if (!calendarEvent.IsTemporaryGoogleEvent)
+            {
+                result = new CalendarItem(calendar, calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.Summary,
+                    calendarEvent.Details, calendarEvent.IsDeleted);
+            }
+            else
+            {
+                result = new CalendarItem(calendar, calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.Summary,
+                    calendarEvent.Description, calendarEvent.IsDeleted);
+            }
+
             result.GoogleEventID = calendarEvent.GoogleEventID;
             result.DatabaseEntityID = calendarEvent.ID;
             result.ApplyColor(Color.FromArgb(
                 calendarEvent.CalendarEventColor.R,
                 calendarEvent.CalendarEventColor.G,
                 calendarEvent.CalendarEventColor.B));
-
             return result;
         }
 
@@ -197,7 +207,7 @@ namespace EZKO.UserControls.Dashboard
         #endregion
 
         #region public methods
-        public GoogleIntegratedCalendarControl(EzkoController ezkoController)
+        public GoogleIntegratedCalendarControl(EzkoController ezkoController, ref GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer)
         {
             InitializeComponent();
 
@@ -220,17 +230,21 @@ namespace EZKO.UserControls.Dashboard
             this.ezkoController = ezkoController;
             visitUserControl.SetCalendarControl(this);
             visitUserControl.SetEzkoController(ezkoController);
+
             findEventUserControl.SetEzkoController(ezkoController);
             findEventUserControl.SetVisitUserControl(visitUserControl);
+            findEventUserControl.SetCalendarControl(this);
 
             InitializeControl();
+            calendarSynchronizer = this.calendarSynchronizer;
         }
 
         public void AddCalendarEvent(CalendarEvent calendarEvent)
         {
             CalendarItem newItem = CreateCalendarItem(calendarEvent);
             calendarItems.Add(newItem);
-            ShowItems();
+
+            ShowEvent(calendarEvent);
 
             calendarSynchronizer.UploadEvent(newItem);
         }
@@ -289,57 +303,73 @@ namespace EZKO.UserControls.Dashboard
         public void UpdateControl()
         {
             visitUserControl.InitializeUserControl();
+            findEventUserControl.UpdateControl();
             LoadEvents(DateTime.Now.AddMonths(-6), DateTime.Now.AddYears(1));
+        }
+
+        public void ShowEvent(CalendarEvent calendarEvent)
+        {
+            calendar.ViewStart = calendarEvent.StartDate;
+            calendar.ViewEnd = calendarEvent.StartDate;
+            monthView.SelectionStart = new DateTime(calendarEvent.StartDate.Year, calendarEvent.StartDate.Month, calendarEvent.StartDate.Day, 0, 0, 0);
+            monthView.SelectionEnd = calendarEvent.StartDate;
+
+            CalendarItem matchingCalendarItem = calendarItems.FirstOrDefault(x => x.DatabaseEntityID == calendarEvent.ID);
+            if (matchingCalendarItem != null)
+                matchingCalendarItem.Selected = true;
+
+            ShowItems();
         }
         #endregion
 
         #region private methods
         private bool SynchronizeEvents()
         {
-            List<CalendarItem> googleUploadItems = new List<CalendarItem>();
-            List<CalendarItem> googleUpdateItems = new List<CalendarItem>();
-            List<CalendarItem> dbUploadItems = new List<CalendarItem>();
-            List<CalendarItem> dbUpdateItems = new List<CalendarItem>();
+            return false;
+            //List<CalendarItem> googleUploadItems = new List<CalendarItem>();
+            //List<CalendarItem> googleUpdateItems = new List<CalendarItem>();
+            //List<CalendarItem> dbUploadItems = new List<CalendarItem>();
+            //List<CalendarItem> dbUpdateItems = new List<CalendarItem>();
 
-            foreach (var calendarItem in calendarItems.Where(x => !x.IsSynchronized))
-            {
-                if (calendarItem.DatabaseEntityID == null)
-                {
-                    dbUploadItems.Add(calendarItem);
-                    if (calendarItem.GoogleEventID == null)
-                        googleUploadItems.Add(calendarItem);
-                    else
-                        googleUpdateItems.Add(calendarItem);
-                }
-                else
-                {
-                    if (calendarItem.GoogleEventID == null)
-                    {
-                        calendarItem.GenerateGoogleEventID();
-                        googleUploadItems.Add(calendarItem);
-                    }
-                    else
-                        googleUpdateItems.Add(calendarItem);
-                    dbUpdateItems.Add(calendarItem);
-                }
-            }
+            //foreach (var calendarItem in calendarItems.Where(x => !x.IsSynchronized))
+            //{
+            //    if (calendarItem.DatabaseEntityID == null)
+            //    {
+            //        dbUploadItems.Add(calendarItem);
+            //        if (calendarItem.GoogleEventID == null)
+            //            googleUploadItems.Add(calendarItem);
+            //        else
+            //            googleUpdateItems.Add(calendarItem);
+            //    }
+            //    else
+            //    {
+            //        if (calendarItem.GoogleEventID == null)
+            //        {
+            //            calendarItem.GenerateGoogleEventID();
+            //            googleUploadItems.Add(calendarItem);
+            //        }
+            //        else
+            //            googleUpdateItems.Add(calendarItem);
+            //        dbUpdateItems.Add(calendarItem);
+            //    }
+            //}
 
-            bool dbUploadResult = ezkoController.AddCalendarEvents(dbUploadItems);
-            bool dbUpdateResult = ezkoController.UpdateCalendarEvents(dbUpdateItems);
-            bool googleUploadResult = calendarSynchronizer.UploadEvents(googleUploadItems);
-            bool googleUpdateResult = calendarSynchronizer.UpdateEvents(googleUpdateItems);
+            //bool dbUploadResult = ezkoController.AddCalendarEvents(dbUploadItems);
+            //bool dbUpdateResult = ezkoController.UpdateCalendarEvents(dbUpdateItems);
+            //bool googleUploadResult = calendarSynchronizer.UploadEvents(googleUploadItems);
+            //bool googleUpdateResult = calendarSynchronizer.UpdateEvents(googleUpdateItems);
 
-            if (!dbUploadResult)
-                BasicMessagesHandler.ShowErrorMessage("Počas vytvárania nových udalostí do databázy sa vyskytla chyba");
-            if (!dbUpdateResult)
-                BasicMessagesHandler.ShowErrorMessage("Počas synchronizácie udalostí v databáze sa vyskytla chyba");
-            if (!googleUploadResult)
-                BasicMessagesHandler.ShowErrorMessage("Počas vytvárania nových udalostí v Google kalendári sa vyskytla chyba");
-            if (!googleUpdateResult)
-                BasicMessagesHandler.ShowErrorMessage("Počas synchronizácie udalostí v Google kalendári sa vyskytla chyba");
+            //if (!dbUploadResult)
+            //    BasicMessagesHandler.ShowErrorMessage("Počas vytvárania nových udalostí do databázy sa vyskytla chyba");
+            //if (!dbUpdateResult)
+            //    BasicMessagesHandler.ShowErrorMessage("Počas synchronizácie udalostí v databáze sa vyskytla chyba");
+            //if (!googleUploadResult)
+            //    BasicMessagesHandler.ShowErrorMessage("Počas vytvárania nových udalostí v Google kalendári sa vyskytla chyba");
+            //if (!googleUpdateResult)
+            //    BasicMessagesHandler.ShowErrorMessage("Počas synchronizácie udalostí v Google kalendári sa vyskytla chyba");
 
 
-            return dbUploadResult && dbUpdateResult && googleUploadResult && googleUpdateResult;
+            //return dbUploadResult && dbUpdateResult && googleUploadResult && googleUpdateResult;
         }
 
         private void ChangeIsSynchronizedValues(bool value)
@@ -352,26 +382,6 @@ namespace EZKO.UserControls.Dashboard
         #endregion
 
         #region UI events
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Treba vyriesit uploadovanie eventov z google kalendara" +
-                "\nktore nie su v DB (kvoli PatientID)" +
-                "\nSYNCHRONIZACIA NEPREBEHNE");
-            return;
-
-            if (SynchronizeEvents())
-            {
-                if (ezkoController.SaveChanges())
-                {
-                    ChangeIsSynchronizedValues(true);
-                    LoadEvents(DateTime.Now.AddYears(-1), DateTime.Now.AddYears(1));
-                    ShowItems();
-                }
-                else
-                    BasicMessagesHandler.ShowErrorMessage("Počas ukladania udalostí do databázy sa vyskytla chyba");
-            }
-        }
-
         private void calendar_ItemCreated(object sender, CalendarItemCancelEventArgs e)
         {
             //calendarItems.Add(e.Item);
@@ -403,7 +413,8 @@ namespace EZKO.UserControls.Dashboard
 
         private void calendar_ItemDatesChanged(object sender, CalendarItemEventArgs e)
         {
-            e.Item.IsSynchronized = false;
+            //e.Item.IsSynchronized = false;
+            visitUserControl.SetEventTimes(e.Item.StartDate, e.Item.EndDate);
         }
 
         private void calendar_ItemTextEdited(object sender, CalendarItemCancelEventArgs e)
@@ -427,6 +438,7 @@ namespace EZKO.UserControls.Dashboard
             if (e.Item != null && e.Item.DatabaseEntityID.HasValue)
             {
                 visitUserControl.LoadEvent(e.Item.DatabaseEntityID.Value);
+                visitUserControl.SetEventTimes(e.Item.StartDate, e.Item.EndDate);
             }
         }
 

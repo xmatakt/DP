@@ -1585,28 +1585,28 @@ namespace System.Windows.Forms.Calendar
             #endregion
 
             #region Borders of selected items
-            //foreach (CalendarItem item in e.Calendar.Items)
-            //{
-            //    if (!item.Selected) continue;
+            foreach (CalendarItem item in e.Calendar.Items)
+            {
+                if (!item.Selected) continue;
 
-            //    List<Rectangle> rects = new List<Rectangle>(item.GetAllBounds());
+                List<Rectangle> rects = new List<Rectangle>(item.GetAllBounds());
 
-            //    for (int i = 0; i < rects.Count; i++)
-            //    {
-            //        CalendarRendererItemBoundsEventArgs evt = new CalendarRendererItemBoundsEventArgs(
-            //            new CalendarRendererItemEventArgs(e, item),
-            //            rects[i],
-            //            i == 0 && !item.IsOpenStart,
-            //            (i == rects.Count - 1) && !item.IsOpenEnd);
+                for (int i = 0; i < rects.Count; i++)
+                {
+                    CalendarRendererItemBoundsEventArgs evt = new CalendarRendererItemBoundsEventArgs(
+                        new CalendarRendererItemEventArgs(e, item),
+                        rects[i],
+                        i == 0 && !item.IsOpenStart,
+                        (i == rects.Count - 1) && !item.IsOpenEnd);
 
-            //        SmoothingMode smbuff = e.Graphics.SmoothingMode;
-            //        e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    SmoothingMode smbuff = e.Graphics.SmoothingMode;
+                    e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
 
-            //        OnDrawItemBorder(evt);
+                    //OnDrawItemBorder(evt);
 
-            //        e.Graphics.SmoothingMode = smbuff;
-            //    }
-            //}
+                    e.Graphics.SmoothingMode = smbuff;
+                }
+            }
             #endregion
         }
 
@@ -1619,11 +1619,18 @@ namespace System.Windows.Forms.Calendar
             List<Rectangle> rects = new List<Rectangle>(e.Item.GetAllBounds());
 
             Rectangle r = e.Item.Bounds;
-            if (e.Item.Selected)
+
+            //compute the rectangle size for event with all text
+            if (e.Item.Selected && !e.Item.IsDragging && !e.Item.IsResizingStartDate && !e.Item.IsResizingEndDate)
             {
                 var size = e.Graphics.MeasureString(e.Item.TextWithDescription, e.Item.Calendar.Font, r.Width, StringFormat.GenericTypographic);
-                if(size.Height > r.Height)
+                if (size.Height > r.Height)
+                {
                     r.Height = (int)Math.Ceiling(size.Height) + 5;
+                    e.Item.BoundsIfSelected = r;
+                }
+                else
+                    e.Item.BoundsIfSelected = null;
             }
 
             for (int i = 0; i < rects.Count; i++)
@@ -1722,7 +1729,7 @@ namespace System.Windows.Forms.Calendar
                     bounds.Right - ItemTextMargin.Right - rEndTime.Width,
                     bounds.Bottom - ItemTextMargin.Bottom);
 
-                if(e.Item.Selected)
+                if(e.Item.Selected && !e.Item.IsDragging && !e.Item.IsResizingStartDate && !e.Item.IsResizingEndDate)
                 {
                     r.Height = e.Bounds.Height;
                 }

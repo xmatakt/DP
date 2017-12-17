@@ -14,6 +14,7 @@ namespace DatabaseCommunicator.Enums
         Planned = 1,
         Done = 2,
         Cancelled = 3,
-        Payed = 4
+        Payed = 4,
+        IsTemporaryGoogleEvent = 5
     }
 }

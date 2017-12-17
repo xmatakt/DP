@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CalendarEventFilter.cs" />
     <Compile Include="Controllers\PasswordController.cs" />
     <Compile Include="Enums\EventStateEnum.cs" />
     <Compile Include="Enums\LoginResultEnum.cs" />

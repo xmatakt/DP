@@ -31,11 +31,12 @@ namespace DatabaseCommunicator.Model
         public string Description { get; set; }
         public bool IsSynchronized { get; set; }
         public bool IsDeleted { get; set; }
-        public int PatientID { get; set; }
+        public Nullable<int> PatientID { get; set; }
         public string NotificationEmails { get; set; }
         public string PlanedActionText { get; set; }
         public string ExecutedActionText { get; set; }
         public int StateID { get; set; }
+        public bool IsTemporaryGoogleEvent { get; set; }
     
         public virtual EventState EventState { get; set; }
         public virtual Patient Patient { get; set; }

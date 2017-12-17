@@ -56,7 +56,7 @@ namespace DatabaseCommunicator.Model
         public override string ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append(StartDate.ToString("dd.MM. hh:mm"));
+            stringBuilder.Append(StartDate.ToString("dd.MM. HH:mm"));
             stringBuilder.Append(" / ");
             stringBuilder.Append(((int)((EndDate - StartDate)).TotalMinutes).ToString());
             stringBuilder.Append(" / ");
@@ -119,6 +119,8 @@ namespace DatabaseCommunicator.Model
                     return "Zrušená";
                 case (int)Enums.EventStateEnum.Payed:
                     return "Uhradená";
+                case (int)Enums.EventStateEnum.IsTemporaryGoogleEvent:
+                    return "Event vytvorený v google kalendári";
                 default:
                     return "Neznámy stav";
             }
