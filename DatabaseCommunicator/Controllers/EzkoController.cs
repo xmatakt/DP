@@ -151,6 +151,8 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+
+
         /// <summary>
         /// Update CalendarEvents in database
         /// </summary>
@@ -229,6 +231,43 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        public IQueryable<Patient> GetPatients(string text)
+        {
+            IQueryable<Patient> result = null;
+            try
+            {
+                result = db.Patients.Where(x => !x.IsDeleted);
+
+                if(text != "")
+                {
+                    int id = -1;
+                    if(int.TryParse(text, out id))
+                    {
+                        result = result.Where(x => x.ID == id);
+                    }
+                    else
+                    {
+                        text = text.ToUpper();
+
+                        result = result.Where(x => x.Name.ToUpper().Contains(text) ||
+                        x.Surname.ToUpper().Contains(text) ||
+                        x.Contact.Phone.ToUpper().Contains(text) ||
+                        x.Contact.Email.ToUpper().Contains(text) ||
+                        (x.Address != null && x.Address.Street != null && x.Address.Street.ToUpper().Contains(text)) ||
+                        (x.Address != null && x.Address.StreetNumber != null && x.Address.StreetNumber.ToUpper().Contains(text)) ||
+                        (x.Address != null && x.Address.City != null && x.Address.City.ToUpper().Contains(text)) ||
+                        (x.Address != null && x.Address.Country != null && x.Address.Country.ToUpper().Contains(text)));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
         public Patient CreatePatient(string name, string surame, string email, string phone)
         {
             Patient result = null;
@@ -259,17 +298,34 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
-        private Contact CreateContact(string email, string phone)
+        public Patient CreatePatient(string name, string surname, DateTime? birthDate, string BIFO, string legalRepresentative,
+            string titleBefore, string titleAfter, string birthNumber, InsuranceCompany insuranceCompany, SexEnum sex, Address address, Contact contact)
         {
-            Contact result = null;
+            Patient result = null;
             try
             {
-                result = new Contact()
+                if (contact != null)
                 {
-                    Email = email,
-                    Phone = phone,
-                };
-                db.Contacts.Add(result);
+                    result = new Patient()
+                    {
+                        Name = name,
+                        Surname = surname,
+                        BirthDate = birthDate,
+                        BIFO = BIFO,
+                        LegalRepresentative = legalRepresentative,
+                        TitleAfter = titleAfter,
+                        TitleBefore = titleBefore,
+                        BirthNumber = birthNumber,
+                        InsuranceCompany = insuranceCompany,
+                        SexID = (int)sex,
+                        Address = address,
+                        Contact = contact,
+                    };
+                    db.Patients.Add(result);
+
+                    if (!SaveChanges())
+                        result = null;
+                }
             }
             catch (Exception e)
             {
@@ -280,6 +336,23 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        public bool RemovePatient(Patient item)
+        {
+            bool result = false;
+
+            try
+            {
+                item.IsDeleted = true;
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+                result = false;
+            }
+
+            return result;
+        }
         #endregion
 
         #region Users
@@ -602,6 +675,70 @@ namespace DatabaseCommunicator.Controllers
         }
         #endregion
 
+        #region Infrastructure
+        public bool RemoveInfrastructure(Infrastructure item)
+        {
+            bool result = false;
+
+            try
+            {
+                item.IsDeleted = true;
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+                result = false;
+            }
+
+            return result;
+        }
+
+        public bool CreateInfrastructure(string name, string description, decimal costs, decimal margin)
+        {
+            bool result = false;
+            try
+            {
+                Infrastructure infrastructure = new Infrastructure()
+                {
+                    Name = name,
+                    Description = description,
+                    Costs = costs,
+                    Margin = margin,
+                    IsDeleted = false
+                };
+                db.Infrastructures.Add(infrastructure);
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool EditInfrastructure(Infrastructure infrastructure, string name, string description, decimal costs, decimal margin)
+        {
+            bool result = false;
+            try
+            {
+                infrastructure.Name = name;
+                infrastructure.Description = description;
+                infrastructure.Costs = costs;
+                infrastructure.Margin = margin;
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+        #endregion
+
         #region EZKO fields
         /// <summary>
         /// Get EZKO fields
@@ -770,6 +907,61 @@ namespace DatabaseCommunicator.Controllers
             {
                 BasicMessagesHandler.LogException(e);
                 result = false;
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region Addresses
+        public Address CreateAddress(string street, string streetNumber, string city, string zip, string country)
+        {
+            Address result = null;
+            try
+            {
+                if (!(street == null && streetNumber == null && city == null && zip == null && country == null))
+                {
+                    result = new Address()
+                    {
+                        Street = street,
+                        StreetNumber = streetNumber,
+                        City = city,
+                        PostNumber = zip,
+                        Country = country
+                    };
+                    db.Addresses.Add(result);
+
+                    if (!SaveChanges())
+                        result = null;
+                }
+            }
+            catch (Exception e)
+            {
+                result = null;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region Contacts
+        public Contact CreateContact(string email, string phone)
+        {
+            Contact result = null;
+            try
+            {
+                result = new Contact()
+                {
+                    Email = (email != null) ? email : "",
+                    Phone = (phone != null) ? phone : "",
+                };
+                db.Contacts.Add(result);
+            }
+            catch (Exception e)
+            {
+                result = null;
+                BasicMessagesHandler.LogException(e);
             }
 
             return result;

@@ -5,6 +5,7 @@ using EZKO.Enums;
 using EZKO.Forms;
 using EZKO.UserControls.Administration;
 using EZKO.UserControls.Ambulantion;
+using EZKO.UserControls.Patients;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,7 @@ namespace EZKO
         private UserControls.Dashboard.GoogleIntegratedCalendarControl dashboardPanel = null;
         private AdministrationUserControl administrationPanel = null;
         private AmbulantionUserControl ambulantionPanel = null;
+        private PatientsUserControl patientsPanel = null;
         private GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer;
 
 
@@ -68,15 +70,15 @@ namespace EZKO
             //loggin in the user
             if (new LoginForm(ezkoController).ShowDialog() == DialogResult.OK)
             {
-                InitializeComponent();
-
-                var workingArea = Screen.FromHandle(Handle).WorkingArea;
-                MaximizedBounds = new Rectangle(-8, -8, workingArea.Width + 16, workingArea.Height + 16);
-
                 //Set language for GUI items
                 System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo(GlobalSettings.LanguagePrefix);
                 Thread.CurrentThread.CurrentCulture = culture;
                 Thread.CurrentThread.CurrentUICulture = culture;
+
+                InitializeComponent();
+
+                var workingArea = Screen.FromHandle(Handle).WorkingArea;
+                MaximizedBounds = new Rectangle(-8, -8, workingArea.Width + 16, workingArea.Height + 16);
 
                 LoadPanels();
             }
@@ -188,6 +190,8 @@ namespace EZKO
                         ambulantionPanel = new AmbulantionUserControl(calendarSynchronizer);
                     break;
                 case PanelLoadingEnum.LoadingPatientsPanel:
+                    if (patientsPanel == null)
+                        patientsPanel = new PatientsUserControl();
                     break;
                 case PanelLoadingEnum.LoadingAdministrationPanel:
                     if (administrationPanel == null)
@@ -198,6 +202,8 @@ namespace EZKO
                         dashboardPanel = new UserControls.Dashboard.GoogleIntegratedCalendarControl(ref calendarSynchronizer);
                     if (ambulantionPanel == null)
                         ambulantionPanel = new AmbulantionUserControl(calendarSynchronizer);
+                    if (patientsPanel == null)
+                        patientsPanel = new PatientsUserControl();
                     if (administrationPanel == null)
                         administrationPanel = new AdministrationUserControl();
                     break;
@@ -231,6 +237,11 @@ namespace EZKO
                     }
                     break;
                 case PanelLoadingEnum.LoadingPatientsPanel:
+                    if (patientsPanel != null)
+                    {
+                        mainPanel.Controls.Add(patientsPanel);
+                        patientsPanel.Dock = DockStyle.Fill;
+                    }
                     break;
                 case PanelLoadingEnum.LoadingAdministrationPanel:
                     if (administrationPanel != null)
@@ -249,6 +260,11 @@ namespace EZKO
                     {
                         mainPanel.Controls.Add(ambulantionPanel);
                         ambulantionPanel.Dock = DockStyle.Fill;
+                    }
+                    if (patientsPanel != null)
+                    {
+                        mainPanel.Controls.Add(patientsPanel);
+                        patientsPanel.Dock = DockStyle.Fill;
                     }
                     if (administrationPanel != null)
                     {
@@ -296,6 +312,25 @@ namespace EZKO
             bg.RunWorkerAsync();
 
             if (ambulantionPanel == null)
+            {
+                workingInfoForm = new WorkingInfoForm(LanguageController.GetText(StringKeys.Working),
+                    LanguageController.GetText(StringKeys.LoadingDataTitle));
+                workingInfoForm.ShowDialog();
+            }
+        }
+        private void patientsMenuItem_TransparentPanelMouseClick(object sender, MouseEventArgs e)
+        {
+            workingInfoEnum = PanelLoadingEnum.LoadingPatientsPanel;
+
+            // Configure a BackgroundWorker to perform your long running operation.
+            BackgroundWorker bg = new BackgroundWorker();
+            bg.DoWork += new DoWorkEventHandler(bg_DoWork);
+            bg.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bg_RunWorkerCompleted);
+
+            // Start the worker.
+            bg.RunWorkerAsync();
+
+            if (patientsPanel == null)
             {
                 workingInfoForm = new WorkingInfoForm(LanguageController.GetText(StringKeys.Working),
                     LanguageController.GetText(StringKeys.LoadingDataTitle));

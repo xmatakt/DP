@@ -195,7 +195,7 @@
             this.patientsMenuItem.Size = new System.Drawing.Size(122, 27);
             this.patientsMenuItem.TabIndex = 4;
             this.patientsMenuItem.TextForeColor = System.Drawing.Color.White;
-            this.patientsMenuItem.Visible = false;
+            this.patientsMenuItem.TransparentPanelMouseClick += new System.Windows.Forms.MouseEventHandler(this.patientsMenuItem_TransparentPanelMouseClick);
             // 
             // administrationMenuItem
             // 

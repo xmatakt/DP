@@ -80,6 +80,12 @@
     <Compile Include="Forms\AdministrationForms\EditActionForm.Designer.cs">
       <DependentUpon>EditActionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AdministrationForms\EditInfrastructureForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditInfrastructureForm.Designer.cs">
+      <DependentUpon>EditInfrastructureForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DateTimePickerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +97,12 @@
     </Compile>
     <Compile Include="Forms\EzkoForm.Designer.cs">
       <DependentUpon>EzkoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PatientForms\NewPatientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PatientForms\NewPatientForm.Designer.cs">
+      <DependentUpon>NewPatientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\WorkingInfoForm.cs">
       <SubType>Form</SubType>
@@ -141,6 +153,12 @@
     </Compile>
     <Compile Include="UserControls\Administration\AdminMenuItem.Designer.cs">
       <DependentUpon>AdminMenuItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Administration\InfrastructureControlPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Administration\InfrastructureControlPanel.Designer.cs">
+      <DependentUpon>InfrastructureControlPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Administration\InsuranceCompaniesControlPanel.cs">
       <SubType>UserControl</SubType>
@@ -215,6 +233,12 @@
     <Compile Include="UserControls\Other\TransparentPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UserControls\Patients\PatientsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Patients\PatientsUserControl.Designer.cs">
+      <DependentUpon>PatientsUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\RoundButtonStylesEnum.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -227,11 +251,17 @@
     <EmbeddedResource Include="Forms\AdministrationForms\EditActionForm.resx">
       <DependentUpon>EditActionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdministrationForms\EditInfrastructureForm.resx">
+      <DependentUpon>EditInfrastructureForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DateTimePickerForm.resx">
       <DependentUpon>DateTimePickerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EzkoForm.resx">
       <DependentUpon>EzkoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PatientForms\NewPatientForm.resx">
+      <DependentUpon>NewPatientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WorkingInfoForm.resx">
       <DependentUpon>WorkingInfoForm.cs</DependentUpon>
@@ -264,6 +294,9 @@
     <EmbeddedResource Include="UserControls\Administration\AdminMenuItem.resx">
       <DependentUpon>AdminMenuItem.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Administration\InfrastructureControlPanel.resx">
+      <DependentUpon>InfrastructureControlPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Administration\InsuranceCompaniesControlPanel.resx">
       <DependentUpon>InsuranceCompaniesControlPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -293,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\FlatControls\FlatRichTextBox.resx">
       <DependentUpon>FlatRichTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Patients\PatientsUserControl.resx">
+      <DependentUpon>PatientsUserControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -432,6 +468,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\noUserImage_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new_patient_black_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new_patient_white_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\export_data_black_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\export_data_white_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\import_data_black_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\import_data_white_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dentist_chair_black_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dentist_chair_white_32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

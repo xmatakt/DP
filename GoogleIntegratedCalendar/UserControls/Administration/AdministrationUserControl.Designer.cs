@@ -33,13 +33,14 @@
             this.controlNameLabel = new System.Windows.Forms.Label();
             this.adminToolsFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.userPictureBox = new System.Windows.Forms.PictureBox();
             this.editLoggedUserButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.userLoginLabel = new System.Windows.Forms.Label();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.userPictureBox = new System.Windows.Forms.PictureBox();
             this.usersMenuItem = new EZKO.UserControls.Administration.AdminMenuItem();
             this.insuranceCompaniesMenuItem = new EZKO.UserControls.Administration.AdminMenuItem();
             this.actionsMenuItem = new EZKO.UserControls.Administration.AdminMenuItem();
-            this.mainPanel = new System.Windows.Forms.Panel();
+            this.infrastructureMenuItem = new EZKO.UserControls.Administration.AdminMenuItem();
             this.controlNamePanel.SuspendLayout();
             this.adminToolsFlowPanel.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -54,7 +55,7 @@
             this.controlNamePanel.Location = new System.Drawing.Point(2, 2);
             this.controlNamePanel.Margin = new System.Windows.Forms.Padding(2);
             this.controlNamePanel.Name = "controlNamePanel";
-            this.controlNamePanel.Size = new System.Drawing.Size(208, 45);
+            this.controlNamePanel.Size = new System.Drawing.Size(220, 45);
             this.controlNamePanel.TabIndex = 2;
             // 
             // controlNameLabel
@@ -65,7 +66,7 @@
             this.controlNameLabel.Location = new System.Drawing.Point(0, 0);
             this.controlNameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.controlNameLabel.Name = "controlNameLabel";
-            this.controlNameLabel.Size = new System.Drawing.Size(208, 45);
+            this.controlNameLabel.Size = new System.Drawing.Size(220, 45);
             this.controlNameLabel.TabIndex = 0;
             this.controlNameLabel.Text = "Administrácia";
             this.controlNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -80,13 +81,14 @@
             this.adminToolsFlowPanel.Controls.Add(this.usersMenuItem);
             this.adminToolsFlowPanel.Controls.Add(this.insuranceCompaniesMenuItem);
             this.adminToolsFlowPanel.Controls.Add(this.actionsMenuItem);
+            this.adminToolsFlowPanel.Controls.Add(this.infrastructureMenuItem);
             this.adminToolsFlowPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.adminToolsFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.adminToolsFlowPanel.Location = new System.Drawing.Point(0, 0);
             this.adminToolsFlowPanel.Margin = new System.Windows.Forms.Padding(2);
             this.adminToolsFlowPanel.Name = "adminToolsFlowPanel";
             this.adminToolsFlowPanel.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.adminToolsFlowPanel.Size = new System.Drawing.Size(215, 495);
+            this.adminToolsFlowPanel.Size = new System.Drawing.Size(227, 495);
             this.adminToolsFlowPanel.TabIndex = 0;
             // 
             // panel1
@@ -98,26 +100,14 @@
             this.panel1.Controls.Add(this.userLoginLabel);
             this.panel1.Location = new System.Drawing.Point(3, 52);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(206, 205);
+            this.panel1.Size = new System.Drawing.Size(218, 205);
             this.panel1.TabIndex = 1;
-            // 
-            // userPictureBox
-            // 
-            this.userPictureBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.userPictureBox.Image = global::EZKO.Properties.Resources.noUserImage;
-            this.userPictureBox.Location = new System.Drawing.Point(4, -2);
-            this.userPictureBox.Name = "userPictureBox";
-            this.userPictureBox.Size = new System.Drawing.Size(199, 155);
-            this.userPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.userPictureBox.TabIndex = 0;
-            this.userPictureBox.TabStop = false;
             // 
             // editLoggedUserButton
             // 
             this.editLoggedUserButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.editLoggedUserButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(184)))), ((int)(((byte)(92)))));
-            this.editLoggedUserButton.Enabled = false;
             this.editLoggedUserButton.FlatAppearance.BorderSize = 0;
             this.editLoggedUserButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(157)))), ((int)(((byte)(68)))));
             this.editLoggedUserButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(157)))), ((int)(((byte)(68)))));
@@ -128,10 +118,11 @@
             this.editLoggedUserButton.Name = "editLoggedUserButton";
             this.editLoggedUserButton.Radius = 5;
             this.editLoggedUserButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatGreen;
-            this.editLoggedUserButton.Size = new System.Drawing.Size(199, 23);
+            this.editLoggedUserButton.Size = new System.Drawing.Size(211, 23);
             this.editLoggedUserButton.TabIndex = 2;
             this.editLoggedUserButton.Text = "Moje konto";
             this.editLoggedUserButton.UseVisualStyleBackColor = false;
+            this.editLoggedUserButton.Click += new System.EventHandler(this.editLoggedUserButton_Click);
             // 
             // userLoginLabel
             // 
@@ -143,6 +134,25 @@
             this.userLoginLabel.Size = new System.Drawing.Size(51, 20);
             this.userLoginLabel.TabIndex = 1;
             this.userLoginLabel.Text = "label1";
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Location = new System.Drawing.Point(227, 0);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(672, 495);
+            this.mainPanel.TabIndex = 1;
+            // 
+            // userPictureBox
+            // 
+            this.userPictureBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.userPictureBox.Image = global::EZKO.Properties.Resources.noUserImage;
+            this.userPictureBox.Location = new System.Drawing.Point(10, -2);
+            this.userPictureBox.Name = "userPictureBox";
+            this.userPictureBox.Size = new System.Drawing.Size(199, 155);
+            this.userPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.userPictureBox.TabIndex = 0;
+            this.userPictureBox.TabStop = false;
             // 
             // usersMenuItem
             // 
@@ -159,7 +169,7 @@
             this.usersMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.people_black_32;
             this.usersMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
             this.usersMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.people_32;
-            this.usersMenuItem.Size = new System.Drawing.Size(212, 29);
+            this.usersMenuItem.Size = new System.Drawing.Size(224, 29);
             this.usersMenuItem.TabIndex = 4;
             this.usersMenuItem.TextForeColor = System.Drawing.Color.White;
             this.usersMenuItem.TooltipText = "TOOLTIP";
@@ -181,7 +191,7 @@
             this.insuranceCompaniesMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.insuranceCompany_black_32;
             this.insuranceCompaniesMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
             this.insuranceCompaniesMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.insuranceCompany_white_32;
-            this.insuranceCompaniesMenuItem.Size = new System.Drawing.Size(212, 29);
+            this.insuranceCompaniesMenuItem.Size = new System.Drawing.Size(224, 29);
             this.insuranceCompaniesMenuItem.TabIndex = 5;
             this.insuranceCompaniesMenuItem.TextForeColor = System.Drawing.Color.White;
             this.insuranceCompaniesMenuItem.TooltipText = "Správa poisťovní ";
@@ -203,20 +213,34 @@
             this.actionsMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.action_black_32;
             this.actionsMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
             this.actionsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.action_white_32;
-            this.actionsMenuItem.Size = new System.Drawing.Size(212, 29);
+            this.actionsMenuItem.Size = new System.Drawing.Size(224, 29);
             this.actionsMenuItem.TabIndex = 6;
             this.actionsMenuItem.TextForeColor = System.Drawing.Color.White;
             this.actionsMenuItem.TooltipText = "Správa výkonov ";
             this.actionsMenuItem.ListButtonClick += new System.EventHandler(this.actionsMenuItem_ListButtonClick);
             this.actionsMenuItem.AddButtonClick += new System.EventHandler(this.actionsMenuItem_AddButtonClick);
             // 
-            // mainPanel
+            // infrastructureMenuItem
             // 
-            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(215, 0);
-            this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(684, 495);
-            this.mainPanel.TabIndex = 1;
+            this.infrastructureMenuItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.infrastructureMenuItem.AutoSize = true;
+            this.infrastructureMenuItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.infrastructureMenuItem.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.infrastructureMenuItem.Location = new System.Drawing.Point(0, 368);
+            this.infrastructureMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.infrastructureMenuItem.MenuItemImage = global::EZKO.Properties.Resources.dentist_chair_white_32;
+            this.infrastructureMenuItem.MenuItemText = "Infraštruktúra";
+            this.infrastructureMenuItem.Name = "infrastructureMenuItem";
+            this.infrastructureMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.dentist_chair_black_32;
+            this.infrastructureMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
+            this.infrastructureMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.dentist_chair_white_32;
+            this.infrastructureMenuItem.Size = new System.Drawing.Size(224, 29);
+            this.infrastructureMenuItem.TabIndex = 7;
+            this.infrastructureMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.infrastructureMenuItem.TooltipText = "Administrácie kresiel kliniky";
+            this.infrastructureMenuItem.ListButtonClick += new System.EventHandler(this.infrastructureMenuItem_ListButtonClick);
+            this.infrastructureMenuItem.AddButtonClick += new System.EventHandler(this.infrastructureMenuItem_AddButtonClick);
             // 
             // AdministrationUserControl
             // 
@@ -252,5 +276,6 @@
         private System.Windows.Forms.PictureBox userPictureBox;
         private FlatControls.RoundButton editLoggedUserButton;
         private System.Windows.Forms.Panel mainPanel;
+        private AdminMenuItem infrastructureMenuItem;
     }
 }

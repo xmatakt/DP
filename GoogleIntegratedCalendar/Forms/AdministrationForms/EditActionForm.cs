@@ -16,7 +16,6 @@ namespace EZKO.Forms.AdministrationForms
     {
         private WorkingTypeEnum workingType;
         private EzkoController ezkoController;
-        private WorkingInfoForm workingInfoForm;
         private DatabaseCommunicator.Model.Action action;
 
         #region Private properties
@@ -129,17 +128,6 @@ namespace EZKO.Forms.AdministrationForms
             set { hasSpecificationCheckBox.Checked = value; }
         }
         #endregion
-
-        //Just for testing purpose
-        //public EditActionForm(WorkingTypeEnum workingType)
-        //{
-        //    InitializeComponent();
-
-        //    ezkoController = new EzkoController(GlobalSettings.ConnectionString);
-        //    this.workingType = workingType;
-
-        //    InitializeForm();
-        //}
 
         public EditActionForm(WorkingTypeEnum workingType)
         {
@@ -395,19 +383,6 @@ namespace EZKO.Forms.AdministrationForms
         private void minimizeFormPictureBox_MouseLeave(object sender, EventArgs e)
         {
             minimizeFormPictureBox.Image = Properties.Resources.toTaskbar_32;
-        }
-        #endregion
-
-        #region BG worker
-        private void bg_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-        }
-
-        private void bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (workingInfoForm != null)
-                workingInfoForm.Close();
         }
         #endregion
 

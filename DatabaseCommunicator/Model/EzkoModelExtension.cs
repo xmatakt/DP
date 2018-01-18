@@ -10,7 +10,7 @@ namespace DatabaseCommunicator.Model
     {
         public override string ToString()
         {
-            return Code;
+            return Name + "[ " + Code + " ]";
         }
     }
 
@@ -104,6 +104,16 @@ namespace DatabaseCommunicator.Model
         }
     }
 
+    public partial class Address
+    {
+        public string FullAddress
+        {
+            get
+            {
+                return Street + " " + StreetNumber + ", " + City + ", " + Country;
+            }
+        }
+    }
 
     public partial class EventState
     {

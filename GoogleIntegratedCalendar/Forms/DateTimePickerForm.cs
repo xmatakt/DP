@@ -22,6 +22,11 @@ namespace EZKO.Forms
         {
             InitializeComponent();
 
+            //Set language for GUI items
+            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo(GlobalSettings.LanguagePrefix);
+            System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
+
             if (value.HasValue)
             {
                 datePicker.Value = value.Value;

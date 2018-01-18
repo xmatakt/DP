@@ -13,6 +13,7 @@ namespace EZKO.UserControls.Administration
         private UsersControlPanel userControlPanel;
         private InsuranceCompaniesControlPanel insuranceCompaniesControlPanel;
         private ActionsControlPanel actionsControlPanel;
+        private InfrastructureControlPanel infrastructureControlPanel;
 
         public AdministrationUserControl()
         {
@@ -51,6 +52,14 @@ namespace EZKO.UserControls.Administration
                 actionsControlPanel = new ActionsControlPanel();
 
             AddControlToMainPanel(actionsControlPanel);
+        }
+
+        private void ShowInfrastructurePanel()
+        {
+            if (infrastructureControlPanel == null)
+                infrastructureControlPanel = new InfrastructureControlPanel();
+
+            AddControlToMainPanel(infrastructureControlPanel);
         }
 
         private void AddControlToMainPanel(Control control)
@@ -102,6 +111,16 @@ namespace EZKO.UserControls.Administration
             }
         }
 
+        private void infrastructureMenuItem_AddButtonClick(object sender, EventArgs e)
+        {
+            var form = new EditInfrastructureForm(Enums.WorkingTypeEnum.Creating);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                ShowInfrastructurePanel();
+                infrastructureControlPanel.UpdateControl();
+            }
+        }
+
         private void usersMenuItem_ListButtonClick(object sender, EventArgs e)
         {
             ShowUsersPanel();
@@ -115,6 +134,26 @@ namespace EZKO.UserControls.Administration
         private void actionsMenuItem_ListButtonClick(object sender, EventArgs e)
         {
             ShowActionsPanel();
+        }
+
+        private void infrastructureMenuItem_ListButtonClick(object sender, EventArgs e)
+        {
+            ShowInfrastructurePanel();
+        }
+
+        private void editLoggedUserButton_Click(object sender, EventArgs e)
+        {
+            if(GlobalSettings.User != null)
+            {
+                EditUserForm form = new EditUserForm(GlobalSettings.User);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    if (userControlPanel != null)
+                        userControlPanel.UpdateControl();
+
+                    userPictureBox.Image = DirectoriesController.GetImage(GlobalSettings.User?.AvatarImagePath, Properties.Resources.noUserImage_white);
+                }
+            }
         }
         #endregion
     }

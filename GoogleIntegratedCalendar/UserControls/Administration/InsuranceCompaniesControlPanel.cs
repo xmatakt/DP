@@ -36,6 +36,7 @@ namespace EZKO.UserControls.Administration
             dataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
             dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView.RowHeadersVisible = false;
 
             ezkoController = GlobalSettings.EzkoController;
             InitializeDataGridView();

@@ -32,11 +32,9 @@
             PresentationControls.CheckBoxProperties checkBoxProperties2 = new PresentationControls.CheckBoxProperties();
             this.mainFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.newVisitPanel = new System.Windows.Forms.Panel();
-            this.newVisitButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.newVisitLabel = new System.Windows.Forms.Label();
             this.patientNamePanel = new System.Windows.Forms.Panel();
             this.patientNameLabel = new System.Windows.Forms.Label();
-            this.patientNameTextBox = new EZKO.UserControls.Other.AutoCompleteTextBox();
             this.newPatientCheckBox = new System.Windows.Forms.CheckBox();
             this.newPatientPanel = new System.Windows.Forms.Panel();
             this.newPatientEmailTextBox = new System.Windows.Forms.TextBox();
@@ -49,16 +47,7 @@
             this.newPatientNameLabel = new System.Windows.Forms.Label();
             this.middlePanel = new System.Windows.Forms.Panel();
             this.doneActionsPanel = new System.Windows.Forms.Panel();
-            this.doneActionTextBox = new EZKO.UserControls.Other.AutoCompleteTextBox();
             this.doneActionsLabel = new System.Windows.Forms.Label();
-            this.addDoneActionButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.durationNumericUpDown = new EZKO.UserControls.Other.LabeledNumericUpDown();
-            this.duration90Button = new EZKO.UserControls.FlatControls.RoundButton();
-            this.duration60Button = new EZKO.UserControls.FlatControls.RoundButton();
-            this.duration30Button = new EZKO.UserControls.FlatControls.RoundButton();
-            this.duration15Button = new EZKO.UserControls.FlatControls.RoundButton();
-            this.eventNoteRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
-            this.emailsRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
             this.durationInfoLabel = new System.Windows.Forms.Label();
             this.doneActionsForTablePanel = new System.Windows.Forms.Panel();
             this.secondColumnLabel = new System.Windows.Forms.Label();
@@ -83,25 +72,36 @@
             this.eventStateComboBox = new System.Windows.Forms.ComboBox();
             this.stateLabel = new System.Windows.Forms.Label();
             this.newEventButtonsPanel = new System.Windows.Forms.Panel();
+            this.updateEventPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.newVisitButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.patientNameTextBox = new EZKO.UserControls.Other.AutoCompleteTextBox();
+            this.doneActionTextBox = new EZKO.UserControls.Other.AutoCompleteTextBox();
+            this.addDoneActionButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.durationNumericUpDown = new EZKO.UserControls.Other.LabeledNumericUpDown();
+            this.duration90Button = new EZKO.UserControls.FlatControls.RoundButton();
+            this.duration60Button = new EZKO.UserControls.FlatControls.RoundButton();
+            this.duration30Button = new EZKO.UserControls.FlatControls.RoundButton();
+            this.duration15Button = new EZKO.UserControls.FlatControls.RoundButton();
+            this.eventNoteRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
+            this.emailsRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
             this.createEventButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.resetEventButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.updateEventPanel = new System.Windows.Forms.Panel();
             this.reorderButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.saveEventButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.deleteEventButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.mainFlowLayoutPanel.SuspendLayout();
             this.newVisitPanel.SuspendLayout();
             this.patientNamePanel.SuspendLayout();
             this.newPatientPanel.SuspendLayout();
             this.middlePanel.SuspendLayout();
             this.doneActionsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.durationNumericUpDown)).BeginInit();
             this.doneActionsForTablePanel.SuspendLayout();
             this.plannedTextPanel.SuspendLayout();
             this.statePanel.SuspendLayout();
             this.newEventButtonsPanel.SuspendLayout();
             this.updateEventPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.durationNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // mainFlowLayoutPanel
@@ -121,7 +121,7 @@
             this.mainFlowLayoutPanel.Controls.Add(this.panel1);
             this.mainFlowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainFlowLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.mainFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.mainFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.mainFlowLayoutPanel.MaximumSize = new System.Drawing.Size(385, 800);
             this.mainFlowLayoutPanel.Name = "mainFlowLayoutPanel";
             this.mainFlowLayoutPanel.Size = new System.Drawing.Size(385, 800);
@@ -133,30 +133,10 @@
             this.newVisitPanel.Controls.Add(this.newVisitButton);
             this.newVisitPanel.Controls.Add(this.newVisitLabel);
             this.newVisitPanel.Location = new System.Drawing.Point(2, 2);
-            this.newVisitPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.newVisitPanel.Margin = new System.Windows.Forms.Padding(2);
             this.newVisitPanel.Name = "newVisitPanel";
             this.newVisitPanel.Size = new System.Drawing.Size(376, 34);
             this.newVisitPanel.TabIndex = 0;
-            // 
-            // newVisitButton
-            // 
-            this.newVisitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.newVisitButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.newVisitButton.FlatAppearance.BorderSize = 0;
-            this.newVisitButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.newVisitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.newVisitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.newVisitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.newVisitButton.ForeColor = System.Drawing.Color.White;
-            this.newVisitButton.Location = new System.Drawing.Point(0, 0);
-            this.newVisitButton.Name = "newVisitButton";
-            this.newVisitButton.Radius = 5;
-            this.newVisitButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.newVisitButton.Size = new System.Drawing.Size(376, 34);
-            this.newVisitButton.TabIndex = 2;
-            this.newVisitButton.Text = "Nová návšteva";
-            this.newVisitButton.UseVisualStyleBackColor = false;
-            this.newVisitButton.Click += new System.EventHandler(this.newVisitButton_Click);
             // 
             // newVisitLabel
             // 
@@ -174,7 +154,7 @@
             this.patientNamePanel.Controls.Add(this.patientNameLabel);
             this.patientNamePanel.Controls.Add(this.patientNameTextBox);
             this.patientNamePanel.Location = new System.Drawing.Point(2, 40);
-            this.patientNamePanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.patientNamePanel.Margin = new System.Windows.Forms.Padding(2);
             this.patientNamePanel.Name = "patientNamePanel";
             this.patientNamePanel.Size = new System.Drawing.Size(266, 20);
             this.patientNamePanel.TabIndex = 1;
@@ -189,15 +169,6 @@
             this.patientNameLabel.Size = new System.Drawing.Size(59, 13);
             this.patientNameLabel.TabIndex = 0;
             this.patientNameLabel.Text = "Pacient*:";
-            // 
-            // patientNameTextBox
-            // 
-            this.patientNameTextBox.Location = new System.Drawing.Point(66, 0);
-            this.patientNameTextBox.Name = "patientNameTextBox";
-            this.patientNameTextBox.Size = new System.Drawing.Size(199, 20);
-            this.patientNameTextBox.TabIndex = 32;
-            this.patientNameTextBox.Values = null;
-            this.patientNameTextBox.TextChanged += new System.EventHandler(this.patientNameTextBox_TextChanged);
             // 
             // newPatientCheckBox
             // 
@@ -223,7 +194,7 @@
             this.newPatientPanel.Controls.Add(this.newPatientNameTextBox);
             this.newPatientPanel.Controls.Add(this.newPatientNameLabel);
             this.newPatientPanel.Location = new System.Drawing.Point(2, 64);
-            this.newPatientPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.newPatientPanel.Margin = new System.Windows.Forms.Padding(2);
             this.newPatientPanel.Name = "newPatientPanel";
             this.newPatientPanel.Size = new System.Drawing.Size(376, 88);
             this.newPatientPanel.TabIndex = 3;
@@ -231,7 +202,7 @@
             // newPatientEmailTextBox
             // 
             this.newPatientEmailTextBox.Location = new System.Drawing.Point(193, 58);
-            this.newPatientEmailTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.newPatientEmailTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.newPatientEmailTextBox.Name = "newPatientEmailTextBox";
             this.newPatientEmailTextBox.Size = new System.Drawing.Size(163, 20);
             this.newPatientEmailTextBox.TabIndex = 7;
@@ -251,7 +222,7 @@
             // newPatientPhoneTextBox
             // 
             this.newPatientPhoneTextBox.Location = new System.Drawing.Point(19, 58);
-            this.newPatientPhoneTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.newPatientPhoneTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.newPatientPhoneTextBox.Name = "newPatientPhoneTextBox";
             this.newPatientPhoneTextBox.Size = new System.Drawing.Size(163, 20);
             this.newPatientPhoneTextBox.TabIndex = 5;
@@ -270,7 +241,7 @@
             // newPatientSurnameTextBox
             // 
             this.newPatientSurnameTextBox.Location = new System.Drawing.Point(193, 21);
-            this.newPatientSurnameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.newPatientSurnameTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.newPatientSurnameTextBox.Name = "newPatientSurnameTextBox";
             this.newPatientSurnameTextBox.Size = new System.Drawing.Size(163, 20);
             this.newPatientSurnameTextBox.TabIndex = 3;
@@ -289,7 +260,7 @@
             // newPatientNameTextBox
             // 
             this.newPatientNameTextBox.Location = new System.Drawing.Point(19, 21);
-            this.newPatientNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.newPatientNameTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.newPatientNameTextBox.Name = "newPatientNameTextBox";
             this.newPatientNameTextBox.Size = new System.Drawing.Size(163, 20);
             this.newPatientNameTextBox.TabIndex = 1;
@@ -332,7 +303,7 @@
             this.middlePanel.Controls.Add(this.doctorsCheckBoxComboBox);
             this.middlePanel.Controls.Add(this.doctorsLabel);
             this.middlePanel.Location = new System.Drawing.Point(2, 156);
-            this.middlePanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.middlePanel.Margin = new System.Windows.Forms.Padding(2);
             this.middlePanel.Name = "middlePanel";
             this.middlePanel.Size = new System.Drawing.Size(379, 377);
             this.middlePanel.TabIndex = 4;
@@ -343,20 +314,10 @@
             this.doneActionsPanel.Controls.Add(this.doneActionsLabel);
             this.doneActionsPanel.Controls.Add(this.addDoneActionButton);
             this.doneActionsPanel.Location = new System.Drawing.Point(6, 281);
-            this.doneActionsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.doneActionsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.doneActionsPanel.Name = "doneActionsPanel";
             this.doneActionsPanel.Size = new System.Drawing.Size(369, 46);
             this.doneActionsPanel.TabIndex = 34;
-            // 
-            // doneActionTextBox
-            // 
-            this.doneActionTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.doneActionTextBox.Location = new System.Drawing.Point(2, 19);
-            this.doneActionTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.doneActionTextBox.Name = "doneActionTextBox";
-            this.doneActionTextBox.Size = new System.Drawing.Size(321, 20);
-            this.doneActionTextBox.TabIndex = 30;
-            this.doneActionTextBox.Values = null;
             // 
             // doneActionsLabel
             // 
@@ -368,144 +329,6 @@
             this.doneActionsLabel.Size = new System.Drawing.Size(111, 13);
             this.doneActionsLabel.TabIndex = 22;
             this.doneActionsLabel.Text = "Vykonané výkony:";
-            // 
-            // addDoneActionButton
-            // 
-            this.addDoneActionButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.addDoneActionButton.FlatAppearance.BorderSize = 0;
-            this.addDoneActionButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addDoneActionButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addDoneActionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addDoneActionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.addDoneActionButton.ForeColor = System.Drawing.Color.White;
-            this.addDoneActionButton.Location = new System.Drawing.Point(326, 17);
-            this.addDoneActionButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.addDoneActionButton.Name = "addDoneActionButton";
-            this.addDoneActionButton.Radius = 5;
-            this.addDoneActionButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.addDoneActionButton.Size = new System.Drawing.Size(43, 22);
-            this.addDoneActionButton.TabIndex = 31;
-            this.addDoneActionButton.Text = "✓";
-            this.addDoneActionButton.UseVisualStyleBackColor = false;
-            this.addDoneActionButton.Click += new System.EventHandler(this.addDoneActionButton_Click);
-            // 
-            // durationNumericUpDown
-            // 
-            this.durationNumericUpDown.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.durationNumericUpDown.LabelText = "minút";
-            this.durationNumericUpDown.Location = new System.Drawing.Point(165, 47);
-            this.durationNumericUpDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.durationNumericUpDown.Maximum = new decimal(new int[] {
-            1440,
-            0,
-            0,
-            0});
-            this.durationNumericUpDown.Name = "durationNumericUpDown";
-            this.durationNumericUpDown.Size = new System.Drawing.Size(94, 20);
-            this.durationNumericUpDown.TabIndex = 33;
-            this.durationNumericUpDown.ValueChanged += new System.EventHandler(this.durationNumericUpDown_ValueChanged);
-            // 
-            // duration90Button
-            // 
-            this.duration90Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.duration90Button.FlatAppearance.BorderSize = 0;
-            this.duration90Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.duration90Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.duration90Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.duration90Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.duration90Button.ForeColor = System.Drawing.Color.White;
-            this.duration90Button.Location = new System.Drawing.Point(341, 44);
-            this.duration90Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.duration90Button.Name = "duration90Button";
-            this.duration90Button.Radius = 5;
-            this.duration90Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.duration90Button.Size = new System.Drawing.Size(33, 22);
-            this.duration90Button.TabIndex = 30;
-            this.duration90Button.Text = "90";
-            this.duration90Button.UseVisualStyleBackColor = false;
-            this.duration90Button.Click += new System.EventHandler(this.duration90Button_Click);
-            // 
-            // duration60Button
-            // 
-            this.duration60Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.duration60Button.FlatAppearance.BorderSize = 0;
-            this.duration60Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.duration60Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.duration60Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.duration60Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.duration60Button.ForeColor = System.Drawing.Color.White;
-            this.duration60Button.Location = new System.Drawing.Point(315, 44);
-            this.duration60Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.duration60Button.Name = "duration60Button";
-            this.duration60Button.Radius = 5;
-            this.duration60Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.duration60Button.Size = new System.Drawing.Size(33, 22);
-            this.duration60Button.TabIndex = 29;
-            this.duration60Button.Text = "60";
-            this.duration60Button.UseVisualStyleBackColor = false;
-            this.duration60Button.Click += new System.EventHandler(this.duration60Button_Click);
-            // 
-            // duration30Button
-            // 
-            this.duration30Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.duration30Button.FlatAppearance.BorderSize = 0;
-            this.duration30Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.duration30Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.duration30Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.duration30Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.duration30Button.ForeColor = System.Drawing.Color.White;
-            this.duration30Button.Location = new System.Drawing.Point(289, 44);
-            this.duration30Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.duration30Button.Name = "duration30Button";
-            this.duration30Button.Radius = 5;
-            this.duration30Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.duration30Button.Size = new System.Drawing.Size(33, 22);
-            this.duration30Button.TabIndex = 28;
-            this.duration30Button.Text = "30";
-            this.duration30Button.UseVisualStyleBackColor = false;
-            this.duration30Button.Click += new System.EventHandler(this.duration30Button_Click);
-            // 
-            // duration15Button
-            // 
-            this.duration15Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.duration15Button.FlatAppearance.BorderSize = 0;
-            this.duration15Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.duration15Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.duration15Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.duration15Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.duration15Button.ForeColor = System.Drawing.Color.White;
-            this.duration15Button.Location = new System.Drawing.Point(263, 44);
-            this.duration15Button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.duration15Button.Name = "duration15Button";
-            this.duration15Button.Radius = 5;
-            this.duration15Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.duration15Button.Size = new System.Drawing.Size(33, 22);
-            this.duration15Button.TabIndex = 27;
-            this.duration15Button.Text = "15";
-            this.duration15Button.UseVisualStyleBackColor = false;
-            this.duration15Button.Click += new System.EventHandler(this.duration15Button_Click);
-            // 
-            // eventNoteRichTextBox
-            // 
-            this.eventNoteRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.eventNoteRichTextBox.Location = new System.Drawing.Point(6, 157);
-            this.eventNoteRichTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.eventNoteRichTextBox.Name = "eventNoteRichTextBox";
-            this.eventNoteRichTextBox.Size = new System.Drawing.Size(369, 47);
-            this.eventNoteRichTextBox.TabIndex = 26;
-            // 
-            // emailsRichTextBox
-            // 
-            this.emailsRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.emailsRichTextBox.Location = new System.Drawing.Point(5, 91);
-            this.emailsRichTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.emailsRichTextBox.Name = "emailsRichTextBox";
-            this.emailsRichTextBox.Size = new System.Drawing.Size(369, 47);
-            this.emailsRichTextBox.TabIndex = 26;
             // 
             // durationInfoLabel
             // 
@@ -526,7 +349,7 @@
             this.doneActionsForTablePanel.Controls.Add(this.doneActionsTablePanel);
             this.doneActionsForTablePanel.Controls.Add(this.firstColumnLabel);
             this.doneActionsForTablePanel.Location = new System.Drawing.Point(5, 322);
-            this.doneActionsForTablePanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.doneActionsForTablePanel.Margin = new System.Windows.Forms.Padding(2);
             this.doneActionsForTablePanel.MaximumSize = new System.Drawing.Size(370, 107);
             this.doneActionsForTablePanel.Name = "doneActionsForTablePanel";
             this.doneActionsForTablePanel.Size = new System.Drawing.Size(370, 53);
@@ -551,7 +374,7 @@
             this.doneActionsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.53271F));
             this.doneActionsTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.doneActionsTablePanel.Location = new System.Drawing.Point(0, 23);
-            this.doneActionsTablePanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.doneActionsTablePanel.Margin = new System.Windows.Forms.Padding(2);
             this.doneActionsTablePanel.MinimumSize = new System.Drawing.Size(350, 28);
             this.doneActionsTablePanel.Name = "doneActionsTablePanel";
             this.doneActionsTablePanel.RowCount = 1;
@@ -572,7 +395,7 @@
             // planedTextTextBox
             // 
             this.planedTextTextBox.Location = new System.Drawing.Point(6, 260);
-            this.planedTextTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.planedTextTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.planedTextTextBox.Name = "planedTextTextBox";
             this.planedTextTextBox.Size = new System.Drawing.Size(370, 20);
             this.planedTextTextBox.TabIndex = 23;
@@ -584,7 +407,7 @@
             this.plannedActionsComboBox.DisplayMemberSingleItem = "";
             this.plannedActionsComboBox.FormattingEnabled = true;
             this.plannedActionsComboBox.Location = new System.Drawing.Point(5, 222);
-            this.plannedActionsComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.plannedActionsComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.plannedActionsComboBox.Name = "plannedActionsComboBox";
             this.plannedActionsComboBox.Size = new System.Drawing.Size(369, 21);
             this.plannedActionsComboBox.TabIndex = 19;
@@ -658,7 +481,7 @@
             // eventStartTextBox
             // 
             this.eventStartTextBox.Location = new System.Drawing.Point(5, 47);
-            this.eventStartTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.eventStartTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.eventStartTextBox.Name = "eventStartTextBox";
             this.eventStartTextBox.ReadOnly = true;
             this.eventStartTextBox.Size = new System.Drawing.Size(157, 20);
@@ -688,7 +511,7 @@
             this.doctorsCheckBoxComboBox.DisplayMemberSingleItem = "";
             this.doctorsCheckBoxComboBox.FormattingEnabled = true;
             this.doctorsCheckBoxComboBox.Location = new System.Drawing.Point(62, 4);
-            this.doctorsCheckBoxComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.doctorsCheckBoxComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.doctorsCheckBoxComboBox.Name = "doctorsCheckBoxComboBox";
             this.doctorsCheckBoxComboBox.Size = new System.Drawing.Size(312, 21);
             this.doctorsCheckBoxComboBox.Sorted = true;
@@ -712,7 +535,7 @@
             this.plannedTextPanel.Controls.Add(this.doneTextLabel);
             this.plannedTextPanel.Controls.Add(this.doneTextTextBox);
             this.plannedTextPanel.Location = new System.Drawing.Point(2, 537);
-            this.plannedTextPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.plannedTextPanel.Margin = new System.Windows.Forms.Padding(2);
             this.plannedTextPanel.Name = "plannedTextPanel";
             this.plannedTextPanel.Size = new System.Drawing.Size(377, 37);
             this.plannedTextPanel.TabIndex = 26;
@@ -731,7 +554,7 @@
             // doneTextTextBox
             // 
             this.doneTextTextBox.Location = new System.Drawing.Point(5, 15);
-            this.doneTextTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.doneTextTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.doneTextTextBox.Name = "doneTextTextBox";
             this.doneTextTextBox.Size = new System.Drawing.Size(370, 20);
             this.doneTextTextBox.TabIndex = 25;
@@ -773,10 +596,207 @@
             this.newEventButtonsPanel.Controls.Add(this.createEventButton);
             this.newEventButtonsPanel.Controls.Add(this.resetEventButton);
             this.newEventButtonsPanel.Location = new System.Drawing.Point(2, 611);
-            this.newEventButtonsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.newEventButtonsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.newEventButtonsPanel.Name = "newEventButtonsPanel";
             this.newEventButtonsPanel.Size = new System.Drawing.Size(383, 31);
             this.newEventButtonsPanel.TabIndex = 28;
+            // 
+            // updateEventPanel
+            // 
+            this.updateEventPanel.Controls.Add(this.reorderButton);
+            this.updateEventPanel.Controls.Add(this.saveEventButton);
+            this.updateEventPanel.Controls.Add(this.deleteEventButton);
+            this.updateEventPanel.Location = new System.Drawing.Point(2, 646);
+            this.updateEventPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.updateEventPanel.Name = "updateEventPanel";
+            this.updateEventPanel.Size = new System.Drawing.Size(383, 31);
+            this.updateEventPanel.TabIndex = 29;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSize = true;
+            this.panel1.Location = new System.Drawing.Point(2, 681);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(0, 0);
+            this.panel1.TabIndex = 31;
+            // 
+            // newVisitButton
+            // 
+            this.newVisitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.newVisitButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.newVisitButton.FlatAppearance.BorderSize = 0;
+            this.newVisitButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.newVisitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.newVisitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.newVisitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.newVisitButton.ForeColor = System.Drawing.Color.White;
+            this.newVisitButton.Location = new System.Drawing.Point(0, 0);
+            this.newVisitButton.Name = "newVisitButton";
+            this.newVisitButton.Radius = 5;
+            this.newVisitButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.newVisitButton.Size = new System.Drawing.Size(376, 34);
+            this.newVisitButton.TabIndex = 2;
+            this.newVisitButton.Text = "Nová návšteva";
+            this.newVisitButton.UseVisualStyleBackColor = false;
+            this.newVisitButton.Click += new System.EventHandler(this.newVisitButton_Click);
+            // 
+            // patientNameTextBox
+            // 
+            this.patientNameTextBox.Location = new System.Drawing.Point(66, 0);
+            this.patientNameTextBox.Name = "patientNameTextBox";
+            this.patientNameTextBox.Size = new System.Drawing.Size(199, 20);
+            this.patientNameTextBox.TabIndex = 32;
+            this.patientNameTextBox.Values = null;
+            this.patientNameTextBox.TextChanged += new System.EventHandler(this.patientNameTextBox_TextChanged);
+            // 
+            // doneActionTextBox
+            // 
+            this.doneActionTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.doneActionTextBox.Location = new System.Drawing.Point(2, 19);
+            this.doneActionTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.doneActionTextBox.Name = "doneActionTextBox";
+            this.doneActionTextBox.Size = new System.Drawing.Size(321, 20);
+            this.doneActionTextBox.TabIndex = 30;
+            this.doneActionTextBox.Values = null;
+            // 
+            // addDoneActionButton
+            // 
+            this.addDoneActionButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.addDoneActionButton.FlatAppearance.BorderSize = 0;
+            this.addDoneActionButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addDoneActionButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addDoneActionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addDoneActionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.addDoneActionButton.ForeColor = System.Drawing.Color.White;
+            this.addDoneActionButton.Location = new System.Drawing.Point(326, 17);
+            this.addDoneActionButton.Margin = new System.Windows.Forms.Padding(2);
+            this.addDoneActionButton.Name = "addDoneActionButton";
+            this.addDoneActionButton.Radius = 5;
+            this.addDoneActionButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.addDoneActionButton.Size = new System.Drawing.Size(43, 22);
+            this.addDoneActionButton.TabIndex = 31;
+            this.addDoneActionButton.Text = "✓";
+            this.addDoneActionButton.UseVisualStyleBackColor = false;
+            this.addDoneActionButton.Click += new System.EventHandler(this.addDoneActionButton_Click);
+            // 
+            // durationNumericUpDown
+            // 
+            this.durationNumericUpDown.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.durationNumericUpDown.LabelText = "minút";
+            this.durationNumericUpDown.Location = new System.Drawing.Point(165, 47);
+            this.durationNumericUpDown.Margin = new System.Windows.Forms.Padding(2);
+            this.durationNumericUpDown.Maximum = new decimal(new int[] {
+            1440,
+            0,
+            0,
+            0});
+            this.durationNumericUpDown.Name = "durationNumericUpDown";
+            this.durationNumericUpDown.Size = new System.Drawing.Size(94, 20);
+            this.durationNumericUpDown.TabIndex = 33;
+            this.durationNumericUpDown.ValueChanged += new System.EventHandler(this.durationNumericUpDown_ValueChanged);
+            // 
+            // duration90Button
+            // 
+            this.duration90Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.duration90Button.FlatAppearance.BorderSize = 0;
+            this.duration90Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.duration90Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.duration90Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.duration90Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.duration90Button.ForeColor = System.Drawing.Color.White;
+            this.duration90Button.Location = new System.Drawing.Point(341, 44);
+            this.duration90Button.Margin = new System.Windows.Forms.Padding(2);
+            this.duration90Button.Name = "duration90Button";
+            this.duration90Button.Radius = 5;
+            this.duration90Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.duration90Button.Size = new System.Drawing.Size(33, 22);
+            this.duration90Button.TabIndex = 30;
+            this.duration90Button.Text = "90";
+            this.duration90Button.UseVisualStyleBackColor = false;
+            this.duration90Button.Click += new System.EventHandler(this.duration90Button_Click);
+            // 
+            // duration60Button
+            // 
+            this.duration60Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.duration60Button.FlatAppearance.BorderSize = 0;
+            this.duration60Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.duration60Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.duration60Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.duration60Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.duration60Button.ForeColor = System.Drawing.Color.White;
+            this.duration60Button.Location = new System.Drawing.Point(315, 44);
+            this.duration60Button.Margin = new System.Windows.Forms.Padding(2);
+            this.duration60Button.Name = "duration60Button";
+            this.duration60Button.Radius = 5;
+            this.duration60Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.duration60Button.Size = new System.Drawing.Size(33, 22);
+            this.duration60Button.TabIndex = 29;
+            this.duration60Button.Text = "60";
+            this.duration60Button.UseVisualStyleBackColor = false;
+            this.duration60Button.Click += new System.EventHandler(this.duration60Button_Click);
+            // 
+            // duration30Button
+            // 
+            this.duration30Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.duration30Button.FlatAppearance.BorderSize = 0;
+            this.duration30Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.duration30Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.duration30Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.duration30Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.duration30Button.ForeColor = System.Drawing.Color.White;
+            this.duration30Button.Location = new System.Drawing.Point(289, 44);
+            this.duration30Button.Margin = new System.Windows.Forms.Padding(2);
+            this.duration30Button.Name = "duration30Button";
+            this.duration30Button.Radius = 5;
+            this.duration30Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.duration30Button.Size = new System.Drawing.Size(33, 22);
+            this.duration30Button.TabIndex = 28;
+            this.duration30Button.Text = "30";
+            this.duration30Button.UseVisualStyleBackColor = false;
+            this.duration30Button.Click += new System.EventHandler(this.duration30Button_Click);
+            // 
+            // duration15Button
+            // 
+            this.duration15Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.duration15Button.FlatAppearance.BorderSize = 0;
+            this.duration15Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.duration15Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.duration15Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.duration15Button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.duration15Button.ForeColor = System.Drawing.Color.White;
+            this.duration15Button.Location = new System.Drawing.Point(263, 44);
+            this.duration15Button.Margin = new System.Windows.Forms.Padding(2);
+            this.duration15Button.Name = "duration15Button";
+            this.duration15Button.Radius = 5;
+            this.duration15Button.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.duration15Button.Size = new System.Drawing.Size(33, 22);
+            this.duration15Button.TabIndex = 27;
+            this.duration15Button.Text = "15";
+            this.duration15Button.UseVisualStyleBackColor = false;
+            this.duration15Button.Click += new System.EventHandler(this.duration15Button_Click);
+            // 
+            // eventNoteRichTextBox
+            // 
+            this.eventNoteRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.eventNoteRichTextBox.Location = new System.Drawing.Point(6, 157);
+            this.eventNoteRichTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.eventNoteRichTextBox.Name = "eventNoteRichTextBox";
+            this.eventNoteRichTextBox.Size = new System.Drawing.Size(369, 47);
+            this.eventNoteRichTextBox.TabIndex = 26;
+            // 
+            // emailsRichTextBox
+            // 
+            this.emailsRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.emailsRichTextBox.Location = new System.Drawing.Point(5, 91);
+            this.emailsRichTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.emailsRichTextBox.Name = "emailsRichTextBox";
+            this.emailsRichTextBox.Size = new System.Drawing.Size(369, 47);
+            this.emailsRichTextBox.TabIndex = 26;
             // 
             // createEventButton
             // 
@@ -788,7 +808,7 @@
             this.createEventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.createEventButton.ForeColor = System.Drawing.Color.White;
             this.createEventButton.Location = new System.Drawing.Point(233, 2);
-            this.createEventButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.createEventButton.Margin = new System.Windows.Forms.Padding(2);
             this.createEventButton.Name = "createEventButton";
             this.createEventButton.Radius = 5;
             this.createEventButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatGreen;
@@ -808,7 +828,7 @@
             this.resetEventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.resetEventButton.ForeColor = System.Drawing.Color.White;
             this.resetEventButton.Location = new System.Drawing.Point(5, 2);
-            this.resetEventButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.resetEventButton.Margin = new System.Windows.Forms.Padding(2);
             this.resetEventButton.Name = "resetEventButton";
             this.resetEventButton.Radius = 5;
             this.resetEventButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatRed;
@@ -817,17 +837,6 @@
             this.resetEventButton.Text = "Reset";
             this.resetEventButton.UseVisualStyleBackColor = false;
             this.resetEventButton.Click += new System.EventHandler(this.resetEventButton_Click);
-            // 
-            // updateEventPanel
-            // 
-            this.updateEventPanel.Controls.Add(this.reorderButton);
-            this.updateEventPanel.Controls.Add(this.saveEventButton);
-            this.updateEventPanel.Controls.Add(this.deleteEventButton);
-            this.updateEventPanel.Location = new System.Drawing.Point(2, 646);
-            this.updateEventPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.updateEventPanel.Name = "updateEventPanel";
-            this.updateEventPanel.Size = new System.Drawing.Size(383, 31);
-            this.updateEventPanel.TabIndex = 29;
             // 
             // reorderButton
             // 
@@ -839,7 +848,7 @@
             this.reorderButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.reorderButton.ForeColor = System.Drawing.Color.White;
             this.reorderButton.Location = new System.Drawing.Point(176, 2);
-            this.reorderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.reorderButton.Margin = new System.Windows.Forms.Padding(2);
             this.reorderButton.Name = "reorderButton";
             this.reorderButton.Radius = 5;
             this.reorderButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
@@ -859,7 +868,7 @@
             this.saveEventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.saveEventButton.ForeColor = System.Drawing.Color.White;
             this.saveEventButton.Location = new System.Drawing.Point(301, 2);
-            this.saveEventButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.saveEventButton.Margin = new System.Windows.Forms.Padding(2);
             this.saveEventButton.Name = "saveEventButton";
             this.saveEventButton.Radius = 5;
             this.saveEventButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatGreen;
@@ -879,7 +888,7 @@
             this.deleteEventButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.deleteEventButton.ForeColor = System.Drawing.Color.White;
             this.deleteEventButton.Location = new System.Drawing.Point(5, 2);
-            this.deleteEventButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.deleteEventButton.Margin = new System.Windows.Forms.Padding(2);
             this.deleteEventButton.Name = "deleteEventButton";
             this.deleteEventButton.Radius = 5;
             this.deleteEventButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatRed;
@@ -889,22 +898,13 @@
             this.deleteEventButton.UseVisualStyleBackColor = false;
             this.deleteEventButton.Click += new System.EventHandler(this.deleteEventButton_Click);
             // 
-            // panel1
-            // 
-            this.panel1.AutoSize = true;
-            this.panel1.Location = new System.Drawing.Point(389, 646);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(0, 0);
-            this.panel1.TabIndex = 31;
-            // 
             // VisitUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.mainFlowLayoutPanel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "VisitUserControl";
             this.Size = new System.Drawing.Size(389, 800);
             this.Load += new System.EventHandler(this.VisitUserControl_Load);
@@ -920,7 +920,6 @@
             this.middlePanel.PerformLayout();
             this.doneActionsPanel.ResumeLayout(false);
             this.doneActionsPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.durationNumericUpDown)).EndInit();
             this.doneActionsForTablePanel.ResumeLayout(false);
             this.doneActionsForTablePanel.PerformLayout();
             this.plannedTextPanel.ResumeLayout(false);
@@ -929,6 +928,7 @@
             this.statePanel.PerformLayout();
             this.newEventButtonsPanel.ResumeLayout(false);
             this.updateEventPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.durationNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

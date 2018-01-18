@@ -55,6 +55,7 @@
     <Compile Include="Controllers\PasswordController.cs" />
     <Compile Include="Enums\EventStateEnum.cs" />
     <Compile Include="Enums\LoginResultEnum.cs" />
+    <Compile Include="Enums\SexEnum.cs" />
     <Compile Include="Enums\UserRoleEnum.cs" />
     <Compile Include="Controllers\EzkoController.cs" />
     <Compile Include="Model\Action.cs">

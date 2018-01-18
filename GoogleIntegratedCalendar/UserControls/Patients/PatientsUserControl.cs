@@ -1,38 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DatabaseCommunicator.Controllers;
-using DatabaseCommunicator.Enums;
-using EZKO.Forms.AdministrationForms;
+using DatabaseCommunicator.Model;
 using EZKO.Controllers;
+using EZKO.Forms.PatientForms;
 using ExceptionHandler;
 
-namespace EZKO.UserControls.Administration
+namespace EZKO.UserControls.Patients
 {
-    public partial class UsersControlPanel : UserControl
+    public partial class PatientsUserControl : UserControl
     {
         private EzkoController ezkoController;
-
-        public UsersControlPanel()
+        public PatientsUserControl()
         {
             InitializeComponent();
 
             ezkoController = GlobalSettings.EzkoController;
             InitializeDataGridView();
-            FillDataGridView();
+            FillDataGridView(ezkoController.GetPatients());
         }
 
         #region Public methods
-        public void UpdateControl()
-        {
-            FillDataGridView();
-        }
         #endregion
 
         #region Private methods
@@ -72,23 +62,41 @@ namespace EZKO.UserControls.Administration
             };
             dataGridView.Columns.Add(imageColumn);
 
-            DataGridViewTextBoxColumn userNameColumn = new DataGridViewTextBoxColumn()
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn()
             {
-                Name = "UserName",
-                HeaderText = "Používateľské meno",
+                Name = "PatientName",
+                HeaderText = "Pacient",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 FillWeight = 25,
             };
-            dataGridView.Columns.Add(userNameColumn);
+            dataGridView.Columns.Add(nameColumn);
 
-            DataGridViewTextBoxColumn userRoleColumn = new DataGridViewTextBoxColumn()
+            DataGridViewTextBoxColumn phoneColumn = new DataGridViewTextBoxColumn()
             {
-                Name = "Role",
-                HeaderText = "Rola",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-                //FillWeight = 25,
+                Name = "Phone",
+                HeaderText = "Telefón",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 25,
             };
-            dataGridView.Columns.Add(userRoleColumn);
+            dataGridView.Columns.Add(phoneColumn);
+
+            DataGridViewTextBoxColumn emailColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Email",
+                HeaderText = "Email",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 25,
+            };
+            dataGridView.Columns.Add(emailColumn);
+
+            DataGridViewTextBoxColumn addressColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Address",
+                HeaderText = "Ulica, mesto, štát",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 25,
+            };
+            dataGridView.Columns.Add(addressColumn);
 
             DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
             {
@@ -110,6 +118,17 @@ namespace EZKO.UserControls.Administration
             editColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorBlue;
             dataGridView.Columns.Add(editColumn);
 
+            DataGridViewButtonColumn pdfColumn = new DataGridViewButtonColumn()
+            {
+                Name = "PdfExport",
+                HeaderText = "",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            pdfColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorBlue;
+            pdfColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorBlue;
+            dataGridView.Columns.Add(pdfColumn);
+
             DataGridViewButtonColumn removeColumn = new DataGridViewButtonColumn()
             {
                 Name = "Remove",
@@ -122,87 +141,61 @@ namespace EZKO.UserControls.Administration
             dataGridView.Columns.Add(removeColumn);
         }
 
-        private void FillDataGridView()
+        private void FillDataGridView(IQueryable<Patient> patients)
         {
             dataGridView.Rows.Clear();
 
-            foreach (var item in ezkoController.GetUsers())
+            foreach (var item in patients)
             {
                 int rowIndex = dataGridView.Rows.Add(new object[]
-                { item.ID, DirectoriesController.GetImage(item.AvatarImagePath, Properties.Resources.noUserImage), item.Login, GetRoleName(item.RoleID), "", "Upraviť", "Zmazať", " " });
+                { item.ID, DirectoriesController.GetImage(item.AvatarImagePath, Properties.Resources.noUserImage), item.FullName, item.Contact.Phone,
+                    item.Contact.Email, item.Address?.FullAddress ?? "Nezadané" ,"", "EZKO", "PDF", "Zmazať" });
                 dataGridView.Rows[rowIndex].Tag = item;
             }
         }
 
-        private string GetRoleName(int userRoleID)
+        private void RemoveItem(Patient item)
         {
-            string result = "";
-
-            switch (userRoleID)
-            {
-                case (int)UserRoleEnum.Doctor:
-                    result = "Doktor";
-                    break;
-                case (int)UserRoleEnum.Nurse:
-                    result = "Sestra";
-                    break;
-                case (int)UserRoleEnum.Manager:
-                    result = "Manažér";
-                    break;
-                case (int)UserRoleEnum.Administrator:
-                    result = "Administrátor";
-                    break;
-                default:
-                    result = "Neznáma rola";
-                    break;
-            }
-
-            return result;
-        }
-
-        private void EditItem(DatabaseCommunicator.Model.User user)
-        {
-            EditUserForm form = new EditUserForm(user);
-            if (form.ShowDialog() == DialogResult.OK)
-                FillDataGridView();
-        }
-
-        private void RemoveItem(DatabaseCommunicator.Model.User user)
-        {
-            if(MessageBox.Show("Naozaj si želáte odstrániť používateľa " + user.Login, "?",
+            if (MessageBox.Show("Naozaj si želáte odstrániť pacienta " + item.FullName, "?",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (!ezkoController.RemoveUser(user))
-                    BasicMessagesHandler.ShowErrorMessage("Používateľa sa nepodarilo odstrániť");
+                if (!ezkoController.RemovePatient(item))
+                {
+                    BasicMessagesHandler.ShowErrorMessage("Pacienta sa nepodarilo odstrániť");
+                }
                 else
-                    FillDataGridView();
+                    FillDataGridView(ezkoController.GetPatients());
             }
         }
         #endregion
 
         #region UI events
+        private void findButton_Click(object sender, EventArgs e)
+        {
+            FillDataGridView(ezkoController.GetPatients(filterTextBox.Text.Trim()));
+        }
+
+        private void newPatientMenuItem_TransparentPanelMouseClick(object sender, MouseEventArgs e)
+        {
+            NewPatientForm form = new NewPatientForm();
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                FillDataGridView(ezkoController.GetPatients());
+            }
+        }
+
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView senderGrid = (DataGridView)sender;
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                DatabaseCommunicator.Model.User item = senderGrid.Rows[e.RowIndex].Tag as DatabaseCommunicator.Model.User;
-                if (senderGrid.Columns[e.ColumnIndex].Name == "Edit")
-                    EditItem(item);
-                else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
+                Patient item = senderGrid.Rows[e.RowIndex].Tag as Patient;
+                //if (senderGrid.Columns[e.ColumnIndex].Name == "Edit")
+                //    EditItem(item);
+                if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
                     RemoveItem(item);
-            }
-        }
-
-        private void dataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            DataGridView senderGrid = (DataGridView)sender;
-
-            if (e.RowIndex >= 0)
-            {
-                DatabaseCommunicator.Model.User user = senderGrid.Rows[e.RowIndex].Tag as DatabaseCommunicator.Model.User;
-                EditItem(user);
             }
         }
         #endregion

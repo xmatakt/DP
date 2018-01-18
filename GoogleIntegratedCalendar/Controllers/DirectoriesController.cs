@@ -3,10 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using DatabaseCommunicator.Model;
 namespace EZKO.Controllers
 {
     /// <summary>
@@ -14,7 +11,7 @@ namespace EZKO.Controllers
     /// </summary>
     public class DirectoriesController
     {
-
+        #region Users
         /// <summary>
         /// Returns the root folder for supplied user
         /// </summary>
@@ -70,6 +67,65 @@ namespace EZKO.Controllers
 
             return result;
         }
+        #endregion
+
+        #region Patients
+        /// <summary>
+        /// Returns the root folder for supplied patient
+        /// </summary>
+        /// <param name="patient">Supplied patient</param>
+        public static string GetPatientRootFolder(Patient patient)
+        {
+            return GlobalSettings.PatientsRootFolderPath + @"\" + patient.Name + "_" + patient.Surname + "_" + patient.ID;
+        }
+
+        /// <summary>
+        /// Returns the image folder for supplied patient
+        /// </summary>
+        /// <param name="patient">Supplied patient</param>
+        public static string GetPatientImageFolder(Patient patient)
+        {
+            return GetPatientRootFolder(patient) + @"\images";
+        }
+
+        /// <summary>
+        /// Returns path to supplied image in the EZKO directory structure for supplied user
+        /// </summary>
+        /// <param name="userName">Supplied user</param>
+        /// <param name="imagePath">Original image path</param>
+        //public static string GetEzkoUserImagePath(string userName, string imagePath)
+        //{
+        //    if (imagePath == null)
+        //        return null;
+
+        //    string imageName = Path.GetFileName(imagePath);
+        //    return GetUserImageFolder(userName) + @"\" + imageName;
+        //}
+
+        /// <summary>
+        /// Creates the EZKO directory structure for the supplied patient
+        /// </summary>
+        /// <param name="patient">Patient whose directory structure has to be created</param>
+        /// <returns>Value indicating wheter the directory structure creation was succesful</returns>
+        public static bool CreatePatientFolderStructure(Patient patient)
+        {
+            bool result = true;
+
+            try
+            {
+                var path = GetPatientImageFolder(patient);
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+                result = false;
+            }
+
+            return result;
+        }
+        #endregion
 
         /// <summary>
         /// Creates supplied direcotry
@@ -107,7 +163,26 @@ namespace EZKO.Controllers
             try
             {
                 if(sourceFileName != null && destinationFileName != null)
-                File.Copy(sourceFileName, destinationFileName);
+                {
+                    bool copy = true;
+                    if (File.Exists(destinationFileName))
+                    {
+                        try
+                        {
+                            File.Delete(destinationFileName);
+                        }
+                        //if user choose the same image as image which is currently used, can't delete that file,
+                        //because is used by another process
+                        catch (IOException e)
+                        {
+                            copy = false;
+                        }
+                    }
+                    
+                    //if file was succesfully deleted or did not exists yet
+                    if(copy)
+                        File.Copy(sourceFileName, destinationFileName);
+                }
             }
             catch (Exception e)
             {
