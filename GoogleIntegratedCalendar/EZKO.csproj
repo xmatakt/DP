@@ -98,6 +98,18 @@
     <Compile Include="Forms\AdministrationForms\EditBudgetForm.Designer.cs">
       <DependentUpon>EditBudgetForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AdministrationForms\EditFormularForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditFormularForm.Designer.cs">
+      <DependentUpon>EditFormularForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditFieldForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditFieldForm.Designer.cs">
+      <DependentUpon>EditFieldForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DateTimePickerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +121,12 @@
     </Compile>
     <Compile Include="Forms\EzkoForm.Designer.cs">
       <DependentUpon>EzkoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PatientForms\EditPatientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PatientForms\EditPatientForm.Designer.cs">
+      <DependentUpon>EditPatientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\PatientForms\NewPatientForm.cs">
       <SubType>Form</SubType>
@@ -177,6 +195,12 @@
     </Compile>
     <Compile Include="UserControls\Administration\EzkoSectionsControlPanel.Designer.cs">
       <DependentUpon>EzkoSectionsControlPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Administration\FieldsControlPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Administration\FieldsControlPanel.Designer.cs">
+      <DependentUpon>FieldsControlPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Administration\FormularsControlPanel.cs">
       <SubType>UserControl</SubType>
@@ -290,11 +314,20 @@
     <EmbeddedResource Include="Forms\AdministrationForms\EditBudgetForm.resx">
       <DependentUpon>EditBudgetForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdministrationForms\EditFormularForm.resx">
+      <DependentUpon>EditFormularForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdministrationForms\EditFieldForm.resx">
+      <DependentUpon>EditFieldForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DateTimePickerForm.resx">
       <DependentUpon>DateTimePickerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EzkoForm.resx">
       <DependentUpon>EzkoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PatientForms\EditPatientForm.resx">
+      <DependentUpon>EditPatientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PatientForms\NewPatientForm.resx">
       <DependentUpon>NewPatientForm.cs</DependentUpon>
@@ -335,6 +368,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Administration\EzkoSectionsControlPanel.resx">
       <DependentUpon>EzkoSectionsControlPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Administration\FieldsControlPanel.resx">
+      <DependentUpon>FieldsControlPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Administration\FormularsControlPanel.resx">
       <DependentUpon>FormularsControlPanel.cs</DependentUpon>
@@ -564,6 +600,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\formular_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fields_black_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fields_white_24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

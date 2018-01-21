@@ -136,4 +136,42 @@ namespace DatabaseCommunicator.Model
             }
         }
     }
+
+    public partial class FieldType
+    {
+        public override string ToString()
+        {
+            switch (ID)
+            {
+                case (int)Enums.FieldTypeEnum.Text:
+                    return "Text";
+                case (int)Enums.FieldTypeEnum.LongText:
+                    return "Dlhý text";
+                case (int)Enums.FieldTypeEnum.RadioBox:
+                    return "Možnosti Radio";
+                case (int)Enums.FieldTypeEnum.SelectBox:
+                    return "Možnosti Select";
+                case (int)Enums.FieldTypeEnum.CheckBox:
+                    return "CheckBox";
+                default:
+                    return "Neznámy typ";
+            }
+        }
+    }
+
+    public partial class Section
+    {
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
+
+    public partial class FieldValue
+    {
+        public override string ToString()
+        {
+            return Value;
+        }
+    }
 }

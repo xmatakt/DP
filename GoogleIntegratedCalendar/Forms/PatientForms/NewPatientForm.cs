@@ -359,38 +359,6 @@ namespace EZKO.Forms.PatientForms
         }
         #endregion
 
-        #region HandleMaximizeButtonEvents
-        private void maximizeFormPictureBox_Click(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Normal)
-            {
-                WindowState = FormWindowState.Maximized;
-                maximizeFormPictureBox.Image = Properties.Resources.minimizeForm_32;
-            }
-            else
-            {
-                WindowState = FormWindowState.Normal;
-                maximizeFormPictureBox.Image = Properties.Resources.maximizeForm_32;
-            }
-        }
-
-        private void maximizeFormPictureBox_MouseEnter(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Normal)
-                maximizeFormPictureBox.Image = Properties.Resources.maximizeForm_active_32;
-            else
-                maximizeFormPictureBox.Image = Properties.Resources.minimizeForm_active_32;
-        }
-
-        private void maximizeFormPictureBox_MouseLeave(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Normal)
-                maximizeFormPictureBox.Image = Properties.Resources.maximizeForm_32;
-            else
-                maximizeFormPictureBox.Image = Properties.Resources.minimizeForm_32;
-        }
-        #endregion
-
         #region HandleMinimizeButtonEvents
         private void minimizeFormPictureBox_Click(object sender, EventArgs e)
         {

@@ -756,6 +756,87 @@ namespace DatabaseCommunicator.Controllers
 
             return result;
         }
+
+        public bool CreateField(string name, string standardNumber, string otherName, FieldType fieldType, Section section,
+            string description, List<FieldValue> fieldValues, List<FieldForm> fieldForms)
+        {
+            bool result = false;
+            try
+            {
+                Field item = new Field()
+                {
+                    Name = name,
+                    StandardNumber = standardNumber,
+                    OtherName = otherName,
+                    Description = description,
+                    FieldType = fieldType,
+                    Section = section,
+                    FieldForms = fieldForms,
+                    IsDeleted = false
+                };
+
+                if(fieldType.ID != (int)FieldTypeEnum.Text && fieldType.ID != (int)FieldTypeEnum.LongText)
+                    item.FieldValues = fieldValues;
+
+                db.Fields.Add(item);
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool EditField(Field field, string name, string standardNumber, string otherName, FieldType fieldType,
+            Section section, string description, List<FieldValue> fieldValues, List<FieldForm> fieldForms)
+        {
+            bool result = false;
+            try
+            {
+                db.Questions.RemoveRange(field.FieldForms.Select(x => x.Question));
+                db.FieldValues.RemoveRange(field.FieldValues);
+
+                field.Name = name;
+                field.StandardNumber = standardNumber;
+                field.OtherName = otherName;
+                field.FieldType = fieldType;
+                field.Section = section;
+                field.Description = description;
+                field.FieldForms = fieldForms;
+                field.IsDeleted = false;
+
+                if (fieldType.ID != (int)FieldTypeEnum.Text && fieldType.ID != (int)FieldTypeEnum.LongText)
+                    field.FieldValues = fieldValues;
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool RemoveField(Field item)
+        {
+            bool result = false;
+
+            try
+            {
+                item.IsDeleted = true;
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+                result = false;
+            }
+
+            return result;
+        }
         #endregion
 
         #region  Actions
@@ -1213,7 +1294,7 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
-        public bool EditForm(Form form, string name)
+        public bool EditFormular(Form form, string name)
         {
             bool result = false;
             try
@@ -1351,6 +1432,21 @@ namespace DatabaseCommunicator.Controllers
             try
             {
                 result = db.Infrastructures.Where(x => !x.IsDeleted);
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public IEnumerable<FieldType> GetFieldTypes()
+        {
+            IQueryable<FieldType> result = null;
+            try
+            {
+                result = db.FieldTypes;
             }
             catch (Exception e)
             {

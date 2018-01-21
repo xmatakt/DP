@@ -263,6 +263,26 @@ namespace EZKO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap fields_black_24 {
+            get {
+                object obj = ResourceManager.GetObject("fields_black_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fields_white_24 {
+            get {
+                object obj = ResourceManager.GetObject("fields_white_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap formList_32 {
             get {
                 object obj = ResourceManager.GetObject("formList_32", resourceCulture);

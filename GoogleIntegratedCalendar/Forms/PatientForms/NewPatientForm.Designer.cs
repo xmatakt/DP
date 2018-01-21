@@ -32,7 +32,6 @@
             this.topMenuPanel = new System.Windows.Forms.Panel();
             this.formTitleLabel = new System.Windows.Forms.Label();
             this.minimizeFormPictureBox = new System.Windows.Forms.PictureBox();
-            this.maximizeFormPictureBox = new System.Windows.Forms.PictureBox();
             this.closeFormPictureBox = new System.Windows.Forms.PictureBox();
             this.bottomFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
@@ -77,7 +76,6 @@
             this.emailLabel = new System.Windows.Forms.Label();
             this.topMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maximizeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.closeFormPictureBox)).BeginInit();
             this.bottomFlowPanel.SuspendLayout();
             this.personalInfoGroupBox.SuspendLayout();
@@ -90,7 +88,6 @@
             this.topMenuPanel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.topMenuPanel.Controls.Add(this.formTitleLabel);
             this.topMenuPanel.Controls.Add(this.minimizeFormPictureBox);
-            this.topMenuPanel.Controls.Add(this.maximizeFormPictureBox);
             this.topMenuPanel.Controls.Add(this.closeFormPictureBox);
             this.topMenuPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topMenuPanel.Location = new System.Drawing.Point(0, 0);
@@ -116,7 +113,7 @@
             // 
             this.minimizeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.minimizeFormPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("minimizeFormPictureBox.Image")));
-            this.minimizeFormPictureBox.Location = new System.Drawing.Point(517, 8);
+            this.minimizeFormPictureBox.Location = new System.Drawing.Point(541, 8);
             this.minimizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.minimizeFormPictureBox.Name = "minimizeFormPictureBox";
             this.minimizeFormPictureBox.Size = new System.Drawing.Size(20, 19);
@@ -126,21 +123,6 @@
             this.minimizeFormPictureBox.Click += new System.EventHandler(this.minimizeFormPictureBox_Click);
             this.minimizeFormPictureBox.MouseEnter += new System.EventHandler(this.minimizeFormPictureBox_MouseEnter);
             this.minimizeFormPictureBox.MouseLeave += new System.EventHandler(this.minimizeFormPictureBox_MouseLeave);
-            // 
-            // maximizeFormPictureBox
-            // 
-            this.maximizeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.maximizeFormPictureBox.Image = global::EZKO.Properties.Resources.maximizeForm_32;
-            this.maximizeFormPictureBox.Location = new System.Drawing.Point(541, 8);
-            this.maximizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2);
-            this.maximizeFormPictureBox.Name = "maximizeFormPictureBox";
-            this.maximizeFormPictureBox.Size = new System.Drawing.Size(20, 19);
-            this.maximizeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.maximizeFormPictureBox.TabIndex = 2;
-            this.maximizeFormPictureBox.TabStop = false;
-            this.maximizeFormPictureBox.Click += new System.EventHandler(this.maximizeFormPictureBox_Click);
-            this.maximizeFormPictureBox.MouseEnter += new System.EventHandler(this.maximizeFormPictureBox_MouseEnter);
-            this.maximizeFormPictureBox.MouseLeave += new System.EventHandler(this.maximizeFormPictureBox_MouseLeave);
             // 
             // closeFormPictureBox
             // 
@@ -596,6 +578,7 @@
             this.Controls.Add(this.personalInfoGroupBox);
             this.Controls.Add(this.bottomFlowPanel);
             this.Controls.Add(this.topMenuPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "NewPatientForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -603,7 +586,6 @@
             this.topMenuPanel.ResumeLayout(false);
             this.topMenuPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maximizeFormPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.closeFormPictureBox)).EndInit();
             this.bottomFlowPanel.ResumeLayout(false);
             this.bottomFlowPanel.PerformLayout();
@@ -622,7 +604,6 @@
 
         private System.Windows.Forms.Panel topMenuPanel;
         private System.Windows.Forms.PictureBox minimizeFormPictureBox;
-        private System.Windows.Forms.PictureBox maximizeFormPictureBox;
         private System.Windows.Forms.PictureBox closeFormPictureBox;
         private System.Windows.Forms.Label formTitleLabel;
         private System.Windows.Forms.FlowLayoutPanel bottomFlowPanel;

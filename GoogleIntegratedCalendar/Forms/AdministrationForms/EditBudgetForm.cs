@@ -225,6 +225,7 @@ namespace EZKO.Forms.AdministrationForms
                     break;
             }
         }
+
         private bool ValidateData()
         {
             bool result = true;

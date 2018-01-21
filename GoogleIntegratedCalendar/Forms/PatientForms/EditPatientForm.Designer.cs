@@ -1,6 +1,6 @@
-﻿namespace EZKO.Forms
+﻿namespace EZKO.Forms.AdministrationForms
 {
-    partial class EzkoForm
+    partial class EditPatientForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EzkoForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditPatientForm));
             this.topMenuPanel = new System.Windows.Forms.Panel();
             this.formTitleLabel = new System.Windows.Forms.Label();
             this.minimizeFormPictureBox = new System.Windows.Forms.PictureBox();
@@ -37,11 +37,22 @@
             this.bottomFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.personalInformationTabPage = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.avatarPictureBox = new System.Windows.Forms.PictureBox();
+            this.changeAvatarButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.idLabel = new System.Windows.Forms.Label();
+            this.idTextBox = new System.Windows.Forms.TextBox();
+            this.roundButton1 = new EZKO.UserControls.FlatControls.RoundButton();
             this.topMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximizeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.closeFormPictureBox)).BeginInit();
             this.bottomFlowPanel.SuspendLayout();
+            this.tabControl.SuspendLayout();
+            this.personalInformationTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // topMenuPanel
@@ -55,7 +66,7 @@
             this.topMenuPanel.Location = new System.Drawing.Point(0, 0);
             this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.topMenuPanel.Name = "topMenuPanel";
-            this.topMenuPanel.Size = new System.Drawing.Size(416, 36);
+            this.topMenuPanel.Size = new System.Drawing.Size(984, 36);
             this.topMenuPanel.TabIndex = 0;
             this.topMenuPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topMenuPanel_MouseDown);
             // 
@@ -67,15 +78,15 @@
             this.formTitleLabel.Location = new System.Drawing.Point(8, 8);
             this.formTitleLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.formTitleLabel.Name = "formTitleLabel";
-            this.formTitleLabel.Size = new System.Drawing.Size(42, 20);
+            this.formTitleLabel.Size = new System.Drawing.Size(131, 20);
             this.formTitleLabel.TabIndex = 5;
-            this.formTitleLabel.Text = "label";
+            this.formTitleLabel.Text = "Editácia pacienta";
             // 
             // minimizeFormPictureBox
             // 
             this.minimizeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.minimizeFormPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("minimizeFormPictureBox.Image")));
-            this.minimizeFormPictureBox.Location = new System.Drawing.Point(340, 8);
+            this.minimizeFormPictureBox.Location = new System.Drawing.Point(908, 8);
             this.minimizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.minimizeFormPictureBox.Name = "minimizeFormPictureBox";
             this.minimizeFormPictureBox.Size = new System.Drawing.Size(20, 19);
@@ -90,7 +101,7 @@
             // 
             this.maximizeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.maximizeFormPictureBox.Image = global::EZKO.Properties.Resources.maximizeForm_32;
-            this.maximizeFormPictureBox.Location = new System.Drawing.Point(364, 8);
+            this.maximizeFormPictureBox.Location = new System.Drawing.Point(932, 8);
             this.maximizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.maximizeFormPictureBox.Name = "maximizeFormPictureBox";
             this.maximizeFormPictureBox.Size = new System.Drawing.Size(20, 19);
@@ -105,7 +116,7 @@
             // 
             this.closeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closeFormPictureBox.Image = global::EZKO.Properties.Resources.closeForm_32;
-            this.closeFormPictureBox.Location = new System.Drawing.Point(388, 8);
+            this.closeFormPictureBox.Location = new System.Drawing.Point(956, 8);
             this.closeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.closeFormPictureBox.Name = "closeFormPictureBox";
             this.closeFormPictureBox.Size = new System.Drawing.Size(20, 19);
@@ -124,11 +135,11 @@
             this.bottomFlowPanel.Controls.Add(this.addButton);
             this.bottomFlowPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.bottomFlowPanel.Location = new System.Drawing.Point(0, 246);
+            this.bottomFlowPanel.Location = new System.Drawing.Point(0, 508);
             this.bottomFlowPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.bottomFlowPanel.Name = "bottomFlowPanel";
             this.bottomFlowPanel.Padding = new System.Windows.Forms.Padding(3, 3, 3, 6);
-            this.bottomFlowPanel.Size = new System.Drawing.Size(416, 36);
+            this.bottomFlowPanel.Size = new System.Drawing.Size(984, 36);
             this.bottomFlowPanel.TabIndex = 1;
             // 
             // cancelButton
@@ -143,7 +154,7 @@
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.cancelButton.ForeColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(358, 5);
+            this.cancelButton.Location = new System.Drawing.Point(926, 5);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Radius = 5;
@@ -165,27 +176,127 @@
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(261, 5);
+            this.addButton.Location = new System.Drawing.Point(872, 5);
             this.addButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.addButton.Name = "addButton";
             this.addButton.Radius = 5;
             this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.addButton.Size = new System.Drawing.Size(93, 23);
+            this.addButton.Size = new System.Drawing.Size(50, 23);
             this.addButton.TabIndex = 6;
-            this.addButton.Text = "roundButton1";
+            this.addButton.Text = "Uložiť";
+            this.addButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.addButton.UseVisualStyleBackColor = false;
             // 
-            // EzkoForm
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.personalInformationTabPage);
+            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(0, 36);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(984, 472);
+            this.tabControl.TabIndex = 2;
+            // 
+            // personalInformationTabPage
+            // 
+            this.personalInformationTabPage.Controls.Add(this.roundButton1);
+            this.personalInformationTabPage.Controls.Add(this.idTextBox);
+            this.personalInformationTabPage.Controls.Add(this.idLabel);
+            this.personalInformationTabPage.Controls.Add(this.changeAvatarButton);
+            this.personalInformationTabPage.Controls.Add(this.avatarPictureBox);
+            this.personalInformationTabPage.Location = new System.Drawing.Point(4, 22);
+            this.personalInformationTabPage.Name = "personalInformationTabPage";
+            this.personalInformationTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.personalInformationTabPage.Size = new System.Drawing.Size(976, 446);
+            this.personalInformationTabPage.TabIndex = 0;
+            this.personalInformationTabPage.Text = "Osobné údaje";
+            this.personalInformationTabPage.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(976, 446);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // avatarPictureBox
+            // 
+            this.avatarPictureBox.Location = new System.Drawing.Point(9, 7);
+            this.avatarPictureBox.Name = "avatarPictureBox";
+            this.avatarPictureBox.Size = new System.Drawing.Size(166, 162);
+            this.avatarPictureBox.TabIndex = 0;
+            this.avatarPictureBox.TabStop = false;
+            // 
+            // changeAvatarButton
+            // 
+            this.changeAvatarButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.changeAvatarButton.FlatAppearance.BorderSize = 0;
+            this.changeAvatarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.changeAvatarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.changeAvatarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.changeAvatarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.changeAvatarButton.ForeColor = System.Drawing.Color.White;
+            this.changeAvatarButton.Location = new System.Drawing.Point(9, 176);
+            this.changeAvatarButton.Name = "changeAvatarButton";
+            this.changeAvatarButton.Radius = 5;
+            this.changeAvatarButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.changeAvatarButton.Size = new System.Drawing.Size(166, 23);
+            this.changeAvatarButton.TabIndex = 1;
+            this.changeAvatarButton.Text = "Zmeniť";
+            this.changeAvatarButton.UseVisualStyleBackColor = false;
+            // 
+            // idLabel
+            // 
+            this.idLabel.AutoSize = true;
+            this.idLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.idLabel.Location = new System.Drawing.Point(9, 217);
+            this.idLabel.Name = "idLabel";
+            this.idLabel.Size = new System.Drawing.Size(24, 13);
+            this.idLabel.TabIndex = 2;
+            this.idLabel.Text = "ID:";
+            // 
+            // idTextBox
+            // 
+            this.idTextBox.Location = new System.Drawing.Point(75, 214);
+            this.idTextBox.Name = "idTextBox";
+            this.idTextBox.ReadOnly = true;
+            this.idTextBox.Size = new System.Drawing.Size(100, 20);
+            this.idTextBox.TabIndex = 3;
+            // 
+            // roundButton1
+            // 
+            this.roundButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.roundButton1.FlatAppearance.BorderSize = 0;
+            this.roundButton1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.roundButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.roundButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.roundButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.roundButton1.ForeColor = System.Drawing.Color.White;
+            this.roundButton1.Location = new System.Drawing.Point(12, 417);
+            this.roundButton1.Name = "roundButton1";
+            this.roundButton1.Radius = 5;
+            this.roundButton1.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.roundButton1.Size = new System.Drawing.Size(163, 23);
+            this.roundButton1.TabIndex = 4;
+            this.roundButton1.Text = "Generovať PDF";
+            this.roundButton1.UseVisualStyleBackColor = false;
+            // 
+            // EditPatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(416, 282);
+            this.ClientSize = new System.Drawing.Size(984, 544);
             this.ControlBox = false;
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.bottomFlowPanel);
             this.Controls.Add(this.topMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "EzkoForm";
+            this.Name = "EditPatientForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.topMenuPanel.ResumeLayout(false);
             this.topMenuPanel.PerformLayout();
@@ -194,6 +305,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.closeFormPictureBox)).EndInit();
             this.bottomFlowPanel.ResumeLayout(false);
             this.bottomFlowPanel.PerformLayout();
+            this.tabControl.ResumeLayout(false);
+            this.personalInformationTabPage.ResumeLayout(false);
+            this.personalInformationTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,5 +324,13 @@
         private System.Windows.Forms.FlowLayoutPanel bottomFlowPanel;
         private UserControls.FlatControls.RoundButton addButton;
         private UserControls.FlatControls.RoundButton cancelButton;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage personalInformationTabPage;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.PictureBox avatarPictureBox;
+        private UserControls.FlatControls.RoundButton changeAvatarButton;
+        private System.Windows.Forms.TextBox idTextBox;
+        private System.Windows.Forms.Label idLabel;
+        private UserControls.FlatControls.RoundButton roundButton1;
     }
 }

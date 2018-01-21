@@ -169,6 +169,10 @@ namespace EZKO.UserControls.Administration
                     EditItem(item);
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
                     RemoveItem(item);
+                else if (senderGrid.Columns[e.ColumnIndex].Name == "Fill")
+                    BasicMessagesHandler.ShowInformationMessage("Timo dorob to!");
+                else if (senderGrid.Columns[e.ColumnIndex].Name == "Pdf")
+                    BasicMessagesHandler.ShowInformationMessage("Timo dorob to!");
             }
         }
 

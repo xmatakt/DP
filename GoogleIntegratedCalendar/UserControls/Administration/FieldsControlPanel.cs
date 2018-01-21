@@ -9,18 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DatabaseCommunicator.Controllers;
 using DatabaseCommunicator.Model;
-using ExceptionHandler;
 using EZKO.Forms.AdministrationForms;
+using ExceptionHandler;
 
 namespace EZKO.UserControls.Administration
 {
-    public partial class BudgetsControlPanel : UserControl
+    public partial class FieldsControlPanel : UserControl
     {
         private EzkoController ezkoController;
 
-        private Patient patient { get { return patientTextBox.Tag as Patient; } }
-
-        public BudgetsControlPanel()
+        public FieldsControlPanel()
         {
             InitializeComponent();
 
@@ -41,8 +39,6 @@ namespace EZKO.UserControls.Administration
             dataGridView.RowHeadersVisible = false;
 
             ezkoController = GlobalSettings.EzkoController;
-
-            patientTextBox.Values = ezkoController.GetPatients().ToArray();
             InitializeDataGridView();
             FillDataGridView();
         }
@@ -51,13 +47,6 @@ namespace EZKO.UserControls.Administration
         public void UpdateControl()
         {
             FillDataGridView();
-        }
-
-        public void UpdatePatientTextBox()
-        {
-            patientTextBox.Text = "";
-            patientTextBox.Tag = null;
-            patientTextBox.Values = ezkoController.GetPatients().ToArray();
         }
         #endregion
 
@@ -76,10 +65,18 @@ namespace EZKO.UserControls.Administration
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn()
             {
                 Name = "Name",
-                HeaderText = "Názov",
+                HeaderText = "Názov poľa",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             };
             dataGridView.Columns.Add(nameColumn);
+
+            DataGridViewTextBoxColumn codeColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Section",
+                HeaderText = "Sekcia",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            dataGridView.Columns.Add(codeColumn);
 
             DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
             {
@@ -89,21 +86,10 @@ namespace EZKO.UserControls.Administration
             };
             dataGridView.Columns.Add(fillEmptySpaceColumn);
 
-            DataGridViewButtonColumn pdfColumn = new DataGridViewButtonColumn()
-            {
-                Name = "Pdf",
-                HeaderText = "Akcie",
-                FlatStyle = FlatStyle.Flat,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            };
-            pdfColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorLightBlue;
-            pdfColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorLightBlue;
-            dataGridView.Columns.Add(pdfColumn);
-
             DataGridViewButtonColumn editColumn = new DataGridViewButtonColumn()
             {
                 Name = "Edit",
-                HeaderText = "",
+                HeaderText = "Akcie",
                 FlatStyle = FlatStyle.Flat,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             };
@@ -127,30 +113,30 @@ namespace EZKO.UserControls.Administration
         {
             dataGridView.Rows.Clear();
 
-            foreach (var item in ezkoController.GetBudgets(patient))
+            foreach (var item in ezkoController.GetFields())
             {
                 int rowIndex = dataGridView.Rows.Add(new object[]
-                { item.ID, item.Name, "", "PDF", "Upraviť", "Zmazať", " " });
+                { item.ID, item.Name, item.Section.ToString(), "", "Upraviť", "Zmazať", " " });
 
                 dataGridView.Rows[rowIndex].Tag = item;
             }
         }
 
 
-        private void EditItem(Budget item)
+        private void EditItem(Field item)
         {
-            EditBudgetForm form = new EditBudgetForm(item);
+            EditFieldForm form = new EditFieldForm(item);
             if (form.ShowDialog() == DialogResult.OK)
                 FillDataGridView();
         }
 
-        private void RemoveItem(Budget item)
+        private void RemoveItem(Field item)
         {
-            if (MessageBox.Show("Naozaj si želáte odstrániť rozpočet " + item.Name, "?",
+            if (MessageBox.Show("Naozaj si želáte odstrániť pole " + item.Name, "?",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (!ezkoController.RemoveBudget(item))
-                    BasicMessagesHandler.ShowErrorMessage("Rozpočet sa nepodarilo odstrániť");
+                if (!ezkoController.RemoveField(item))
+                    BasicMessagesHandler.ShowErrorMessage("Pole EZKO sa nepodarilo odstrániť");
                 else
                     FillDataGridView();
             }
@@ -164,13 +150,11 @@ namespace EZKO.UserControls.Administration
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                Budget item = senderGrid.Rows[e.RowIndex].Tag as Budget;
+                Field item = senderGrid.Rows[e.RowIndex].Tag as Field;
                 if (senderGrid.Columns[e.ColumnIndex].Name == "Edit")
                     EditItem(item);
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
                     RemoveItem(item);
-                else if (senderGrid.Columns[e.ColumnIndex].Name == "Pdf")
-                    BasicMessagesHandler.ShowInformationMessage("Timo dorob to!");
             }
         }
 
@@ -180,21 +164,11 @@ namespace EZKO.UserControls.Administration
 
             if (e.RowIndex >= 0)
             {
-                Budget item = senderGrid.Rows[e.RowIndex].Tag as Budget;
+                Field item = senderGrid.Rows[e.RowIndex].Tag as Field;
                 EditItem(item);
             }
         }
-
-        private void patientTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                FillDataGridView();
-        }
-
-        private void findButton_Click(object sender, EventArgs e)
-        {
-            FillDataGridView();
-        }
         #endregion
+
     }
 }

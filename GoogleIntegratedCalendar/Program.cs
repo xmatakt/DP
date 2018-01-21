@@ -22,6 +22,7 @@ namespace EZKO
                 //Application.Run(new Forms.AdministrationForms.EditUserForm(Enums.WorkingTypeEnum.Creating));
                 //Application.Run(new Forms.AdministrationForms.EditInsuranceCompanyForm(Enums.WorkingTypeEnum.Creating));
                 //Application.Run(new Forms.AdministrationForms.EditActionForm(Enums.WorkingTypeEnum.Creating));
+                //Application.Run(new Forms.AdministrationForms.EditFieldForm(Enums.WorkingTypeEnum.Creating));
             }
             catch (Exception ex)
             {

@@ -16,6 +16,8 @@ namespace EZKO.UserControls.Administration
         private InfrastructureControlPanel infrastructureControlPanel;
         private EzkoSectionsControlPanel sectionsControlPanel;
         private BudgetsControlPanel budgetsControlPanel;
+        private FormularsControlPanel formularsControlPanel;
+        private FieldsControlPanel fieldsControlPanel;
 
         public AdministrationUserControl()
         {
@@ -80,6 +82,22 @@ namespace EZKO.UserControls.Administration
             budgetsControlPanel.UpdatePatientTextBox();
 
             AddControlToMainPanel(budgetsControlPanel);
+        }
+
+        private void ShowFormularsPanel()
+        {
+            if (formularsControlPanel == null)
+                formularsControlPanel = new FormularsControlPanel();
+
+            AddControlToMainPanel(formularsControlPanel);
+        }
+
+        private void ShowFieldsPanel()
+        {
+            if (fieldsControlPanel == null)
+                fieldsControlPanel = new FieldsControlPanel();
+
+            AddControlToMainPanel(fieldsControlPanel);
         }
 
         private void AddControlToMainPanel(Control control)
@@ -161,6 +179,26 @@ namespace EZKO.UserControls.Administration
             }
         }
 
+        private void formularsMenuItem_AddButtonClick(object sender, EventArgs e)
+        {
+            var form = new EditFormularForm(Enums.WorkingTypeEnum.Creating);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                ShowFormularsPanel();
+                formularsControlPanel.UpdateControl();
+            }
+        }
+
+        private void ezkoFieldsMenuItem_AddButtonClick(object sender, EventArgs e)
+        {
+            var form = new EditFieldForm(Enums.WorkingTypeEnum.Creating);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                ShowFieldsPanel();
+                fieldsControlPanel.UpdateControl();
+            }
+        }
+
         private void usersMenuItem_ListButtonClick(object sender, EventArgs e)
         {
             ShowUsersPanel();
@@ -189,6 +227,16 @@ namespace EZKO.UserControls.Administration
         private void budgetsMenuItem_ListButtonClick(object sender, EventArgs e)
         {
             ShowBudgetsPanel();
+        }
+
+        private void formularsMenuItem_ListButtonClick(object sender, EventArgs e)
+        {
+            ShowFormularsPanel();
+        }
+
+        private void ezkoFieldsMenuItem_ListButtonClick(object sender, EventArgs e)
+        {
+            ShowFieldsPanel();
         }
 
         private void editLoggedUserButton_Click(object sender, EventArgs e)
