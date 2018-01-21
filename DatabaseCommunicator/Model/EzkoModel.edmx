@@ -51,6 +51,7 @@
           <Property Name="Count" Type="int" Nullable="false" />
           <Property Name="UnitPrice" Type="decimal" Precision="19" Scale="6" Nullable="false" />
           <Property Name="BudgetID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="CalendarEvent">
           <Key>
@@ -186,6 +187,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Infrastructure">
           <Key>
@@ -243,6 +245,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Sex">
           <Key>
@@ -930,6 +933,7 @@
           <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="6" />
           <Property Name="BudgetID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Budget" Relationship="EzkoModel.FK_BudgetItem_di695309445112100255" FromRole="BudgetItem" ToRole="Budget" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="CalendarEvent">
           <Key>
@@ -1031,6 +1035,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="FieldForms" Relationship="EzkoModel.FK_FieldForm_di928213701881264490" FromRole="Form" ToRole="FieldForm" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Infrastructure">
           <Key>
@@ -1099,6 +1104,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Fields" Relationship="EzkoModel.FK_Field_di950325270849068985" FromRole="Section" ToRole="Field" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Sex">
           <Key>
@@ -1494,6 +1500,7 @@
           <EntitySetMapping Name="BudgetItems">
             <EntityTypeMapping TypeName="EzkoModel.BudgetItem">
               <MappingFragment StoreEntitySet="BudgetItem">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="BudgetID" ColumnName="BudgetID" />
                 <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
@@ -1582,6 +1589,7 @@
           <EntitySetMapping Name="Forms">
             <EntityTypeMapping TypeName="EzkoModel.Form">
               <MappingFragment StoreEntitySet="Form">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -1644,6 +1652,7 @@
           <EntitySetMapping Name="Sections">
             <EntityTypeMapping TypeName="EzkoModel.Section">
               <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

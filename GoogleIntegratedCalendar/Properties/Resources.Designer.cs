@@ -143,6 +143,26 @@ namespace EZKO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap budget_black_24 {
+            get {
+                object obj = ResourceManager.GetObject("budget_black_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap budget_white_24 {
+            get {
+                object obj = ResourceManager.GetObject("budget_white_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap closeForm_32 {
             get {
                 object obj = ResourceManager.GetObject("closeForm_32", resourceCulture);
@@ -256,6 +276,26 @@ namespace EZKO.Properties {
         internal static System.Drawing.Bitmap formList_active_32 {
             get {
                 object obj = ResourceManager.GetObject("formList_active_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap formular_black_24 {
+            get {
+                object obj = ResourceManager.GetObject("formular_black_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap formular_white_24 {
+            get {
+                object obj = ResourceManager.GetObject("formular_white_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -466,6 +506,26 @@ namespace EZKO.Properties {
         internal static System.Drawing.Bitmap search_24 {
             get {
                 object obj = ResourceManager.GetObject("search_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sections_black_32 {
+            get {
+                object obj = ResourceManager.GetObject("sections_black_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sections_white_32 {
+            get {
+                object obj = ResourceManager.GetObject("sections_white_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

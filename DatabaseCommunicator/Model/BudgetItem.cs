@@ -18,6 +18,7 @@ namespace DatabaseCommunicator.Model
         public int Count { get; set; }
         public decimal UnitPrice { get; set; }
         public int BudgetID { get; set; }
+        public string Name { get; set; }
     
         public virtual Budget Budget { get; set; }
     }

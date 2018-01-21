@@ -7,18 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DatabaseCommunicator.Controllers;
 using DatabaseCommunicator.Model;
-using ExceptionHandler;
 using EZKO.Forms.AdministrationForms;
+using ExceptionHandler;
+using DatabaseCommunicator.Controllers;
 
 namespace EZKO.UserControls.Administration
 {
-    public partial class InsuranceCompaniesControlPanel : UserControl
+    public partial class EzkoSectionsControlPanel : UserControl
     {
         private EzkoController ezkoController;
 
-        public InsuranceCompaniesControlPanel()
+        public EzkoSectionsControlPanel()
         {
             InitializeComponent();
 
@@ -39,7 +39,7 @@ namespace EZKO.UserControls.Administration
             dataGridView.RowHeadersVisible = false;
 
             ezkoController = GlobalSettings.EzkoController;
-            InitializeDataGridView(); 
+            InitializeDataGridView();
             FillDataGridView();
         }
 
@@ -69,14 +69,6 @@ namespace EZKO.UserControls.Administration
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             };
             dataGridView.Columns.Add(nameColumn);
-
-            DataGridViewTextBoxColumn codeColumn = new DataGridViewTextBoxColumn()
-            {
-                Name = "Code",
-                HeaderText = "Kód",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-            };
-            dataGridView.Columns.Add(codeColumn);
 
             DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
             {
@@ -113,30 +105,30 @@ namespace EZKO.UserControls.Administration
         {
             dataGridView.Rows.Clear();
 
-            foreach (var item in ezkoController.GetInsuranceCompanies())
+            foreach (var item in ezkoController.GetSections())
             {
                 int rowIndex = dataGridView.Rows.Add(new object[]
-                { item.ID, item.Name, item.Code, "", "Upraviť", "Zmazať", " " });
+                { item.ID, item.Name, "", "Upraviť", "Zmazať", " " });
 
                 dataGridView.Rows[rowIndex].Tag = item;
             }
         }
 
 
-        private void EditItem(InsuranceCompany item)
+        private void EditItem(Section item)
         {
-            EditInsuranceCompanyForm form = new EditInsuranceCompanyForm(item);
+            EditSectionForm form = new EditSectionForm(item);
             if (form.ShowDialog() == DialogResult.OK)
                 FillDataGridView();
         }
 
-        private void RemoveItem(InsuranceCompany item)
+        private void RemoveItem(Section item)
         {
-            if (MessageBox.Show("Naozaj si želáte odstrániť poisťovňu " + item.Name, "?",
+            if (MessageBox.Show("Naozaj si želáte odstrániť sekciu " + item.Name, "?",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (!ezkoController.RemoveInsuranceCompany(item))
-                    BasicMessagesHandler.ShowErrorMessage("Poisťovňu sa nepodarilo odstrániť");
+                if (!ezkoController.RemoveSection(item))
+                    BasicMessagesHandler.ShowErrorMessage("Sekciu sa nepodarilo odstrániť");
                 else
                     FillDataGridView();
             }
@@ -150,7 +142,7 @@ namespace EZKO.UserControls.Administration
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                InsuranceCompany item = senderGrid.Rows[e.RowIndex].Tag as InsuranceCompany;
+                Section item = senderGrid.Rows[e.RowIndex].Tag as Section;
                 if (senderGrid.Columns[e.ColumnIndex].Name == "Edit")
                     EditItem(item);
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
@@ -164,7 +156,7 @@ namespace EZKO.UserControls.Administration
 
             if (e.RowIndex >= 0)
             {
-                InsuranceCompany item = senderGrid.Rows[e.RowIndex].Tag as InsuranceCompany;
+                Section item = senderGrid.Rows[e.RowIndex].Tag as Section;
                 EditItem(item);
             }
         }

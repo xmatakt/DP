@@ -17,6 +17,8 @@ namespace EZKO.UserControls
         //Colors used in RoundButton
         public static Color FlatButtonColorBlue = Color.FromArgb(66, 139, 202);
         public static Color MouseDownFlatButtonColorBlue = Color.FromArgb(48, 113, 169);
+        public static Color FlatButtonColorLightBlue = Color.FromArgb(91, 192, 222);
+        public static Color MouseDownFlatButtonColorLightBlue = Color.FromArgb(49, 176, 213);
         public static Color FlatButtonColorRed = Color.FromArgb(217, 83, 79);
         public static Color MouseDownFlatButtonColorRed = Color.FromArgb(201, 48, 44);
         public static Color FlatButtonColorGreen = Color.FromArgb(92, 184, 92);

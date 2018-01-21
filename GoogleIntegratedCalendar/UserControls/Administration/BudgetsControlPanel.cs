@@ -14,11 +14,13 @@ using EZKO.Forms.AdministrationForms;
 
 namespace EZKO.UserControls.Administration
 {
-    public partial class InsuranceCompaniesControlPanel : UserControl
+    public partial class BudgetsControlPanel : UserControl
     {
         private EzkoController ezkoController;
 
-        public InsuranceCompaniesControlPanel()
+        private Patient patient { get { return patientTextBox.Tag as Patient; } }
+
+        public BudgetsControlPanel()
         {
             InitializeComponent();
 
@@ -39,7 +41,9 @@ namespace EZKO.UserControls.Administration
             dataGridView.RowHeadersVisible = false;
 
             ezkoController = GlobalSettings.EzkoController;
-            InitializeDataGridView(); 
+
+            patientTextBox.Values = ezkoController.GetPatients().ToArray();
+            InitializeDataGridView();
             FillDataGridView();
         }
 
@@ -47,6 +51,13 @@ namespace EZKO.UserControls.Administration
         public void UpdateControl()
         {
             FillDataGridView();
+        }
+
+        public void UpdatePatientTextBox()
+        {
+            patientTextBox.Text = "";
+            patientTextBox.Tag = null;
+            patientTextBox.Values = ezkoController.GetPatients().ToArray();
         }
         #endregion
 
@@ -70,14 +81,6 @@ namespace EZKO.UserControls.Administration
             };
             dataGridView.Columns.Add(nameColumn);
 
-            DataGridViewTextBoxColumn codeColumn = new DataGridViewTextBoxColumn()
-            {
-                Name = "Code",
-                HeaderText = "Kód",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-            };
-            dataGridView.Columns.Add(codeColumn);
-
             DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
             {
                 Name = "Last",
@@ -86,10 +89,21 @@ namespace EZKO.UserControls.Administration
             };
             dataGridView.Columns.Add(fillEmptySpaceColumn);
 
+            DataGridViewButtonColumn pdfColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Pdf",
+                HeaderText = "Akcie",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            pdfColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorLightBlue;
+            pdfColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorLightBlue;
+            dataGridView.Columns.Add(pdfColumn);
+
             DataGridViewButtonColumn editColumn = new DataGridViewButtonColumn()
             {
                 Name = "Edit",
-                HeaderText = "Akcie",
+                HeaderText = "",
                 FlatStyle = FlatStyle.Flat,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             };
@@ -113,30 +127,30 @@ namespace EZKO.UserControls.Administration
         {
             dataGridView.Rows.Clear();
 
-            foreach (var item in ezkoController.GetInsuranceCompanies())
+            foreach (var item in ezkoController.GetBudgets(patient))
             {
                 int rowIndex = dataGridView.Rows.Add(new object[]
-                { item.ID, item.Name, item.Code, "", "Upraviť", "Zmazať", " " });
+                { item.ID, item.Name, "", "PDF", "Upraviť", "Zmazať", " " });
 
                 dataGridView.Rows[rowIndex].Tag = item;
             }
         }
 
 
-        private void EditItem(InsuranceCompany item)
+        private void EditItem(Budget item)
         {
-            EditInsuranceCompanyForm form = new EditInsuranceCompanyForm(item);
+            EditBudgetForm form = new EditBudgetForm(item);
             if (form.ShowDialog() == DialogResult.OK)
                 FillDataGridView();
         }
 
-        private void RemoveItem(InsuranceCompany item)
+        private void RemoveItem(Budget item)
         {
-            if (MessageBox.Show("Naozaj si želáte odstrániť poisťovňu " + item.Name, "?",
+            if (MessageBox.Show("Naozaj si želáte odstrániť rozpočet " + item.Name, "?",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (!ezkoController.RemoveInsuranceCompany(item))
-                    BasicMessagesHandler.ShowErrorMessage("Poisťovňu sa nepodarilo odstrániť");
+                if (!ezkoController.RemoveBudget(item))
+                    BasicMessagesHandler.ShowErrorMessage("Rozpočet sa nepodarilo odstrániť");
                 else
                     FillDataGridView();
             }
@@ -150,7 +164,7 @@ namespace EZKO.UserControls.Administration
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                InsuranceCompany item = senderGrid.Rows[e.RowIndex].Tag as InsuranceCompany;
+                Budget item = senderGrid.Rows[e.RowIndex].Tag as Budget;
                 if (senderGrid.Columns[e.ColumnIndex].Name == "Edit")
                     EditItem(item);
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
@@ -164,9 +178,20 @@ namespace EZKO.UserControls.Administration
 
             if (e.RowIndex >= 0)
             {
-                InsuranceCompany item = senderGrid.Rows[e.RowIndex].Tag as InsuranceCompany;
+                Budget item = senderGrid.Rows[e.RowIndex].Tag as Budget;
                 EditItem(item);
             }
+        }
+
+        private void patientTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                FillDataGridView();
+        }
+
+        private void findButton_Click(object sender, EventArgs e)
+        {
+            FillDataGridView();
         }
         #endregion
     }

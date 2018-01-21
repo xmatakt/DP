@@ -250,4 +250,22 @@
   <data name="_lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="sections_black_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sections_black_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sections_white_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sections_white_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="budget_black_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\budget_black_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="budget_white_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\budget_white_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="formular_black_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\formular_black_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="formular_white_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\formular_white_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

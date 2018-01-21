@@ -151,8 +151,6 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
-
-
         /// <summary>
         /// Update CalendarEvents in database
         /// </summary>
@@ -945,6 +943,90 @@ namespace DatabaseCommunicator.Controllers
         }
         #endregion
 
+        #region Budgets
+        public IQueryable<Budget> GetBudgets(Patient patient)
+        {
+            IQueryable<Budget> result = null;
+            try
+            {
+                if(patient == null)
+                    result = db.Budgets.Where(x => !x.IsDeleted);
+                else
+                    result = db.Budgets.Where(x => !x.IsDeleted && x.PatientID == patient.ID);
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool CreateBudget(string name, Patient patient, List<BudgetItem> items)
+        {
+            bool result = false;
+            try
+            {
+                Budget item = new Budget()
+                {
+                    Name = name,
+                    Patient = patient,
+                    BudgetItems = items,
+                    IsDeleted = false
+                };
+                db.Budgets.Add(item);
+                //db.BudgetItems.AddRange(items);
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool EditBudget(Budget budget, string name, List<BudgetItem> items)
+        {
+            bool result = false;
+            try
+            {
+                db.BudgetItems.RemoveRange(budget.BudgetItems);
+
+                budget.Name = name;
+                budget.BudgetItems = items;
+                budget.IsDeleted = false;
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool RemoveBudget(Budget item)
+        {
+            bool result = false;
+
+            try
+            {
+                item.IsDeleted = true;
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+                result = false;
+            }
+
+            return result;
+        }
+        #endregion
+
         #region Contacts
         public Contact CreateContact(string email, string phone)
         {
@@ -1092,6 +1174,154 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        #endregion
+
+        #region Formulars
+        public IQueryable<Form> GetFormulars()
+        {
+            IQueryable<Form> result = null;
+            try
+            {
+                result = db.Forms.Where(x => !x.IsDeleted);
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool CreateFormular(string name)
+        {
+            bool result = false;
+            try
+            {
+                Form item = new Form()
+                {
+                    Name = name,
+                    IsDeleted = false
+                };
+                db.Forms.Add(item);
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool EditForm(Form form, string name)
+        {
+            bool result = false;
+            try
+            {
+                form.Name = name;
+                form.IsDeleted = false;
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool RemoveFormular(Form item)
+        {
+            bool result = false;
+
+            try
+            {
+                item.IsDeleted = true;
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+                result = false;
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region Sections
+        public IQueryable<Section> GetSections()
+        {
+            IQueryable<Section> result = null;
+            try
+            {
+                result = db.Sections.Where(x => !x.IsDeleted);
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool CreateSection(string name)
+        {
+            bool result = false;
+            try
+            {
+                Section item = new Section()
+                {
+                    Name = name,
+                    IsDeleted = false
+                };
+                db.Sections.Add(item);
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool EditSection(Section section, string name)
+        {
+            bool result = false;
+            try
+            {
+                section.Name = name;
+                section.IsDeleted = false;
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool RemoveSection(Section item)
+        {
+            bool result = false;
+
+            try
+            {
+                item.IsDeleted = true;
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+                result = false;
+            }
+
+            return result;
+        }
         #endregion
 
         #region Others

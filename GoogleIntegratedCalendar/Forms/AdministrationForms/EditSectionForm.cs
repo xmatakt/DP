@@ -1,4 +1,5 @@
 ﻿using DatabaseCommunicator.Controllers;
+using DatabaseCommunicator.Model;
 using ExceptionHandler;
 using EZKO.Enums;
 using System;
@@ -11,27 +12,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EZKO.Forms
+namespace EZKO.Forms.AdministrationForms
 {
-    public partial class EzkoForm : Form
+    public partial class EditSectionForm : System.Windows.Forms.Form
     {
         private WorkingTypeEnum workingType;
         private EzkoController ezkoController;
-        private WorkingInfoForm workingInfoForm;
+        private Section section;
 
         #region Private properties
+        private string name
+        {
+            get
+            {
+                string val = nameTextBox.Text.Trim();
+                if (val.Length < 1)
+                    val = null;
+
+                return val;
+            }
+            set { nameTextBox.Text = value; }
+        }
         #endregion
 
-        //Just for testing purpose
-        //public EzkoForm(WorkingTypeEnum workingType)
-        //{
-        //    InitializeComponent();
-
-        //    ezkoController = new EzkoController(GlobalSettings.ConnectionString);
-        //    this.workingType = workingType;
-        //}
-
-        public EzkoForm(WorkingTypeEnum workingType)
+        public EditSectionForm(WorkingTypeEnum workingType)
         {
             InitializeComponent();
 
@@ -39,7 +43,26 @@ namespace EZKO.Forms
             this.workingType = workingType;
         }
 
+        public EditSectionForm(Section section)
+        {
+            InitializeComponent();
+
+            workingType = WorkingTypeEnum.Editing;
+            ezkoController = GlobalSettings.EzkoController;
+            this.section = section;
+            addButton.Text = "Upraviť sekciu EZKO";
+
+            InitializeForm();
+        }
+
         #region Private methods
+        private void InitializeForm()
+        {
+            if(section != null)
+            {
+                name = section.Name;
+            }
+        }
         private void CreateOrUpdate()
         {
             switch (workingType)
@@ -54,13 +77,19 @@ namespace EZKO.Forms
                     break;
             }
         }
+
         private bool ValidateData()
         {
             bool result = true;
 
             try
             {
-
+                if(name == null)
+                {
+                    BasicMessagesHandler.ShowInformationMessage("Nezadali ste názov sekcie EZKO");
+                    nameTextBox.Focus();
+                    result = false;
+                }
             }
             catch (Exception e)
             {
@@ -78,7 +107,10 @@ namespace EZKO.Forms
                 Cursor = Cursors.WaitCursor;
                 if (ValidateData())
                 {
-
+                    if(ezkoController.CreateSection(name))
+                        BasicMessagesHandler.ShowInformationMessage("Sekcia EZKO bola úspešne vytvorená");
+                    else
+                        BasicMessagesHandler.ShowErrorMessage("Počas vytvárania sekcie EZKO sa vyskytla chyba");
                 }
                 else
                     DialogResult = DialogResult.None;
@@ -99,7 +131,8 @@ namespace EZKO.Forms
                 Cursor = Cursors.WaitCursor;
                 if (ValidateData())
                 {
-
+                    if (!ezkoController.EditSection(section, name))
+                        BasicMessagesHandler.ShowErrorMessage("Počas úpravy sekcie sa vyskytla chyba");
                 }
                 else
                     DialogResult = DialogResult.None;
@@ -149,38 +182,6 @@ namespace EZKO.Forms
         }
         #endregion
 
-        #region HandleMaximizeButtonEvents
-        private void maximizeFormPictureBox_Click(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Normal)
-            {
-                WindowState = FormWindowState.Maximized;
-                maximizeFormPictureBox.Image = Properties.Resources.minimizeForm_32;
-            }
-            else
-            {
-                WindowState = FormWindowState.Normal;
-                maximizeFormPictureBox.Image = Properties.Resources.maximizeForm_32;
-            }
-        }
-
-        private void maximizeFormPictureBox_MouseEnter(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Normal)
-                maximizeFormPictureBox.Image = Properties.Resources.maximizeForm_active_32;
-            else
-                maximizeFormPictureBox.Image = Properties.Resources.minimizeForm_active_32;
-        }
-
-        private void maximizeFormPictureBox_MouseLeave(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Normal)
-                maximizeFormPictureBox.Image = Properties.Resources.maximizeForm_32;
-            else
-                maximizeFormPictureBox.Image = Properties.Resources.minimizeForm_32;
-        }
-        #endregion
-
         #region HandleMinimizeButtonEvents
         private void minimizeFormPictureBox_Click(object sender, EventArgs e)
         {
@@ -197,20 +198,16 @@ namespace EZKO.Forms
         }
         #endregion
 
-        #region BG worker
-        private void bg_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-        }
-
-        private void bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (workingInfoForm != null)
-                workingInfoForm.Close();
-        }
-        #endregion
-
         #region UI Events
+        private void EditSectionForm_Load(object sender, EventArgs e)
+        {
+            nameTextBox.MaxLength = 255;
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            CreateOrUpdate();
+        }
         #endregion
     }
 }

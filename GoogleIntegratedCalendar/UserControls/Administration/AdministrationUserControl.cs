@@ -14,6 +14,8 @@ namespace EZKO.UserControls.Administration
         private InsuranceCompaniesControlPanel insuranceCompaniesControlPanel;
         private ActionsControlPanel actionsControlPanel;
         private InfrastructureControlPanel infrastructureControlPanel;
+        private EzkoSectionsControlPanel sectionsControlPanel;
+        private BudgetsControlPanel budgetsControlPanel;
 
         public AdministrationUserControl()
         {
@@ -60,6 +62,24 @@ namespace EZKO.UserControls.Administration
                 infrastructureControlPanel = new InfrastructureControlPanel();
 
             AddControlToMainPanel(infrastructureControlPanel);
+        }
+
+        private void ShowSectionsPanel()
+        {
+            if (sectionsControlPanel == null)
+                sectionsControlPanel = new EzkoSectionsControlPanel();
+
+            AddControlToMainPanel(sectionsControlPanel);
+        }
+
+        private void ShowBudgetsPanel()
+        {
+            if (budgetsControlPanel == null)
+                budgetsControlPanel = new BudgetsControlPanel();
+
+            budgetsControlPanel.UpdatePatientTextBox();
+
+            AddControlToMainPanel(budgetsControlPanel);
         }
 
         private void AddControlToMainPanel(Control control)
@@ -121,6 +141,26 @@ namespace EZKO.UserControls.Administration
             }
         }
 
+        private void ezkoSectionsMenuItem_AddButtonClick(object sender, EventArgs e)
+        {
+            var form = new EditSectionForm(Enums.WorkingTypeEnum.Creating);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                ShowSectionsPanel();
+                sectionsControlPanel.UpdateControl();
+            }
+        }
+
+        private void budgetsMenuItem_AddButtonClick(object sender, EventArgs e)
+        {
+            var form = new EditBudgetForm(Enums.WorkingTypeEnum.Creating);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                ShowBudgetsPanel();
+                budgetsControlPanel.UpdateControl();
+            }
+        }
+
         private void usersMenuItem_ListButtonClick(object sender, EventArgs e)
         {
             ShowUsersPanel();
@@ -139,6 +179,16 @@ namespace EZKO.UserControls.Administration
         private void infrastructureMenuItem_ListButtonClick(object sender, EventArgs e)
         {
             ShowInfrastructurePanel();
+        }
+
+        private void ezkoSectionsMenuItem_ListButtonClick(object sender, EventArgs e)
+        {
+            ShowSectionsPanel();
+        }
+
+        private void budgetsMenuItem_ListButtonClick(object sender, EventArgs e)
+        {
+            ShowBudgetsPanel();
         }
 
         private void editLoggedUserButton_Click(object sender, EventArgs e)

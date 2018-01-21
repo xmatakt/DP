@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DatabaseCommunicator.Controllers;
 using DatabaseCommunicator.Model;
-using ExceptionHandler;
 using EZKO.Forms.AdministrationForms;
+using ExceptionHandler;
 
 namespace EZKO.UserControls.Administration
 {
-    public partial class InsuranceCompaniesControlPanel : UserControl
+    public partial class FormularsControlPanel : UserControl
     {
         private EzkoController ezkoController;
+        private DatabaseCommunicator.Model.Form formular;
 
-        public InsuranceCompaniesControlPanel()
+        public FormularsControlPanel()
         {
             InitializeComponent();
-
             dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView.GridColor = Color.White;
             dataGridView.AllowUserToResizeRows = false;
@@ -39,7 +39,8 @@ namespace EZKO.UserControls.Administration
             dataGridView.RowHeadersVisible = false;
 
             ezkoController = GlobalSettings.EzkoController;
-            InitializeDataGridView(); 
+
+            InitializeDataGridView();
             FillDataGridView();
         }
 
@@ -70,14 +71,6 @@ namespace EZKO.UserControls.Administration
             };
             dataGridView.Columns.Add(nameColumn);
 
-            DataGridViewTextBoxColumn codeColumn = new DataGridViewTextBoxColumn()
-            {
-                Name = "Code",
-                HeaderText = "Kód",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-            };
-            dataGridView.Columns.Add(codeColumn);
-
             DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
             {
                 Name = "Last",
@@ -86,10 +79,32 @@ namespace EZKO.UserControls.Administration
             };
             dataGridView.Columns.Add(fillEmptySpaceColumn);
 
+            DataGridViewButtonColumn fillColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Fill",
+                HeaderText = "Akcie",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            fillColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorGreen;
+            fillColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorGreen;
+            dataGridView.Columns.Add(fillColumn);
+
+            DataGridViewButtonColumn pdfColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Pdf",
+                HeaderText = "",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            pdfColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorLightBlue;
+            pdfColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorLightBlue;
+            dataGridView.Columns.Add(pdfColumn);
+
             DataGridViewButtonColumn editColumn = new DataGridViewButtonColumn()
             {
                 Name = "Edit",
-                HeaderText = "Akcie",
+                HeaderText = "",
                 FlatStyle = FlatStyle.Flat,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             };
@@ -113,30 +128,29 @@ namespace EZKO.UserControls.Administration
         {
             dataGridView.Rows.Clear();
 
-            foreach (var item in ezkoController.GetInsuranceCompanies())
+            foreach (var item in ezkoController.GetFormulars())
             {
                 int rowIndex = dataGridView.Rows.Add(new object[]
-                { item.ID, item.Name, item.Code, "", "Upraviť", "Zmazať", " " });
+                { item.ID, item.Name, "", "Vyplniť","PDF", "Upraviť", "Zmazať"});
 
                 dataGridView.Rows[rowIndex].Tag = item;
             }
         }
 
-
-        private void EditItem(InsuranceCompany item)
+        private void EditItem(DatabaseCommunicator.Model.Form item)
         {
-            EditInsuranceCompanyForm form = new EditInsuranceCompanyForm(item);
+            EditFormularForm form = new EditFormularForm(item);
             if (form.ShowDialog() == DialogResult.OK)
                 FillDataGridView();
         }
 
-        private void RemoveItem(InsuranceCompany item)
+        private void RemoveItem(DatabaseCommunicator.Model.Form item)
         {
-            if (MessageBox.Show("Naozaj si želáte odstrániť poisťovňu " + item.Name, "?",
+            if (MessageBox.Show("Naozaj si želáte odstrániť formulár " + item.Name, "?",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (!ezkoController.RemoveInsuranceCompany(item))
-                    BasicMessagesHandler.ShowErrorMessage("Poisťovňu sa nepodarilo odstrániť");
+                if (!ezkoController.RemoveFormular(item))
+                    BasicMessagesHandler.ShowErrorMessage("Formulár sa nepodarilo odstrániť");
                 else
                     FillDataGridView();
             }
@@ -150,7 +164,7 @@ namespace EZKO.UserControls.Administration
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                InsuranceCompany item = senderGrid.Rows[e.RowIndex].Tag as InsuranceCompany;
+                DatabaseCommunicator.Model.Form item = senderGrid.Rows[e.RowIndex].Tag as DatabaseCommunicator.Model.Form;
                 if (senderGrid.Columns[e.ColumnIndex].Name == "Edit")
                     EditItem(item);
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
@@ -164,7 +178,7 @@ namespace EZKO.UserControls.Administration
 
             if (e.RowIndex >= 0)
             {
-                InsuranceCompany item = senderGrid.Rows[e.RowIndex].Tag as InsuranceCompany;
+                DatabaseCommunicator.Model.Form item = senderGrid.Rows[e.RowIndex].Tag as DatabaseCommunicator.Model.Form;
                 EditItem(item);
             }
         }

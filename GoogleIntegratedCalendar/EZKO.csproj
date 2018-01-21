@@ -86,6 +86,18 @@
     <Compile Include="Forms\AdministrationForms\EditInfrastructureForm.Designer.cs">
       <DependentUpon>EditInfrastructureForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AdministrationForms\EditSectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditSectionForm.Designer.cs">
+      <DependentUpon>EditSectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditBudgetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\EditBudgetForm.Designer.cs">
+      <DependentUpon>EditBudgetForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DateTimePickerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +165,24 @@
     </Compile>
     <Compile Include="UserControls\Administration\AdminMenuItem.Designer.cs">
       <DependentUpon>AdminMenuItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Administration\BudgetsControlPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Administration\BudgetsControlPanel.Designer.cs">
+      <DependentUpon>BudgetsControlPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Administration\EzkoSectionsControlPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Administration\EzkoSectionsControlPanel.Designer.cs">
+      <DependentUpon>EzkoSectionsControlPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Administration\FormularsControlPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Administration\FormularsControlPanel.Designer.cs">
+      <DependentUpon>FormularsControlPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Administration\InfrastructureControlPanel.cs">
       <SubType>UserControl</SubType>
@@ -254,6 +284,12 @@
     <EmbeddedResource Include="Forms\AdministrationForms\EditInfrastructureForm.resx">
       <DependentUpon>EditInfrastructureForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdministrationForms\EditSectionForm.resx">
+      <DependentUpon>EditSectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdministrationForms\EditBudgetForm.resx">
+      <DependentUpon>EditBudgetForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DateTimePickerForm.resx">
       <DependentUpon>DateTimePickerForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -293,6 +329,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Administration\AdminMenuItem.resx">
       <DependentUpon>AdminMenuItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Administration\BudgetsControlPanel.resx">
+      <DependentUpon>BudgetsControlPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Administration\EzkoSectionsControlPanel.resx">
+      <DependentUpon>EzkoSectionsControlPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Administration\FormularsControlPanel.resx">
+      <DependentUpon>FormularsControlPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Administration\InfrastructureControlPanel.resx">
       <DependentUpon>InfrastructureControlPanel.cs</DependentUpon>
@@ -492,6 +537,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\dentist_chair_white_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sections_black_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sections_white_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\budgets_white_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\budgets_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\budget_white_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\budget_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\budget_black_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\formular_black_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\formular_white_24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
