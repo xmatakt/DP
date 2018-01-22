@@ -334,6 +334,72 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        public bool EditPatient(Patient patient, string name, string surname, DateTime? birthDate, string BIFO, string legalRepresentative, 
+            string titleBefore, string titleAfter, string birthNumber, InsuranceCompany insuranceCompany, SexEnum sex,
+            string street, string streetNumber, string city, string zip, string country, string phone, string alternativePhone,
+            string email, string alternativeEmail, string facebook, string employment, string note, string avatarImagePath)
+        {
+            bool result = false;
+            try
+            {
+                patient.Name = name;
+                patient.Surname = surname;
+                patient.BirthDate = birthDate;
+                patient.BIFO = BIFO;
+                patient.LegalRepresentative = legalRepresentative;
+                patient.TitleBefore = titleBefore;
+                patient.TitleAfter = titleAfter;
+                patient.BirthNumber = birthNumber;
+                patient.InsuranceCompany = insuranceCompany;
+                patient.SexID = (int)sex;
+                patient.Contact.Phone = phone;
+                patient.Contact.AlternativePhone = alternativePhone;
+                patient.Contact.Email = email;
+                patient.Contact.AlternativeEmail = alternativeEmail;
+                patient.Contact.Facebook = facebook;
+                patient.Employment = employment;
+                patient.Note = note;
+                patient.IsDeleted = false;
+
+                if (street != null || streetNumber != null || city != null || zip != null || country != null)
+                {
+                    if(patient.Address != null)
+                    {
+                        patient.Address.Street = street;
+                        patient.Address.StreetNumber = streetNumber;
+                        patient.Address.City = city;
+                        patient.Address.PostNumber = zip;
+                        patient.Address.Country = country;
+                    }
+                    else
+                    {
+                        Address address = new Address()
+                        {
+                            Street = street,
+                            StreetNumber = streetNumber,
+                            City = city,
+                            PostNumber = zip,
+                            Country = country
+                        };
+                        patient.Address = address;
+                    }
+                }
+
+                //user has not to choose avatar image
+                if (avatarImagePath != null)
+                    patient.AvatarImagePath = avatarImagePath;
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+                result = false;
+            }
+
+            return result;
+        }
+
         public bool RemovePatient(Patient item)
         {
             bool result = false;

@@ -847,7 +847,11 @@ namespace EZKO.UserControls.Dashboard
                     BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa vytvoriť nového pacienta");
                     return;
                 }
-                ChangesHolder.PatientsChanged = true;
+                else
+                {
+                    DirectoriesController.CreatePatientFolderStructure(eventPatient);
+                    ChangesHolder.PatientsChanged = true;
+                }
             }
 
             CalendarEvent newEvent = ezkoController.CreateCalendarEvent(eventPatient, doctors, eventStartDateTime.Value, eventDuration, notificationEmails,

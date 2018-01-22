@@ -12,5 +12,6 @@ namespace EZKO.UserControls
         FlatRed = 2,
         FlatGreen = 3,
         FlatOrange = 4,
+        FlatLightBlue = 5,
     }
 }

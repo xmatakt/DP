@@ -7,6 +7,7 @@ using DatabaseCommunicator.Model;
 using EZKO.Controllers;
 using EZKO.Forms.PatientForms;
 using ExceptionHandler;
+using EZKO.Forms.AdministrationForms;
 
 namespace EZKO.UserControls.Patients
 {
@@ -125,8 +126,8 @@ namespace EZKO.UserControls.Patients
                 FlatStyle = FlatStyle.Flat,
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             };
-            pdfColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorBlue;
-            pdfColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorBlue;
+            pdfColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorLightBlue;
+            pdfColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorLightBlue;
             dataGridView.Columns.Add(pdfColumn);
 
             DataGridViewButtonColumn removeColumn = new DataGridViewButtonColumn()
@@ -152,6 +153,13 @@ namespace EZKO.UserControls.Patients
                     item.Contact.Email, item.Address?.FullAddress ?? "Nezadané" ,"", "EZKO", "PDF", "Zmazať" });
                 dataGridView.Rows[rowIndex].Tag = item;
             }
+        }
+
+        private void EditItem(Patient item)
+        {
+            EditPatientForm form = new EditPatientForm(item);
+            if (form.ShowDialog() == DialogResult.OK)
+                FillDataGridView(ezkoController.GetPatients());
         }
 
         private void RemoveItem(Patient item)
@@ -192,10 +200,21 @@ namespace EZKO.UserControls.Patients
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
                 Patient item = senderGrid.Rows[e.RowIndex].Tag as Patient;
-                //if (senderGrid.Columns[e.ColumnIndex].Name == "Edit")
-                //    EditItem(item);
+                if (senderGrid.Columns[e.ColumnIndex].Name == "Edit")
+                    EditItem(item);
                 if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
                     RemoveItem(item);
+            }
+        }
+
+        private void dataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridView senderGrid = (DataGridView)sender;
+
+            if (e.RowIndex >= 0)
+            {
+                Patient item = senderGrid.Rows[e.RowIndex].Tag as Patient;
+                EditItem(item);
             }
         }
         #endregion

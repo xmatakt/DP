@@ -70,6 +70,11 @@ namespace EZKO.UserControls.FlatControls
                     FlatAppearance.MouseDownBackColor = Colors.MouseDownFlatButtonColorOrange;
                     FlatAppearance.MouseOverBackColor = Colors.MouseDownFlatButtonColorOrange;
                     break;
+                case RoundButtonStylesEnum.FlatLightBlue:
+                    BackColor = Colors.FlatButtonColorLightBlue;
+                    FlatAppearance.MouseDownBackColor = Colors.MouseDownFlatButtonColorLightBlue;
+                    FlatAppearance.MouseOverBackColor = Colors.MouseDownFlatButtonColorLightBlue;
+                    break;
                 default:
                     break;
             }

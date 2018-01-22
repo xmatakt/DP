@@ -30,15 +30,15 @@
         {
             this.topPanel = new System.Windows.Forms.Panel();
             this.topMenuFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.newPatientMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
+            this.exportMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
+            this.importMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
             this.titleLabel = new System.Windows.Forms.Label();
             this.filterTextBox = new System.Windows.Forms.TextBox();
             this.filterPanel = new System.Windows.Forms.Panel();
             this.filterLabel = new System.Windows.Forms.Label();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.findButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.newPatientMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
-            this.exportMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
-            this.importMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.topPanel.SuspendLayout();
             this.topMenuFlowPanel.SuspendLayout();
             this.filterPanel.SuspendLayout();
@@ -68,82 +68,6 @@
             this.topMenuFlowPanel.Name = "topMenuFlowPanel";
             this.topMenuFlowPanel.Size = new System.Drawing.Size(441, 31);
             this.topMenuFlowPanel.TabIndex = 3;
-            // 
-            // titleLabel
-            // 
-            this.titleLabel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleLabel.ForeColor = System.Drawing.Color.White;
-            this.titleLabel.Location = new System.Drawing.Point(0, 0);
-            this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(191, 53);
-            this.titleLabel.TabIndex = 2;
-            this.titleLabel.Text = "Zoznam pacientov";
-            this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // filterTextBox
-            // 
-            this.filterTextBox.Location = new System.Drawing.Point(5, 23);
-            this.filterTextBox.Name = "filterTextBox";
-            this.filterTextBox.Size = new System.Drawing.Size(329, 20);
-            this.filterTextBox.TabIndex = 1;
-            // 
-            // filterPanel
-            // 
-            this.filterPanel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.filterPanel.Controls.Add(this.filterTextBox);
-            this.filterPanel.Controls.Add(this.filterLabel);
-            this.filterPanel.Controls.Add(this.findButton);
-            this.filterPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.filterPanel.Location = new System.Drawing.Point(0, 53);
-            this.filterPanel.Name = "filterPanel";
-            this.filterPanel.Size = new System.Drawing.Size(1027, 53);
-            this.filterPanel.TabIndex = 3;
-            // 
-            // filterLabel
-            // 
-            this.filterLabel.AutoSize = true;
-            this.filterLabel.Location = new System.Drawing.Point(2, 7);
-            this.filterLabel.Name = "filterLabel";
-            this.filterLabel.Size = new System.Drawing.Size(300, 13);
-            this.filterLabel.TabIndex = 3;
-            this.filterLabel.Text = "Zadajte ID pacienta, časť mena, priezviska, emailu alebo ulice";
-            // 
-            // dataGridView
-            // 
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AllowUserToDeleteRows = false;
-            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(0, 106);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(1027, 424);
-            this.dataGridView.TabIndex = 4;
-            this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellContentClick);
-            // 
-            // findButton
-            // 
-            this.findButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.findButton.FlatAppearance.BorderSize = 0;
-            this.findButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.findButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.findButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.findButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.findButton.ForeColor = System.Drawing.Color.White;
-            this.findButton.Location = new System.Drawing.Point(340, 23);
-            this.findButton.Name = "findButton";
-            this.findButton.Radius = 5;
-            this.findButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.findButton.Size = new System.Drawing.Size(56, 20);
-            this.findButton.TabIndex = 2;
-            this.findButton.Text = "Hľadať";
-            this.findButton.UseVisualStyleBackColor = false;
-            this.findButton.Click += new System.EventHandler(this.findButton_Click);
             // 
             // newPatientMenuItem
             // 
@@ -193,6 +117,83 @@
             this.importMenuItem.Size = new System.Drawing.Size(144, 27);
             this.importMenuItem.TabIndex = 2;
             this.importMenuItem.TextForeColor = System.Drawing.Color.White;
+            // 
+            // titleLabel
+            // 
+            this.titleLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.ForeColor = System.Drawing.Color.White;
+            this.titleLabel.Location = new System.Drawing.Point(0, 0);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(191, 53);
+            this.titleLabel.TabIndex = 2;
+            this.titleLabel.Text = "Zoznam pacientov";
+            this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // filterTextBox
+            // 
+            this.filterTextBox.Location = new System.Drawing.Point(5, 23);
+            this.filterTextBox.Name = "filterTextBox";
+            this.filterTextBox.Size = new System.Drawing.Size(329, 20);
+            this.filterTextBox.TabIndex = 1;
+            // 
+            // filterPanel
+            // 
+            this.filterPanel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.filterPanel.Controls.Add(this.filterTextBox);
+            this.filterPanel.Controls.Add(this.filterLabel);
+            this.filterPanel.Controls.Add(this.findButton);
+            this.filterPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.filterPanel.Location = new System.Drawing.Point(0, 53);
+            this.filterPanel.Name = "filterPanel";
+            this.filterPanel.Size = new System.Drawing.Size(1027, 53);
+            this.filterPanel.TabIndex = 3;
+            // 
+            // filterLabel
+            // 
+            this.filterLabel.AutoSize = true;
+            this.filterLabel.Location = new System.Drawing.Point(2, 7);
+            this.filterLabel.Name = "filterLabel";
+            this.filterLabel.Size = new System.Drawing.Size(300, 13);
+            this.filterLabel.TabIndex = 3;
+            this.filterLabel.Text = "Zadajte ID pacienta, časť mena, priezviska, emailu alebo ulice";
+            // 
+            // findButton
+            // 
+            this.findButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.findButton.FlatAppearance.BorderSize = 0;
+            this.findButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.findButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.findButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.findButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.findButton.ForeColor = System.Drawing.Color.White;
+            this.findButton.Location = new System.Drawing.Point(340, 23);
+            this.findButton.Name = "findButton";
+            this.findButton.Radius = 5;
+            this.findButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.findButton.Size = new System.Drawing.Size(56, 20);
+            this.findButton.TabIndex = 2;
+            this.findButton.Text = "Hľadať";
+            this.findButton.UseVisualStyleBackColor = false;
+            this.findButton.Click += new System.EventHandler(this.findButton_Click);
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.Location = new System.Drawing.Point(0, 106);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
+            this.dataGridView.RowHeadersVisible = false;
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView.Size = new System.Drawing.Size(1027, 424);
+            this.dataGridView.TabIndex = 4;
+            this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellContentClick);
+            this.dataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDoubleClick);
             // 
             // PatientsUserControl
             // 

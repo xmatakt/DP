@@ -10,7 +10,7 @@ namespace DatabaseCommunicator.Model
     {
         public override string ToString()
         {
-            return Name + "[ " + Code + " ]";
+            return Name + " [" + Code + "]";
         }
     }
 
