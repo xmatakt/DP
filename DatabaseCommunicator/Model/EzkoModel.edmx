@@ -155,6 +155,13 @@
           <Property Name="SectionID" Type="int" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="FieldAnswer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TextValue" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="FieldForm">
           <Key>
             <PropertyRef Name="FieldID" />
@@ -180,6 +187,32 @@
           <Property Name="FieldID" Type="int" Nullable="false" />
           <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValueAnswer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldValueID" Type="int" Nullable="false" />
+          <Property Name="IsChecked" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FilledField">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="PatientID" Type="int" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="FieldAnswerID" Type="int" />
+        </EntityType>
+        <EntityType Name="FilledFieldFieldValueAnswer">
+          <Key>
+            <PropertyRef Name="FilledFieldID" />
+            <PropertyRef Name="FieldValueAnswerID" />
+          </Key>
+          <Property Name="FilledFieldID" Type="int" Nullable="false" />
+          <Property Name="FieldValueAnswerID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Form">
           <Key>
@@ -550,6 +583,90 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FieldValueAnswer_di423572232216552809">
+          <End Role="FieldValue" Type="Self.FieldValue" Multiplicity="1" />
+          <End Role="FieldValueAnswer" Type="Self.FieldValueAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValueAnswer">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilledField_di146560216888948084">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="FilledField" Type="Self.FilledField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilledField">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilledField_di152836194397361792">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="FilledField" Type="Self.FilledField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilledField">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilledField_di173890722565984799">
+          <End Role="Field" Type="Self.Field" Multiplicity="1" />
+          <End Role="FilledField" Type="Self.FilledField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilledField">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilledField_di756028183313920028">
+          <End Role="FieldAnswer" Type="Self.FieldAnswer" Multiplicity="0..1" />
+          <End Role="FilledField" Type="Self.FilledField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldAnswer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilledField">
+              <PropertyRef Name="FieldAnswerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilledFieldFieldValueAnswer_di316342587894991013">
+          <End Role="FilledField" Type="Self.FilledField" Multiplicity="1" />
+          <End Role="FilledFieldFieldValueAnswer" Type="Self.FilledFieldFieldValueAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FilledField">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilledFieldFieldValueAnswer">
+              <PropertyRef Name="FilledFieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilledFieldFieldValueAnswer_di504816401161518733">
+          <End Role="FieldValueAnswer" Type="Self.FieldValueAnswer" Multiplicity="1" />
+          <End Role="FilledFieldFieldValueAnswer" Type="Self.FilledFieldFieldValueAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValueAnswer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilledFieldFieldValueAnswer">
+              <PropertyRef Name="FieldValueAnswerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Patient_di471102226411486371">
           <End Role="Contact" Type="Self.Contact" Multiplicity="1" />
           <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
@@ -625,9 +742,13 @@
           <EntitySet Name="EventState" EntityType="Self.EventState" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExecutedActionNote" EntityType="Self.ExecutedActionNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Field" EntityType="Self.Field" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldAnswer" EntityType="Self.FieldAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FieldForm" EntityType="Self.FieldForm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FieldType" EntityType="Self.FieldType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FieldValue" EntityType="Self.FieldValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldValueAnswer" EntityType="Self.FieldValueAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilledField" EntityType="Self.FilledField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilledFieldFieldValueAnswer" EntityType="Self.FilledFieldFieldValueAnswer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Infrastructure" EntityType="Self.Infrastructure" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InsuranceCompany" EntityType="Self.InsuranceCompany" Schema="dbo" store:Type="Tables" />
@@ -728,6 +849,34 @@
           <AssociationSet Name="FK_FieldValue_di229197202395043558" Association="Self.FK_FieldValue_di229197202395043558">
             <End Role="Field" EntitySet="Field" />
             <End Role="FieldValue" EntitySet="FieldValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValueAnswer_di423572232216552809" Association="Self.FK_FieldValueAnswer_di423572232216552809">
+            <End Role="FieldValue" EntitySet="FieldValue" />
+            <End Role="FieldValueAnswer" EntitySet="FieldValueAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilledField_di146560216888948084" Association="Self.FK_FilledField_di146560216888948084">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="FilledField" EntitySet="FilledField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilledField_di152836194397361792" Association="Self.FK_FilledField_di152836194397361792">
+            <End Role="User" EntitySet="User" />
+            <End Role="FilledField" EntitySet="FilledField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilledField_di173890722565984799" Association="Self.FK_FilledField_di173890722565984799">
+            <End Role="Field" EntitySet="Field" />
+            <End Role="FilledField" EntitySet="FilledField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilledField_di756028183313920028" Association="Self.FK_FilledField_di756028183313920028">
+            <End Role="FieldAnswer" EntitySet="FieldAnswer" />
+            <End Role="FilledField" EntitySet="FilledField" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilledFieldFieldValueAnswer_di316342587894991013" Association="Self.FK_FilledFieldFieldValueAnswer_di316342587894991013">
+            <End Role="FilledField" EntitySet="FilledField" />
+            <End Role="FilledFieldFieldValueAnswer" EntitySet="FilledFieldFieldValueAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilledFieldFieldValueAnswer_di504816401161518733" Association="Self.FK_FilledFieldFieldValueAnswer_di504816401161518733">
+            <End Role="FieldValueAnswer" EntitySet="FieldValueAnswer" />
+            <End Role="FilledFieldFieldValueAnswer" EntitySet="FilledFieldFieldValueAnswer" />
           </AssociationSet>
           <AssociationSet Name="FK_Patient_di471102226411486371" Association="Self.FK_Patient_di471102226411486371">
             <End Role="Contact" EntitySet="Contact" />
@@ -878,6 +1027,33 @@
             <End Role="ExecutedActionNote" EntitySet="ExecutedActionNotes" />
             <End Role="CalendarEventExecutedAction" EntitySet="CalendarEventExecutedActions" />
           </AssociationSet>
+          <EntitySet Name="FieldAnswers" EntityType="EzkoModel.FieldAnswer" />
+          <EntitySet Name="FieldValueAnswers" EntityType="EzkoModel.FieldValueAnswer" />
+          <EntitySet Name="FilledFields" EntityType="EzkoModel.FilledField" />
+          <AssociationSet Name="FK_FilledField_di173890722565984799" Association="EzkoModel.FK_FilledField_di173890722565984799">
+            <End Role="Field" EntitySet="Fields" />
+            <End Role="FilledField" EntitySet="FilledFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilledField_di756028183313920028" Association="EzkoModel.FK_FilledField_di756028183313920028">
+            <End Role="FieldAnswer" EntitySet="FieldAnswers" />
+            <End Role="FilledField" EntitySet="FilledFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValueAnswer_di423572232216552809" Association="EzkoModel.FK_FieldValueAnswer_di423572232216552809">
+            <End Role="FieldValue" EntitySet="FieldValues" />
+            <End Role="FieldValueAnswer" EntitySet="FieldValueAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilledField_di146560216888948084" Association="EzkoModel.FK_FilledField_di146560216888948084">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="FilledField" EntitySet="FilledFields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FilledField_di152836194397361792" Association="EzkoModel.FK_FilledField_di152836194397361792">
+            <End Role="User" EntitySet="Users" />
+            <End Role="FilledField" EntitySet="FilledFields" />
+          </AssociationSet>
+          <AssociationSet Name="FilledFieldFieldValueAnswer" Association="EzkoModel.FilledFieldFieldValueAnswer">
+            <End Role="FilledField" EntitySet="FilledFields" />
+            <End Role="FieldValueAnswer" EntitySet="FieldValueAnswers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Action">
           <Key>
@@ -996,6 +1172,7 @@
           <NavigationProperty Name="Section" Relationship="EzkoModel.FK_Field_di950325270849068985" FromRole="Field" ToRole="Section" />
           <NavigationProperty Name="FieldForms" Relationship="EzkoModel.FK_FieldForm_di751208784575018668" FromRole="Field" ToRole="FieldForm" />
           <NavigationProperty Name="FieldValues" Relationship="EzkoModel.FK_FieldValue_di229197202395043558" FromRole="Field" ToRole="FieldValue" />
+          <NavigationProperty Name="FilledFields" Relationship="EzkoModel.FK_FilledField_di173890722565984799" FromRole="Field" ToRole="FilledField" />
         </EntityType>
         <EntityType Name="FieldForm">
           <Key>
@@ -1027,6 +1204,7 @@
           <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Field" Relationship="EzkoModel.FK_FieldValue_di229197202395043558" FromRole="FieldValue" ToRole="Field" />
+          <NavigationProperty Name="FieldValueAnswers" Relationship="EzkoModel.FK_FieldValueAnswer_di423572232216552809" FromRole="FieldValue" ToRole="FieldValueAnswer" />
         </EntityType>
         <EntityType Name="Form">
           <Key>
@@ -1088,6 +1266,7 @@
           <NavigationProperty Name="InsuranceCompany" Relationship="EzkoModel.FK_Patient_di877313177207316680" FromRole="Patient" ToRole="InsuranceCompany" />
           <NavigationProperty Name="Sex" Relationship="EzkoModel.FK_Patient_di971957564590465727" FromRole="Patient" ToRole="Sex" />
           <NavigationProperty Name="Contact" Relationship="EzkoModel.FK_Patient_di471102226411486371" FromRole="Patient" ToRole="Contact" />
+          <NavigationProperty Name="FilledFields" Relationship="EzkoModel.FK_FilledField_di146560216888948084" FromRole="Patient" ToRole="FilledField" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -1128,6 +1307,7 @@
           <NavigationProperty Name="UserRole" Relationship="EzkoModel.FK_User_di753237611326192113" FromRole="User" ToRole="UserRole" />
           <NavigationProperty Name="CalendarEvents" Relationship="EzkoModel.CalendarEventUser" FromRole="User" ToRole="CalendarEvent" />
           <Property Name="AvatarImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FilledFields" Relationship="EzkoModel.FK_FilledField_di152836194397361792" FromRole="User" ToRole="FilledField" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -1450,6 +1630,103 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FieldAnswer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TextValue" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FilledFields" Relationship="EzkoModel.FK_FilledField_di756028183313920028" FromRole="FieldAnswer" ToRole="FilledField" />
+        </EntityType>
+        <EntityType Name="FieldValueAnswer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FieldValueID" Type="Int32" Nullable="false" />
+          <Property Name="IsChecked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="FieldValue" Relationship="EzkoModel.FK_FieldValueAnswer_di423572232216552809" FromRole="FieldValueAnswer" ToRole="FieldValue" />
+          <NavigationProperty Name="FilledFields" Relationship="EzkoModel.FilledFieldFieldValueAnswer" FromRole="FieldValueAnswer" ToRole="FilledField" />
+        </EntityType>
+        <EntityType Name="FilledField">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="PatientID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="FieldAnswerID" Type="Int32" />
+          <NavigationProperty Name="Field" Relationship="EzkoModel.FK_FilledField_di173890722565984799" FromRole="FilledField" ToRole="Field" />
+          <NavigationProperty Name="FieldAnswer" Relationship="EzkoModel.FK_FilledField_di756028183313920028" FromRole="FilledField" ToRole="FieldAnswer" />
+          <NavigationProperty Name="Patient" Relationship="EzkoModel.FK_FilledField_di146560216888948084" FromRole="FilledField" ToRole="Patient" />
+          <NavigationProperty Name="User" Relationship="EzkoModel.FK_FilledField_di152836194397361792" FromRole="FilledField" ToRole="User" />
+          <NavigationProperty Name="FieldValueAnswers" Relationship="EzkoModel.FilledFieldFieldValueAnswer" FromRole="FilledField" ToRole="FieldValueAnswer" />
+        </EntityType>
+        <Association Name="FK_FilledField_di173890722565984799">
+          <End Type="EzkoModel.Field" Role="Field" Multiplicity="1" />
+          <End Type="EzkoModel.FilledField" Role="FilledField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilledField">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilledField_di756028183313920028">
+          <End Type="EzkoModel.FieldAnswer" Role="FieldAnswer" Multiplicity="0..1" />
+          <End Type="EzkoModel.FilledField" Role="FilledField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldAnswer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilledField">
+              <PropertyRef Name="FieldAnswerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValueAnswer_di423572232216552809">
+          <End Type="EzkoModel.FieldValue" Role="FieldValue" Multiplicity="1" />
+          <End Type="EzkoModel.FieldValueAnswer" Role="FieldValueAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValueAnswer">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilledField_di146560216888948084">
+          <End Type="EzkoModel.Patient" Role="Patient" Multiplicity="0..1" />
+          <End Type="EzkoModel.FilledField" Role="FilledField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilledField">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FilledField_di152836194397361792">
+          <End Type="EzkoModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EzkoModel.FilledField" Role="FilledField" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FilledField">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FilledFieldFieldValueAnswer">
+          <End Type="EzkoModel.FilledField" Role="FilledField" Multiplicity="*" />
+          <End Type="EzkoModel.FieldValueAnswer" Role="FieldValueAnswer" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1744,7 +2021,43 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="FieldAnswers">
+            <EntityTypeMapping TypeName="EzkoModel.FieldAnswer">
+              <MappingFragment StoreEntitySet="FieldAnswer">
+                <ScalarProperty Name="TextValue" ColumnName="TextValue" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValueAnswers">
+            <EntityTypeMapping TypeName="EzkoModel.FieldValueAnswer">
+              <MappingFragment StoreEntitySet="FieldValueAnswer">
+                <ScalarProperty Name="IsChecked" ColumnName="IsChecked" />
+                <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FilledFields">
+            <EntityTypeMapping TypeName="EzkoModel.FilledField">
+              <MappingFragment StoreEntitySet="FilledField">
+                <ScalarProperty Name="FieldAnswerID" ColumnName="FieldAnswerID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FilledFieldFieldValueAnswer" TypeName="EzkoModel.FilledFieldFieldValueAnswer" StoreEntitySet="FilledFieldFieldValueAnswer">
+            <EndProperty Name="FieldValueAnswer">
+              <ScalarProperty Name="ID" ColumnName="FieldValueAnswerID" />
+            </EndProperty>
+            <EndProperty Name="FilledField">
+              <ScalarProperty Name="ID" ColumnName="FilledFieldID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

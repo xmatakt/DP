@@ -22,6 +22,14 @@ namespace DatabaseCommunicator.Model
         }
     }
 
+    public partial class FieldValue
+    {
+        public override string ToString()
+        {
+            return Value;
+        }
+    }
+
     public partial class Patient
     {
         public string FullName
@@ -164,14 +172,6 @@ namespace DatabaseCommunicator.Model
         public override string ToString()
         {
             return Name;
-        }
-    }
-
-    public partial class FieldValue
-    {
-        public override string ToString()
-        {
-            return Value;
         }
     }
 }

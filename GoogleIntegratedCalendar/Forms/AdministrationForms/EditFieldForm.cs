@@ -409,7 +409,7 @@ namespace EZKO.Forms.AdministrationForms
                 }
                 else if(fieldValues != null && fieldValues.Count == 0)
                 {
-                    if(fieldType.ID != (int)FieldTypeEnum.Text || fieldType.ID != (int)FieldTypeEnum.LongText)
+                    if(fieldType.ID != (int)FieldTypeEnum.Text && fieldType.ID != (int)FieldTypeEnum.LongText)
                     {
                         BasicMessagesHandler.ShowInformationMessage("Musíte zadať aspoň jednu hodnotu");
                         valuesTextBox.Focus();

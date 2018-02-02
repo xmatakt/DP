@@ -2,13 +2,16 @@
 using DatabaseCommunicator.Enums;
 using DatabaseCommunicator.Model;
 using ExceptionHandler;
+using EZKO.Classes;
 using EZKO.Controllers;
 using EZKO.Enums;
+using EZKO.UserControls.FlatControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +23,6 @@ namespace EZKO.Forms.AdministrationForms
     {
         private WorkingTypeEnum workingType;
         private EzkoController ezkoController;
-        private WorkingInfoForm workingInfoForm;
         private Patient patient;
 
         #region Private properties
@@ -266,11 +268,7 @@ namespace EZKO.Forms.AdministrationForms
         {
             get
             {
-                string val = emailTextBox.Text.Trim();
-                if (val.Length > 0)
-                    return val;
-                else
-                    return null;
+                return emailTextBox.Text.Trim();
             }
             set { emailTextBox.Text = value ?? ""; }
         }
@@ -292,11 +290,7 @@ namespace EZKO.Forms.AdministrationForms
         {
             get
             {
-                string val = phoneTextBox.Text.Trim();
-                if (val.Length > 0)
-                    return val;
-                else
-                    return null;
+                return phoneTextBox.Text.Trim();
             }
             set { phoneTextBox.Text = value ?? ""; }
         }
@@ -381,7 +375,8 @@ namespace EZKO.Forms.AdministrationForms
             {
                 InitializeInsuranceCompanies();
                 InitializePersonalInfoTab();
-
+                InitializeTreeViewTab();
+                InitializeTextDocumentationTab();
             }
             catch(Exception ex)
             {
@@ -432,20 +427,34 @@ namespace EZKO.Forms.AdministrationForms
             }
         }
 
-        private void CreateOrUpdate()
+        private void InitializeTreeViewTab()
         {
-            switch (workingType)
+            if(patient != null && patient.RootDirectoryPath != null)
             {
-                case WorkingTypeEnum.Creating:
-                    CreateData();
-                    break;
-                case WorkingTypeEnum.Editing:
-                    UpdateData();
-                    break;
-                default:
-                    break;
+                DirectoryInfo directoryInfo = new DirectoryInfo(patient.RootDirectoryPath);
+                BuildTree(directoryInfo, treeView.Nodes);
             }
         }
+
+        private void InitializeTextDocumentationTab()
+        {
+            FormGenerator.GenerateOverview(patient.ID, GlobalSettings.User.ID, doctorsFlowPanel, patientsFlowPanel, ezkoController.GetFields().ToList());
+        }
+
+        private void BuildTree(DirectoryInfo directoryInfo, TreeNodeCollection addInMe)
+        {
+            TreeNode curNode = addInMe.Add(directoryInfo.FullName, directoryInfo.Name);
+
+            foreach (FileInfo file in directoryInfo.GetFiles())
+            {
+                curNode.Nodes.Add(file.FullName, file.Name);
+            }
+            foreach (DirectoryInfo subdir in directoryInfo.GetDirectories())
+            {
+                BuildTree(subdir, curNode.Nodes);
+            }
+        }
+
         private bool ValidateData()
         {
             bool result = true;
@@ -480,27 +489,6 @@ namespace EZKO.Forms.AdministrationForms
             return result;
         }
 
-        private void CreateData()
-        {
-            try
-            {
-                Cursor = Cursors.WaitCursor;
-                if (ValidateData())
-                {
-
-                }
-                else
-                    DialogResult = DialogResult.None;
-            
-            }
-            catch (Exception e)
-            {
-                BasicMessagesHandler.LogException(e);
-            }
-
-            Cursor = Cursors.Default;
-        }
-
         private void UpdateData()
         {
             try
@@ -517,7 +505,8 @@ namespace EZKO.Forms.AdministrationForms
                         BasicMessagesHandler.ShowErrorMessage("Počas úpravy pacienta sa vyskytla chyba");
                     else
                     {
-                        if(avatarImagePath != null)
+                        SaveFieldsOverview();
+                        if (avatarImagePath != null)
                         {
                             // iba docasne!!
                             DirectoriesController.CreatePatientFolderStructure(patient);
@@ -535,6 +524,121 @@ namespace EZKO.Forms.AdministrationForms
             }
 
             Cursor = Cursors.Default;
+        }
+
+        private void SaveFieldsOverview()
+        {
+            ezkoController.DeleteFilledFields(patient, GlobalSettings.User);
+
+            List<FilledField> filledFields = new List<FilledField>();
+            try
+            {
+                foreach (Control item in doctorsFlowPanel.Controls)
+                {
+                    if (item is TextBox textBox && textBox.Text.Trim() != "")
+                    {
+                        Field field = textBox.Tag as Field;
+                        FieldAnswer answer = new FieldAnswer() { TextValue = textBox.Text.Trim() };
+                        FilledField filledField = new FilledField()
+                        {
+                            Field = field,
+                            Patient = patient,
+                            User = GlobalSettings.User,
+                            FieldAnswer = answer
+                        };
+                        filledFields.Add(filledField);
+                    }
+                    else if (item is FlatRichTextBox richTextBox && richTextBox.Text.Trim() != "")
+                    {
+                        Field field = richTextBox.Tag as Field;
+                        FieldAnswer answer = new FieldAnswer() { TextValue = richTextBox.Text.Trim() };
+                        FilledField filledField = new FilledField()
+                        {
+                            Field = field,
+                            Patient = patient,
+                            User = GlobalSettings.User,
+                            FieldAnswer = answer
+                        };
+                        filledFields.Add(filledField);
+                    }
+                    else if (item is RadioButton radioButton)
+                    {
+                        if (!radioButton.Checked)
+                            continue;
+
+                        FieldValue fieldValue = radioButton.Tag as FieldValue;
+                        FilledField filledField = filledFields.FirstOrDefault(x => x.Field.ID == fieldValue.Field.ID);
+                        FieldValueAnswer answer = new FieldValueAnswer() { FieldValue = fieldValue, IsChecked = radioButton.Checked };
+
+                        if (filledField != null)
+                            filledField.FieldValueAnswers.Add(answer);
+                        else
+                        {
+                            filledField = new FilledField()
+                            {
+                                Field = fieldValue.Field,
+                                Patient = patient,
+                                User = GlobalSettings.User,
+                            };
+                            filledField.FieldValueAnswers.Add(answer);
+                            filledFields.Add(filledField);
+                        }
+                    }
+                    else if (item is CheckBox checkBox)
+                    {
+                        if (!checkBox.Checked)
+                            continue;
+
+                        FieldValue fieldValue = checkBox.Tag as FieldValue;
+                        FilledField filledField = filledFields.FirstOrDefault(x => x.Field.ID == fieldValue.Field.ID);
+                        FieldValueAnswer answer = new FieldValueAnswer() { FieldValue = fieldValue, IsChecked = checkBox.Checked };
+
+                        if (filledField != null)
+                            filledField.FieldValueAnswers.Add(answer);
+                        else
+                        {
+                            filledField = new FilledField()
+                            {
+                                Field = fieldValue.Field,
+                                Patient = patient,
+                                User = GlobalSettings.User,
+                            };
+                            filledField.FieldValueAnswers.Add(answer);
+                            filledFields.Add(filledField);
+                        }
+                    }
+                    else if (item is ComboBox comboBox)
+                    {
+                        FieldValue fieldValue = comboBox.SelectedItem as FieldValue;
+                        if(fieldValue != null)
+                        {
+                            FilledField filledField = filledFields.FirstOrDefault(x => x.Field.ID == fieldValue.Field.ID);
+                            FieldValueAnswer answer = new FieldValueAnswer() { FieldValue = fieldValue, IsChecked = true };
+
+                            if (filledField != null)
+                                filledField.FieldValueAnswers.Add(answer);
+                            else
+                            {
+                                filledField = new FilledField()
+                                {
+                                    Field = fieldValue.Field,
+                                    Patient = patient,
+                                    User = GlobalSettings.User,
+                                };
+                                filledField.FieldValueAnswers.Add(answer);
+                                filledFields.Add(filledField);
+                            }
+                        }
+                    }
+                }
+
+                if(!ezkoController.CreateFilledFields(filledFields))
+                    BasicMessagesHandler.ShowErrorMessage("Počas ukladania zmien vo vyplnení EZKO polí sa vyskytla chyba!");
+            }
+            catch(Exception ex)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Počas ukladania zmien vo vyplnení EZKO polí sa vyskytla chyba!", ex);
+            }
         }
         #endregion
 
@@ -622,19 +726,6 @@ namespace EZKO.Forms.AdministrationForms
         }
         #endregion
 
-        #region BG worker
-        private void bg_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-        }
-
-        private void bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (workingInfoForm != null)
-                workingInfoForm.Close();
-        }
-        #endregion
-
         #region UI Events
         private void changeAvatarButton_Click(object sender, EventArgs e)
         {
@@ -676,12 +767,42 @@ namespace EZKO.Forms.AdministrationForms
         }
         private void addButton_Click(object sender, EventArgs e)
         {
-            CreateOrUpdate();
+            UpdateData();
         }
 
         private void generatePdfButton_Click(object sender, EventArgs e)
         {
             BasicMessagesHandler.ShowInformationMessage("Timo dorob to!");
+        }
+
+        private void treeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(e.Node.Name);
+            }
+            catch (Exception ex)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Vyskytla sa neznáma chyba!", ex);
+            }
+        }
+
+        private void flowLayoutPanel1_Scroll(object sender, ScrollEventArgs e)
+        {
+            patientsFlowPanel.VerticalScroll.Value = doctorsFlowPanel.VerticalScroll.Value;
+        }
+
+        private void flowLayoutPanel_Resize(object sender, EventArgs e)
+        {
+            FlowLayoutPanel panel = sender as FlowLayoutPanel;
+
+            if (panel != null)
+            {
+                foreach (Control item in panel.Controls)
+                {
+                    item.Width = panel.Width - FormGenerator.Value;
+                }
+            }
         }
         #endregion
     }

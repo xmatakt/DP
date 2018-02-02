@@ -17,6 +17,7 @@ namespace DatabaseCommunicator.Model
         public User()
         {
             this.CalendarEvents = new HashSet<CalendarEvent>();
+            this.FilledFields = new HashSet<FilledField>();
         }
     
         public int ID { get; set; }
@@ -30,5 +31,6 @@ namespace DatabaseCommunicator.Model
     
         public virtual UserRole UserRole { get; set; }
         public virtual ICollection<CalendarEvent> CalendarEvents { get; set; }
+        public virtual ICollection<FilledField> FilledFields { get; set; }
     }
 }

@@ -546,6 +546,7 @@ namespace DatabaseCommunicator.Controllers
             return SaveChanges();
         }
 
+
         public bool EditUser(User user, string email, int roleID, string password, string avatarImagePath)
         {
             bool result = false;
@@ -859,10 +860,26 @@ namespace DatabaseCommunicator.Controllers
             Section section, string description, List<FieldValue> fieldValues, List<FieldForm> fieldForms)
         {
             bool result = false;
+
+            List<FieldValue> valuesToAdd = fieldValues.Where(x => !field.FieldValues.Select(y => y.Value).Contains(x.Value)).ToList();
+            List<FieldValue> valuesToRemove = field.FieldValues.Where(x => !fieldValues.Select(y => y.Value).Contains(x.Value)).ToList();
+
             try
             {
                 db.Questions.RemoveRange(field.FieldForms.Select(x => x.Question));
-                db.FieldValues.RemoveRange(field.FieldValues);
+
+                //we have to remove those FieldValueAnswers, which was connected to FieldValues, which will be removed
+                if (valuesToRemove.Count > 0)
+                {
+                    foreach (var item in valuesToRemove)
+                    {
+                        IQueryable<FilledField> filledFields = db.FilledFields.Where(x => x.FieldValueAnswers.Select(y => y.FieldValueID).Contains(item.ID));
+
+                        foreach (var filledField in filledFields)
+                            db.FieldValueAnswers.RemoveRange(filledField.FieldValueAnswers.Where(x => x.FieldValueID == item.ID));
+                    }
+                    db.FieldValues.RemoveRange(valuesToRemove);
+                }
 
                 field.Name = name;
                 field.StandardNumber = standardNumber;
@@ -873,8 +890,14 @@ namespace DatabaseCommunicator.Controllers
                 field.FieldForms = fieldForms;
                 field.IsDeleted = false;
 
-                if (fieldType.ID != (int)FieldTypeEnum.Text && fieldType.ID != (int)FieldTypeEnum.LongText)
-                    field.FieldValues = fieldValues;
+                if (fieldType.ID != (int)FieldTypeEnum.Text && fieldType.ID != (int)FieldTypeEnum.LongText
+                    && valuesToAdd.Count > 0)
+                {
+                    foreach (var item in valuesToAdd)
+                    {
+                        field.FieldValues.Add(item);
+                    }
+                }
 
                 result = SaveChanges();
             }
@@ -899,6 +922,65 @@ namespace DatabaseCommunicator.Controllers
             {
                 BasicMessagesHandler.LogException(e);
                 result = false;
+            }
+
+            return result;
+        }
+        #endregion
+
+        #region FilledFields
+        public void DeleteFilledFields(Patient patient, User user)
+        {
+            try
+            {
+                IQueryable<FilledField> filledFields = db.FilledFields.Where(x => x.UserID == user.ID && x.PatientID == patient.ID);
+                foreach (var item in filledFields)
+                {
+                    db.FieldValueAnswers.RemoveRange(item.FieldValueAnswers);
+                    if(item.FieldAnswer != null)
+                        db.FieldAnswers.Remove(item.FieldAnswer);
+                }
+                db.FilledFields.RemoveRange(filledFields);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+        }
+
+        public void DeleteFilledFields(Patient patient)
+        {
+            try
+            {
+                IQueryable<FilledField> filledFields = db.FilledFields.Where(x => x.UserID == null && x.PatientID == patient.ID);
+                foreach (var item in filledFields)
+                {
+                    db.FieldValueAnswers.RemoveRange(item.FieldValueAnswers);
+                    if (item.FieldAnswer != null)
+                        db.FieldAnswers.Remove(item.FieldAnswer);
+                }
+                db.FilledFields.RemoveRange(filledFields);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+        }
+
+        public bool CreateFilledFields(List<FilledField> filledFields)
+        {
+            bool result = true;
+            try
+            {
+                db.FilledFields.AddRange(filledFields);
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                result = false;
+                BasicMessagesHandler.LogException(e);
             }
 
             return result;

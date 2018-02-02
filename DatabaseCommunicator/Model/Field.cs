@@ -19,6 +19,7 @@ namespace DatabaseCommunicator.Model
             this.Actions = new HashSet<Action>();
             this.FieldForms = new HashSet<FieldForm>();
             this.FieldValues = new HashSet<FieldValue>();
+            this.FilledFields = new HashSet<FilledField>();
         }
     
         public int ID { get; set; }
@@ -35,5 +36,6 @@ namespace DatabaseCommunicator.Model
         public virtual Section Section { get; set; }
         public virtual ICollection<FieldForm> FieldForms { get; set; }
         public virtual ICollection<FieldValue> FieldValues { get; set; }
+        public virtual ICollection<FilledField> FilledFields { get; set; }
     }
 }

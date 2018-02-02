@@ -299,7 +299,7 @@ namespace EZKO.Forms.PatientForms
                                 string rootFolderPath = DirectoriesController.GetPatientRootFolder(patient);
                                 patient.RootDirectoryPath = rootFolderPath;
                                 if (!ezkoController.SaveChanges())
-                                    BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa uložiť cestu ku koreňoveému adresáru pacienta.");
+                                    BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa uložiť cestu ku koreňovému adresáru pacienta.");
                             }
                             else
                                 BasicMessagesHandler.ShowErrorMessage("Nepodarilo vytvoriť adresárovú štruktúru pre nového pacienta.");

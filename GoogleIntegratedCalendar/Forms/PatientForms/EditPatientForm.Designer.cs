@@ -35,10 +35,14 @@
             this.maximizeFormPictureBox = new System.Windows.Forms.PictureBox();
             this.closeFormPictureBox = new System.Windows.Forms.PictureBox();
             this.bottomFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.personalInformationTabPage = new System.Windows.Forms.TabPage();
             this.othersGroupBox = new System.Windows.Forms.GroupBox();
             this.noteLabel = new System.Windows.Forms.Label();
+            this.noteRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
+            this.employmentRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
             this.employmentLabel = new System.Windows.Forms.Label();
             this.contactGroupBox = new System.Windows.Forms.GroupBox();
             this.alternativePhoneTextBox = new System.Windows.Forms.TextBox();
@@ -84,17 +88,20 @@
             this.surnameLabel = new System.Windows.Forms.Label();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.nameLabel = new System.Windows.Forms.Label();
+            this.generatePdfButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.idTextBox = new System.Windows.Forms.TextBox();
             this.idLabel = new System.Windows.Forms.Label();
-            this.avatarPictureBox = new System.Windows.Forms.PictureBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.noteRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
-            this.employmentRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
-            this.generatePdfButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.changeAvatarButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.avatarPictureBox = new System.Windows.Forms.PictureBox();
+            this.pictureDocumentationTabPage = new System.Windows.Forms.TabPage();
+            this.treeView = new System.Windows.Forms.TreeView();
+            this.textDocumentationTabPage = new System.Windows.Forms.TabPage();
+            this.tablePanel = new System.Windows.Forms.TableLayoutPanel();
+            this.doctorsColumnLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.patientsFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.doctorsFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.topMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximizeFormPictureBox)).BeginInit();
@@ -107,6 +114,9 @@
             this.addressGroupBox.SuspendLayout();
             this.basicInfoGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).BeginInit();
+            this.pictureDocumentationTabPage.SuspendLayout();
+            this.textDocumentationTabPage.SuspendLayout();
+            this.tablePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // topMenuPanel
@@ -196,10 +206,57 @@
             this.bottomFlowPanel.Size = new System.Drawing.Size(1018, 36);
             this.bottomFlowPanel.TabIndex = 1;
             // 
+            // cancelButton
+            // 
+            this.cancelButton.AutoSize = true;
+            this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(173)))), ((int)(((byte)(78)))));
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.FlatAppearance.BorderSize = 0;
+            this.cancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
+            this.cancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.cancelButton.ForeColor = System.Drawing.Color.White;
+            this.cancelButton.Location = new System.Drawing.Point(960, 5);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Radius = 5;
+            this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
+            this.cancelButton.Size = new System.Drawing.Size(50, 23);
+            this.cancelButton.TabIndex = 7;
+            this.cancelButton.Text = "Zrušiť";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            // 
+            // addButton
+            // 
+            this.addButton.AutoSize = true;
+            this.addButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.addButton.FlatAppearance.BorderSize = 0;
+            this.addButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.addButton.ForeColor = System.Drawing.Color.White;
+            this.addButton.Location = new System.Drawing.Point(906, 5);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2);
+            this.addButton.Name = "addButton";
+            this.addButton.Radius = 5;
+            this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.addButton.Size = new System.Drawing.Size(50, 23);
+            this.addButton.TabIndex = 6;
+            this.addButton.Text = "Uložiť";
+            this.addButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.addButton.UseVisualStyleBackColor = false;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            // 
             // tabControl
             // 
             this.tabControl.Controls.Add(this.personalInformationTabPage);
-            this.tabControl.Controls.Add(this.tabPage2);
+            this.tabControl.Controls.Add(this.pictureDocumentationTabPage);
+            this.tabControl.Controls.Add(this.textDocumentationTabPage);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 36);
             this.tabControl.Name = "tabControl";
@@ -251,6 +308,27 @@
             this.noteLabel.Size = new System.Drawing.Size(69, 13);
             this.noteLabel.TabIndex = 0;
             this.noteLabel.Text = "Poznámka:";
+            // 
+            // noteRichTextBox
+            // 
+            this.noteRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.noteRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.noteRichTextBox.Location = new System.Drawing.Point(6, 145);
+            this.noteRichTextBox.Name = "noteRichTextBox";
+            this.noteRichTextBox.Size = new System.Drawing.Size(516, 78);
+            this.noteRichTextBox.TabIndex = 1;
+            // 
+            // employmentRichTextBox
+            // 
+            this.employmentRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.employmentRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.employmentRichTextBox.Location = new System.Drawing.Point(6, 42);
+            this.employmentRichTextBox.Name = "employmentRichTextBox";
+            this.employmentRichTextBox.Size = new System.Drawing.Size(516, 78);
+            this.employmentRichTextBox.TabIndex = 0;
             // 
             // employmentLabel
             // 
@@ -692,64 +770,6 @@
             this.nameLabel.TabIndex = 11;
             this.nameLabel.Text = "Meno:";
             // 
-            // idTextBox
-            // 
-            this.idTextBox.Location = new System.Drawing.Point(74, 221);
-            this.idTextBox.Name = "idTextBox";
-            this.idTextBox.ReadOnly = true;
-            this.idTextBox.Size = new System.Drawing.Size(100, 20);
-            this.idTextBox.TabIndex = 3;
-            // 
-            // idLabel
-            // 
-            this.idLabel.AutoSize = true;
-            this.idLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.idLabel.Location = new System.Drawing.Point(8, 224);
-            this.idLabel.Name = "idLabel";
-            this.idLabel.Size = new System.Drawing.Size(24, 13);
-            this.idLabel.TabIndex = 2;
-            this.idLabel.Text = "ID:";
-            // 
-            // avatarPictureBox
-            // 
-            this.avatarPictureBox.Location = new System.Drawing.Point(8, 13);
-            this.avatarPictureBox.Name = "avatarPictureBox";
-            this.avatarPictureBox.Size = new System.Drawing.Size(166, 162);
-            this.avatarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.avatarPictureBox.TabIndex = 0;
-            this.avatarPictureBox.TabStop = false;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1010, 446);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // noteRichTextBox
-            // 
-            this.noteRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.noteRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.noteRichTextBox.Location = new System.Drawing.Point(6, 145);
-            this.noteRichTextBox.Name = "noteRichTextBox";
-            this.noteRichTextBox.Size = new System.Drawing.Size(516, 78);
-            this.noteRichTextBox.TabIndex = 1;
-            // 
-            // employmentRichTextBox
-            // 
-            this.employmentRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.employmentRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.employmentRichTextBox.Location = new System.Drawing.Point(6, 42);
-            this.employmentRichTextBox.Name = "employmentRichTextBox";
-            this.employmentRichTextBox.Size = new System.Drawing.Size(516, 78);
-            this.employmentRichTextBox.TabIndex = 0;
-            // 
             // generatePdfButton
             // 
             this.generatePdfButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -770,6 +790,24 @@
             this.generatePdfButton.UseVisualStyleBackColor = false;
             this.generatePdfButton.Click += new System.EventHandler(this.generatePdfButton_Click);
             // 
+            // idTextBox
+            // 
+            this.idTextBox.Location = new System.Drawing.Point(74, 221);
+            this.idTextBox.Name = "idTextBox";
+            this.idTextBox.ReadOnly = true;
+            this.idTextBox.Size = new System.Drawing.Size(100, 20);
+            this.idTextBox.TabIndex = 3;
+            // 
+            // idLabel
+            // 
+            this.idLabel.AutoSize = true;
+            this.idLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.idLabel.Location = new System.Drawing.Point(8, 224);
+            this.idLabel.Name = "idLabel";
+            this.idLabel.Size = new System.Drawing.Size(24, 13);
+            this.idLabel.TabIndex = 2;
+            this.idLabel.Text = "ID:";
+            // 
             // changeAvatarButton
             // 
             this.changeAvatarButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
@@ -789,51 +827,117 @@
             this.changeAvatarButton.UseVisualStyleBackColor = false;
             this.changeAvatarButton.Click += new System.EventHandler(this.changeAvatarButton_Click);
             // 
-            // cancelButton
+            // avatarPictureBox
             // 
-            this.cancelButton.AutoSize = true;
-            this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(173)))), ((int)(((byte)(78)))));
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.FlatAppearance.BorderSize = 0;
-            this.cancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
-            this.cancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
-            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.cancelButton.ForeColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(960, 5);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Radius = 5;
-            this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
-            this.cancelButton.Size = new System.Drawing.Size(50, 23);
-            this.cancelButton.TabIndex = 7;
-            this.cancelButton.Text = "Zrušiť";
-            this.cancelButton.UseVisualStyleBackColor = false;
+            this.avatarPictureBox.Location = new System.Drawing.Point(8, 13);
+            this.avatarPictureBox.Name = "avatarPictureBox";
+            this.avatarPictureBox.Size = new System.Drawing.Size(166, 162);
+            this.avatarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.avatarPictureBox.TabIndex = 0;
+            this.avatarPictureBox.TabStop = false;
             // 
-            // addButton
+            // pictureDocumentationTabPage
             // 
-            this.addButton.AutoSize = true;
-            this.addButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.addButton.FlatAppearance.BorderSize = 0;
-            this.addButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(906, 5);
-            this.addButton.Margin = new System.Windows.Forms.Padding(2);
-            this.addButton.Name = "addButton";
-            this.addButton.Radius = 5;
-            this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.addButton.Size = new System.Drawing.Size(50, 23);
-            this.addButton.TabIndex = 6;
-            this.addButton.Text = "Uložiť";
-            this.addButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.addButton.UseVisualStyleBackColor = false;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            this.pictureDocumentationTabPage.Controls.Add(this.treeView);
+            this.pictureDocumentationTabPage.Location = new System.Drawing.Point(4, 22);
+            this.pictureDocumentationTabPage.Name = "pictureDocumentationTabPage";
+            this.pictureDocumentationTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.pictureDocumentationTabPage.Size = new System.Drawing.Size(1010, 446);
+            this.pictureDocumentationTabPage.TabIndex = 1;
+            this.pictureDocumentationTabPage.Text = "Obrazová dokumentácia";
+            this.pictureDocumentationTabPage.UseVisualStyleBackColor = true;
+            // 
+            // treeView
+            // 
+            this.treeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeView.Location = new System.Drawing.Point(6, 6);
+            this.treeView.Name = "treeView";
+            this.treeView.Size = new System.Drawing.Size(998, 434);
+            this.treeView.TabIndex = 0;
+            this.treeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView_NodeMouseDoubleClick);
+            // 
+            // textDocumentationTabPage
+            // 
+            this.textDocumentationTabPage.Controls.Add(this.tablePanel);
+            this.textDocumentationTabPage.Location = new System.Drawing.Point(4, 22);
+            this.textDocumentationTabPage.Name = "textDocumentationTabPage";
+            this.textDocumentationTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.textDocumentationTabPage.Size = new System.Drawing.Size(1010, 446);
+            this.textDocumentationTabPage.TabIndex = 2;
+            this.textDocumentationTabPage.Text = "Textová dokumentácia";
+            this.textDocumentationTabPage.UseVisualStyleBackColor = true;
+            // 
+            // tablePanel
+            // 
+            this.tablePanel.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.tablePanel.ColumnCount = 2;
+            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tablePanel.Controls.Add(this.doctorsColumnLabel, 0, 0);
+            this.tablePanel.Controls.Add(this.label1, 1, 0);
+            this.tablePanel.Controls.Add(this.patientsFlowPanel, 1, 1);
+            this.tablePanel.Controls.Add(this.doctorsFlowPanel, 0, 1);
+            this.tablePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tablePanel.Location = new System.Drawing.Point(3, 3);
+            this.tablePanel.Name = "tablePanel";
+            this.tablePanel.RowCount = 2;
+            this.tablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tablePanel.Size = new System.Drawing.Size(1004, 440);
+            this.tablePanel.TabIndex = 0;
+            // 
+            // doctorsColumnLabel
+            // 
+            this.doctorsColumnLabel.AutoSize = true;
+            this.doctorsColumnLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.doctorsColumnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.doctorsColumnLabel.Location = new System.Drawing.Point(3, 0);
+            this.doctorsColumnLabel.Name = "doctorsColumnLabel";
+            this.doctorsColumnLabel.Size = new System.Drawing.Size(496, 20);
+            this.doctorsColumnLabel.TabIndex = 0;
+            this.doctorsColumnLabel.Text = "EZKO hodnota - lekár";
+            this.doctorsColumnLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(505, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(496, 20);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Odpoveď pacienta";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // patientsFlowPanel
+            // 
+            this.patientsFlowPanel.AutoScroll = true;
+            this.patientsFlowPanel.BackColor = System.Drawing.SystemColors.Info;
+            this.patientsFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.patientsFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.patientsFlowPanel.Location = new System.Drawing.Point(505, 23);
+            this.patientsFlowPanel.Name = "patientsFlowPanel";
+            this.patientsFlowPanel.Size = new System.Drawing.Size(496, 414);
+            this.patientsFlowPanel.TabIndex = 1;
+            this.patientsFlowPanel.WrapContents = false;
+            this.patientsFlowPanel.Resize += new System.EventHandler(this.flowLayoutPanel_Resize);
+            // 
+            // doctorsFlowPanel
+            // 
+            this.doctorsFlowPanel.AutoScroll = true;
+            this.doctorsFlowPanel.BackColor = System.Drawing.Color.LightGreen;
+            this.doctorsFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.doctorsFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.doctorsFlowPanel.Location = new System.Drawing.Point(3, 23);
+            this.doctorsFlowPanel.Name = "doctorsFlowPanel";
+            this.doctorsFlowPanel.Size = new System.Drawing.Size(496, 414);
+            this.doctorsFlowPanel.TabIndex = 0;
+            this.doctorsFlowPanel.WrapContents = false;
+            this.doctorsFlowPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.flowLayoutPanel1_Scroll);
+            this.doctorsFlowPanel.Resize += new System.EventHandler(this.flowLayoutPanel_Resize);
             // 
             // EditPatientForm
             // 
@@ -868,6 +972,10 @@
             this.basicInfoGroupBox.ResumeLayout(false);
             this.basicInfoGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.avatarPictureBox)).EndInit();
+            this.pictureDocumentationTabPage.ResumeLayout(false);
+            this.textDocumentationTabPage.ResumeLayout(false);
+            this.tablePanel.ResumeLayout(false);
+            this.tablePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -885,7 +993,7 @@
         private UserControls.FlatControls.RoundButton cancelButton;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage personalInformationTabPage;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage pictureDocumentationTabPage;
         private System.Windows.Forms.PictureBox avatarPictureBox;
         private UserControls.FlatControls.RoundButton changeAvatarButton;
         private System.Windows.Forms.TextBox idTextBox;
@@ -941,5 +1049,12 @@
         private UserControls.FlatControls.FlatRichTextBox noteRichTextBox;
         private System.Windows.Forms.Label employmentLabel;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.TreeView treeView;
+        private System.Windows.Forms.TabPage textDocumentationTabPage;
+        private System.Windows.Forms.FlowLayoutPanel doctorsFlowPanel;
+        private System.Windows.Forms.FlowLayoutPanel patientsFlowPanel;
+        private System.Windows.Forms.TableLayoutPanel tablePanel;
+        private System.Windows.Forms.Label doctorsColumnLabel;
+        private System.Windows.Forms.Label label1;
     }
 }

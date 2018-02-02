@@ -110,6 +110,9 @@
     <Compile Include="Model\Field.cs">
       <DependentUpon>EzkoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\FieldAnswer.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\FieldForm.cs">
       <DependentUpon>EzkoModel.tt</DependentUpon>
     </Compile>
@@ -117,6 +120,12 @@
       <DependentUpon>EzkoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\FieldValue.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FieldValueAnswer.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FilledField.cs">
       <DependentUpon>EzkoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Form.cs">

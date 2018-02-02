@@ -18,6 +18,7 @@ namespace DatabaseCommunicator.Model
         {
             this.Budgets = new HashSet<Budget>();
             this.CalendarEvents = new HashSet<CalendarEvent>();
+            this.FilledFields = new HashSet<FilledField>();
         }
     
         public int ID { get; set; }
@@ -45,5 +46,6 @@ namespace DatabaseCommunicator.Model
         public virtual InsuranceCompany InsuranceCompany { get; set; }
         public virtual Sex Sex { get; set; }
         public virtual Contact Contact { get; set; }
+        public virtual ICollection<FilledField> FilledFields { get; set; }
     }
 }

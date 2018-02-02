@@ -202,7 +202,7 @@ namespace EZKO.UserControls.Patients
                 Patient item = senderGrid.Rows[e.RowIndex].Tag as Patient;
                 if (senderGrid.Columns[e.ColumnIndex].Name == "Edit")
                     EditItem(item);
-                if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
+               else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
                     RemoveItem(item);
             }
         }

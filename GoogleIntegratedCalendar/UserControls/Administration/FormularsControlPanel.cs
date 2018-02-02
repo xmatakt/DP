@@ -155,6 +155,16 @@ namespace EZKO.UserControls.Administration
                     FillDataGridView();
             }
         }
+
+        private void FillItem(DatabaseCommunicator.Model.Form item)
+        {
+            FillQuestionnaireForm form = new FillQuestionnaireForm(item);
+
+            if(form.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+        }
         #endregion
 
         #region UI events
@@ -170,7 +180,7 @@ namespace EZKO.UserControls.Administration
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
                     RemoveItem(item);
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Fill")
-                    BasicMessagesHandler.ShowInformationMessage("Timo dorob to!");
+                    FillItem(item);
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Pdf")
                     BasicMessagesHandler.ShowInformationMessage("Timo dorob to!");
             }

@@ -850,6 +850,10 @@ namespace EZKO.UserControls.Dashboard
                 else
                 {
                     DirectoriesController.CreatePatientFolderStructure(eventPatient);
+                    string rootFolderPath = DirectoriesController.GetPatientRootFolder(eventPatient);
+                    eventPatient.RootDirectoryPath = rootFolderPath;
+                    if (!ezkoController.SaveChanges())
+                        BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa uložiť cestu ku koreňovému adresáru pacienta.");
                     ChangesHolder.PatientsChanged = true;
                 }
             }

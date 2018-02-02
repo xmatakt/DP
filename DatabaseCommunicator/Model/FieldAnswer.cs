@@ -12,19 +12,16 @@ namespace DatabaseCommunicator.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class FieldValue
+    public partial class FieldAnswer
     {
-        public FieldValue()
+        public FieldAnswer()
         {
-            this.FieldValueAnswers = new HashSet<FieldValueAnswer>();
+            this.FilledFields = new HashSet<FilledField>();
         }
     
         public int ID { get; set; }
-        public int FieldID { get; set; }
-        public string Value { get; set; }
-        public bool IsDeleted { get; set; }
+        public string TextValue { get; set; }
     
-        public virtual Field Field { get; set; }
-        public virtual ICollection<FieldValueAnswer> FieldValueAnswers { get; set; }
+        public virtual ICollection<FilledField> FilledFields { get; set; }
     }
 }

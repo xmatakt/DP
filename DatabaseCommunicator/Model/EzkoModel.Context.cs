@@ -48,5 +48,8 @@ namespace DatabaseCommunicator.Model
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<CalendarEventColor> CalendarEventColors { get; set; }
         public virtual DbSet<CalendarEventExecutedAction> CalendarEventExecutedActions { get; set; }
+        public virtual DbSet<FieldAnswer> FieldAnswers { get; set; }
+        public virtual DbSet<FieldValueAnswer> FieldValueAnswers { get; set; }
+        public virtual DbSet<FilledField> FilledFields { get; set; }
     }
 }

@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ChangesHolder.cs" />
+    <Compile Include="Classes\FormGenerator.cs" />
     <Compile Include="Controllers\DirectoriesController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Enums\PanelLoadingEnum.cs" />
@@ -109,6 +110,12 @@
     </Compile>
     <Compile Include="Forms\AdministrationForms\EditFieldForm.Designer.cs">
       <DependentUpon>EditFieldForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\FillQuestionnaireForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AdministrationForms\FillQuestionnaireForm.Designer.cs">
+      <DependentUpon>FillQuestionnaireForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DateTimePickerForm.cs">
       <SubType>Form</SubType>
@@ -319,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdministrationForms\EditFieldForm.resx">
       <DependentUpon>EditFieldForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AdministrationForms\FillQuestionnaireForm.resx">
+      <DependentUpon>FillQuestionnaireForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DateTimePickerForm.resx">
       <DependentUpon>DateTimePickerForm.cs</DependentUpon>
