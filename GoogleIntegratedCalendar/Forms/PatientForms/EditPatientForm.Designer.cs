@@ -101,6 +101,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.patientsFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.doctorsFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.documentsTabPage = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.budgetsPanel = new System.Windows.Forms.Panel();
+            this.budgetsLabel = new System.Windows.Forms.Label();
+            this.newBudgetButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.documentsPanel = new System.Windows.Forms.Panel();
+            this.documentsLabel = new System.Windows.Forms.Label();
+            this.addDocumentButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.documentsDataGridView = new System.Windows.Forms.DataGridView();
+            this.budgetsDataGridView = new System.Windows.Forms.DataGridView();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.topMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).BeginInit();
@@ -117,6 +127,12 @@
             this.pictureDocumentationTabPage.SuspendLayout();
             this.textDocumentationTabPage.SuspendLayout();
             this.tablePanel.SuspendLayout();
+            this.documentsTabPage.SuspendLayout();
+            this.tableLayoutPanel.SuspendLayout();
+            this.budgetsPanel.SuspendLayout();
+            this.documentsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.documentsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.budgetsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // topMenuPanel
@@ -257,6 +273,7 @@
             this.tabControl.Controls.Add(this.personalInformationTabPage);
             this.tabControl.Controls.Add(this.pictureDocumentationTabPage);
             this.tabControl.Controls.Add(this.textDocumentationTabPage);
+            this.tabControl.Controls.Add(this.documentsTabPage);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 36);
             this.tabControl.Name = "tabControl";
@@ -939,6 +956,147 @@
             this.doctorsFlowPanel.Scroll += new System.Windows.Forms.ScrollEventHandler(this.flowLayoutPanel1_Scroll);
             this.doctorsFlowPanel.Resize += new System.EventHandler(this.flowLayoutPanel_Resize);
             // 
+            // documentsTabPage
+            // 
+            this.documentsTabPage.Controls.Add(this.tableLayoutPanel);
+            this.documentsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.documentsTabPage.Name = "documentsTabPage";
+            this.documentsTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.documentsTabPage.Size = new System.Drawing.Size(1010, 446);
+            this.documentsTabPage.TabIndex = 3;
+            this.documentsTabPage.Text = "Dokumenty";
+            this.documentsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel
+            // 
+            this.tableLayoutPanel.ColumnCount = 2;
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel.Controls.Add(this.budgetsPanel, 1, 0);
+            this.tableLayoutPanel.Controls.Add(this.documentsPanel, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.documentsDataGridView, 0, 1);
+            this.tableLayoutPanel.Controls.Add(this.budgetsDataGridView, 1, 1);
+            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.tableLayoutPanel.RowCount = 2;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel.Size = new System.Drawing.Size(1004, 440);
+            this.tableLayoutPanel.TabIndex = 0;
+            // 
+            // budgetsPanel
+            // 
+            this.budgetsPanel.Controls.Add(this.budgetsLabel);
+            this.budgetsPanel.Controls.Add(this.newBudgetButton);
+            this.budgetsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.budgetsPanel.Location = new System.Drawing.Point(505, 3);
+            this.budgetsPanel.Name = "budgetsPanel";
+            this.budgetsPanel.Size = new System.Drawing.Size(496, 29);
+            this.budgetsPanel.TabIndex = 3;
+            // 
+            // budgetsLabel
+            // 
+            this.budgetsLabel.AutoSize = true;
+            this.budgetsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.budgetsLabel.Location = new System.Drawing.Point(3, 0);
+            this.budgetsLabel.Name = "budgetsLabel";
+            this.budgetsLabel.Size = new System.Drawing.Size(112, 29);
+            this.budgetsLabel.TabIndex = 0;
+            this.budgetsLabel.Text = "Rozpočty";
+            // 
+            // newBudgetButton
+            // 
+            this.newBudgetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.newBudgetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.newBudgetButton.FlatAppearance.BorderSize = 0;
+            this.newBudgetButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.newBudgetButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.newBudgetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.newBudgetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.newBudgetButton.ForeColor = System.Drawing.Color.White;
+            this.newBudgetButton.Location = new System.Drawing.Point(357, 3);
+            this.newBudgetButton.Name = "newBudgetButton";
+            this.newBudgetButton.Radius = 5;
+            this.newBudgetButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.newBudgetButton.Size = new System.Drawing.Size(136, 23);
+            this.newBudgetButton.TabIndex = 1;
+            this.newBudgetButton.Text = "+ Nový rozpočet";
+            this.newBudgetButton.UseVisualStyleBackColor = false;
+            this.newBudgetButton.Click += new System.EventHandler(this.newBudgetButton_Click);
+            // 
+            // documentsPanel
+            // 
+            this.documentsPanel.Controls.Add(this.documentsLabel);
+            this.documentsPanel.Controls.Add(this.addDocumentButton);
+            this.documentsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.documentsPanel.Location = new System.Drawing.Point(3, 3);
+            this.documentsPanel.Name = "documentsPanel";
+            this.documentsPanel.Size = new System.Drawing.Size(496, 29);
+            this.documentsPanel.TabIndex = 2;
+            // 
+            // documentsLabel
+            // 
+            this.documentsLabel.AutoSize = true;
+            this.documentsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.documentsLabel.Location = new System.Drawing.Point(0, 0);
+            this.documentsLabel.Name = "documentsLabel";
+            this.documentsLabel.Size = new System.Drawing.Size(133, 29);
+            this.documentsLabel.TabIndex = 0;
+            this.documentsLabel.Text = "Dokumenty";
+            // 
+            // addDocumentButton
+            // 
+            this.addDocumentButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.addDocumentButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.addDocumentButton.FlatAppearance.BorderSize = 0;
+            this.addDocumentButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addDocumentButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addDocumentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addDocumentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.addDocumentButton.ForeColor = System.Drawing.Color.White;
+            this.addDocumentButton.Location = new System.Drawing.Point(393, 3);
+            this.addDocumentButton.Name = "addDocumentButton";
+            this.addDocumentButton.Radius = 5;
+            this.addDocumentButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.addDocumentButton.Size = new System.Drawing.Size(100, 23);
+            this.addDocumentButton.TabIndex = 1;
+            this.addDocumentButton.Text = "+ Nový súbor";
+            this.addDocumentButton.UseVisualStyleBackColor = false;
+            this.addDocumentButton.Click += new System.EventHandler(this.addDocumentButton_Click);
+            // 
+            // documentsDataGridView
+            // 
+            this.documentsDataGridView.AllowUserToAddRows = false;
+            this.documentsDataGridView.AllowUserToDeleteRows = false;
+            this.documentsDataGridView.BackgroundColor = System.Drawing.Color.White;
+            this.documentsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.documentsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.documentsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.documentsDataGridView.Location = new System.Drawing.Point(3, 38);
+            this.documentsDataGridView.Name = "documentsDataGridView";
+            this.documentsDataGridView.ReadOnly = true;
+            this.documentsDataGridView.Size = new System.Drawing.Size(496, 399);
+            this.documentsDataGridView.TabIndex = 4;
+            this.documentsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.documentsDataGridView_CellContentClick);
+            this.documentsDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.documentsDataGridView_CellMouseDoubleClick);
+            // 
+            // budgetsDataGridView
+            // 
+            this.budgetsDataGridView.AllowUserToAddRows = false;
+            this.budgetsDataGridView.AllowUserToDeleteRows = false;
+            this.budgetsDataGridView.BackgroundColor = System.Drawing.Color.White;
+            this.budgetsDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.budgetsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.budgetsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.budgetsDataGridView.Location = new System.Drawing.Point(505, 38);
+            this.budgetsDataGridView.Name = "budgetsDataGridView";
+            this.budgetsDataGridView.ReadOnly = true;
+            this.budgetsDataGridView.Size = new System.Drawing.Size(496, 399);
+            this.budgetsDataGridView.TabIndex = 5;
+            this.budgetsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.budgetsDataGridView_CellContentClick);
+            this.budgetsDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.budgetsDataGridView_CellMouseDoubleClick);
+            // 
             // EditPatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -976,6 +1134,14 @@
             this.textDocumentationTabPage.ResumeLayout(false);
             this.tablePanel.ResumeLayout(false);
             this.tablePanel.PerformLayout();
+            this.documentsTabPage.ResumeLayout(false);
+            this.tableLayoutPanel.ResumeLayout(false);
+            this.budgetsPanel.ResumeLayout(false);
+            this.budgetsPanel.PerformLayout();
+            this.documentsPanel.ResumeLayout(false);
+            this.documentsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.documentsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.budgetsDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1056,5 +1222,15 @@
         private System.Windows.Forms.TableLayoutPanel tablePanel;
         private System.Windows.Forms.Label doctorsColumnLabel;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabPage documentsTabPage;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.Panel budgetsPanel;
+        private System.Windows.Forms.Label budgetsLabel;
+        private UserControls.FlatControls.RoundButton newBudgetButton;
+        private System.Windows.Forms.Panel documentsPanel;
+        private System.Windows.Forms.Label documentsLabel;
+        private UserControls.FlatControls.RoundButton addDocumentButton;
+        private System.Windows.Forms.DataGridView documentsDataGridView;
+        private System.Windows.Forms.DataGridView budgetsDataGridView;
     }
 }

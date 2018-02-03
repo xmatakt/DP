@@ -89,6 +89,15 @@ namespace EZKO.Controllers
         }
 
         /// <summary>
+        /// Returns the documents folder for supplied patient
+        /// </summary>
+        /// <param name="patient">Supplied patient</param>
+        public static string GetPatientDocumentsFolder(Patient patient)
+        {
+            return GetPatientRootFolder(patient) + @"\documents";
+        }
+
+        /// <summary>
         /// Returns path to supplied image in the EZKO directory structure for supplied user
         /// </summary>
         /// <param name="userName">Supplied user</param>
@@ -114,6 +123,10 @@ namespace EZKO.Controllers
             try
             {
                 var path = GetPatientImageFolder(patient);
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                path = GetPatientDocumentsFolder(patient);
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
             }
@@ -199,6 +212,48 @@ namespace EZKO.Controllers
                 return Image.FromFile(path);
             else
                 return defaultImage;
+        }
+
+        public static bool CopyToDocumentsFolder(Patient patient, string filePath)
+        {
+            bool result = true;
+
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    FileInfo fileInfo = new FileInfo(filePath);
+                    string destinationPath = GetPatientDocumentsFolder(patient) + @"\" + fileInfo.Name;
+                    if(!File.Exists(destinationPath))
+                        File.Copy(filePath, destinationPath);
+                }
+                catch (Exception e)
+                {
+                    BasicMessagesHandler.LogException(e);
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        public static bool RemoveFile(string path)
+        {
+            bool result = true;
+
+            try
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+            }
+            catch (Exception e)
+            {
+                result = false;
+            }
+
+            return result;
         }
     }
 }

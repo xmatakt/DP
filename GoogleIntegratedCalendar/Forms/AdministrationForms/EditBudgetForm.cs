@@ -43,7 +43,7 @@ namespace EZKO.Forms.AdministrationForms
             set
             {
                 patientTextBox.Tag = value;
-               patientTextBox.Text = value.FullName;
+                patientTextBox.Text = value.FullName;
             }
         }
 
@@ -98,6 +98,12 @@ namespace EZKO.Forms.AdministrationForms
             dataGridView.RowHeadersVisible = false;
 
             InitializeDataGridView();
+        }
+
+        public EditBudgetForm(WorkingTypeEnum workingType, Patient patient) : this(workingType)
+        {
+            this.patient = patient;
+            patientTextBox.Enabled = false;
         }
 
         public EditBudgetForm(Budget budget)

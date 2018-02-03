@@ -5,6 +5,7 @@ using ExceptionHandler;
 using EZKO.Classes;
 using EZKO.Controllers;
 using EZKO.Enums;
+using EZKO.UserControls;
 using EZKO.UserControls.FlatControls;
 using System;
 using System.Collections.Generic;
@@ -349,14 +350,6 @@ namespace EZKO.Forms.AdministrationForms
         #endregion
         #endregion
 
-        public EditPatientForm(WorkingTypeEnum workingType)
-        {
-            InitializeComponent();
-
-            this.ezkoController = GlobalSettings.EzkoController;
-            this.workingType = workingType;
-        }
-
         public EditPatientForm(Patient patient)
         {
             InitializeComponent();
@@ -377,6 +370,7 @@ namespace EZKO.Forms.AdministrationForms
                 InitializePersonalInfoTab();
                 InitializeTreeViewTab();
                 InitializeTextDocumentationTab();
+                InitializeDocumentsTab();
             }
             catch(Exception ex)
             {
@@ -439,6 +433,180 @@ namespace EZKO.Forms.AdministrationForms
         private void InitializeTextDocumentationTab()
         {
             FormGenerator.GenerateOverview(patient.ID, GlobalSettings.User.ID, doctorsFlowPanel, patientsFlowPanel, ezkoController.GetFields().ToList());
+        }
+
+        private void InitializeDocumentsTab()
+        {
+            InitializeDocumentsGrid();
+            InitializeBudgetsGrid();
+
+            FillDocumentsGrid();
+            FillBudgetsGrid();
+        }
+
+        private void InitializeDocumentsGrid()
+        {
+            documentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            documentsDataGridView.GridColor = Color.White;
+            documentsDataGridView.AllowUserToResizeRows = false;
+            documentsDataGridView.AllowUserToResizeColumns = true;
+            documentsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            documentsDataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
+            documentsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            documentsDataGridView.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
+            documentsDataGridView.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
+            documentsDataGridView.BackgroundColor = Color.White;
+            documentsDataGridView.EnableHeadersVisualStyles = false;
+            documentsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            documentsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
+            documentsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            documentsDataGridView.RowHeadersVisible = false;
+
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Name",
+                HeaderText = "Názov",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            documentsDataGridView.Columns.Add(nameColumn);
+
+            DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Last",
+                HeaderText = "",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+            };
+            documentsDataGridView.Columns.Add(fillEmptySpaceColumn);
+
+            DataGridViewButtonColumn showColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Show",
+                HeaderText = "Akcie",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            showColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorGreen;
+            showColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorGreen;
+            documentsDataGridView.Columns.Add(showColumn);
+
+            DataGridViewButtonColumn removeColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Remove",
+                HeaderText = "",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            removeColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorRed;
+            removeColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorRed;
+            documentsDataGridView.Columns.Add(removeColumn);
+        }
+
+        private void InitializeBudgetsGrid()
+        {
+            budgetsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            budgetsDataGridView.GridColor = Color.White;
+            budgetsDataGridView.AllowUserToResizeRows = false;
+            budgetsDataGridView.AllowUserToResizeColumns = true;
+            budgetsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            budgetsDataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
+            budgetsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            budgetsDataGridView.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
+            budgetsDataGridView.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
+            budgetsDataGridView.BackgroundColor = Color.White;
+            budgetsDataGridView.EnableHeadersVisualStyles = false;
+            budgetsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            budgetsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
+            budgetsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            budgetsDataGridView.RowHeadersVisible = false;
+
+            DataGridViewTextBoxColumn IDColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "ID",
+                HeaderText = "ID",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            IDColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            budgetsDataGridView.Columns.Add(IDColumn);
+
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Name",
+                HeaderText = "Názov",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            budgetsDataGridView.Columns.Add(nameColumn);
+
+            DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Last",
+                HeaderText = "",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+            };
+            budgetsDataGridView.Columns.Add(fillEmptySpaceColumn);
+
+            DataGridViewButtonColumn pdfColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Pdf",
+                HeaderText = "Akcie",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            pdfColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorLightBlue;
+            pdfColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorLightBlue;
+            budgetsDataGridView.Columns.Add(pdfColumn);
+
+            DataGridViewButtonColumn editColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Edit",
+                HeaderText = "",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            editColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorBlue;
+            editColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorBlue;
+            budgetsDataGridView.Columns.Add(editColumn);
+
+            DataGridViewButtonColumn removeColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Remove",
+                HeaderText = "",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            removeColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorRed;
+            removeColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorRed;
+            budgetsDataGridView.Columns.Add(removeColumn);
+        }
+
+        private void FillDocumentsGrid()
+        {
+            documentsDataGridView.Rows.Clear();
+
+            string path = DirectoriesController.GetPatientDocumentsFolder(patient);
+
+            if (!Directory.Exists(path))
+                return;
+
+            foreach (var item in new DirectoryInfo(path).GetFiles())
+            {
+                int rowIndex = documentsDataGridView.Rows.Add(new object[]
+                { item.Name, "", "Náhľad", "Odstrániť", " " });
+
+                documentsDataGridView.Rows[rowIndex].Tag = item.FullName;
+            }
+        }
+
+        private void FillBudgetsGrid()
+        {
+            budgetsDataGridView.Rows.Clear();
+
+            foreach (var item in ezkoController.GetBudgets(patient))
+            {
+                int rowIndex = budgetsDataGridView.Rows.Add(new object[]
+                { item.ID, item.Name, "", "PDF", "Upraviť", "Zmazať", " " });
+
+                budgetsDataGridView.Rows[rowIndex].Tag = item;
+            }
         }
 
         private void BuildTree(DirectoryInfo directoryInfo, TreeNodeCollection addInMe)
@@ -729,6 +897,7 @@ namespace EZKO.Forms.AdministrationForms
         #region UI Events
         private void changeAvatarButton_Click(object sender, EventArgs e)
         {
+            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.gif, *.png) | *.jpg; *.jpeg; *.gif; *.png";
             if (openFileDialog.ShowDialog() == DialogResult.OK)
                 avatarImagePath = openFileDialog.FileName;
         }
@@ -754,7 +923,6 @@ namespace EZKO.Forms.AdministrationForms
             alternativePhoneTextBox.MaxLength = 20;
             fbTextBox.MaxLength = 80;
             idTextBox.TextAlign = HorizontalAlignment.Right;
-            openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.gif, *.png) | *.jpg; *.jpeg; *.gif; *.png";
         }
 
         private void birthDatePicker_ValueChanged(object sender, EventArgs e)
@@ -804,6 +972,109 @@ namespace EZKO.Forms.AdministrationForms
                 }
             }
         }
+
+        private void documentsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                if (senderGrid.Rows[e.RowIndex].Tag is string path && File.Exists(path))
+                {
+                    if (senderGrid.Columns[e.ColumnIndex].Name == "Show")
+                        System.Diagnostics.Process.Start(path);
+                    else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
+                    {
+                        if (MessageBox.Show("Naozaj si želáte odstrániť súbor " + path, "?",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            if (!DirectoriesController.RemoveFile(path))
+                            {
+                                BasicMessagesHandler.ShowInformationMessage("Súbor sa nepodarilo odstrániť.\n" +
+                                    "Skontrolujte prosím, či nie je otvorený v inom programe.");
+                            }
+                            else
+                                FillDocumentsGrid();
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private void documentsDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridView senderGrid = (DataGridView)sender;
+
+            if (e.RowIndex >= 0)
+            {
+                if (senderGrid.Rows[e.RowIndex].Tag is string path && File.Exists(path))
+                    System.Diagnostics.Process.Start(path);
+            }
+        }
+
+        private void budgetsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                Budget item = senderGrid.Rows[e.RowIndex].Tag as Budget;
+                if (senderGrid.Columns[e.ColumnIndex].Name == "Edit")
+                {
+                    EditBudgetForm form = new EditBudgetForm(item);
+                    if (form.ShowDialog() == DialogResult.OK)
+                        FillBudgetsGrid();
+                }
+                else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
+                {
+                    if (MessageBox.Show("Naozaj si želáte odstrániť rozpočet " + item.Name, "?",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        if (!ezkoController.RemoveBudget(item))
+                            BasicMessagesHandler.ShowErrorMessage("Rozpočet sa nepodarilo odstrániť");
+                        else
+                            FillBudgetsGrid();
+                    }
+                }
+                else if (senderGrid.Columns[e.ColumnIndex].Name == "Pdf")
+                    BasicMessagesHandler.ShowInformationMessage("Timo dorob to!");
+            }
+        }
+
+        private void budgetsDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            DataGridView senderGrid = (DataGridView)sender;
+
+            if (e.RowIndex >= 0)
+            {
+                Budget item = senderGrid.Rows[e.RowIndex].Tag as Budget;
+                EditBudgetForm form = new EditBudgetForm(item);
+                if (form.ShowDialog() == DialogResult.OK)
+                    FillBudgetsGrid();
+            }
+        }
+
+        private void addDocumentButton_Click(object sender, EventArgs e)
+        {
+            openFileDialog.Filter = "All files (*.*) | *.*;";
+            if(openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                if (!DirectoriesController.CopyToDocumentsFolder(patient, openFileDialog.FileName))
+                    BasicMessagesHandler.ShowInformationMessage("Súbor sa nepodarilo nahrať do priečinku pacienta.\n" +
+                                    "Skontrolujte prosím, či nie je súbor otvorený v inom programe.");
+                else
+                    FillDocumentsGrid();
+            }
+        }
+
+        private void newBudgetButton_Click(object sender, EventArgs e)
+        {
+            var form = new EditBudgetForm(WorkingTypeEnum.Creating, patient);
+            if (form.ShowDialog() == DialogResult.OK)
+                FillBudgetsGrid();
+        }
         #endregion
+
     }
 }
