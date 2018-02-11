@@ -35,14 +35,10 @@
             this.maximizeFormPictureBox = new System.Windows.Forms.PictureBox();
             this.closeFormPictureBox = new System.Windows.Forms.PictureBox();
             this.bottomFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.personalInformationTabPage = new System.Windows.Forms.TabPage();
             this.othersGroupBox = new System.Windows.Forms.GroupBox();
             this.noteLabel = new System.Windows.Forms.Label();
-            this.noteRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
-            this.employmentRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
             this.employmentLabel = new System.Windows.Forms.Label();
             this.contactGroupBox = new System.Windows.Forms.GroupBox();
             this.alternativePhoneTextBox = new System.Windows.Forms.TextBox();
@@ -88,10 +84,8 @@
             this.surnameLabel = new System.Windows.Forms.Label();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.nameLabel = new System.Windows.Forms.Label();
-            this.generatePdfButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.idTextBox = new System.Windows.Forms.TextBox();
             this.idLabel = new System.Windows.Forms.Label();
-            this.changeAvatarButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.avatarPictureBox = new System.Windows.Forms.PictureBox();
             this.pictureDocumentationTabPage = new System.Windows.Forms.TabPage();
             this.treeView = new System.Windows.Forms.TreeView();
@@ -105,13 +99,23 @@
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.budgetsPanel = new System.Windows.Forms.Panel();
             this.budgetsLabel = new System.Windows.Forms.Label();
-            this.newBudgetButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.documentsPanel = new System.Windows.Forms.Panel();
             this.documentsLabel = new System.Windows.Forms.Label();
-            this.addDocumentButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.documentsDataGridView = new System.Windows.Forms.DataGridView();
             this.budgetsDataGridView = new System.Windows.Forms.DataGridView();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.visitsTabPage = new System.Windows.Forms.TabPage();
+            this.searchLabel = new System.Windows.Forms.Label();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.visitsDataGridView = new System.Windows.Forms.DataGridView();
+            this.noteRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
+            this.employmentRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
+            this.generatePdfButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.changeAvatarButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.newBudgetButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.addDocumentButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.topMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximizeFormPictureBox)).BeginInit();
@@ -133,6 +137,8 @@
             this.documentsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentsDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.budgetsDataGridView)).BeginInit();
+            this.visitsTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.visitsDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // topMenuPanel
@@ -222,58 +228,13 @@
             this.bottomFlowPanel.Size = new System.Drawing.Size(1018, 36);
             this.bottomFlowPanel.TabIndex = 1;
             // 
-            // cancelButton
-            // 
-            this.cancelButton.AutoSize = true;
-            this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(173)))), ((int)(((byte)(78)))));
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.FlatAppearance.BorderSize = 0;
-            this.cancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
-            this.cancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
-            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.cancelButton.ForeColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(960, 5);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Radius = 5;
-            this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
-            this.cancelButton.Size = new System.Drawing.Size(50, 23);
-            this.cancelButton.TabIndex = 7;
-            this.cancelButton.Text = "Zrušiť";
-            this.cancelButton.UseVisualStyleBackColor = false;
-            // 
-            // addButton
-            // 
-            this.addButton.AutoSize = true;
-            this.addButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.addButton.FlatAppearance.BorderSize = 0;
-            this.addButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(906, 5);
-            this.addButton.Margin = new System.Windows.Forms.Padding(2);
-            this.addButton.Name = "addButton";
-            this.addButton.Radius = 5;
-            this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.addButton.Size = new System.Drawing.Size(50, 23);
-            this.addButton.TabIndex = 6;
-            this.addButton.Text = "Uložiť";
-            this.addButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.addButton.UseVisualStyleBackColor = false;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
-            // 
             // tabControl
             // 
             this.tabControl.Controls.Add(this.personalInformationTabPage);
             this.tabControl.Controls.Add(this.pictureDocumentationTabPage);
             this.tabControl.Controls.Add(this.textDocumentationTabPage);
             this.tabControl.Controls.Add(this.documentsTabPage);
+            this.tabControl.Controls.Add(this.visitsTabPage);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 36);
             this.tabControl.Name = "tabControl";
@@ -325,27 +286,6 @@
             this.noteLabel.Size = new System.Drawing.Size(69, 13);
             this.noteLabel.TabIndex = 0;
             this.noteLabel.Text = "Poznámka:";
-            // 
-            // noteRichTextBox
-            // 
-            this.noteRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.noteRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.noteRichTextBox.Location = new System.Drawing.Point(6, 145);
-            this.noteRichTextBox.Name = "noteRichTextBox";
-            this.noteRichTextBox.Size = new System.Drawing.Size(516, 78);
-            this.noteRichTextBox.TabIndex = 1;
-            // 
-            // employmentRichTextBox
-            // 
-            this.employmentRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.employmentRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.employmentRichTextBox.Location = new System.Drawing.Point(6, 42);
-            this.employmentRichTextBox.Name = "employmentRichTextBox";
-            this.employmentRichTextBox.Size = new System.Drawing.Size(516, 78);
-            this.employmentRichTextBox.TabIndex = 0;
             // 
             // employmentLabel
             // 
@@ -787,26 +727,6 @@
             this.nameLabel.TabIndex = 11;
             this.nameLabel.Text = "Meno:";
             // 
-            // generatePdfButton
-            // 
-            this.generatePdfButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.generatePdfButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(192)))), ((int)(((byte)(222)))));
-            this.generatePdfButton.FlatAppearance.BorderSize = 0;
-            this.generatePdfButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(176)))), ((int)(((byte)(213)))));
-            this.generatePdfButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(176)))), ((int)(((byte)(213)))));
-            this.generatePdfButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.generatePdfButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.generatePdfButton.ForeColor = System.Drawing.Color.White;
-            this.generatePdfButton.Location = new System.Drawing.Point(12, 417);
-            this.generatePdfButton.Name = "generatePdfButton";
-            this.generatePdfButton.Radius = 5;
-            this.generatePdfButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatLightBlue;
-            this.generatePdfButton.Size = new System.Drawing.Size(163, 23);
-            this.generatePdfButton.TabIndex = 4;
-            this.generatePdfButton.Text = "Generovať PDF";
-            this.generatePdfButton.UseVisualStyleBackColor = false;
-            this.generatePdfButton.Click += new System.EventHandler(this.generatePdfButton_Click);
-            // 
             // idTextBox
             // 
             this.idTextBox.Location = new System.Drawing.Point(74, 221);
@@ -824,25 +744,6 @@
             this.idLabel.Size = new System.Drawing.Size(24, 13);
             this.idLabel.TabIndex = 2;
             this.idLabel.Text = "ID:";
-            // 
-            // changeAvatarButton
-            // 
-            this.changeAvatarButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.changeAvatarButton.FlatAppearance.BorderSize = 0;
-            this.changeAvatarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.changeAvatarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.changeAvatarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.changeAvatarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.changeAvatarButton.ForeColor = System.Drawing.Color.White;
-            this.changeAvatarButton.Location = new System.Drawing.Point(8, 181);
-            this.changeAvatarButton.Name = "changeAvatarButton";
-            this.changeAvatarButton.Radius = 5;
-            this.changeAvatarButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.changeAvatarButton.Size = new System.Drawing.Size(166, 23);
-            this.changeAvatarButton.TabIndex = 1;
-            this.changeAvatarButton.Text = "Zmeniť";
-            this.changeAvatarButton.UseVisualStyleBackColor = false;
-            this.changeAvatarButton.Click += new System.EventHandler(this.changeAvatarButton_Click);
             // 
             // avatarPictureBox
             // 
@@ -1005,26 +906,6 @@
             this.budgetsLabel.TabIndex = 0;
             this.budgetsLabel.Text = "Rozpočty";
             // 
-            // newBudgetButton
-            // 
-            this.newBudgetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.newBudgetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.newBudgetButton.FlatAppearance.BorderSize = 0;
-            this.newBudgetButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.newBudgetButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.newBudgetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.newBudgetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.newBudgetButton.ForeColor = System.Drawing.Color.White;
-            this.newBudgetButton.Location = new System.Drawing.Point(357, 3);
-            this.newBudgetButton.Name = "newBudgetButton";
-            this.newBudgetButton.Radius = 5;
-            this.newBudgetButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.newBudgetButton.Size = new System.Drawing.Size(136, 23);
-            this.newBudgetButton.TabIndex = 1;
-            this.newBudgetButton.Text = "+ Nový rozpočet";
-            this.newBudgetButton.UseVisualStyleBackColor = false;
-            this.newBudgetButton.Click += new System.EventHandler(this.newBudgetButton_Click);
-            // 
             // documentsPanel
             // 
             this.documentsPanel.Controls.Add(this.documentsLabel);
@@ -1044,26 +925,6 @@
             this.documentsLabel.Size = new System.Drawing.Size(133, 29);
             this.documentsLabel.TabIndex = 0;
             this.documentsLabel.Text = "Dokumenty";
-            // 
-            // addDocumentButton
-            // 
-            this.addDocumentButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addDocumentButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.addDocumentButton.FlatAppearance.BorderSize = 0;
-            this.addDocumentButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addDocumentButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addDocumentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addDocumentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.addDocumentButton.ForeColor = System.Drawing.Color.White;
-            this.addDocumentButton.Location = new System.Drawing.Point(393, 3);
-            this.addDocumentButton.Name = "addDocumentButton";
-            this.addDocumentButton.Radius = 5;
-            this.addDocumentButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.addDocumentButton.Size = new System.Drawing.Size(100, 23);
-            this.addDocumentButton.TabIndex = 1;
-            this.addDocumentButton.Text = "+ Nový súbor";
-            this.addDocumentButton.UseVisualStyleBackColor = false;
-            this.addDocumentButton.Click += new System.EventHandler(this.addDocumentButton_Click);
             // 
             // documentsDataGridView
             // 
@@ -1096,6 +957,195 @@
             this.budgetsDataGridView.TabIndex = 5;
             this.budgetsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.budgetsDataGridView_CellContentClick);
             this.budgetsDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.budgetsDataGridView_CellMouseDoubleClick);
+            // 
+            // visitsTabPage
+            // 
+            this.visitsTabPage.Controls.Add(this.visitsDataGridView);
+            this.visitsTabPage.Controls.Add(this.searchTextBox);
+            this.visitsTabPage.Controls.Add(this.searchLabel);
+            this.visitsTabPage.Location = new System.Drawing.Point(4, 22);
+            this.visitsTabPage.Name = "visitsTabPage";
+            this.visitsTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.visitsTabPage.Size = new System.Drawing.Size(1010, 446);
+            this.visitsTabPage.TabIndex = 4;
+            this.visitsTabPage.Text = "Návštevy";
+            this.visitsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // searchLabel
+            // 
+            this.searchLabel.AutoSize = true;
+            this.searchLabel.Location = new System.Drawing.Point(8, 20);
+            this.searchLabel.Name = "searchLabel";
+            this.searchLabel.Size = new System.Drawing.Size(76, 13);
+            this.searchLabel.TabIndex = 0;
+            this.searchLabel.Text = "Vyhľadávanie:";
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(90, 17);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(190, 20);
+            this.searchTextBox.TabIndex = 1;
+            // 
+            // visitsDataGridView
+            // 
+            this.visitsDataGridView.AllowUserToAddRows = false;
+            this.visitsDataGridView.AllowUserToDeleteRows = false;
+            this.visitsDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.visitsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.visitsDataGridView.Location = new System.Drawing.Point(8, 53);
+            this.visitsDataGridView.Name = "visitsDataGridView";
+            this.visitsDataGridView.ReadOnly = true;
+            this.visitsDataGridView.Size = new System.Drawing.Size(994, 387);
+            this.visitsDataGridView.TabIndex = 2;
+            // 
+            // noteRichTextBox
+            // 
+            this.noteRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.noteRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.noteRichTextBox.Location = new System.Drawing.Point(6, 145);
+            this.noteRichTextBox.Name = "noteRichTextBox";
+            this.noteRichTextBox.Size = new System.Drawing.Size(516, 78);
+            this.noteRichTextBox.TabIndex = 1;
+            // 
+            // employmentRichTextBox
+            // 
+            this.employmentRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.employmentRichTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.employmentRichTextBox.Location = new System.Drawing.Point(6, 42);
+            this.employmentRichTextBox.Name = "employmentRichTextBox";
+            this.employmentRichTextBox.Size = new System.Drawing.Size(516, 78);
+            this.employmentRichTextBox.TabIndex = 0;
+            // 
+            // generatePdfButton
+            // 
+            this.generatePdfButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.generatePdfButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(192)))), ((int)(((byte)(222)))));
+            this.generatePdfButton.FlatAppearance.BorderSize = 0;
+            this.generatePdfButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(176)))), ((int)(((byte)(213)))));
+            this.generatePdfButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(176)))), ((int)(((byte)(213)))));
+            this.generatePdfButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.generatePdfButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.generatePdfButton.ForeColor = System.Drawing.Color.White;
+            this.generatePdfButton.Location = new System.Drawing.Point(12, 417);
+            this.generatePdfButton.Name = "generatePdfButton";
+            this.generatePdfButton.Radius = 5;
+            this.generatePdfButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatLightBlue;
+            this.generatePdfButton.Size = new System.Drawing.Size(163, 23);
+            this.generatePdfButton.TabIndex = 4;
+            this.generatePdfButton.Text = "Generovať PDF";
+            this.generatePdfButton.UseVisualStyleBackColor = false;
+            this.generatePdfButton.Click += new System.EventHandler(this.generatePdfButton_Click);
+            // 
+            // changeAvatarButton
+            // 
+            this.changeAvatarButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.changeAvatarButton.FlatAppearance.BorderSize = 0;
+            this.changeAvatarButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.changeAvatarButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.changeAvatarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.changeAvatarButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.changeAvatarButton.ForeColor = System.Drawing.Color.White;
+            this.changeAvatarButton.Location = new System.Drawing.Point(8, 181);
+            this.changeAvatarButton.Name = "changeAvatarButton";
+            this.changeAvatarButton.Radius = 5;
+            this.changeAvatarButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.changeAvatarButton.Size = new System.Drawing.Size(166, 23);
+            this.changeAvatarButton.TabIndex = 1;
+            this.changeAvatarButton.Text = "Zmeniť";
+            this.changeAvatarButton.UseVisualStyleBackColor = false;
+            this.changeAvatarButton.Click += new System.EventHandler(this.changeAvatarButton_Click);
+            // 
+            // newBudgetButton
+            // 
+            this.newBudgetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.newBudgetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.newBudgetButton.FlatAppearance.BorderSize = 0;
+            this.newBudgetButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.newBudgetButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.newBudgetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.newBudgetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.newBudgetButton.ForeColor = System.Drawing.Color.White;
+            this.newBudgetButton.Location = new System.Drawing.Point(357, 3);
+            this.newBudgetButton.Name = "newBudgetButton";
+            this.newBudgetButton.Radius = 5;
+            this.newBudgetButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.newBudgetButton.Size = new System.Drawing.Size(136, 23);
+            this.newBudgetButton.TabIndex = 1;
+            this.newBudgetButton.Text = "+ Nový rozpočet";
+            this.newBudgetButton.UseVisualStyleBackColor = false;
+            this.newBudgetButton.Click += new System.EventHandler(this.newBudgetButton_Click);
+            // 
+            // addDocumentButton
+            // 
+            this.addDocumentButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.addDocumentButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.addDocumentButton.FlatAppearance.BorderSize = 0;
+            this.addDocumentButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addDocumentButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addDocumentButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addDocumentButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.addDocumentButton.ForeColor = System.Drawing.Color.White;
+            this.addDocumentButton.Location = new System.Drawing.Point(393, 3);
+            this.addDocumentButton.Name = "addDocumentButton";
+            this.addDocumentButton.Radius = 5;
+            this.addDocumentButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.addDocumentButton.Size = new System.Drawing.Size(100, 23);
+            this.addDocumentButton.TabIndex = 1;
+            this.addDocumentButton.Text = "+ Nový súbor";
+            this.addDocumentButton.UseVisualStyleBackColor = false;
+            this.addDocumentButton.Click += new System.EventHandler(this.addDocumentButton_Click);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.AutoSize = true;
+            this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(173)))), ((int)(((byte)(78)))));
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.FlatAppearance.BorderSize = 0;
+            this.cancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
+            this.cancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.cancelButton.ForeColor = System.Drawing.Color.White;
+            this.cancelButton.Location = new System.Drawing.Point(960, 5);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Radius = 5;
+            this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
+            this.cancelButton.Size = new System.Drawing.Size(50, 23);
+            this.cancelButton.TabIndex = 7;
+            this.cancelButton.Text = "Zrušiť";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            // 
+            // addButton
+            // 
+            this.addButton.AutoSize = true;
+            this.addButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.addButton.FlatAppearance.BorderSize = 0;
+            this.addButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.addButton.ForeColor = System.Drawing.Color.White;
+            this.addButton.Location = new System.Drawing.Point(906, 5);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2);
+            this.addButton.Name = "addButton";
+            this.addButton.Radius = 5;
+            this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.addButton.Size = new System.Drawing.Size(50, 23);
+            this.addButton.TabIndex = 6;
+            this.addButton.Text = "Uložiť";
+            this.addButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.addButton.UseVisualStyleBackColor = false;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // EditPatientForm
             // 
@@ -1142,6 +1192,9 @@
             this.documentsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentsDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.budgetsDataGridView)).EndInit();
+            this.visitsTabPage.ResumeLayout(false);
+            this.visitsTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.visitsDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1232,5 +1285,9 @@
         private UserControls.FlatControls.RoundButton addDocumentButton;
         private System.Windows.Forms.DataGridView documentsDataGridView;
         private System.Windows.Forms.DataGridView budgetsDataGridView;
+        private System.Windows.Forms.TabPage visitsTabPage;
+        private System.Windows.Forms.DataGridView visitsDataGridView;
+        private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.Label searchLabel;
     }
 }

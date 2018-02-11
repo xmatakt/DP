@@ -74,6 +74,12 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        public IQueryable<CalendarEvent> GetEvents(int patientID)
+        {
+            return db.CalendarEvents.Where(x => x.PatientID == patientID &&
+                !x.IsDeleted);
+        }
+
         /// <summary>
         /// Use this method to delete desired CalendarEvents by their ids
         /// </summary>

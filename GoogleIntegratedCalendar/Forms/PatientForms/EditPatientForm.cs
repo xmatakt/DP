@@ -371,6 +371,7 @@ namespace EZKO.Forms.AdministrationForms
                 InitializeTreeViewTab();
                 InitializeTextDocumentationTab();
                 InitializeDocumentsTab();
+                InitializeVisitsTab();
             }
             catch(Exception ex)
             {
@@ -578,10 +579,144 @@ namespace EZKO.Forms.AdministrationForms
             budgetsDataGridView.Columns.Add(removeColumn);
         }
 
+        private void InitializeVisitsTab()
+        {
+            visitsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            visitsDataGridView.GridColor = Color.White;
+            visitsDataGridView.AllowUserToResizeRows = false;
+            visitsDataGridView.AllowUserToResizeColumns = true;
+            visitsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            visitsDataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
+            visitsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            visitsDataGridView.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
+            visitsDataGridView.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
+            visitsDataGridView.BackgroundColor = Color.White;
+            visitsDataGridView.EnableHeadersVisualStyles = false;
+            visitsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            visitsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
+            visitsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            visitsDataGridView.RowHeadersVisible = false;
+            visitsDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
+
+            DataGridViewTextBoxColumn statusColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Status",
+                HeaderText = "Status",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            statusColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            visitsDataGridView.Columns.Add(statusColumn);
+
+            DataGridViewTextBoxColumn doctorColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Doctor",
+                HeaderText = "Doktor",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            visitsDataGridView.Columns.Add(doctorColumn);
+
+            DataGridViewTextBoxColumn nurseColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Nurse",
+                HeaderText = "Sestra",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            visitsDataGridView.Columns.Add(nurseColumn);
+
+            DataGridViewTextBoxColumn startColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Start",
+                HeaderText = "Začiatok",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            visitsDataGridView.Columns.Add(startColumn);
+
+            DataGridViewTextBoxColumn endColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "End",
+                HeaderText = "Koniec",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            visitsDataGridView.Columns.Add(endColumn);
+
+            DataGridViewTextBoxColumn plannedActionsColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "PlannedActions",
+                HeaderText = "Plánované výkony",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            plannedActionsColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            visitsDataGridView.Columns.Add(plannedActionsColumn);
+
+            DataGridViewTextBoxColumn doneActionsColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "DoneActions",
+                HeaderText = "Vykonané výkony",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            doneActionsColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            visitsDataGridView.Columns.Add(doneActionsColumn);
+
+            DataGridViewTextBoxColumn infrastructureColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Infrastructure",
+                HeaderText = "Infraštruktúra",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            visitsDataGridView.Columns.Add(infrastructureColumn);
+
+            DataGridViewTextBoxColumn noteColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Note",
+                HeaderText = "Poznámka",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            visitsDataGridView.Columns.Add(noteColumn);
+
+            DataGridViewTextBoxColumn priceColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "TotalPrice",
+                HeaderText = "Celková cena",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            visitsDataGridView.Columns.Add(priceColumn);
+
+            DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Last",
+                HeaderText = "",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+            };
+            visitsDataGridView.Columns.Add(fillEmptySpaceColumn);
+
+            DataGridViewButtonColumn pdfColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Pdf",
+                HeaderText = "Doklad",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            pdfColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorLightBlue;
+            pdfColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorLightBlue;
+            visitsDataGridView.Columns.Add(pdfColumn);
+
+            DataGridViewButtonColumn viewColumn = new DataGridViewButtonColumn()
+            {
+                Name = "View",
+                HeaderText = "Náhľad",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            viewColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorBlue;
+            viewColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorBlue;
+            visitsDataGridView.Columns.Add(viewColumn);
+
+            FillVisitsGrid();
+        }
+
         private void FillDocumentsGrid()
         {
             documentsDataGridView.Rows.Clear();
-
             string path = DirectoriesController.GetPatientDocumentsFolder(patient);
 
             if (!Directory.Exists(path))
@@ -607,6 +742,45 @@ namespace EZKO.Forms.AdministrationForms
 
                 budgetsDataGridView.Rows[rowIndex].Tag = item;
             }
+        }
+
+        private void FillVisitsGrid()
+        {
+            if (patient == null)
+                return;
+
+            visitsDataGridView.Rows.Clear();
+
+            foreach (var item in ezkoController.GetEvents(patient.ID))
+            {
+                int rowIndex = visitsDataGridView.Rows.Add(new object[]
+                { item.EventState.ToString().ToLower(), GetItems(item.Users.Where(x => x.RoleID == (int)UserRoleEnum.Doctor).ToList()),
+                    GetItems(item.Users.Where(x => x.RoleID == (int)UserRoleEnum.Nurse).ToList()), item.StartDate, item.EndDate,
+                    GetItems(item.Actions), GetItems(item.CalendarEventExecutedActions), GetItems(item.Infrastructures), item.Description,
+                    "CENA","", "Pdf", "Náhľad"});
+
+                visitsDataGridView.Rows[rowIndex].Tag = item;
+            }
+        }
+
+        private string GetItems<T>(ICollection<T> collection)
+        {
+            if (collection == null)
+                return "";
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var item in collection)
+            {
+                if (item is CalendarEventExecutedAction)
+                {
+                    CalendarEventExecutedAction action = item as CalendarEventExecutedAction;
+                    sb.AppendLine(action.Action.ToString());
+                }
+                else
+                    sb.AppendLine(item.ToString());
+            }
+
+            return sb.ToString();
         }
 
         private void BuildTree(DirectoryInfo directoryInfo, TreeNodeCollection addInMe)
