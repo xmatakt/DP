@@ -173,6 +173,12 @@
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
     <Compile Include="StringKeys.cs" />
+    <Compile Include="TmpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TmpForm.Designer.cs">
+      <DependentUpon>TmpForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Administration\ActionsControlPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -364,6 +370,9 @@
     <EmbeddedResource Include="Resources\Language.sk.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="TmpForm.resx">
+      <DependentUpon>TmpForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Administration\ActionsControlPanel.resx">
       <DependentUpon>ActionsControlPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -548,6 +557,10 @@
     <ProjectReference Include="..\GoogleCalendarSynchronizer\GoogleCalendarSynchronizer.csproj">
       <Project>{99b6b732-f074-45d7-85ea-a56005cc0a27}</Project>
       <Name>GoogleCalendarSynchronizer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PDFCreator\PDFCreator.csproj">
+      <Project>{0097533b-b732-41b5-8d67-434bccba243b}</Project>
+      <Name>PDFCreator</Name>
     </ProjectReference>
     <ProjectReference Include="..\System.Windows.Forms.Calendar\System.Windows.Forms.Calendar.csproj">
       <Project>{25649f08-3046-4891-adb8-7ea787b57063}</Project>

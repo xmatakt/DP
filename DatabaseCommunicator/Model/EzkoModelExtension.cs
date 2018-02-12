@@ -59,6 +59,14 @@ namespace DatabaseCommunicator.Model
         }
     }
 
+    public partial class Budget
+    {
+        public string PdfFile()
+        {
+            return Patient.Name + "_" + Patient.Surname + "_rozpocet_" + ID + ".pdf";
+        }
+    }
+
     public partial class CalendarEvent
     {
         public override string ToString()

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            PresentationControls.CheckBoxProperties checkBoxProperties3 = new PresentationControls.CheckBoxProperties();
             PresentationControls.CheckBoxProperties checkBoxProperties1 = new PresentationControls.CheckBoxProperties();
-            PresentationControls.CheckBoxProperties checkBoxProperties2 = new PresentationControls.CheckBoxProperties();
             this.mainFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.newVisitPanel = new System.Windows.Forms.Panel();
             this.newVisitButton = new EZKO.UserControls.FlatControls.RoundButton();
@@ -579,8 +579,8 @@
             // 
             // plannedActionsComboBox
             // 
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.plannedActionsComboBox.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.plannedActionsComboBox.CheckBoxProperties = checkBoxProperties3;
             this.plannedActionsComboBox.DisplayMemberSingleItem = "";
             this.plannedActionsComboBox.FormattingEnabled = true;
             this.plannedActionsComboBox.Location = new System.Drawing.Point(5, 222);
@@ -678,13 +678,13 @@
             // 
             // doctorsCheckBoxComboBox
             // 
-            checkBoxProperties2.AutoSize = true;
-            checkBoxProperties2.FlatAppearanceBorderColor = System.Drawing.Color.Silver;
-            checkBoxProperties2.FlatAppearanceCheckedBackColor = System.Drawing.Color.Red;
-            checkBoxProperties2.FlatAppearanceMouseDownBackColor = System.Drawing.Color.Lime;
-            checkBoxProperties2.FlatAppearanceMouseOverBackColor = System.Drawing.Color.Cyan;
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.doctorsCheckBoxComboBox.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties1.AutoSize = true;
+            checkBoxProperties1.FlatAppearanceBorderColor = System.Drawing.Color.Silver;
+            checkBoxProperties1.FlatAppearanceCheckedBackColor = System.Drawing.Color.Red;
+            checkBoxProperties1.FlatAppearanceMouseDownBackColor = System.Drawing.Color.Lime;
+            checkBoxProperties1.FlatAppearanceMouseOverBackColor = System.Drawing.Color.Cyan;
+            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.doctorsCheckBoxComboBox.CheckBoxProperties = checkBoxProperties1;
             this.doctorsCheckBoxComboBox.DisplayMemberSingleItem = "";
             this.doctorsCheckBoxComboBox.FormattingEnabled = true;
             this.doctorsCheckBoxComboBox.Location = new System.Drawing.Point(62, 4);

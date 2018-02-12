@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DatabaseCommunicator.Controllers;
 using DatabaseCommunicator.Model;
+using PDFCreator.EZKODocumentation;
 using ExceptionHandler;
 using EZKO.Forms.AdministrationForms;
+using EZKO.Controllers;
 
 namespace EZKO.UserControls.Administration
 {
@@ -170,7 +167,14 @@ namespace EZKO.UserControls.Administration
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
                     RemoveItem(item);
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Pdf")
-                    BasicMessagesHandler.ShowInformationMessage("Timo dorob to!");
+                {
+                    string path = DirectoriesController.GetPatientDocumentsFolder(item.Patient) + @"\" + item.PdfFile();
+                    BudgetToPDF budgetToPdf = new BudgetToPDF(path, item);
+                    if(budgetToPdf.CreatePdf())
+                    {
+                        System.Diagnostics.Process.Start(path);
+                    }
+                }
             }
         }
 

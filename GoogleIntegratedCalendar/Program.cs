@@ -19,6 +19,7 @@ namespace EZKO
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainForm());
+                //Application.Run(new TmpForm());
                 //Application.Run(new Forms.AdministrationForms.EditUserForm(Enums.WorkingTypeEnum.Creating));
                 //Application.Run(new Forms.AdministrationForms.EditInsuranceCompanyForm(Enums.WorkingTypeEnum.Creating));
                 //Application.Run(new Forms.AdministrationForms.EditActionForm(Enums.WorkingTypeEnum.Creating));
