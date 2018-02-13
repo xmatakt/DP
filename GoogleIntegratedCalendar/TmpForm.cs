@@ -25,10 +25,16 @@ namespace EZKO
         private void button1_Click(object sender, EventArgs e)
         {
             EzkoEntities db = new EzkoEntities(GlobalSettings.ConnectionString);
-            Budget b = db.Budgets.First(x => x.PatientID == 10);
+            //Budget b = db.Budgets.First(x => x.PatientID == 10);
 
-            PDFCreator.EZKODocumentation.BudgetToPDF pdf = new PDFCreator.EZKODocumentation.BudgetToPDF(@"C:\AATimo\tmp.pdf", b);
-            pdf.CreatePdf();
+            //PDFCreator.EZKODocumentation.BudgetToPDF pdf = new PDFCreator.EZKODocumentation.BudgetToPDF(@"C:\AATimo\tmp.pdf", b);
+            //pdf.CreatePdf();
+
+            var v = db.Forms.First(x => x.ID == 1);
+
+            PDFCreator.EZKODocumentation.FormToPDF pdf = new PDFCreator.EZKODocumentation.FormToPDF(@"C:\AATimo\tmp.pdf", v);
+            if (pdf.CreatePdf())
+                System.Diagnostics.Process.Start(@"C:\AATimo\tmp.pdf");
         }
     }
 }

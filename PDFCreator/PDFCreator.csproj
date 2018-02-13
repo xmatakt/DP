@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EZKODocumentation\BudgetToPDF.cs" />
+    <Compile Include="EZKODocumentation\FormToPDF.cs" />
     <Compile Include="PDFCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
