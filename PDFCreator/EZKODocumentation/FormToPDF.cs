@@ -33,54 +33,29 @@ namespace PDFCreator.EZKODocumentation
                     float currentY = Y;
 
                     foreach (var item in form.FieldForms)
-                    {
-                        ColumnText ct = new ColumnText(ContentByte);
-                        ct.SetSimpleColumn(LX, currentY, RX, currentY - 30);
-                        ct.AddElement(new Paragraph(GetBoldText(item.Question.Value)));
-                        ct.Go();
-                        currentY = ct.YLine - 2;
-                        ContentByte.SetLineWidth(1);
-                        ContentByte.Rectangle(LX, currentY, RX - RX/3, -50);
-                        ContentByte.Stroke();
-                        currentY -= 50;
-                        //AddPage(currentY);
-                    }
-
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
                     foreach (var item in form.FieldForms)
-                    {
-                        ColumnText ct = new ColumnText(ContentByte);
-                        ct.SetSimpleColumn(LX, currentY, RX, currentY - 30);
-                        ct.AddElement(new Paragraph(GetBoldText(item.Question.Value)));
-                        ct.Go();
-                        currentY = ct.YLine - 2;
-                        ContentByte.SetLineWidth(1);
-                        ContentByte.Rectangle(LX, currentY, RX - RX / 3, -50);
-                        ContentByte.Stroke();
-                        currentY -= 50;
-                    }
-
-                    for (int i = 0; i < 50; i++)
-                    {
-
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
                     foreach (var item in form.FieldForms)
-                    {
-                        ColumnText ct = new ColumnText(ContentByte);
-                        ct.SetSimpleColumn(LX, currentY, RX, currentY - 30);
-                        ct.AddElement(new Paragraph(GetBoldText(item.Question.Value)));
-                        ct.Go();
-                        currentY = ct.YLine - 2;
-                        ContentByte.SetLineWidth(1);
-                        ContentByte.Rectangle(LX, currentY, RX - RX / 3, -50);
-                        ContentByte.Stroke();
-                        currentY -= 50;
-
-                            AddPage(ref currentY);
-                    }
-                    }
-
-                    //PdfDocument.Add(new Paragraph(GetTitleText("Položky")) { SpacingAfter = 10f, Alignment = HAlingmentLeft });
-                    //AddItemsTable();
-                    //AddHorizontalLine();
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
+                    foreach (var item in form.FieldForms)
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
+                    foreach (var item in form.FieldForms)
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
+                    foreach (var item in form.FieldForms)
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
+                    foreach (var item in form.FieldForms)
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
+                    foreach (var item in form.FieldForms)
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
+                    foreach (var item in form.FieldForms)
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
+                    foreach (var item in form.FieldForms)
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
+                    foreach (var item in form.FieldForms)
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
+                    foreach (var item in form.FieldForms)
+                        currentY = AddTextBox(item.Question.Value, currentY, 50, 0.8f, 5f);
 
                     PdfDocument.Close();
                 }

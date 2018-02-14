@@ -102,13 +102,65 @@ namespace PDFCreator
             PdfDocument.Add(horizontalLine);
         }
 
-        internal void AddPage(ref float currentY)
+        internal float NewPage(float currentY, float additionalY)
         {
-            if (currentY < 0)
+            if ((currentY - additionalY) < PdfDocument.BottomMargin)
             {
                 PdfDocument.NewPage();
                 currentY = Y;
             }
+
+            return currentY;
+        }
+
+        internal float NewPage()
+        {
+            PdfDocument.NewPage();
+            return Y;
+        }
+
+        internal bool AddPage(float currentY, float additionalY)
+        {
+            if ((currentY - additionalY) < PdfDocument.BottomMargin)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        internal ColumnText GetColumnText(Paragraph paragraph, float currentY, bool simulate)
+        {
+            ColumnText ct = new ColumnText(ContentByte);
+            ct.SetSimpleColumn(LX, currentY, RX, currentY - 30);
+            ct.AddElement(paragraph);
+            ct.Go(simulate);
+            return ct;
+        }
+
+        internal float AddTextBox(string label, float currentY, float textBoxHeight, float lineWidth, float spacingAfterLabel)
+        {
+            //simulate the creation of columnText to get its height
+            ColumnText ct = GetColumnText(new Paragraph(GetBoldText(label)), currentY, true);
+
+            //if there is no space for labeled TextBox, add new page to PDF document
+            if(AddPage(currentY, spacingAfterLabel + (currentY - ct.YLine) + textBoxHeight))
+            {
+                currentY = NewPage();
+            }
+            ct = GetColumnText(new Paragraph(GetBoldText(label)), currentY, false);
+            currentY = ct.YLine - spacingAfterLabel;
+
+            ContentByte.SetLineWidth(lineWidth);
+            //currentY = NewPage(currentY, textBoxHeight);
+
+            ContentByte.Rectangle(LX, currentY, RX - RX / 3, -textBoxHeight);
+            ContentByte.Stroke();
+            currentY -= textBoxHeight;
+
+            //AddPage(currentY);
+
+            return NewPage(currentY, 0);
         }
     }
 }
