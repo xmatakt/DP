@@ -11,6 +11,8 @@ using DatabaseCommunicator.Controllers;
 using DatabaseCommunicator.Model;
 using EZKO.Forms.AdministrationForms;
 using ExceptionHandler;
+using EZKO.Controllers;
+using PDFCreator.EZKODocumentation;
 
 namespace EZKO.UserControls.Administration
 {
@@ -182,7 +184,14 @@ namespace EZKO.UserControls.Administration
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Fill")
                     FillItem(item);
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Pdf")
-                    BasicMessagesHandler.ShowInformationMessage("Timo dorob to!");
+                {
+                    string path = DirectoriesController.GetFormsFolder() + @"\" + item.PdfFile();
+                    FormToPDF budgetToPdf = new FormToPDF(path, item);
+                    if (budgetToPdf.CreatePdf())
+                    {
+                        System.Diagnostics.Process.Start(path);
+                    }
+                }
             }
         }
 

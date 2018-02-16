@@ -306,7 +306,9 @@
     <Compile Include="UserControls\Patients\PatientsUserControl.Designer.cs">
       <DependentUpon>PatientsUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\RoundButtonStylesEnum.cs" />
+    <Compile Include="UserControls\RoundButtonStylesEnum.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\AdministrationForms\EditUserForm.resx">

@@ -39,6 +39,8 @@ namespace PDFCreator
         private Font titleFont;
         private Font boldFont;
         private Font normalFont;
+        private Font checkBoxFont;
+        private Font noteFont;
 
         public PDFCreator(string path)
         {
@@ -47,9 +49,12 @@ namespace PDFCreator
                 stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
                 PdfDocument = new Document();
                 pdfWriter = PdfWriter.GetInstance(PdfDocument, stream);
-                titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
-                normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
-                boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
+                titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1250, true, 18);
+                normalFont = FontFactory.GetFont(FontFactory.HELVETICA, BaseFont.CP1250, true, 12);
+                boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1250, true, 12);
+                checkBoxFont = FontFactory.GetFont(FontFactory.HELVETICA, BaseFont.CP1250, true, 9);
+                noteFont = FontFactory.GetFont(FontFactory.HELVETICA_OBLIQUE, BaseFont.CP1250, true, 6);
+                //noteFont = BaseFont.CreateFont(BaseFont.HELVETICA_OBLIQUE, BaseFont.CP1250, false);
             }
             catch (IOException)
             {
@@ -71,6 +76,18 @@ namespace PDFCreator
         internal Phrase GetBoldText(string text)
         {
             Phrase result = new Phrase(text, boldFont);
+            return result;
+        }
+
+        internal Phrase GetCheckBoxText(string text)
+        {
+            Phrase result = new Phrase(text, checkBoxFont);
+            return result;
+        }
+
+        internal Phrase GetNoteText(string text)
+        {
+            Phrase result = new Phrase(text, noteFont);
             return result;
         }
 
@@ -129,36 +146,69 @@ namespace PDFCreator
             return false;
         }
 
-        internal ColumnText GetColumnText(Paragraph paragraph, float currentY, bool simulate)
+        internal ColumnText GetColumnText(Paragraph paragraph, float x, float currentY, bool simulate)
         {
             ColumnText ct = new ColumnText(ContentByte);
-            ct.SetSimpleColumn(LX, currentY, RX, currentY - 30);
+            ct.SetSimpleColumn(x, currentY, RX, currentY - 3000);
             ct.AddElement(paragraph);
             ct.Go(simulate);
             return ct;
         }
 
-        internal float AddTextBox(string label, float currentY, float textBoxHeight, float lineWidth, float spacingAfterLabel)
+        internal float AddTextBox(string label, float currentY, float textBoxHeight, float lineWidth, float spacingAfterLabel, System.Drawing.Color borderColor)
         {
             //simulate the creation of columnText to get its height
-            ColumnText ct = GetColumnText(new Paragraph(GetBoldText(label)), currentY, true);
+            ColumnText ct = GetColumnText(new Paragraph(GetBoldText(label)), LX, currentY, true);
 
             //if there is no space for labeled TextBox, add new page to PDF document
             if(AddPage(currentY, spacingAfterLabel + (currentY - ct.YLine) + textBoxHeight))
             {
                 currentY = NewPage();
             }
-            ct = GetColumnText(new Paragraph(GetBoldText(label)), currentY, false);
+            ct = GetColumnText(new Paragraph(GetBoldText(label)), LX, currentY, false);
             currentY = ct.YLine - spacingAfterLabel;
 
             ContentByte.SetLineWidth(lineWidth);
-            //currentY = NewPage(currentY, textBoxHeight);
-
+            ContentByte.SetColorStroke(new BaseColor(borderColor));
             ContentByte.Rectangle(LX, currentY, RX - RX / 3, -textBoxHeight);
             ContentByte.Stroke();
             currentY -= textBoxHeight;
 
-            //AddPage(currentY);
+            return NewPage(currentY, 0);
+        }
+
+        internal float AddCheckBoxes(string[] choices, string label, string note, float currentY, float size, float lineWidth,
+            float spacingAfterLabel, System.Drawing.Color borderColor)
+        {
+            //simulate the creation of columnText to get its height
+            ColumnText ct = GetColumnText(new Paragraph(GetBoldText(label )), LX, currentY, true);
+
+            //if there is no space for label and the first CheckBox, add new page to PDF document
+            if (AddPage(currentY, spacingAfterLabel + (currentY - ct.YLine) + size))
+                currentY = NewPage();
+            
+            ct = GetColumnText(new Paragraph(GetBoldText(label)), LX, currentY, false);
+            currentY = ct.YLine - spacingAfterLabel;
+
+            ContentByte.SetLineWidth(lineWidth);
+            ContentByte.SetColorStroke(new BaseColor(borderColor));
+
+            foreach (var choice in choices)
+            {
+                currentY = NewPage(currentY, size + spacingAfterLabel);
+
+                ContentByte.Rectangle(LX, currentY, size, -size);
+                ContentByte.Stroke();
+            
+                ct = GetColumnText(new Paragraph(GetCheckBoxText(choice)), LX + size + spacingAfterLabel, currentY + size - 1.5f, false);
+                currentY -= (size + spacingAfterLabel);
+            }
+
+            ct = GetColumnText(new Paragraph(GetNoteText(note)), LX, currentY + size - 1.5f, true);
+            if (AddPage(currentY, spacingAfterLabel + (currentY - ct.YLine)))
+                currentY = NewPage();
+
+            ct = GetColumnText(new Paragraph(GetNoteText(note)), LX, currentY + size - 1.5f, false);
 
             return NewPage(currentY, 0);
         }

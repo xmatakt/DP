@@ -11,6 +11,38 @@ namespace EZKO.Controllers
     /// </summary>
     public class DirectoriesController
     {
+        #region Ezko
+
+        /// <summary>
+        /// Creates the EZKO root folder (if doesn't exist) and returns path to that folder
+        /// </summary>
+        /// <returns>Path to the root EZKO folder</returns>
+        private static string GetRootFolder()
+        {
+            string result = GlobalSettings.EzkoRootFolderPath;
+
+            if(!Directory.Exists(result))
+                Directory.CreateDirectory(result);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creates the EZKO forms folder (if doesn't exist) and returns path to that folder
+        /// </summary>
+        /// <returns>Path to the EZKO forms folder</returns>
+        public static string GetFormsFolder()
+        {
+            string result = GetRootFolder() + @"\Formulare";
+
+            if (!Directory.Exists(result))
+                Directory.CreateDirectory(result);
+
+            return result;
+        }
+
+        #endregion
+
         #region Users
         /// <summary>
         /// Returns the root folder for supplied user

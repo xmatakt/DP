@@ -67,6 +67,14 @@ namespace DatabaseCommunicator.Model
         }
     }
 
+    public partial class Form
+    {
+        public string PdfFile()
+        {
+            return Name + "_" + ID + ".pdf";
+        }
+    }
+
     public partial class CalendarEvent
     {
         public override string ToString()

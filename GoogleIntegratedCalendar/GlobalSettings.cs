@@ -20,6 +20,7 @@ namespace EZKO
         //public static string LanguagePrefix = "sk-SK";
         //public static string LanguagePrefix = "en-US";
         public static string LanguagePrefix = "";
+        public static string EzkoRootFolderPath = @"C:\EZKO";
         public static string UserRootFolderPath = @"C:\EZKO\Users";
         public static string PatientsRootFolderPath = @"C:\EZKO\Patients";
         public static string LogFilePath = @"C:\EZKO\.errorLog.log";
@@ -33,6 +34,7 @@ namespace EZKO
         {
             ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
             LanguagePrefix = ConfigurationManager.AppSettings["Language"];
+            EzkoRootFolderPath = ConfigurationManager.AppSettings["EzkoRootFolderPath"];
             UserRootFolderPath = ConfigurationManager.AppSettings["UserRootFolderPath"];
             PatientsRootFolderPath = ConfigurationManager.AppSettings["PatientsRootFolderPath"];
             GoogleCalendarUserName = ConfigurationManager.AppSettings["GoogleCalendarUserName"];
