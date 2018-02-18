@@ -82,18 +82,22 @@ namespace PDFCreator.EZKODocumentation
                         pdfSection.Add(sectionTable);
                     }
 
-                    Chapter chapter3 = null;
-                    if (patient.CalendarEvents.Count > 0)
-                    {
-                       chapter3 = AddChapter(
-                       new Paragraph(GetTitleText("Návštevy pacienta")) { SpacingAfter = 10f },
-                       0, 0);
-                    }
-                    
                     PdfDocument.Add(chapter1);
                     PdfDocument.Add(chapter2);
-                    if(chapter3 != null)
-                        PdfDocument.Add(chapter3);
+
+                    Chapter chapter3 = AddChapter(
+                       new Paragraph(GetTitleText("Návštevy pacienta")) { SpacingAfter = 10f },
+                       0, 0);
+                    if (patient.CalendarEvents.Count > 0)
+                    {
+                        PdfPTable eventsTable = CreateEventsTable();
+                        chapter3.Add(eventsTable);
+                    }
+                    else
+                        chapter3.Add(new Paragraph(GetNoteText("Pacient zatial nemá žiadne návštevy")));
+                        //chapter3.Add(new Paragraph(GetText("Pacient zatial nemá žiadne návštevy")));
+
+                    PdfDocument.Add(chapter3);
                     PdfDocument.Close();
                 }
             }
@@ -164,27 +168,6 @@ namespace PDFCreator.EZKODocumentation
             }
 
             return table;
-        }
-
-        private string GetAnswers(IEnumerable<FieldValueAnswer> answers)
-        {
-            if (answers == null || answers.Count() == 0)
-                return "nevyplnené";
-
-            StringBuilder stringBuilder = new StringBuilder();
-            bool isFirst = true;
-
-            foreach (var answer in answers)
-            {
-                if (isFirst)
-                    isFirst = false;
-                else
-                    stringBuilder.Append(", ");
-
-                stringBuilder.Append(answer.FieldValue.Value);
-            }
-
-            return stringBuilder.ToString();
         }
 
         private PdfPTable CreatePersonalInfoTable()
@@ -284,6 +267,89 @@ namespace PDFCreator.EZKODocumentation
             AddCell(table, patient.Contact.Facebook ?? "neudané", System.Drawing.Color.White);
 
             return table;
+        }
+
+        private PdfPTable CreateEventsTable()
+        {
+            PdfPTable table = new PdfPTable(9) { HorizontalAlignment = HAlingmentLeft, SpacingBefore = 10f, SpacingAfter = 0f };
+            table.WidthPercentage = 100f;
+
+            PdfDocument.SetPageSize(PageSize.A4.Rotate());
+
+            // header
+            AddCell(table, GetBoldText("Status"), System.Drawing.Color.White);
+            AddCell(table, GetBoldText("Doktor"), System.Drawing.Color.White);
+            AddCell(table, GetBoldText("Sestra"), System.Drawing.Color.White);
+            AddCell(table, GetBoldText("Začiatok"), System.Drawing.Color.White);
+            AddCell(table, GetBoldText("Koniec"), System.Drawing.Color.White);
+            AddCell(table, GetBoldText("Plánované výkony"), System.Drawing.Color.White);
+            AddCell(table, GetBoldText("Realizované výkony"), System.Drawing.Color.White);
+            AddCell(table, GetBoldText("Infraštruktúra"), System.Drawing.Color.White);
+            AddCell(table, GetBoldText("Poznámka"), System.Drawing.Color.White);
+            //
+
+            foreach (var visit in patient.CalendarEvents)
+            {
+                AddCell(table, GetText(visit.EventState.ToString().ToLower()), System.Drawing.Color.White);
+                AddCell(table, GetText(GetItems(visit.Users.Where(x => x.RoleID == (int)UserRoleEnum.Doctor).ToList())), System.Drawing.Color.White);
+                AddCell(table, GetText(GetItems(visit.Users.Where(x => x.RoleID == (int)UserRoleEnum.Nurse).ToList())), System.Drawing.Color.White);
+                AddCell(table, GetText(visit.StartDate.ToString()), System.Drawing.Color.White);
+                AddCell(table, GetText(visit.EndDate.ToString().ToLower()), System.Drawing.Color.White);
+                AddCell(table, GetText(GetItems(visit.Actions)), System.Drawing.Color.White);
+                AddCell(table, GetText(GetItems(visit.CalendarEventExecutedActions)), System.Drawing.Color.White);
+                AddCell(table, GetText(GetItems(visit.Infrastructures)), System.Drawing.Color.White);
+                AddCell(table, GetText(visit.Description), System.Drawing.Color.White);
+            }
+
+            return table;
+        }
+
+        private string GetItems<T>(ICollection<T> collection)
+        {
+            if (collection == null)
+                return "";
+
+            bool isFirst = true;
+            StringBuilder stringBuilder = new StringBuilder();
+
+            foreach (var item in collection)
+            {
+                if (isFirst)
+                    isFirst = false;
+                else
+                    stringBuilder.Append(", ");
+
+                if (item is CalendarEventExecutedAction)
+                {
+                    CalendarEventExecutedAction action = item as CalendarEventExecutedAction;
+                    stringBuilder.Append(action.Action.ToString());
+                }
+                else
+                    stringBuilder.Append(item.ToString());
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        private string GetAnswers(IEnumerable<FieldValueAnswer> answers)
+        {
+            if (answers == null || answers.Count() == 0)
+                return "nevyplnené";
+
+            StringBuilder stringBuilder = new StringBuilder();
+            bool isFirst = true;
+
+            foreach (var answer in answers)
+            {
+                if (isFirst)
+                    isFirst = false;
+                else
+                    stringBuilder.Append(", ");
+
+                stringBuilder.Append(answer.FieldValue.Value);
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }

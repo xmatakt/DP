@@ -753,6 +753,7 @@ namespace EZKO.Forms.AdministrationForms
 
             visitsDataGridView.Rows.Clear();
 
+
             foreach (var item in ezkoController.GetEvents(patient.ID))
             {
                 int rowIndex = visitsDataGridView.Rows.Add(new object[]
@@ -762,27 +763,63 @@ namespace EZKO.Forms.AdministrationForms
                     "CENA","", "Pdf", "Náhľad"});
 
                 visitsDataGridView.Rows[rowIndex].Tag = item;
+
+                Color? cellColor = GetEventStateColor(item.StateID);
+                if (cellColor.HasValue)
+                    visitsDataGridView[0, rowIndex].Style.BackColor = cellColor.Value;
+            }
+        }
+
+        private Color? GetEventStateColor(int stateID)
+        {
+            switch (stateID)
+            {
+                case (int)EventStateEnum.Planned:
+                    return Colors.FlatButtonColorLightBlue;
+                case (int)EventStateEnum.Done:
+                    return Colors.FlatButtonColorGreen;
+                case (int)EventStateEnum.Payed:
+                    return Colors.FlatButtonColorOrange;
+                case (int)EventStateEnum.Cancelled:
+                    return Colors.FlatButtonColorGray;
+
+                default:
+                    return null;
             }
         }
 
         private string GetItems<T>(ICollection<T> collection)
         {
-            if (collection == null)
-                return "";
-            StringBuilder sb = new StringBuilder();
-
-            foreach (var item in collection)
+            if (collection == null || collection.Count == 0)
+                return " ";
+            else if (collection.Count == 1)
             {
+                T item = collection.First();
                 if (item is CalendarEventExecutedAction)
                 {
                     CalendarEventExecutedAction action = item as CalendarEventExecutedAction;
-                    sb.AppendLine(action.Action.ToString());
+                    return action.Action.ToString();
                 }
                 else
-                    sb.AppendLine(item.ToString());
+                    return item.ToString();
             }
+            else
+            {
+                StringBuilder sb = new StringBuilder();
 
-            return sb.ToString();
+                foreach (var item in collection)
+                {
+                    if (item is CalendarEventExecutedAction)
+                    {
+                        CalendarEventExecutedAction action = item as CalendarEventExecutedAction;
+                        sb.AppendLine(action.Action.ToString());
+                    }
+                    else
+                        sb.AppendLine(item.ToString());
+                }
+
+                return sb.ToString();
+            }
         }
 
         private void BuildTree(DirectoryInfo directoryInfo, TreeNodeCollection addInMe)

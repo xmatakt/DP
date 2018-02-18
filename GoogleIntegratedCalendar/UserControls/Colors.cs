@@ -29,5 +29,8 @@ namespace EZKO.UserControls
         //Colors used in MenuItem 
         public static Color MouseLeaveMenuItemColor = Color.FromArgb(204, 204, 204);
         public static Color MouseHoverMenuItemColor = Color.FromArgb(0, 109, 240);
+
+        //Other colors
+        public static Color FlatButtonColorGray = Color.FromArgb(153, 153, 153);
     }
 }

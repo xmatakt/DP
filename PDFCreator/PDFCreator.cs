@@ -48,13 +48,13 @@ namespace PDFCreator
             try
             {
                 stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-                PdfDocument = new Document();
+                PdfDocument = new Document(PageSize.A4);
                 pdfWriter = PdfWriter.GetInstance(PdfDocument, stream);
-                titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1250, true, 18);
-                normalFont = FontFactory.GetFont(FontFactory.HELVETICA, BaseFont.CP1250, true, 12);
-                boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1250, true, 12);
-                sectionFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1250, true, 15);
-                checkBoxFont = FontFactory.GetFont(FontFactory.HELVETICA, BaseFont.CP1250, true, 9);
+                titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1250, true, 16);
+                normalFont = FontFactory.GetFont(FontFactory.HELVETICA, BaseFont.CP1250, true, 10);
+                boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1250, true, 10);
+                sectionFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1250, true, 13);
+                checkBoxFont = FontFactory.GetFont(FontFactory.HELVETICA, BaseFont.CP1250, true, 7);
                 noteFont = FontFactory.GetFont(FontFactory.HELVETICA_OBLIQUE, BaseFont.CP1250, true, 6);
             }
             catch (IOException ex)
@@ -276,7 +276,7 @@ namespace PDFCreator
                 ContentByte.Rectangle(LX, currentY, size, -size);
                 ContentByte.Stroke();
             
-                ct = GetColumnText(new Paragraph(GetCheckBoxText(choice)), LX + size + spacingAfterLabel, currentY + size - 1.5f, false);
+                ct = GetColumnText(new Paragraph(GetCheckBoxText(choice)), LX + size + spacingAfterLabel, currentY + size - 4f, false);
                 currentY -= (size + spacingAfterLabel);
             }
 
