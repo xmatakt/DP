@@ -188,9 +188,9 @@ namespace EZKO.UserControls.Administration
                     string path = DirectoriesController.GetFormsFolder() + @"\" + item.PdfFile();
                     FormToPDF budgetToPdf = new FormToPDF(path, item);
                     if (budgetToPdf.CreatePdf())
-                    {
                         System.Diagnostics.Process.Start(path);
-                    }
+                    else
+                        BasicMessagesHandler.ShowInformationMessage("Pri vytváraní PDF súboru sa vyskytla chyba");
                 }
             }
         }

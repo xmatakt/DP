@@ -27,12 +27,18 @@ namespace PDFCreator.EZKODocumentation
                 else
                 {
                     PdfDocument.Open();
-                    PdfDocument.Add(new Paragraph(GetTitleText(budget.Name)) { SpacingAfter = 10f, Alignment = HAlingmentLeft });
-                    AddInfoTable();
-                    AddHorizontalLine();
-                    PdfDocument.Add(new Paragraph(GetTitleText("Položky")) { SpacingAfter = 10f, Alignment = HAlingmentLeft });
-                    AddItemsTable();
-                    AddHorizontalLine();
+
+                    Chapter chapter = AddChapter(new Paragraph(GetTitleText(budget.Name)) { SpacingAfter = 10f, Alignment = HAlingmentLeft }, 0, 0);
+
+                    iTextSharp.text.Section infoSection = AddSection(chapter, 0f,
+                        new Paragraph(GetBoldText("Základné informácie")) {SpacingAfter = 0f, SpacingBefore = 0f }, 0);
+                    AddInfoTable(infoSection);
+
+                    iTextSharp.text.Section itemsSection = AddSection(chapter, 0f,
+                        new Paragraph(GetBoldText("Položky")) { SpacingBefore = 0f, SpacingAfter = 0f}, 0);
+                    AddItemsTable(itemsSection);
+
+                    PdfDocument.Add(chapter);
 
                     PdfDocument.Close();
                 }
@@ -41,6 +47,8 @@ namespace PDFCreator.EZKODocumentation
             {
                 BasicMessagesHandler.LogException(ex);
                 result = false;
+                if(PdfDocument.IsOpen())
+                    PdfDocument.Close();
             }
 
             return result;
@@ -49,7 +57,7 @@ namespace PDFCreator.EZKODocumentation
         /// <summary>
         /// Creates table with basic information about patient whome the budget belongs to
         /// </summary>
-        private void AddInfoTable()
+        private void AddInfoTable(iTextSharp.text.Section section)
         {
             try
             {
@@ -72,7 +80,7 @@ namespace PDFCreator.EZKODocumentation
 
                 table.SpacingAfter = 10f;
 
-                PdfDocument.Add(table);
+                section.Add(table);
             }
             catch (Exception ex)
             {
@@ -83,7 +91,7 @@ namespace PDFCreator.EZKODocumentation
         /// <summary>
         /// Creates table with information about budget items
         /// </summary>
-        private void AddItemsTable()
+        private void AddItemsTable(iTextSharp.text.Section section)
         {
             try
             {
@@ -92,21 +100,40 @@ namespace PDFCreator.EZKODocumentation
 
                 PdfPCell cell = new PdfPCell();
 
+                bool firstRow = false;
+
                 foreach(BudgetItem item in budget.BudgetItems)
                 {
                     cell = GetCell(System.Drawing.Color.White, item.Name);
+                    if(firstRow)
+                    {
+                        cell.UseVariableBorders = true;
+                        cell.BorderColorTop = BaseColor.BLACK;
+                    }
                     table.AddCell(cell);
 
                     cell = GetCell(System.Drawing.Color.White, item.Count.ToString("0 ks"));
+                    if (firstRow)
+                    {
+                        cell.UseVariableBorders = true;
+                        cell.BorderColorTop = BaseColor.BLACK;
+                    }
                     table.AddCell(cell);
 
                     cell = GetCell(System.Drawing.Color.White, item.UnitPrice.ToString("0.00 €"));
+                    if (firstRow)
+                    {
+                        cell.UseVariableBorders = true;
+                        cell.BorderColorTop = BaseColor.BLACK;
+                    }
                     table.AddCell(cell);
+
+                    firstRow = false;
                 }
 
                 table.SpacingAfter = 10f;
 
-                PdfDocument.Add(table);
+                section.Add(table);
             }
             catch (Exception ex)
             {

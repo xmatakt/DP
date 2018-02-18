@@ -7,6 +7,7 @@ using EZKO.Controllers;
 using EZKO.Enums;
 using EZKO.UserControls;
 using EZKO.UserControls.FlatControls;
+using PDFCreator.EZKODocumentation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -357,6 +358,7 @@ namespace EZKO.Forms.AdministrationForms
             workingType = WorkingTypeEnum.Editing;
             ezkoController = GlobalSettings.EzkoController;
             this.patient = patient;
+            formTitleLabel.Text += " " + patient.FullName;
 
             InitializeForm();
         }
@@ -1114,7 +1116,12 @@ namespace EZKO.Forms.AdministrationForms
 
         private void generatePdfButton_Click(object sender, EventArgs e)
         {
-            BasicMessagesHandler.ShowInformationMessage("Timo dorob to!");
+            string path = @"C:\AATimo\tmp.pdf";
+            EhrToPDF ehrToPdf = new EhrToPDF(path, patient, GlobalSettings.User, ezkoController);
+            if (ehrToPdf.CreatePdf())
+                System.Diagnostics.Process.Start(path);
+            else
+                BasicMessagesHandler.ShowInformationMessage("Pri vytváraní PDF dokumentácie sa vyskytla chyba");
         }
 
         private void treeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -1212,7 +1219,17 @@ namespace EZKO.Forms.AdministrationForms
                     }
                 }
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "Pdf")
-                    BasicMessagesHandler.ShowInformationMessage("Timo dorob to!");
+                {
+                    string path = DirectoriesController.GetPatientDocumentsFolder(item.Patient) + @"\" + item.PdfFile();
+                    BudgetToPDF budgetToPdf = new BudgetToPDF(path, item);
+                    if (budgetToPdf.CreatePdf())
+                    {
+                        System.Diagnostics.Process.Start(path);
+                        FillDocumentsGrid();
+                    }
+                    else
+                        BasicMessagesHandler.ShowInformationMessage("Pri vytváraní PDF súboru sa vyskytla chyba");
+                }
             }
         }
 

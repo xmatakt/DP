@@ -161,6 +161,24 @@ namespace DatabaseCommunicator.Model
         }
     }
 
+    public partial class Sex
+    {
+        public override string ToString()
+        {
+            switch (ID)
+            {
+                case (int)Enums.SexEnum.Man:
+                    return "Muž";
+                case (int)Enums.SexEnum.Woman:
+                    return "Žena";
+                case (int)Enums.SexEnum.Unknown:
+                    return "neudané";
+                default:
+                    return "neudané";
+            }
+        }
+    }
+
     public partial class FieldType
     {
         public override string ToString()

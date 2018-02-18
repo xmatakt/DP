@@ -8,6 +8,7 @@ using EZKO.Controllers;
 using EZKO.Forms.PatientForms;
 using ExceptionHandler;
 using EZKO.Forms.AdministrationForms;
+using PDFCreator.EZKODocumentation;
 
 namespace EZKO.UserControls.Patients
 {
@@ -18,6 +19,8 @@ namespace EZKO.UserControls.Patients
         {
             InitializeComponent();
 
+            exportMenuItem.Visible = false;
+            importMenuItem.Visible = false;
             ezkoController = GlobalSettings.EzkoController;
             InitializeDataGridView();
             FillDataGridView(ezkoController.GetPatients());
@@ -43,6 +46,7 @@ namespace EZKO.UserControls.Patients
             dataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
             dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView.MultiSelect = false;
 
             DataGridViewTextBoxColumn userIDColumn = new DataGridViewTextBoxColumn()
             {
@@ -202,8 +206,18 @@ namespace EZKO.UserControls.Patients
                 Patient item = senderGrid.Rows[e.RowIndex].Tag as Patient;
                 if (senderGrid.Columns[e.ColumnIndex].Name == "Edit")
                     EditItem(item);
-               else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
+                else if (senderGrid.Columns[e.ColumnIndex].Name == "Remove")
                     RemoveItem(item);
+                else if (senderGrid.Columns[e.ColumnIndex].Name == "PdfExport")
+                {
+                    //string path = DirectoriesController.GetFormsFolder() + @"\" + item.PdfFile();
+                    string path = @"C:\AATimo\tmp.pdf";
+                    EhrToPDF ehrToPdf = new EhrToPDF(path, item, GlobalSettings.User, ezkoController);
+                    if (ehrToPdf.CreatePdf())
+                        System.Diagnostics.Process.Start(path);
+                    else
+                        BasicMessagesHandler.ShowInformationMessage("Pri vytváraní PDF dokumentácie sa vyskytla chyba");
+                }
             }
         }
 

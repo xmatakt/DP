@@ -38,6 +38,7 @@ namespace PDFCreator
         private FileStream stream;
         private Font titleFont;
         private Font boldFont;
+        private Font sectionFont;
         private Font normalFont;
         private Font checkBoxFont;
         private Font noteFont;
@@ -52,11 +53,11 @@ namespace PDFCreator
                 titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1250, true, 18);
                 normalFont = FontFactory.GetFont(FontFactory.HELVETICA, BaseFont.CP1250, true, 12);
                 boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1250, true, 12);
+                sectionFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, BaseFont.CP1250, true, 15);
                 checkBoxFont = FontFactory.GetFont(FontFactory.HELVETICA, BaseFont.CP1250, true, 9);
                 noteFont = FontFactory.GetFont(FontFactory.HELVETICA_OBLIQUE, BaseFont.CP1250, true, 6);
-                //noteFont = BaseFont.CreateFont(BaseFont.HELVETICA_OBLIQUE, BaseFont.CP1250, false);
             }
-            catch (IOException)
+            catch (IOException ex)
             {
                 string fileName = new FileInfo(path).Name;
                 BasicMessagesHandler.ShowInformationMessage("Nie je možné vytvoriť PDF výstup.\nSúbor " + fileName + " je otvorený v inom programe");
@@ -65,6 +66,26 @@ namespace PDFCreator
             {
                 throw ex;
             }
+        }
+
+        internal Chapter AddChapter(Paragraph paragraph, int number, int numberDepth)
+        {
+            return new Chapter(paragraph, number) { NumberDepth = numberDepth};
+        }
+
+        internal Chapter AddChapter(string title, int number, int numberDepth)
+        {
+            return new Chapter(title, number) { NumberDepth = numberDepth };
+        }
+
+        internal Section AddSection(Chapter chapter, float indentation, string title, int numberDepth)
+        {
+            return chapter.AddSection(indentation, title, numberDepth);
+        }
+
+        internal Section AddSection(Chapter chapter, float indentation, Paragraph paragraph, int numberDepth)
+        {
+            return chapter.AddSection(indentation, paragraph, numberDepth);
         }
 
         internal Phrase GetTitleText(string text)
@@ -79,6 +100,18 @@ namespace PDFCreator
             return result;
         }
 
+        internal Phrase GetText(string text)
+        {
+            Phrase result = new Phrase(text, normalFont);
+            return result;
+        }
+
+        internal Phrase GetSectionText(string text)
+        {
+            Phrase result = new Phrase(text, sectionFont);
+            return result;
+        }
+
         internal Phrase GetCheckBoxText(string text)
         {
             Phrase result = new Phrase(text, checkBoxFont);
@@ -89,6 +122,18 @@ namespace PDFCreator
         {
             Phrase result = new Phrase(text, noteFont);
             return result;
+        }
+
+        internal void AddCell(PdfPTable table, Phrase phrase, System.Drawing.Color borderColor)
+        {
+            PdfPCell cell = GetCell(borderColor, phrase);
+            table.AddCell(cell);
+        }
+
+        internal void AddCell(PdfPTable table, string text, System.Drawing.Color borderColor)
+        {
+            PdfPCell cell = GetCell(borderColor, text);
+            table.AddCell(cell);
         }
 
         internal PdfPCell GetCell(System.Drawing.Color borderColor, Phrase phrase)
@@ -117,6 +162,37 @@ namespace PDFCreator
         {
             LineSeparator horizontalLine = new LineSeparator();
             PdfDocument.Add(horizontalLine);
+        }
+
+        internal void AddHorizontalLine(Section section, float lineWidth, float spacingBefore, float spacingAfter)
+        {
+            Paragraph p = new Paragraph(
+                new Chunk(new LineSeparator(lineWidth, 100f, BaseColor.BLACK, HAlingmentLeft, 0f)))
+            { SpacingBefore = spacingBefore, SpacingAfter = spacingAfter };
+            //section.Add(p);
+            section.Add(new Chunk(new LineSeparator(lineWidth, 100f, BaseColor.BLACK, HAlingmentLeft, 0f)));
+        }
+
+        internal void AddHorizontalLine(Chapter chapter, float lineWidth, float spacingBefore, float spacingAfter)
+        {
+            Paragraph p = new Paragraph(
+                new Chunk(new LineSeparator(lineWidth, 100f, BaseColor.BLACK, HAlingmentLeft, 0f)))
+            { SpacingBefore = spacingBefore, SpacingAfter = spacingAfter };
+            //section.Add(p);
+            chapter.Add(new Chunk(new LineSeparator(lineWidth, 100f, BaseColor.BLACK, HAlingmentLeft, 0f)));
+        }
+
+        internal float GetTableHeight(PdfPTable table)
+        {
+            ColumnText ct = new ColumnText(ContentByte);
+            ct.SetSimpleColumn(
+              PdfDocument.Left, PdfDocument.Bottom,
+              PdfDocument.Right, PdfDocument.Top
+            );
+            ct.AddElement(table);
+            ct.Go(true);
+
+            return table.TotalHeight;
         }
 
         internal float NewPage(float currentY, float additionalY)

@@ -31,7 +31,8 @@ namespace PDFCreator.EZKODocumentation
                 else
                 {
                     PdfDocument.Open();
-                    PdfDocument.Add(new Paragraph(GetTitleText(form.Name)) { SpacingAfter = 10f, Alignment = HAlingmentLeft });
+                    Chapter chapter = AddChapter(new Paragraph(GetTitleText(form.Name)) { SpacingAfter = 10f, Alignment = HAlingmentLeft }, 0, 0);
+                    PdfDocument.Add(chapter);
                     AddHorizontalLine();
 
                     float currentY = Y;

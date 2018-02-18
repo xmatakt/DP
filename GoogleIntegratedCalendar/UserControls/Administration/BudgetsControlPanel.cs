@@ -170,10 +170,10 @@ namespace EZKO.UserControls.Administration
                 {
                     string path = DirectoriesController.GetPatientDocumentsFolder(item.Patient) + @"\" + item.PdfFile();
                     BudgetToPDF budgetToPdf = new BudgetToPDF(path, item);
-                    if(budgetToPdf.CreatePdf())
-                    {
+                    if (budgetToPdf.CreatePdf())
                         System.Diagnostics.Process.Start(path);
-                    }
+                    else
+                        BasicMessagesHandler.ShowInformationMessage("Pri vytváraní PDF súboru sa vyskytla chyba");
                 }
             }
         }
