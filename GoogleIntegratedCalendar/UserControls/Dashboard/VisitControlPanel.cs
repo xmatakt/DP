@@ -260,7 +260,7 @@ namespace EZKO.UserControls.Dashboard
             InitializeDoctorsComboBox();
             InitializePlannedActionsComboBox();
             InitializeDoneActionsTextBox();
-            InitializeEventStateComboBox();
+            //InitializeEventStateComboBox();
             InitializeEmailsRichTextBox();
 
             SetControlWorkingBehavior();
@@ -380,10 +380,38 @@ namespace EZKO.UserControls.Dashboard
         private void InitializeEventStateComboBox()
         {
             eventStateComboBox.Items.Clear();
-            var states = ezkoController.GetEventStates();
-            foreach (var state in states)
-                if(state.ID != (int)EventStateEnum.IsTemporaryGoogleEvent)
-                    eventStateComboBox.Items.Add(state);
+
+            if(calendarEvent != null)
+            {
+                if(calendarEvent.StateID == (int)EventStateEnum.Planned)
+                {
+                    eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Planned));
+                    eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Done));
+                    eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Cancelled));
+                }
+                else if(calendarEvent.StateID == (int)EventStateEnum.Done)
+                {
+                    eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Done));
+                    eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Payed));
+                    //eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Cancelled));
+                }
+                else if (calendarEvent.StateID == (int)EventStateEnum.Payed)
+                    eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Payed));
+                else if (calendarEvent.StateID == (int)EventStateEnum.Cancelled)
+                    eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Cancelled));
+            }
+            else
+            {
+                eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Planned));
+            }
+
+            if (eventStateComboBox.Items.Count > 0)
+                eventStateComboBox.SelectedIndex = 0;
+            //foreach (var state in states)
+            //    if (state.ID == (int)EventStateEnum.Planned)
+            //        eventStateComboBox.Items.Add(state);
+            //if(state.ID != (int)EventStateEnum.IsTemporaryGoogleEvent)
+            //    eventStateComboBox.Items.Add(state);
         }
 
         private void InitializeEmailsRichTextBox(string email = null)
@@ -417,6 +445,8 @@ namespace EZKO.UserControls.Dashboard
                 default:
                     break;
             }
+
+            InitializeEventStateComboBox();
         }
 
         private void SetCreatingControlBeahvior()
@@ -456,6 +486,7 @@ namespace EZKO.UserControls.Dashboard
 
         private void SetRecreatingControlBehavior()
         {
+            calendarEvent = null;
             doneActionsPanel.Visible = false;
             doneActionsForTablePanel.Visible = false;
             newEventButtonsPanel.Visible = false;
@@ -463,6 +494,7 @@ namespace EZKO.UserControls.Dashboard
             reorderButton.Visible = false;
             plannedTextPanel.Visible = false;
             saveEventButton.Visible = true;
+            eventState = ezkoController.GetEventState(EventStateEnum.Planned);
 
             eventStartDateTime = null;
             eventDuration = 0;
@@ -471,6 +503,7 @@ namespace EZKO.UserControls.Dashboard
 
         private void SetCreatingFromGoogleEventControlBeahvior()
         {
+            calendarEvent = null;
             newPatientCheckBox.Visible = true;
             updateEventPanel.Visible = true;
             newEventButtonsPanel.Visible = true;
@@ -798,7 +831,17 @@ namespace EZKO.UserControls.Dashboard
             }
             else
             {
-                if(eventStartDateTime < DateTime.Now/*calendarEvent.StartDate*/)
+                //if(calendarEvent.StateID == (int)EventStateEnum.Planned)
+                //{
+                //    if(eventState.ID == (int)EventStateEnum.Payed)
+                //    {
+                //        result = false;
+                //        BasicMessagesHandler.ShowInformationMessage("Stav plánovanej udalosti nemôže b");
+                //        eventStartTextBox.Focus();
+                //    }
+                //}
+
+                if(eventStartDateTime < DateTime.Now && eventState == ezkoController.GetEventState(EventStateEnum.Planned))
                 {
                     result = false;
                     BasicMessagesHandler.ShowInformationMessage("Nemožno meniť dátum existijúcej návštevy do minulosti");
@@ -822,7 +865,7 @@ namespace EZKO.UserControls.Dashboard
                 eventStateComboBox.Focus();
             }
             else if(eventState == ezkoController.GetEventState(EventStateEnum.Done) &&
-                calendarEvent.EventState != eventState &&
+                (calendarEvent == null || calendarEvent.EventState != eventState) &&
                 eventStartDateTime.Value > DateTime.Now)
             {
                 result = false;
@@ -881,6 +924,18 @@ namespace EZKO.UserControls.Dashboard
         {
             if (!ValidateData())
                 return;
+
+            //nieco som tu mal poznacene, ale neviem co
+
+            if (calendarEvent.StateID == (int)EventStateEnum.Planned &&
+                eventState.ID == (int)EventStateEnum.Done)
+            {
+                Forms.Dashboard.EventBillingForm form = new Forms.Dashboard.EventBillingForm(doneActions.Select(x => x.DoneAction).ToList());
+                if (form.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+            }
 
             if (ezkoController.UpdateCalendarEvent(calendarEvent, doctors, eventStartDateTime.Value, eventDuration, notificationEmails,
                     eventNote, plannedActions, plannedText, eventState, doneActions, doneText))

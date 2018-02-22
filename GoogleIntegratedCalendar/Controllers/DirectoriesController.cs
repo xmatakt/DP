@@ -50,7 +50,12 @@ namespace EZKO.Controllers
         /// <param name="userName">Supplied user</param>
         public static string GetUserRootFolder(string userName)
         {
-            return GlobalSettings.UserRootFolderPath + @"\" + userName;
+            string result = GlobalSettings.UserRootFolderPath + @"\" + userName;
+
+            if (!Directory.Exists(result))
+                Directory.CreateDirectory(result);
+
+            return result;
         }
 
         /// <summary>
@@ -59,7 +64,12 @@ namespace EZKO.Controllers
         /// <param name="userName">Supplied user</param>
         public static string GetUserImageFolder(string userName)
         {
-            return GetUserRootFolder(userName) + @"\images";
+            string result = GetUserRootFolder(userName) + @"\images";
+
+            if (!Directory.Exists(result))
+                Directory.CreateDirectory(result);
+
+            return result;
         }
 
         /// <summary>
@@ -108,7 +118,12 @@ namespace EZKO.Controllers
         /// <param name="patient">Supplied patient</param>
         public static string GetPatientRootFolder(Patient patient)
         {
-            return GlobalSettings.PatientsRootFolderPath + @"\" + patient.Name + "_" + patient.Surname + "_" + patient.ID;
+            string result = GlobalSettings.PatientsRootFolderPath + @"\" + patient.Name + "_" + patient.Surname + "_" + patient.ID;
+
+            if (!Directory.Exists(result))
+                Directory.CreateDirectory(result);
+
+            return result;
         }
 
         /// <summary>
@@ -117,7 +132,12 @@ namespace EZKO.Controllers
         /// <param name="patient">Supplied patient</param>
         public static string GetPatientImageFolder(Patient patient)
         {
-            return GetPatientRootFolder(patient) + @"\images";
+            string result = GetPatientRootFolder(patient) + @"\images";
+
+            if (!Directory.Exists(result))
+                Directory.CreateDirectory(result);
+
+            return result;
         }
 
         /// <summary>
@@ -126,7 +146,12 @@ namespace EZKO.Controllers
         /// <param name="patient">Supplied patient</param>
         public static string GetPatientDocumentsFolder(Patient patient)
         {
-            return GetPatientRootFolder(patient) + @"\documents";
+            string result = GetPatientRootFolder(patient) + @"\documents";
+
+            if (!Directory.Exists(result))
+                Directory.CreateDirectory(result);
+
+            return result;
         }
 
         /// <summary>

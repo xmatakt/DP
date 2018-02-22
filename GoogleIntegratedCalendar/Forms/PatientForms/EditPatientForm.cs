@@ -33,7 +33,7 @@ namespace EZKO.Forms.AdministrationForms
         private string avatarImagePath_ = null;
         private string avatarImagePath
         {
-            get{ return avatarImagePath_; }
+            get { return avatarImagePath_; }
             set
             {
                 avatarPictureBox.Image = DirectoriesController.GetImage(value, Properties.Resources.noUserImage_white);
@@ -375,7 +375,7 @@ namespace EZKO.Forms.AdministrationForms
                 InitializeDocumentsTab();
                 InitializeVisitsTab();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 BasicMessagesHandler.ShowErrorMessage("Počas načítavania údajov o pacientovi sa vyskytla chyba", ex);
             }
@@ -392,7 +392,7 @@ namespace EZKO.Forms.AdministrationForms
 
         private void InitializePersonalInfoTab()
         {
-            if(patient != null)
+            if (patient != null)
             {
                 avatarImagePath = patient.AvatarImagePath;
                 idTextBox.Text = patient.ID.ToString();
@@ -426,7 +426,7 @@ namespace EZKO.Forms.AdministrationForms
 
         private void InitializeTreeViewTab()
         {
-            if(patient != null && patient.RootDirectoryPath != null)
+            if (patient != null && patient.RootDirectoryPath != null)
             {
                 DirectoryInfo directoryInfo = new DirectoryInfo(patient.RootDirectoryPath);
                 BuildTree(directoryInfo, treeView.Nodes);
@@ -615,6 +615,7 @@ namespace EZKO.Forms.AdministrationForms
                 HeaderText = "Doktor",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             };
+            doctorColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             visitsDataGridView.Columns.Add(doctorColumn);
 
             DataGridViewTextBoxColumn nurseColumn = new DataGridViewTextBoxColumn()
@@ -623,6 +624,7 @@ namespace EZKO.Forms.AdministrationForms
                 HeaderText = "Sestra",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             };
+            nurseColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             visitsDataGridView.Columns.Add(nurseColumn);
 
             DataGridViewTextBoxColumn startColumn = new DataGridViewTextBoxColumn()
@@ -760,13 +762,35 @@ namespace EZKO.Forms.AdministrationForms
                 { item.EventState.ToString().ToLower(), GetItems(item.Users.Where(x => x.RoleID == (int)UserRoleEnum.Doctor).ToList()),
                     GetItems(item.Users.Where(x => x.RoleID == (int)UserRoleEnum.Nurse).ToList()), item.StartDate, item.EndDate,
                     GetItems(item.Actions), GetItems(item.CalendarEventExecutedActions), GetItems(item.Infrastructures), item.Description,
-                    "CENA","", "Pdf", "Náhľad"});
+                    item.CalendarEventExecutedActions.Select(x => x.Action).Sum(x => x.Costs + x.Margin).ToString("0.00 €"),
+                    "", "Pdf", "Náhľad"});
 
                 visitsDataGridView.Rows[rowIndex].Tag = item;
 
                 Color? cellColor = GetEventStateColor(item.StateID);
                 if (cellColor.HasValue)
                     visitsDataGridView[0, rowIndex].Style.BackColor = cellColor.Value;
+            }
+            ResizeForm();
+        }
+
+        private void ResizeForm()
+        {
+            if (visitsDataGridView.RowCount <= 0)
+                return;
+
+            int newFormWidth = 50;
+            for (int i = 0; i < visitsDataGridView.ColumnCount; i++)
+                newFormWidth += visitsDataGridView[i, 0].Size.Width;
+
+            if(newFormWidth > Screen.FromControl(this).Bounds.Width)
+                newFormWidth = Screen.FromControl(this).Bounds.Width;
+
+            if (newFormWidth > Width)
+            {
+                float ratio = Height / (float)Width;
+                float newFormHeight = (newFormWidth * Height) / (float)Width;
+                Size = new Size(newFormWidth, (int)newFormHeight);
             }
         }
 
@@ -991,7 +1015,7 @@ namespace EZKO.Forms.AdministrationForms
                     else if (item is ComboBox comboBox)
                     {
                         FieldValue fieldValue = comboBox.SelectedItem as FieldValue;
-                        if(fieldValue != null)
+                        if (fieldValue != null)
                         {
                             FilledField filledField = filledFields.FirstOrDefault(x => x.Field.ID == fieldValue.Field.ID);
                             FieldValueAnswer answer = new FieldValueAnswer() { FieldValue = fieldValue, IsChecked = true };
@@ -1013,10 +1037,10 @@ namespace EZKO.Forms.AdministrationForms
                     }
                 }
 
-                if(!ezkoController.CreateFilledFields(filledFields))
+                if (!ezkoController.CreateFilledFields(filledFields))
                     BasicMessagesHandler.ShowErrorMessage("Počas ukladania zmien vo vyplnení EZKO polí sa vyskytla chyba!");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 BasicMessagesHandler.ShowErrorMessage("Počas ukladania zmien vo vyplnení EZKO polí sa vyskytla chyba!", ex);
             }
@@ -1140,7 +1164,7 @@ namespace EZKO.Forms.AdministrationForms
 
         private void birthDatePicker_ValueChanged(object sender, EventArgs e)
         {
-            if(birthDatePicker.Value > new DateTime(1800, 1, 1))
+            if (birthDatePicker.Value > new DateTime(1800, 1, 1))
             {
                 birthDatePicker.Format = DateTimePickerFormat.Custom;
                 birthDatePicker.CustomFormat = "dd.MM.yyyy";
@@ -1286,7 +1310,7 @@ namespace EZKO.Forms.AdministrationForms
         private void addDocumentButton_Click(object sender, EventArgs e)
         {
             openFileDialog.Filter = "All files (*.*) | *.*;";
-            if(openFileDialog.ShowDialog() == DialogResult.OK)
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 if (!DirectoriesController.CopyToDocumentsFolder(patient, openFileDialog.FileName))
                     BasicMessagesHandler.ShowInformationMessage("Súbor sa nepodarilo nahrať do priečinku pacienta.\n" +

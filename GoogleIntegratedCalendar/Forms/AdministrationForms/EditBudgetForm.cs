@@ -325,9 +325,9 @@ namespace EZKO.Forms.AdministrationForms
         private string GetPriceString(decimal? value = null)
         {
             if(value == null)
-                return price + " €";
+                return price.ToString("0.00 €");
             else
-                return value + " €";
+                return value.Value.ToString("0.00 €");
         }
         private string GetCountString(int? value = null)
         {

@@ -210,8 +210,8 @@ namespace EZKO.UserControls.Patients
                     RemoveItem(item);
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "PdfExport")
                 {
-                    //string path = DirectoriesController.GetFormsFolder() + @"\" + item.PdfFile();
-                    string path = @"C:\AATimo\tmp.pdf";
+                    string path = DirectoriesController.GetPatientDocumentsFolder(item) + @"\" + item.FullName + "_EZKO.pdf";
+                    //string path = @"C:\AATimo\tmp.pdf";
                     EhrToPDF ehrToPdf = new EhrToPDF(path, item, GlobalSettings.User, ezkoController);
                     if (ehrToPdf.CreatePdf())
                         System.Diagnostics.Process.Start(path);

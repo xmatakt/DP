@@ -103,11 +103,11 @@
             this.documentsLabel = new System.Windows.Forms.Label();
             this.documentsDataGridView = new System.Windows.Forms.DataGridView();
             this.budgetsDataGridView = new System.Windows.Forms.DataGridView();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.visitsTabPage = new System.Windows.Forms.TabPage();
-            this.searchLabel = new System.Windows.Forms.Label();
-            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.visitsDataGridView = new System.Windows.Forms.DataGridView();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.searchLabel = new System.Windows.Forms.Label();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.noteRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
             this.employmentRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
             this.generatePdfButton = new EZKO.UserControls.FlatControls.RoundButton();
@@ -971,22 +971,6 @@
             this.visitsTabPage.Text = "Návštevy";
             this.visitsTabPage.UseVisualStyleBackColor = true;
             // 
-            // searchLabel
-            // 
-            this.searchLabel.AutoSize = true;
-            this.searchLabel.Location = new System.Drawing.Point(8, 20);
-            this.searchLabel.Name = "searchLabel";
-            this.searchLabel.Size = new System.Drawing.Size(76, 13);
-            this.searchLabel.TabIndex = 0;
-            this.searchLabel.Text = "Vyhľadávanie:";
-            // 
-            // searchTextBox
-            // 
-            this.searchTextBox.Location = new System.Drawing.Point(90, 17);
-            this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(190, 20);
-            this.searchTextBox.TabIndex = 1;
-            // 
             // visitsDataGridView
             // 
             this.visitsDataGridView.AllowUserToAddRows = false;
@@ -1000,6 +984,22 @@
             this.visitsDataGridView.ReadOnly = true;
             this.visitsDataGridView.Size = new System.Drawing.Size(994, 387);
             this.visitsDataGridView.TabIndex = 2;
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(90, 17);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(190, 20);
+            this.searchTextBox.TabIndex = 1;
+            // 
+            // searchLabel
+            // 
+            this.searchLabel.AutoSize = true;
+            this.searchLabel.Location = new System.Drawing.Point(8, 20);
+            this.searchLabel.Name = "searchLabel";
+            this.searchLabel.Size = new System.Drawing.Size(76, 13);
+            this.searchLabel.TabIndex = 0;
+            this.searchLabel.Text = "Vyhľadávanie:";
             // 
             // noteRichTextBox
             // 

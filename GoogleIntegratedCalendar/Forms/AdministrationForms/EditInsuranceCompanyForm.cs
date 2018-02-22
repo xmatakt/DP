@@ -15,7 +15,6 @@ namespace EZKO.Forms.AdministrationForms
     {
         private WorkingTypeEnum workingType;
         private EzkoController ezkoController;
-        private WorkingInfoForm workingInfoForm;
         private InsuranceCompany insuranceCompany;
 
         #region Private properties
@@ -226,19 +225,6 @@ namespace EZKO.Forms.AdministrationForms
         private void minimizeFormPictureBox_MouseLeave(object sender, EventArgs e)
         {
             minimizeFormPictureBox.Image = Properties.Resources.toTaskbar_32;
-        }
-        #endregion
-
-        #region BG worker
-        private void bg_DoWork(object sender, DoWorkEventArgs e)
-        {
-
-        }
-
-        private void bg_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (workingInfoForm != null)
-                workingInfoForm.Close();
         }
         #endregion
 

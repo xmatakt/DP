@@ -15,6 +15,12 @@ namespace EZKO.UserControls.Other
         public LabeledNumericUpDown()
         {
             ValueChanged += LabeledNumericUpDown_ValueChanged;
+            MouseClick += LabeledNumericUpDown_MouseClick;
+        }
+
+        private void LabeledNumericUpDown_MouseClick(object sender, MouseEventArgs e)
+        {
+            Select(0, Text.Length);
         }
 
         private void LabeledNumericUpDown_ValueChanged(object sender, EventArgs e)

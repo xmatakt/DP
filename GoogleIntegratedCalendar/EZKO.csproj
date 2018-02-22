@@ -117,6 +117,24 @@
     <Compile Include="Forms\AdministrationForms\FillQuestionnaireForm.Designer.cs">
       <DependentUpon>FillQuestionnaireForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Dashboard\AddActionToBillingForm .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dashboard\AddActionToBillingForm .Designer.cs">
+      <DependentUpon>AddActionToBillingForm .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dashboard\EventBillingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dashboard\EventBillingForm.Designer.cs">
+      <DependentUpon>EventBillingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dashboard\AddItemToBillingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dashboard\AddItemToBillingForm.Designer.cs">
+      <DependentUpon>AddItemToBillingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DateTimePickerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -337,6 +355,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AdministrationForms\FillQuestionnaireForm.resx">
       <DependentUpon>FillQuestionnaireForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dashboard\AddActionToBillingForm .resx">
+      <DependentUpon>AddActionToBillingForm .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dashboard\EventBillingForm.resx">
+      <DependentUpon>EventBillingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dashboard\AddItemToBillingForm.resx">
+      <DependentUpon>AddItemToBillingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DateTimePickerForm.resx">
       <DependentUpon>DateTimePickerForm.cs</DependentUpon>
@@ -631,6 +658,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\fields_white_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok_mark_white_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ok_mark_white_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
