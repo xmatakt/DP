@@ -84,6 +84,12 @@
       <DependentUpon>EzkoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\DoneActionNotePair.cs" />
+    <Compile Include="Model\EventBill.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EventBillItem.cs">
+      <DependentUpon>EzkoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\EventState.cs">
       <DependentUpon>EzkoModel.tt</DependentUpon>
     </Compile>

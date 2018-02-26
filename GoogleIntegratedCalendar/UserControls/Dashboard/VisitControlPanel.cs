@@ -165,6 +165,19 @@ namespace EZKO.UserControls.Dashboard
             }
             set { planedTextTextBox.Text = value; }
         }
+        private string messageForUser
+        {
+            set
+            {
+                if (value == null)
+                    infoPanel.Visible = false;
+                else
+                {
+                    infoLabel.Text = value;
+                    infoPanel.Visible = true;
+                }
+            }
+        }
         private List<DoneActionNotePair> doneActions
         {
             get
@@ -210,12 +223,12 @@ namespace EZKO.UserControls.Dashboard
         {
             InitializeComponent();
 
+            messageForUser = null;
             SetDoneActionsPanelForTabelPanelVisibility(false);
             durationInfoLabel.Visible = false;
             patientNamePanel.Visible = true;
             newPatientPanel.Visible = false;
             doneActionsTablePanel.RowCount = 0;
-
             //Sets only vertical scroll to be available (doesn't seems to work)
             mainFlowLayoutPanel.HorizontalScroll.Maximum = 0;
             mainFlowLayoutPanel.AutoScroll = false;
@@ -314,26 +327,6 @@ namespace EZKO.UserControls.Dashboard
             durationNumericUpDown.Invalidate();
             eventStartTextBox.Invalidate();
         }
-
-        public void UpdateControl()
-        {
-            //if (ChangesHolder.PatientsChanged)
-            //{
-            //    InitializePatientNameTextBox();
-            //    ChangesHolder.PatientsChanged = false;
-            //}
-            //if (ChangesHolder.DoctorsChanged)
-            //{
-            //    InitializeDoctorsComboBox();
-            //    ChangesHolder.DoctorsChanged = false;
-            //}
-            //if (ChangesHolder.ActionsChanged)
-            //{
-            //    InitializePlannedActionsComboBox();
-            //    InitializeDoneActionsTextBox();
-            //    ChangesHolder.ActionsChanged = false;
-            //}
-        }
         #endregion
 
         #region Private methods
@@ -399,6 +392,8 @@ namespace EZKO.UserControls.Dashboard
                     eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Payed));
                 else if (calendarEvent.StateID == (int)EventStateEnum.Cancelled)
                     eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Cancelled));
+                else if (calendarEvent.StateID == (int)EventStateEnum.IsTemporaryGoogleEvent)
+                    eventStateComboBox.Items.Add(ezkoController.GetEventState(EventStateEnum.Planned));
             }
             else
             {
@@ -407,11 +402,6 @@ namespace EZKO.UserControls.Dashboard
 
             if (eventStateComboBox.Items.Count > 0)
                 eventStateComboBox.SelectedIndex = 0;
-            //foreach (var state in states)
-            //    if (state.ID == (int)EventStateEnum.Planned)
-            //        eventStateComboBox.Items.Add(state);
-            //if(state.ID != (int)EventStateEnum.IsTemporaryGoogleEvent)
-            //    eventStateComboBox.Items.Add(state);
         }
 
         private void InitializeEmailsRichTextBox(string email = null)
@@ -503,7 +493,6 @@ namespace EZKO.UserControls.Dashboard
 
         private void SetCreatingFromGoogleEventControlBeahvior()
         {
-            calendarEvent = null;
             newPatientCheckBox.Visible = true;
             updateEventPanel.Visible = true;
             newEventButtonsPanel.Visible = true;
@@ -514,15 +503,6 @@ namespace EZKO.UserControls.Dashboard
             plannedTextPanel.Visible = false;
             reorderButton.Visible = false;
             saveEventButton.Visible = false;
-
-            foreach (EventState item in eventStateComboBox.Items)
-            {
-                if (item.ID == (int)DatabaseCommunicator.Enums.EventStateEnum.Planned)
-                {
-                    eventStateComboBox.SelectedItem = item;
-                    break;
-                }
-            }
         }
 
         private void LoadEventDetails()
@@ -534,16 +514,15 @@ namespace EZKO.UserControls.Dashboard
                     patientName = calendarEvent.Patient.FullName;
                     patientNameTextBox.Tag = calendarEvent.Patient;
                 }
-                //else
-                //{
-                //    patientNameTextBox.ReadOnly = false;
-                //    newPatientCheckBox.Visible = true;
-                //}
+
                 eventStartDateTime = calendarEvent.StartDate;
                 SetEventStartDateText();
                 eventDuration = (int)(calendarEvent.EndDate - calendarEvent.StartDate).TotalMinutes;
                 notificationEmails = calendarEvent.NotificationEmails;
-                eventNote = calendarEvent.Description;
+                if (!calendarEvent.IsTemporaryGoogleEvent)
+                    eventNote = calendarEvent.Description;
+                else
+                    eventNote = calendarEvent.Summary;
                 plannedText = calendarEvent.PlanedActionText;
                 doneText = calendarEvent.ExecutedActionText;
 
@@ -913,24 +892,25 @@ namespace EZKO.UserControls.Dashboard
                     calendarSynchronizer.UploadEvent(newEvent.GoogleEventID, newEvent.Summary, newEvent.Description, newEvent.StartDate, newEvent.EndDate);
                 if (ambulantionControl != null)
                     ambulantionControl.LoadEvents();
+
+                LoadEvent(newEvent);
+                messageForUser = "Návšteva bola úspešne vytvorená";
+                saveEventButton.Focus();
             }
             else
                 BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa vytvoriť návštevu");
 
-            UpdateControl();
         }       
 
         private void UpdateEvent()
         {
             if (!ValidateData())
                 return;
-
-            //nieco som tu mal poznacene, ale neviem co
-
+           
             if (calendarEvent.StateID == (int)EventStateEnum.Planned &&
                 eventState.ID == (int)EventStateEnum.Done)
             {
-                Forms.Dashboard.EventBillingForm form = new Forms.Dashboard.EventBillingForm(doneActions.Select(x => x.DoneAction).ToList());
+                Forms.Dashboard.EventBillingForm form = new Forms.Dashboard.EventBillingForm(calendarEvent, doneActions.Select(x => x.DoneAction).ToList());
                 if (form.ShowDialog() != DialogResult.OK)
                 {
                     return;
@@ -948,6 +928,8 @@ namespace EZKO.UserControls.Dashboard
                         calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.IsDeleted);
                 if (ambulantionControl != null)
                     ambulantionControl.LoadEvents();
+
+                messageForUser = "Návšteva bola úspešne upravená";
             }
             else
                 BasicMessagesHandler.ShowErrorMessage("Návštevu sa nepodarilo upraviť");
@@ -972,6 +954,7 @@ namespace EZKO.UserControls.Dashboard
                     ambulantionControl.LoadEvents();
 
                 ResetVisitPanel(WorkingTypeEnum.Creating);
+                messageForUser = "Návšteva bola úspešne odstránená";
             }
             else
                 BasicMessagesHandler.ShowErrorMessage("Návštevu sa nepodarilo odstrániť");
@@ -1144,5 +1127,10 @@ namespace EZKO.UserControls.Dashboard
             SetControlWorkingType(WorkingTypeEnum.Recreating);
         }
         #endregion
+
+        private void deleteEventButton_Leave(object sender, EventArgs e)
+        {
+            messageForUser = null;
+        }
     }
 }

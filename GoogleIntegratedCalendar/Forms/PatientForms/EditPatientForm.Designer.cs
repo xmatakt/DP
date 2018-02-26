@@ -1,4 +1,4 @@
-﻿namespace EZKO.Forms.AdministrationForms
+﻿namespace EZKO.Forms.PatientForms
 {
     partial class EditPatientForm
     {
@@ -241,6 +241,7 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(1018, 472);
             this.tabControl.TabIndex = 2;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
             // 
             // personalInformationTabPage
             // 
@@ -984,6 +985,7 @@
             this.visitsDataGridView.ReadOnly = true;
             this.visitsDataGridView.Size = new System.Drawing.Size(994, 387);
             this.visitsDataGridView.TabIndex = 2;
+            this.visitsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.visitsDataGridView_CellContentClick);
             // 
             // searchTextBox
             // 
@@ -991,6 +993,7 @@
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(190, 20);
             this.searchTextBox.TabIndex = 1;
+            this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
             // 
             // searchLabel
             // 
@@ -1113,15 +1116,16 @@
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.cancelButton.ForeColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(960, 5);
+            this.cancelButton.Location = new System.Drawing.Point(948, 5);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Radius = 5;
             this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
-            this.cancelButton.Size = new System.Drawing.Size(50, 23);
+            this.cancelButton.Size = new System.Drawing.Size(62, 23);
             this.cancelButton.TabIndex = 7;
-            this.cancelButton.Text = "Zrušiť";
+            this.cancelButton.Text = "Zatvoriť";
             this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // addButton
             // 
@@ -1135,7 +1139,7 @@
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(906, 5);
+            this.addButton.Location = new System.Drawing.Point(894, 5);
             this.addButton.Margin = new System.Windows.Forms.Padding(2);
             this.addButton.Name = "addButton";
             this.addButton.Radius = 5;

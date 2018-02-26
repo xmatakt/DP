@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace System.Windows.Forms.Calendar
 {
@@ -84,7 +85,7 @@ namespace System.Windows.Forms.Calendar
         private bool _forwardButtonSelected;
         private Rectangle _backwardButtonBounds;
         private bool _backwardButtonSelected;
-        public Dictionary<DateTime, int> EventsCountByDate { get; set; }
+        public Dictionary<DateTime, int> EventsDurationByDate { get; set; }
         #endregion
 
         #region Events
@@ -603,6 +604,18 @@ namespace System.Windows.Forms.Calendar
                 }
             }
 
+            if (!e.FillColor.IsEmpty)
+            {
+                //using (SolidBrush b = new SolidBrush(e.FillColor))
+                //{
+                //    e.Graphics.FillRectangle(b, e.FillBounds);
+                //}
+                using (LinearGradientBrush b = new LinearGradientBrush(e.FillBounds, Color.White, e.FillColor, -90f))
+                {
+                    e.Graphics.FillRectangle(b, e.FillBounds);
+                }
+            }
+
             if (!e.TextColor.IsEmpty && !string.IsNullOrEmpty(e.Text))
             {
                 TextRenderer.DrawText(e.Graphics, e.Text, e.Font != null ? e.Font : Font, e.Bounds, e.TextColor, e.TextFlags);
@@ -849,6 +862,47 @@ namespace System.Windows.Forms.Calendar
 
                     #endregion
 
+                    #region Days
+                    foreach (MonthViewDay day in Months[i].Days)
+                    {
+                        if (!day.Visible) continue;
+
+                        MonthViewBoxEventArgs evtDay = new MonthViewBoxEventArgs(e.Graphics, day.Bounds, day.Date.Day.ToString(),
+                            StringAlignment.Far,
+                            day.Grayed ? DayGrayedText : (day.Selected ? DaySelectedTextColor : ForeColor),
+                            day.Selected ? DaySelectedBackgroundColor : DayBackgroundColor);
+
+                        if (day.Date.Equals(DateTime.Now.Date))
+                            evtDay.BorderColor = TodayBorderColor;
+                        else
+                            evtDay.BorderColor = Color.White;
+
+                        if (EventsDurationByDate != null &&
+                            //!day.Selected &&
+                            EventsDurationByDate.ContainsKey(day.Date))
+                        {
+                            float percentage = EventsDurationByDate[day.Date] * 100 / (float)(8 * 6000);
+                            int boundsWidth = evtDay.Bounds.Width;
+                            int boundsHeight = evtDay.Bounds.Height;
+                            if (percentage < 1f)
+                                boundsHeight = (int)Math.Ceiling(percentage * evtDay.Bounds.Height);
+                            //boundsWidth = (int)Math.Ceiling(percentage * evtDay.Bounds.Width);
+
+                            if(boundsWidth > 3)
+                            {
+                                evtDay.FillBounds = new Rectangle(evtDay.Bounds.X, evtDay.Bounds.Y + evtDay.Bounds.Height - boundsHeight, boundsWidth, boundsHeight);
+                                //evtDay.BackgroundColor = Color.GreenYellow;
+                                evtDay.FillColor = Color.OrangeRed;
+                            }
+                        }
+
+                        if (day.Selected)
+                            evtDay.BorderColor = Color.Black;
+
+                        DrawBox(evtDay);
+                    }
+                    #endregion 
+
                     #region DayNames
 
                     for (int j = 0; j < Months[i].DayNamesBounds.Length; j++)
@@ -868,30 +922,6 @@ namespace System.Windows.Forms.Calendar
                         }
                     }
                     #endregion
-
-                    #region Days
-                    foreach (MonthViewDay day in Months[i].Days)
-                    {
-                        if (!day.Visible) continue;
-
-                        MonthViewBoxEventArgs evtDay = new MonthViewBoxEventArgs(e.Graphics, day.Bounds, day.Date.Day.ToString(),
-                            StringAlignment.Far,
-                            day.Grayed ? DayGrayedText : (day.Selected ? DaySelectedTextColor : ForeColor),
-                            day.Selected ? DaySelectedBackgroundColor : DayBackgroundColor);
-
-                        if (day.Date.Equals(DateTime.Now.Date))
-                        {
-                            evtDay.BorderColor = TodayBorderColor;
-                        }
-
-                        if (EventsCountByDate != null &&
-                            !day.Selected &&
-                            EventsCountByDate.ContainsKey(day.Date))
-                            evtDay.BackgroundColor = Color.Gainsboro;
-
-                        DrawBox(evtDay);
-                    }
-                    #endregion 
 
                     #region Arrows
 

@@ -27,9 +27,11 @@ namespace EZKO.UserControls.Ambulantion
         }
         #endregion
 
-        public CalendarEventCard(CalendarEvent calendarEvent, VisitUserControl visitControl)
+        public CalendarEventCard(CalendarEvent calendarEvent, VisitUserControl visitControl, bool showImageLabel)
         {
             InitializeComponent();
+
+            imageLabel.Visible = showImageLabel;
 
             this.calendarEvent = calendarEvent;
             this.visitControl = visitControl;

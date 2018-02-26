@@ -5,6 +5,8 @@ using ExceptionHandler;
 using EZKO.Classes;
 using EZKO.Controllers;
 using EZKO.Enums;
+using EZKO.Forms.AdministrationForms;
+using EZKO.Forms.PatientForms;
 using EZKO.UserControls;
 using EZKO.UserControls.FlatControls;
 using PDFCreator.EZKODocumentation;
@@ -19,13 +21,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EZKO.Forms.AdministrationForms
+namespace EZKO.Forms.PatientForms
 {
     public partial class EditPatientForm : System.Windows.Forms.Form
     {
         private WorkingTypeEnum workingType;
         private EzkoController ezkoController;
         private Patient patient;
+        private bool expandNodes = true;
+        private bool resizeForm = true;
 
         #region Private properties
         #region Personal info tab
@@ -68,13 +72,7 @@ namespace EZKO.Forms.AdministrationForms
 
         DateTime? birthDate
         {
-            get
-            {
-                if (birthDatePicker.Value != new DateTime(1800, 1, 1))
-                    return birthDatePicker.Value;
-                else
-                    return null;
-            }
+            get{ return birthDatePicker.Tag as DateTime?; }
             set
             {
                 if (value.HasValue)
@@ -82,12 +80,13 @@ namespace EZKO.Forms.AdministrationForms
                     birthDatePicker.Format = DateTimePickerFormat.Custom;
                     birthDatePicker.CustomFormat = "dd.MM.yyyy";
                     birthDatePicker.Value = value.Value;
+                    birthDatePicker.Tag = value.Value;
                 }
                 else
                 {
                     birthDatePicker.Format = DateTimePickerFormat.Custom;
                     birthDatePicker.CustomFormat = " ";
-                    birthDatePicker.Value = new DateTime(1800, 1, 1);
+                    birthDatePicker.Tag = null;
                 }
             }
         }
@@ -426,11 +425,21 @@ namespace EZKO.Forms.AdministrationForms
 
         private void InitializeTreeViewTab()
         {
+            //treeView.Nodes.Clear();
+
             if (patient != null && patient.RootDirectoryPath != null)
             {
                 DirectoryInfo directoryInfo = new DirectoryInfo(patient.RootDirectoryPath);
                 BuildTree(directoryInfo, treeView.Nodes);
             }
+
+            if(expandNodes)
+            {
+                expandNodes = false;
+                treeView.ExpandAll();
+            }
+
+            RemoveDeletedFilesFromTree(treeView.Nodes);
         }
 
         private void InitializeTextDocumentationTab()
@@ -755,23 +764,55 @@ namespace EZKO.Forms.AdministrationForms
 
             visitsDataGridView.Rows.Clear();
 
-
             foreach (var item in ezkoController.GetEvents(patient.ID))
             {
-                int rowIndex = visitsDataGridView.Rows.Add(new object[]
+                if(MatchesFilter(item))
+                {
+                    int rowIndex = visitsDataGridView.Rows.Add(new object[]
                 { item.EventState.ToString().ToLower(), GetItems(item.Users.Where(x => x.RoleID == (int)UserRoleEnum.Doctor).ToList()),
                     GetItems(item.Users.Where(x => x.RoleID == (int)UserRoleEnum.Nurse).ToList()), item.StartDate, item.EndDate,
                     GetItems(item.Actions), GetItems(item.CalendarEventExecutedActions), GetItems(item.Infrastructures), item.Description,
                     item.CalendarEventExecutedActions.Select(x => x.Action).Sum(x => x.Costs + x.Margin).ToString("0.00 €"),
                     "", "Pdf", "Náhľad"});
 
-                visitsDataGridView.Rows[rowIndex].Tag = item;
+                    visitsDataGridView.Rows[rowIndex].Tag = item;
 
-                Color? cellColor = GetEventStateColor(item.StateID);
-                if (cellColor.HasValue)
-                    visitsDataGridView[0, rowIndex].Style.BackColor = cellColor.Value;
+                    Color? cellColor = GetEventStateColor(item.StateID);
+                    if (cellColor.HasValue)
+                        visitsDataGridView[0, rowIndex].Style.BackColor = cellColor.Value;
+                }
             }
-            ResizeForm();
+
+            if(resizeForm)
+            {
+                resizeForm = false;
+                ResizeForm();
+            }
+        }
+
+        private bool MatchesFilter(CalendarEvent item)
+        {
+            bool result = false;
+            string filterValue = searchTextBox.Text.Trim();
+
+            if (string.IsNullOrEmpty(filterValue))
+                result = true;
+            else
+            {
+                if (
+                    item.EventState.ToString().ToLower().Contains(filterValue) ||
+                    (item.Description != null && item.Description.Contains(filterValue)) ||
+                    item.Users.Any(x => x.Login.Contains(filterValue)) ||
+                    item.StartDate.ToString().Contains(filterValue) ||
+                    item.EndDate.ToString().Contains(filterValue) ||
+                    item.Actions.Any(x => x.Name.Contains(filterValue)) ||
+                    item.CalendarEventExecutedActions.Any(x => x.Action.Name.Contains(filterValue)) ||
+                    item.Infrastructures.Any(x => x.Name.Contains(filterValue))
+                    )
+                    result = true;
+            }
+
+            return result;
         }
 
         private void ResizeForm()
@@ -848,15 +889,34 @@ namespace EZKO.Forms.AdministrationForms
 
         private void BuildTree(DirectoryInfo directoryInfo, TreeNodeCollection addInMe)
         {
-            TreeNode curNode = addInMe.Add(directoryInfo.FullName, directoryInfo.Name);
+            TreeNode curNode = addInMe.Find(directoryInfo.FullName, false).FirstOrDefault();
+            if (curNode == null)
+                curNode = addInMe.Add(directoryInfo.FullName, directoryInfo.Name);
 
-            foreach (FileInfo file in directoryInfo.GetFiles())
+            if(curNode != null)
             {
-                curNode.Nodes.Add(file.FullName, file.Name);
+                foreach (FileInfo file in directoryInfo.GetFiles())
+                {
+                    if (curNode.Nodes.Find(file.FullName, false).Count() == 0)
+                        curNode.Nodes.Add(file.FullName, file.Name);
+                }
+                foreach (DirectoryInfo subdir in directoryInfo.GetDirectories())
+                {
+                    BuildTree(subdir, curNode.Nodes);
+                }
             }
-            foreach (DirectoryInfo subdir in directoryInfo.GetDirectories())
+        }
+
+        private void RemoveDeletedFilesFromTree(TreeNodeCollection nodes)
+        {
+            foreach (TreeNode item in nodes)
             {
-                BuildTree(subdir, curNode.Nodes);
+                FileInfo fileInfo = new FileInfo(item.Name);
+                if (!string.IsNullOrEmpty(fileInfo.Extension))
+                    if (!File.Exists(item.Name))
+                        treeView.Nodes.Remove(item);
+
+                RemoveDeletedFilesFromTree(item.Nodes);
             }
         }
 
@@ -898,6 +958,7 @@ namespace EZKO.Forms.AdministrationForms
         {
             try
             {
+                DialogResult = DialogResult.None;
                 Cursor = Cursors.WaitCursor;
                 if (ValidateData())
                 {
@@ -907,7 +968,9 @@ namespace EZKO.Forms.AdministrationForms
                     if (!ezkoController.EditPatient(patient, name, surname, birthDate, BIFO, legalRepresentative, titleBefore, titleAfter, birthNumber,
                         insuranceCompany, sex, street, streetNumber, city, zip, country, phone, alternativePhone, email, alternativeEmail,
                         facebook, employment, note, patientAvatarImagePath))
+                    {
                         BasicMessagesHandler.ShowErrorMessage("Počas úpravy pacienta sa vyskytla chyba");
+                    }
                     else
                     {
                         SaveFieldsOverview();
@@ -918,10 +981,10 @@ namespace EZKO.Forms.AdministrationForms
                             //
                             DirectoriesController.CopyFile(avatarImagePath, patientAvatarImagePath);
                         }
+
+                        BasicMessagesHandler.ShowInformationMessage("Zmeny boli úspešne uložené");
                     }
                 }
-                else
-                    DialogResult = DialogResult.None;
             }
             catch (Exception e)
             {
@@ -1045,6 +1108,14 @@ namespace EZKO.Forms.AdministrationForms
                 BasicMessagesHandler.ShowErrorMessage("Počas ukladania zmien vo vyplnení EZKO polí sa vyskytla chyba!", ex);
             }
         }
+
+        private void CloseWindow()
+        {
+            if (BasicMessagesHandler.ShowWarningMessage("Vykonané zmeny nebudú uložené.\n Želáte si pokračovať?") == DialogResult.Yes)
+                DialogResult = DialogResult.Cancel;
+            else
+                DialogResult = DialogResult.None;
+        }
         #endregion
 
         #region MainPannelDragging
@@ -1078,8 +1149,7 @@ namespace EZKO.Forms.AdministrationForms
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
-            Close();
+            CloseWindow();
         }
         #endregion
 
@@ -1164,7 +1234,9 @@ namespace EZKO.Forms.AdministrationForms
 
         private void birthDatePicker_ValueChanged(object sender, EventArgs e)
         {
-            if (birthDatePicker.Value > new DateTime(1800, 1, 1))
+            birthDatePicker.Tag = birthDatePicker.Value;
+            
+            if (birthDatePicker.Tag is DateTime)
             {
                 birthDatePicker.Format = DateTimePickerFormat.Custom;
                 birthDatePicker.CustomFormat = "dd.MM.yyyy";
@@ -1177,7 +1249,7 @@ namespace EZKO.Forms.AdministrationForms
 
         private void generatePdfButton_Click(object sender, EventArgs e)
         {
-            string path = @"C:\AATimo\tmp.pdf";
+            string path = DirectoriesController.GetPatientDocumentsFolder(patient) + @"\" + patient.FullName + "_EZKO.pdf";
             EhrToPDF ehrToPdf = new EhrToPDF(path, patient, GlobalSettings.User, ezkoController);
             if (ehrToPdf.CreatePdf())
                 System.Diagnostics.Process.Start(path);
@@ -1326,7 +1398,68 @@ namespace EZKO.Forms.AdministrationForms
             if (form.ShowDialog() == DialogResult.OK)
                 FillBudgetsGrid();
         }
-        #endregion
 
+        private void visitsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                DataGridView senderGrid = (DataGridView)sender;
+
+                if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+                {
+                    CalendarEvent item = senderGrid.Rows[e.RowIndex].Tag as CalendarEvent;
+                    if (senderGrid.Columns[e.ColumnIndex].Name == "Pdf")
+                    {
+                        string path = DirectoriesController.GetPatientDocumentsFolder(item.Patient) + @"\" + item.Patient.FullName + "_navsteva_" + item.ID + ".pdf";
+                        EventToPDF eventToPdf = new EventToPDF(path, item);
+                        if (eventToPdf.CreatePdf())
+                            System.Diagnostics.Process.Start(path);
+                    }
+                    else if (senderGrid.Columns[e.ColumnIndex].Name == "View")
+                    {
+                        EventOverviewForm overviewForm = new EventOverviewForm(item);
+                        if (overviewForm.ShowDialog() == DialogResult.OK)
+                            FillVisitsGrid();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Pri pokuse o odstránenie položky sa vyskytla chyba", ex);
+            }
+        }
+
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl.SelectedIndex == (int)SelectedTabEnum.ImageDocumentationTab)
+            {
+                InitializeTreeViewTab();
+            }
+            else if (tabControl.SelectedIndex == (int)SelectedTabEnum.DocumentsTab)
+            {
+                FillDocumentsGrid();
+                FillBudgetsGrid();
+            }
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            CloseWindow();
+        }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            FillVisitsGrid();
+        }
+        #endregion
+    }
+
+    enum SelectedTabEnum
+    {
+        PersonalInfoTab = 0,
+        ImageDocumentationTab = 1,
+        TextDocumentationTab = 2,
+        DocumentsTab = 3,
+        VisitsTab = 4
     }
 }

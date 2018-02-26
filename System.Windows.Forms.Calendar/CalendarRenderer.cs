@@ -1749,6 +1749,8 @@ namespace System.Windows.Forms.Calendar
 
                 evt.Tag = e.Item;
 
+                OnDrawItemText(evt);
+
                 #region Image
 
                 if (e.Item.Image != null)
@@ -1795,8 +1797,6 @@ namespace System.Windows.Forms.Calendar
                 }
 
                 #endregion
-
-                OnDrawItemText(evt);
             }
         }
 

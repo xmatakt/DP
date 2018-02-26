@@ -62,6 +62,10 @@
         <AssociationConnector Association="EzkoModel.FK_FilledField_di146560216888948084" />
         <AssociationConnector Association="EzkoModel.FK_FilledField_di152836194397361792" />
         <AssociationConnector Association="EzkoModel.FilledFieldFieldValueAnswer" />
+        <EntityTypeShape EntityType="EzkoModel.EventBill" Width="1.5" PointX="10.5" PointY="2.125" />
+        <EntityTypeShape EntityType="EzkoModel.EventBillItem" Width="1.5" PointX="12.75" PointY="1.875" />
+        <AssociationConnector Association="EzkoModel.FK_EventBill_di323127984656937804" />
+        <AssociationConnector Association="EzkoModel.FK_EventBillItem_di628258882976834183" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

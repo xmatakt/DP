@@ -117,12 +117,6 @@
     <Compile Include="Forms\AdministrationForms\FillQuestionnaireForm.Designer.cs">
       <DependentUpon>FillQuestionnaireForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Dashboard\AddActionToBillingForm .cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Dashboard\AddActionToBillingForm .Designer.cs">
-      <DependentUpon>AddActionToBillingForm .cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Dashboard\EventBillingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +146,12 @@
     </Compile>
     <Compile Include="Forms\PatientForms\EditPatientForm.Designer.cs">
       <DependentUpon>EditPatientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PatientForms\EventOverviewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PatientForms\EventOverviewForm.Designer.cs">
+      <DependentUpon>EventOverviewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\PatientForms\NewPatientForm.cs">
       <SubType>Form</SubType>
@@ -356,9 +356,6 @@
     <EmbeddedResource Include="Forms\AdministrationForms\FillQuestionnaireForm.resx">
       <DependentUpon>FillQuestionnaireForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Dashboard\AddActionToBillingForm .resx">
-      <DependentUpon>AddActionToBillingForm .cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dashboard\EventBillingForm.resx">
       <DependentUpon>EventBillingForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -373,6 +370,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PatientForms\EditPatientForm.resx">
       <DependentUpon>EditPatientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PatientForms\EventOverviewForm.resx">
+      <DependentUpon>EventOverviewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PatientForms\NewPatientForm.resx">
       <DependentUpon>NewPatientForm.cs</DependentUpon>
@@ -664,6 +664,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ok_mark_white_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\euro_sign_black_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\euro_sign2_black_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

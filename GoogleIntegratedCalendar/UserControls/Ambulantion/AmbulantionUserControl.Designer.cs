@@ -82,7 +82,7 @@
             this.monthView.DaySelectedColor = System.Drawing.SystemColors.WindowText;
             this.monthView.DaySelectedTextColor = System.Drawing.SystemColors.HighlightText;
             this.monthView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.monthView.EventsCountByDate = null;
+            this.monthView.EventsDurationByDate = null;
             this.monthView.ItemPadding = new System.Windows.Forms.Padding(2);
             this.monthView.Location = new System.Drawing.Point(3, 3);
             this.monthView.MonthTitleColor = System.Drawing.SystemColors.ActiveCaption;
@@ -117,9 +117,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.eventsFlowLayoutPanel.AutoScroll = true;
-            this.eventsFlowLayoutPanel.Location = new System.Drawing.Point(3, 91);
+            this.eventsFlowLayoutPanel.Location = new System.Drawing.Point(3, 90);
             this.eventsFlowLayoutPanel.Name = "eventsFlowLayoutPanel";
-            this.eventsFlowLayoutPanel.Size = new System.Drawing.Size(681, 769);
+            this.eventsFlowLayoutPanel.Size = new System.Drawing.Size(681, 770);
             this.eventsFlowLayoutPanel.TabIndex = 1;
             // 
             // filterEventUserControl
@@ -127,13 +127,17 @@
             this.filterEventUserControl.AutoSize = true;
             this.filterEventUserControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.filterEventUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.filterEventUserControl.Location = new System.Drawing.Point(3, 3);
+            this.filterEventUserControl.Location = new System.Drawing.Point(2, 2);
+            this.filterEventUserControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.filterEventUserControl.Name = "filterEventUserControl";
-            this.filterEventUserControl.Size = new System.Drawing.Size(681, 82);
+            this.filterEventUserControl.Size = new System.Drawing.Size(683, 83);
             this.filterEventUserControl.TabIndex = 2;
             // 
             // visitUserControl
             // 
+            this.visitUserControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.visitUserControl.AutoScroll = true;
             this.visitUserControl.BackColor = System.Drawing.Color.White;
             this.visitUserControl.Location = new System.Drawing.Point(986, 2);

@@ -51,5 +51,7 @@ namespace DatabaseCommunicator.Model
         public virtual DbSet<FieldAnswer> FieldAnswers { get; set; }
         public virtual DbSet<FieldValueAnswer> FieldValueAnswers { get; set; }
         public virtual DbSet<FilledField> FilledFields { get; set; }
+        public virtual DbSet<EventBill> EventBills { get; set; }
+        public virtual DbSet<EventBillItem> EventBillItems { get; set; }
     }
 }

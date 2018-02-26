@@ -101,13 +101,14 @@
             this.findEventUserControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.findEventUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.findEventUserControl.Location = new System.Drawing.Point(2, 2);
-            this.findEventUserControl.Margin = new System.Windows.Forms.Padding(2);
+            this.findEventUserControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.findEventUserControl.Name = "findEventUserControl";
-            this.findEventUserControl.Size = new System.Drawing.Size(594, 88);
+            this.findEventUserControl.Size = new System.Drawing.Size(594, 72);
             this.findEventUserControl.TabIndex = 0;
             // 
             // calendar
             // 
+            this.calendar.AllowNew = false;
             this.calendar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -133,7 +134,7 @@
         calendarHighlightRange3,
         calendarHighlightRange4,
         calendarHighlightRange5};
-            this.calendar.Location = new System.Drawing.Point(3, 95);
+            this.calendar.Location = new System.Drawing.Point(3, 79);
             this.calendar.Name = "calendar";
             this.calendar.Size = new System.Drawing.Size(592, 673);
             this.calendar.TabIndex = 0;
@@ -173,7 +174,7 @@
             this.monthView.DaySelectedColor = System.Drawing.SystemColors.WindowText;
             this.monthView.DaySelectedTextColor = System.Drawing.SystemColors.HighlightText;
             this.monthView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.monthView.EventsCountByDate = null;
+            this.monthView.EventsDurationByDate = null;
             this.monthView.ItemPadding = new System.Windows.Forms.Padding(2);
             this.monthView.Location = new System.Drawing.Point(3, 3);
             this.monthView.MonthTitleColor = System.Drawing.SystemColors.ActiveCaption;

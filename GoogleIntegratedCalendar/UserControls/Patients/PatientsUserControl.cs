@@ -211,7 +211,6 @@ namespace EZKO.UserControls.Patients
                 else if (senderGrid.Columns[e.ColumnIndex].Name == "PdfExport")
                 {
                     string path = DirectoriesController.GetPatientDocumentsFolder(item) + @"\" + item.FullName + "_EZKO.pdf";
-                    //string path = @"C:\AATimo\tmp.pdf";
                     EhrToPDF ehrToPdf = new EhrToPDF(path, item, GlobalSettings.User, ezkoController);
                     if (ehrToPdf.CreatePdf())
                         System.Diagnostics.Process.Start(path);
@@ -230,6 +229,12 @@ namespace EZKO.UserControls.Patients
                 Patient item = senderGrid.Rows[e.RowIndex].Tag as Patient;
                 EditItem(item);
             }
+        }
+
+        private void filterTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                FillDataGridView(ezkoController.GetPatients(filterTextBox.Text.Trim()));
         }
         #endregion
     }

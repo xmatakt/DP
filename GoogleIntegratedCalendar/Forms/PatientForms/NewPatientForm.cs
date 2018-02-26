@@ -215,13 +215,7 @@ namespace EZKO.Forms.PatientForms
 
         DateTime? birthDate
         {
-            get
-            {
-                if (birthDatePicker.Value != new DateTime(1800, 1, 1))
-                    return birthDatePicker.Value;
-                else
-                    return null;
-            }
+            get { return birthDatePicker.Tag as DateTime?; }
         }
         #endregion
 
@@ -381,7 +375,7 @@ namespace EZKO.Forms.PatientForms
             nameTextBox.MaxLength = 30;
             surnameTextBox.MaxLength = 30;
             birthDatePicker.MaxDate = DateTime.Now;
-            birthDatePicker.Value = new DateTime(1800, 1, 1);
+            birthDatePicker.Tag = null;
             bifoTextBox.MaxLength = 10;
             representativeTextBox.MaxLength = 80;
             firstTitleTextBox.MaxLength = 20;
@@ -396,13 +390,24 @@ namespace EZKO.Forms.PatientForms
             phoneTextBox.MaxLength = 20;
 
             manRadioButton.Checked = true;
-            //birthDatePicker.Format = DateTimePickerFormat.Custom;
-            //birthDatePicker.CustomFormat = "dd.MM.yyyy";
+            birthDatePicker.Format = DateTimePickerFormat.Custom;
+            birthDatePicker.CustomFormat = " ";
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
             CreateData();
+        }
+
+        private void birthDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            birthDatePicker.Tag = birthDatePicker.Value;
+
+            if (birthDatePicker.Tag is DateTime)
+            {
+                birthDatePicker.Format = DateTimePickerFormat.Custom;
+                birthDatePicker.CustomFormat = "dd.MM.yyyy";
+            }
         }
         #endregion
     }

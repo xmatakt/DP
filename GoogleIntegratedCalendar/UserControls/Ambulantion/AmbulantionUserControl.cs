@@ -5,6 +5,7 @@ using DatabaseCommunicator.Controllers;
 using System.Windows.Forms.Calendar;
 using ExceptionHandler;
 using DatabaseCommunicator.Classes;
+using System.Collections.Generic;
 
 namespace EZKO.UserControls.Ambulantion
 {
@@ -12,6 +13,7 @@ namespace EZKO.UserControls.Ambulantion
     {
         private EzkoController ezkoController;
         private DateTime firstDateTime;
+        private bool loadDurations = true;
         //private GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer;
         public AmbulantionUserControl(GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer)
         {
@@ -22,6 +24,7 @@ namespace EZKO.UserControls.Ambulantion
             monthView.DaySelectedBackgroundColor = CalendarColorTable.FromHex("#F4CC52");
             monthView.DaySelectedTextColor = monthView.ForeColor;
             DateTime now = DateTime.Now;
+            monthView.EventsDurationByDate = new Dictionary<DateTime, int>();
 
             ezkoController = GlobalSettings.EzkoController;
 
@@ -61,10 +64,13 @@ namespace EZKO.UserControls.Ambulantion
         {
             try
             {
+                loadDurations = true;
+                monthView.EventsDurationByDate = new Dictionary<DateTime, int>();
                 eventsFlowLayoutPanel.Controls.Clear();
                 foreach (var item in ezkoController.GetEvents(filter))
                 {
-                    CalendarEventCard card = new CalendarEventCard(item, visitUserControl);
+                    CalendarEventCard card = new CalendarEventCard(item, visitUserControl,
+                        item.StateID == (int)DatabaseCommunicator.Enums.EventStateEnum.Payed);
                     card.Width = eventsFlowLayoutPanel.Width - 25;
 
                     //for AutoSize only in vertical direction
@@ -72,7 +78,11 @@ namespace EZKO.UserControls.Ambulantion
                     card.MinimumSize = new Size(eventsFlowLayoutPanel.Width - 25, 0);
 
                     eventsFlowLayoutPanel.Controls.Add(card);
+
+                    UpdateDurations(item.StartDate, item.EndDate, false);
                 }
+
+                monthView.Invalidate();
             }
             catch (Exception e)
             {
@@ -86,10 +96,14 @@ namespace EZKO.UserControls.Ambulantion
         {
             try
             {
+                if (loadDurations)
+                    LoadDurations(DateTime.Now.AddMonths(-6), DateTime.Now.AddYears(1));
+
                 eventsFlowLayoutPanel.Controls.Clear();
                 foreach (var item in ezkoController.GetEvents(selectionStart, selectionEnd))
                 {
-                    CalendarEventCard card = new CalendarEventCard(item, visitUserControl);
+                    CalendarEventCard card = new CalendarEventCard(item, visitUserControl,
+                        item.StateID == (int)DatabaseCommunicator.Enums.EventStateEnum.Payed);
                     card.Width = eventsFlowLayoutPanel.Width - 25;
 
                     //for AutoSize only in vertical direction
@@ -98,11 +112,42 @@ namespace EZKO.UserControls.Ambulantion
 
                     eventsFlowLayoutPanel.Controls.Add(card);
                 }
+
+                monthView.Invalidate();
             }
             catch (Exception e)
             {
                 BasicMessagesHandler.ShowErrorMessage("Udalosti sa nepodarilo načítať", e);
             }
+        }
+
+        private void LoadDurations(DateTime startDate, DateTime endDate)
+        {
+            monthView.EventsDurationByDate = new Dictionary<DateTime, int>();
+            foreach (var item in ezkoController.GetEvents(startDate, endDate))
+                UpdateDurations(item.StartDate, item.EndDate, false);
+
+            loadDurations = false;
+        }
+
+        private void UpdateDurations(DateTime startDate, DateTime endDate, bool invalidateMonthView)
+        {
+            if (!monthView.EventsDurationByDate.ContainsKey(startDate.Date))
+                monthView.EventsDurationByDate.Add(startDate.Date, (int)(endDate - startDate).TotalMinutes);
+            else
+                monthView.EventsDurationByDate[startDate.Date] += (int)(endDate - startDate).TotalMinutes;
+
+            if (invalidateMonthView)
+                monthView.Invalidate();
+        }
+
+        private void UpdateDurations(bool invalidateMonthView, DateTime startDate, DateTime endDate)
+        {
+            int originalEventDuration = (int)(endDate - startDate).TotalMinutes;
+            monthView.EventsDurationByDate[startDate.Date] -= originalEventDuration;
+
+            if (invalidateMonthView)
+                monthView.Invalidate();
         }
         #endregion
 

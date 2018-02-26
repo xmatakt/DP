@@ -21,7 +21,6 @@ namespace EZKO.UserControls.Dashboard
         private List<CalendarItem> calendarItems;
         private EzkoController ezkoController;
         private GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer;
-        private Dictionary<DateTime, int> eventsCountByDate;
 
         private void InitializeControl()
         {
@@ -40,7 +39,6 @@ namespace EZKO.UserControls.Dashboard
         #region Calendar events loading
         private void LoadEvents(DateTime startDate, DateTime endDate)
         {
-            eventsCountByDate = new Dictionary<DateTime, int>();
 
             //List<CalendarItem> googleEvents = LoadGoogleCalendarEvents(startDate, endDate);
             List<CalendarItem> dbEvents = LoadDbCalendarItems(startDate, endDate);
@@ -59,18 +57,17 @@ namespace EZKO.UserControls.Dashboard
         private List<CalendarItem> LoadDbCalendarItems(DateTime startDate, DateTime endDate)
         {
             IQueryable<CalendarEvent> dbEvents = ezkoController.GetEvents(startDate, endDate);
+            monthView.EventsDurationByDate = new Dictionary<DateTime, int>();
 
-            // for future use - color of days in monthview can differs based on count of events on day
-            // not implemented yet
             foreach (var dbEvent in dbEvents)
             {
-                if (!eventsCountByDate.ContainsKey(dbEvent.StartDate.Date))
-                    eventsCountByDate.Add(dbEvent.StartDate.Date, 1);
-                else
-                    eventsCountByDate[dbEvent.StartDate.Date]++;
+                UpdateDurations(dbEvent.StartDate, dbEvent.EndDate, false);
+                //if (!monthView.EventsDurationByDate.ContainsKey(dbEvent.StartDate.Date))
+                //    monthView.EventsDurationByDate.Add(dbEvent.StartDate.Date, (int)(dbEvent.EndDate - dbEvent.StartDate).TotalMinutes);
+                //else
+                //    monthView.EventsDurationByDate[dbEvent.StartDate.Date] += (int)(dbEvent.EndDate - dbEvent.StartDate).TotalMinutes;
             }
 
-            monthView.EventsCountByDate = eventsCountByDate;
             return CreateCalendarItemsFromDbEvents(dbEvents);
         }
 
@@ -81,6 +78,7 @@ namespace EZKO.UserControls.Dashboard
             {
                 result.Add(CreateCalendarItem(item));
             }
+
             return result;
         }
 
@@ -98,12 +96,19 @@ namespace EZKO.UserControls.Dashboard
                     calendarEvent.Description, calendarEvent.IsDeleted);
             }
 
+            if (calendarEvent.StateID == (int)DatabaseCommunicator.Enums.EventStateEnum.Payed)
+            {
+                result.Image = Properties.Resources.euro_sign2_black_16;
+                result.ImageAlign = CalendarItemImageAlign.East;
+            }
+
             result.GoogleEventID = calendarEvent.GoogleEventID;
             result.DatabaseEntityID = calendarEvent.ID;
             result.ApplyColor(Color.FromArgb(
                 calendarEvent.CalendarEventColor.R,
                 calendarEvent.CalendarEventColor.G,
                 calendarEvent.CalendarEventColor.B));
+            
             return result;
         }
 
@@ -221,7 +226,6 @@ namespace EZKO.UserControls.Dashboard
             monthView.DaySelectedBackgroundColor = CalendarColorTable.FromHex("#F4CC52");
             monthView.DaySelectedTextColor = monthView.ForeColor;
 
-            eventsCountByDate = new Dictionary<DateTime, int>();
             DateTime now = DateTime.Now;
             calendar.ViewStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
             calendar.ViewEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);
@@ -239,10 +243,32 @@ namespace EZKO.UserControls.Dashboard
             calendarSynchronizer = this.calendarSynchronizer;
         }
 
+        private void UpdateDurations(DateTime startDate, DateTime endDate, bool invalidateMonthView)
+        {
+            if (!monthView.EventsDurationByDate.ContainsKey(startDate.Date))
+                monthView.EventsDurationByDate.Add(startDate.Date, (int)(endDate - startDate).TotalMinutes);
+            else
+                monthView.EventsDurationByDate[startDate.Date] += (int)(endDate - startDate).TotalMinutes;
+
+            if (invalidateMonthView)
+                monthView.Invalidate();
+        }
+
+        private void UpdateDurations(bool invalidateMonthView, DateTime startDate, DateTime endDate)
+        {
+            int originalEventDuration = (int)(endDate - startDate).TotalMinutes;
+            monthView.EventsDurationByDate[startDate.Date] -= originalEventDuration;
+
+            if (invalidateMonthView)
+                monthView.Invalidate();
+        }
+
         public void AddCalendarEvent(CalendarEvent calendarEvent)
         {
             CalendarItem newItem = CreateCalendarItem(calendarEvent);
             calendarItems.Add(newItem);
+
+            UpdateDurations(calendarEvent.StartDate, calendarEvent.EndDate, true);
 
             ShowEvent(calendarEvent);
 
@@ -255,6 +281,8 @@ namespace EZKO.UserControls.Dashboard
 
             if (calendarItem != null)
             {
+                UpdateDurations(false, calendarItem.StartDate, calendarItem.EndDate);
+
                 calendarItem.Text = calendarEvent.Summary;
                 calendarItem.Description = calendarEvent.Details;
                 calendarItem.StartDate = calendarEvent.StartDate;
@@ -263,6 +291,8 @@ namespace EZKO.UserControls.Dashboard
                     calendarEvent.CalendarEventColor.R,
                     calendarEvent.CalendarEventColor.G,
                     calendarEvent.CalendarEventColor.B));
+
+                UpdateDurations(calendarEvent.StartDate, calendarEvent.EndDate, true);
 
                 if (calendarSynchronizer.UpdateEvent(calendarItem))
                 {
@@ -288,7 +318,9 @@ namespace EZKO.UserControls.Dashboard
             if (calendarItem != null)
                 calendarItem.IsDeleted = true;
 
-            if(calendarSynchronizer.UpdateEvent(calendarItem))
+            UpdateDurations(true, calendarItem.StartDate, calendarItem.EndDate);
+
+            if (calendarSynchronizer.UpdateEvent(calendarItem))
             {
                 //TODO: MessageBox?
             }
@@ -426,6 +458,8 @@ namespace EZKO.UserControls.Dashboard
         {
             calendar.SetViewRange(e.CalendarDay.Date, e.CalendarDay.Date);
             findEventUserControl.SetPickedDateLabel(e.CalendarDay.Date);
+            monthView.SelectionStart = e.CalendarDay.Date;
+            monthView.SelectionEnd = e.CalendarDay.Date;
         }
 
         private void GoogleIntegratedCalendarControl_Resize(object sender, EventArgs e)

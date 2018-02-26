@@ -34,8 +34,6 @@
             this.minimizeFormPictureBox = new System.Windows.Forms.PictureBox();
             this.closeFormPictureBox = new System.Windows.Forms.PictureBox();
             this.bottomFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.personalInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.birthDatePicker = new System.Windows.Forms.DateTimePicker();
             this.insuranceCompanyComboBox = new System.Windows.Forms.ComboBox();
@@ -74,6 +72,8 @@
             this.phoneLabel = new System.Windows.Forms.Label();
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.emailLabel = new System.Windows.Forms.Label();
+            this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.topMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.closeFormPictureBox)).BeginInit();
@@ -154,51 +154,6 @@
             this.bottomFlowPanel.Size = new System.Drawing.Size(593, 36);
             this.bottomFlowPanel.TabIndex = 1;
             // 
-            // cancelButton
-            // 
-            this.cancelButton.AutoSize = true;
-            this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(173)))), ((int)(((byte)(78)))));
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.FlatAppearance.BorderSize = 0;
-            this.cancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
-            this.cancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
-            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.cancelButton.ForeColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(535, 5);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Radius = 5;
-            this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
-            this.cancelButton.Size = new System.Drawing.Size(50, 23);
-            this.cancelButton.TabIndex = 1;
-            this.cancelButton.Text = "Zrušiť";
-            this.cancelButton.UseVisualStyleBackColor = false;
-            // 
-            // addButton
-            // 
-            this.addButton.AutoSize = true;
-            this.addButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.addButton.FlatAppearance.BorderSize = 0;
-            this.addButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(470, 5);
-            this.addButton.Margin = new System.Windows.Forms.Padding(2);
-            this.addButton.Name = "addButton";
-            this.addButton.Radius = 5;
-            this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.addButton.Size = new System.Drawing.Size(61, 23);
-            this.addButton.TabIndex = 0;
-            this.addButton.Text = "Vytvoriť";
-            this.addButton.UseVisualStyleBackColor = false;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
-            // 
             // personalInfoGroupBox
             // 
             this.personalInfoGroupBox.Controls.Add(this.birthDatePicker);
@@ -235,6 +190,7 @@
             this.birthDatePicker.Name = "birthDatePicker";
             this.birthDatePicker.Size = new System.Drawing.Size(148, 20);
             this.birthDatePicker.TabIndex = 2;
+            this.birthDatePicker.ValueChanged += new System.EventHandler(this.birthDatePicker_ValueChanged);
             // 
             // insuranceCompanyComboBox
             // 
@@ -566,6 +522,51 @@
             this.emailLabel.Size = new System.Drawing.Size(41, 13);
             this.emailLabel.TabIndex = 0;
             this.emailLabel.Text = "Email:";
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.AutoSize = true;
+            this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(173)))), ((int)(((byte)(78)))));
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.FlatAppearance.BorderSize = 0;
+            this.cancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
+            this.cancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.cancelButton.ForeColor = System.Drawing.Color.White;
+            this.cancelButton.Location = new System.Drawing.Point(523, 5);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Radius = 5;
+            this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
+            this.cancelButton.Size = new System.Drawing.Size(62, 23);
+            this.cancelButton.TabIndex = 1;
+            this.cancelButton.Text = "Zatvoriť";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            // 
+            // addButton
+            // 
+            this.addButton.AutoSize = true;
+            this.addButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.addButton.FlatAppearance.BorderSize = 0;
+            this.addButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.addButton.ForeColor = System.Drawing.Color.White;
+            this.addButton.Location = new System.Drawing.Point(458, 5);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2);
+            this.addButton.Name = "addButton";
+            this.addButton.Radius = 5;
+            this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.addButton.Size = new System.Drawing.Size(61, 23);
+            this.addButton.TabIndex = 0;
+            this.addButton.Text = "Vytvoriť";
+            this.addButton.UseVisualStyleBackColor = false;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
             // NewPatientForm
             // 

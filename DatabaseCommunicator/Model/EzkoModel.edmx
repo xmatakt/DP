@@ -72,6 +72,7 @@
           <Property Name="ExecutedActionText" Type="nvarchar(max)" />
           <Property Name="StateID" Type="int" Nullable="false" />
           <Property Name="IsTemporaryGoogleEvent" Type="bit" Nullable="false" />
+          <Property Name="PaymentDate" Type="datetime" />
         </EntityType>
         <EntityType Name="CalendarEventColor">
           <Key>
@@ -127,6 +128,24 @@
           <Property Name="Facebook" Type="nvarchar" MaxLength="80" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="AlternativePhone" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="EventBill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalendarEventID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EventBillItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventBillID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="19" Scale="6" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="decimal" Precision="19" Scale="6" Nullable="false" />
         </EntityType>
         <EntityType Name="EventState">
           <Key>
@@ -511,6 +530,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_EventBill_di323127984656937804">
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="1" />
+          <End Role="EventBill" Type="Self.EventBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EventBill">
+              <PropertyRef Name="CalendarEventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventBillItem_di628258882976834183">
+          <End Role="EventBill" Type="Self.EventBill" Multiplicity="1" />
+          <End Role="EventBillItem" Type="Self.EventBillItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventBill">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EventBillItem">
+              <PropertyRef Name="EventBillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Field_di831583428630155059">
           <End Role="FieldType" Type="Self.FieldType" Multiplicity="1" />
           <End Role="Field" Type="Self.Field" Multiplicity="*" />
@@ -739,6 +782,8 @@
           <EntitySet Name="CalendarEventPlanedAction" EntityType="Self.CalendarEventPlanedAction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalendarEventUser" EntityType="Self.CalendarEventUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventBill" EntityType="Self.EventBill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventBillItem" EntityType="Self.EventBillItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventState" EntityType="Self.EventState" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExecutedActionNote" EntityType="Self.ExecutedActionNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Field" EntityType="Self.Field" Schema="dbo" store:Type="Tables" />
@@ -825,6 +870,14 @@
           <AssociationSet Name="FK_CalendarEventUser_di683957273255937795" Association="Self.FK_CalendarEventUser_di683957273255937795">
             <End Role="CalendarEvent" EntitySet="CalendarEvent" />
             <End Role="CalendarEventUser" EntitySet="CalendarEventUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventBill_di323127984656937804" Association="Self.FK_EventBill_di323127984656937804">
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
+            <End Role="EventBill" EntitySet="EventBill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventBillItem_di628258882976834183" Association="Self.FK_EventBillItem_di628258882976834183">
+            <End Role="EventBill" EntitySet="EventBill" />
+            <End Role="EventBillItem" EntitySet="EventBillItem" />
           </AssociationSet>
           <AssociationSet Name="FK_Field_di831583428630155059" Association="Self.FK_Field_di831583428630155059">
             <End Role="FieldType" EntitySet="FieldType" />
@@ -1054,6 +1107,16 @@
             <End Role="FilledField" EntitySet="FilledFields" />
             <End Role="FieldValueAnswer" EntitySet="FieldValueAnswers" />
           </AssociationSet>
+          <EntitySet Name="EventBills" EntityType="EzkoModel.EventBill" />
+          <EntitySet Name="EventBillItems" EntityType="EzkoModel.EventBillItem" />
+          <AssociationSet Name="FK_EventBill_di323127984656937804" Association="EzkoModel.FK_EventBill_di323127984656937804">
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+            <End Role="EventBill" EntitySet="EventBills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventBillItem_di628258882976834183" Association="EzkoModel.FK_EventBillItem_di628258882976834183">
+            <End Role="EventBill" EntitySet="EventBills" />
+            <End Role="EventBillItem" EntitySet="EventBillItems" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Action">
           <Key>
@@ -1137,6 +1200,8 @@
           <NavigationProperty Name="CalendarEventColor" Relationship="EzkoModel.FK_CalendarEvent_di647481913942757360" FromRole="CalendarEvent" ToRole="CalendarEventColor" />
           <NavigationProperty Name="CalendarEventExecutedActions" Relationship="EzkoModel.FK_CalendarEventExecutedAction_di504550180463584052" FromRole="CalendarEvent" ToRole="CalendarEventExecutedAction" />
           <Property Name="IsTemporaryGoogleEvent" Type="Boolean" Nullable="false" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="EventBills" Relationship="EzkoModel.FK_EventBill_di323127984656937804" FromRole="CalendarEvent" ToRole="EventBill" />
         </EntityType>
         <EntityType Name="EventState">
           <Key>
@@ -1727,6 +1792,51 @@
           <End Type="EzkoModel.FilledField" Role="FilledField" Multiplicity="*" />
           <End Type="EzkoModel.FieldValueAnswer" Role="FieldValueAnswer" Multiplicity="*" />
         </Association>
+        <EntityType Name="EventBill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CalendarEventID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CalendarEvent" Relationship="EzkoModel.FK_EventBill_di323127984656937804" FromRole="EventBill" ToRole="CalendarEvent" />
+          <NavigationProperty Name="EventBillItems" Relationship="EzkoModel.FK_EventBillItem_di628258882976834183" FromRole="EventBill" ToRole="EventBillItem" />
+        </EntityType>
+        <EntityType Name="EventBillItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventBillID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="6" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="Discount" Type="Decimal" Nullable="false" Precision="19" Scale="6" />
+          <NavigationProperty Name="EventBill" Relationship="EzkoModel.FK_EventBillItem_di628258882976834183" FromRole="EventBillItem" ToRole="EventBill" />
+        </EntityType>
+        <Association Name="FK_EventBill_di323127984656937804">
+          <End Type="EzkoModel.CalendarEvent" Role="CalendarEvent" Multiplicity="1" />
+          <End Type="EzkoModel.EventBill" Role="EventBill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EventBill">
+              <PropertyRef Name="CalendarEventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventBillItem_di628258882976834183">
+          <End Type="EzkoModel.EventBill" Role="EventBill" Multiplicity="1" />
+          <End Type="EzkoModel.EventBillItem" Role="EventBillItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventBill">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EventBillItem">
+              <PropertyRef Name="EventBillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1788,6 +1898,7 @@
           <EntitySetMapping Name="CalendarEvents">
             <EntityTypeMapping TypeName="EzkoModel.CalendarEvent">
               <MappingFragment StoreEntitySet="CalendarEvent">
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
                 <ScalarProperty Name="IsTemporaryGoogleEvent" ColumnName="IsTemporaryGoogleEvent" />
                 <ScalarProperty Name="StateID" ColumnName="StateID" />
                 <ScalarProperty Name="ExecutedActionText" ColumnName="ExecutedActionText" />
@@ -2057,6 +2168,26 @@
               <ScalarProperty Name="ID" ColumnName="FilledFieldID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="EventBills">
+            <EntityTypeMapping TypeName="EzkoModel.EventBill">
+              <MappingFragment StoreEntitySet="EventBill">
+                <ScalarProperty Name="CalendarEventID" ColumnName="CalendarEventID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventBillItems">
+            <EntityTypeMapping TypeName="EzkoModel.EventBillItem">
+              <MappingFragment StoreEntitySet="EventBillItem">
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EventBillID" ColumnName="EventBillID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

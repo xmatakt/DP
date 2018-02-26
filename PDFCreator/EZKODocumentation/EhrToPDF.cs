@@ -288,7 +288,7 @@ namespace PDFCreator.EZKODocumentation
             AddCell(table, GetBoldText("Poznámka"), System.Drawing.Color.White);
             //
 
-            foreach (var visit in patient.CalendarEvents)
+            foreach (var visit in patient.CalendarEvents.Where(x => !x.IsDeleted))
             {
                 AddCell(table, GetText(visit.EventState.ToString().ToLower()), System.Drawing.Color.White);
                 AddCell(table, GetText(GetItems(visit.Users.Where(x => x.RoleID == (int)UserRoleEnum.Doctor).ToList())), System.Drawing.Color.White);

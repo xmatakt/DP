@@ -53,7 +53,7 @@
             this.topMenuPanel.Controls.Add(this.closeFormPictureBox);
             this.topMenuPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topMenuPanel.Location = new System.Drawing.Point(0, 0);
-            this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2);
             this.topMenuPanel.Name = "topMenuPanel";
             this.topMenuPanel.Size = new System.Drawing.Size(416, 36);
             this.topMenuPanel.TabIndex = 0;
@@ -76,7 +76,7 @@
             this.minimizeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.minimizeFormPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("minimizeFormPictureBox.Image")));
             this.minimizeFormPictureBox.Location = new System.Drawing.Point(340, 8);
-            this.minimizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.minimizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.minimizeFormPictureBox.Name = "minimizeFormPictureBox";
             this.minimizeFormPictureBox.Size = new System.Drawing.Size(20, 19);
             this.minimizeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -91,7 +91,7 @@
             this.maximizeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.maximizeFormPictureBox.Image = global::EZKO.Properties.Resources.maximizeForm_32;
             this.maximizeFormPictureBox.Location = new System.Drawing.Point(364, 8);
-            this.maximizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.maximizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.maximizeFormPictureBox.Name = "maximizeFormPictureBox";
             this.maximizeFormPictureBox.Size = new System.Drawing.Size(20, 19);
             this.maximizeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -106,7 +106,7 @@
             this.closeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closeFormPictureBox.Image = global::EZKO.Properties.Resources.closeForm_32;
             this.closeFormPictureBox.Location = new System.Drawing.Point(388, 8);
-            this.closeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.closeFormPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.closeFormPictureBox.Name = "closeFormPictureBox";
             this.closeFormPictureBox.Size = new System.Drawing.Size(20, 19);
             this.closeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -125,7 +125,7 @@
             this.bottomFlowPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.bottomFlowPanel.Location = new System.Drawing.Point(0, 246);
-            this.bottomFlowPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bottomFlowPanel.Margin = new System.Windows.Forms.Padding(2);
             this.bottomFlowPanel.Name = "bottomFlowPanel";
             this.bottomFlowPanel.Padding = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.bottomFlowPanel.Size = new System.Drawing.Size(416, 36);
@@ -143,14 +143,14 @@
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.cancelButton.ForeColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(358, 5);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelButton.Location = new System.Drawing.Point(346, 5);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Radius = 5;
             this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
-            this.cancelButton.Size = new System.Drawing.Size(50, 23);
+            this.cancelButton.Size = new System.Drawing.Size(62, 23);
             this.cancelButton.TabIndex = 7;
-            this.cancelButton.Text = "Zrušiť";
+            this.cancelButton.Text = "Zatvoriť";
             this.cancelButton.UseVisualStyleBackColor = false;
             // 
             // addButton
@@ -165,8 +165,8 @@
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(261, 5);
-            this.addButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addButton.Location = new System.Drawing.Point(249, 5);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2);
             this.addButton.Name = "addButton";
             this.addButton.Radius = 5;
             this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
@@ -184,7 +184,7 @@
             this.Controls.Add(this.bottomFlowPanel);
             this.Controls.Add(this.topMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EzkoForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.topMenuPanel.ResumeLayout(false);

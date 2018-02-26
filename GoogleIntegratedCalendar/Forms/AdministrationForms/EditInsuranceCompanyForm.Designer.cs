@@ -54,8 +54,9 @@
             this.topMenuPanel.Controls.Add(this.closeFormPictureBox);
             this.topMenuPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topMenuPanel.Location = new System.Drawing.Point(0, 0);
+            this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.topMenuPanel.Name = "topMenuPanel";
-            this.topMenuPanel.Size = new System.Drawing.Size(456, 55);
+            this.topMenuPanel.Size = new System.Drawing.Size(304, 36);
             this.topMenuPanel.TabIndex = 0;
             this.topMenuPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topMenuPanel_MouseDown);
             // 
@@ -64,9 +65,10 @@
             this.formTitleLabel.AutoSize = true;
             this.formTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.formTitleLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.formTitleLabel.Location = new System.Drawing.Point(12, 12);
+            this.formTitleLabel.Location = new System.Drawing.Point(8, 8);
+            this.formTitleLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.formTitleLabel.Name = "formTitleLabel";
-            this.formTitleLabel.Size = new System.Drawing.Size(203, 29);
+            this.formTitleLabel.Size = new System.Drawing.Size(133, 20);
             this.formTitleLabel.TabIndex = 5;
             this.formTitleLabel.Text = "Editácia poisťovní";
             // 
@@ -74,9 +76,10 @@
             // 
             this.minimizeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.minimizeFormPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("minimizeFormPictureBox.Image")));
-            this.minimizeFormPictureBox.Location = new System.Drawing.Point(377, 12);
+            this.minimizeFormPictureBox.Location = new System.Drawing.Point(251, 8);
+            this.minimizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.minimizeFormPictureBox.Name = "minimizeFormPictureBox";
-            this.minimizeFormPictureBox.Size = new System.Drawing.Size(30, 30);
+            this.minimizeFormPictureBox.Size = new System.Drawing.Size(20, 19);
             this.minimizeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.minimizeFormPictureBox.TabIndex = 1;
             this.minimizeFormPictureBox.TabStop = false;
@@ -88,9 +91,10 @@
             // 
             this.closeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closeFormPictureBox.Image = global::EZKO.Properties.Resources.closeForm_32;
-            this.closeFormPictureBox.Location = new System.Drawing.Point(414, 12);
+            this.closeFormPictureBox.Location = new System.Drawing.Point(276, 8);
+            this.closeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.closeFormPictureBox.Name = "closeFormPictureBox";
-            this.closeFormPictureBox.Size = new System.Drawing.Size(30, 30);
+            this.closeFormPictureBox.Size = new System.Drawing.Size(20, 19);
             this.closeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.closeFormPictureBox.TabIndex = 3;
             this.closeFormPictureBox.TabStop = false;
@@ -102,34 +106,38 @@
             // 
             this.insuranceNameLabel.AutoSize = true;
             this.insuranceNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.insuranceNameLabel.Location = new System.Drawing.Point(17, 74);
+            this.insuranceNameLabel.Location = new System.Drawing.Point(11, 48);
+            this.insuranceNameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.insuranceNameLabel.Name = "insuranceNameLabel";
-            this.insuranceNameLabel.Size = new System.Drawing.Size(179, 20);
+            this.insuranceNameLabel.Size = new System.Drawing.Size(130, 13);
             this.insuranceNameLabel.TabIndex = 1;
             this.insuranceNameLabel.Text = "Názov (1-30 znakov)*";
             // 
             // insuranceNameTextBox
             // 
-            this.insuranceNameTextBox.Location = new System.Drawing.Point(21, 97);
+            this.insuranceNameTextBox.Location = new System.Drawing.Point(14, 63);
+            this.insuranceNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.insuranceNameTextBox.Name = "insuranceNameTextBox";
-            this.insuranceNameTextBox.Size = new System.Drawing.Size(413, 26);
+            this.insuranceNameTextBox.Size = new System.Drawing.Size(277, 20);
             this.insuranceNameTextBox.TabIndex = 0;
             // 
             // insuranceCodeLable
             // 
             this.insuranceCodeLable.AutoSize = true;
             this.insuranceCodeLable.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.insuranceCodeLable.Location = new System.Drawing.Point(17, 132);
+            this.insuranceCodeLable.Location = new System.Drawing.Point(11, 86);
+            this.insuranceCodeLable.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.insuranceCodeLable.Name = "insuranceCodeLable";
-            this.insuranceCodeLable.Size = new System.Drawing.Size(244, 20);
+            this.insuranceCodeLable.Size = new System.Drawing.Size(176, 13);
             this.insuranceCodeLable.TabIndex = 1;
             this.insuranceCodeLable.Text = "Kód poisťovne (1-12 znakov)*";
             // 
             // insuranceCodeTextBox
             // 
-            this.insuranceCodeTextBox.Location = new System.Drawing.Point(21, 155);
+            this.insuranceCodeTextBox.Location = new System.Drawing.Point(14, 101);
+            this.insuranceCodeTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.insuranceCodeTextBox.Name = "insuranceCodeTextBox";
-            this.insuranceCodeTextBox.Size = new System.Drawing.Size(413, 26);
+            this.insuranceCodeTextBox.Size = new System.Drawing.Size(277, 20);
             this.insuranceCodeTextBox.TabIndex = 1;
             this.insuranceCodeTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.insuranceCodeTextBox_KeyDown);
             // 
@@ -141,10 +149,11 @@
             this.bottomFlowPanel.Controls.Add(this.addButton);
             this.bottomFlowPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.bottomFlowPanel.Location = new System.Drawing.Point(0, 205);
+            this.bottomFlowPanel.Location = new System.Drawing.Point(0, 130);
+            this.bottomFlowPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.bottomFlowPanel.Name = "bottomFlowPanel";
-            this.bottomFlowPanel.Padding = new System.Windows.Forms.Padding(5, 5, 5, 10);
-            this.bottomFlowPanel.Size = new System.Drawing.Size(456, 57);
+            this.bottomFlowPanel.Padding = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.bottomFlowPanel.Size = new System.Drawing.Size(304, 40);
             this.bottomFlowPanel.TabIndex = 2;
             // 
             // cancelButton
@@ -159,14 +168,15 @@
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.cancelButton.ForeColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(371, 8);
+            this.cancelButton.Location = new System.Drawing.Point(230, 5);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Padding = new System.Windows.Forms.Padding(3);
+            this.cancelButton.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cancelButton.Radius = 5;
             this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
-            this.cancelButton.Size = new System.Drawing.Size(72, 36);
+            this.cancelButton.Size = new System.Drawing.Size(66, 27);
             this.cancelButton.TabIndex = 1;
-            this.cancelButton.Text = "Zrušiť";
+            this.cancelButton.Text = "Zatvoriť";
             this.cancelButton.UseVisualStyleBackColor = false;
             // 
             // addButton
@@ -181,12 +191,13 @@
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(181, 8);
+            this.addButton.Location = new System.Drawing.Point(90, 5);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.addButton.Name = "addButton";
-            this.addButton.Padding = new System.Windows.Forms.Padding(3);
+            this.addButton.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.addButton.Radius = 5;
             this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.addButton.Size = new System.Drawing.Size(184, 36);
+            this.addButton.Size = new System.Drawing.Size(136, 27);
             this.addButton.TabIndex = 0;
             this.addButton.Text = "+ Vytvoriť poisťovňu";
             this.addButton.UseVisualStyleBackColor = false;
@@ -194,9 +205,9 @@
             // 
             // EditInsuranceCompanyForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(456, 262);
+            this.ClientSize = new System.Drawing.Size(304, 170);
             this.ControlBox = false;
             this.Controls.Add(this.bottomFlowPanel);
             this.Controls.Add(this.insuranceCodeTextBox);
@@ -206,6 +217,7 @@
             this.Controls.Add(this.topMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "EditInsuranceCompanyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.EditInsuranceCompanyForm_Load);

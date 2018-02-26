@@ -18,6 +18,7 @@ namespace EZKO.Forms.Dashboard
     public partial class EventBillingForm : System.Windows.Forms.Form
     {
         private EzkoController ezkoController;
+        private CalendarEvent calendarEvent;
         ICollection<DatabaseCommunicator.Model.Action> executedActions;
         private int countSum = 0;
         private decimal priceSum = 0m;
@@ -49,15 +50,17 @@ namespace EZKO.Forms.Dashboard
         }
         #endregion
 
-        public EventBillingForm(ICollection<DatabaseCommunicator.Model.Action> executedActions)
+        public EventBillingForm(CalendarEvent calendarEvent, ICollection<DatabaseCommunicator.Model.Action> executedActions)
         {
             InitializeComponent();
 
+            countUpDown.Minimum = 1;
             countUpDown.Maximum = int.MaxValue;
             priceUpDown.Maximum = decimal.MaxValue;
             discountUpDown.Maximum = decimal.MaxValue;
 
             this.executedActions = executedActions;
+            this.calendarEvent = calendarEvent;
             ezkoController = GlobalSettings.EzkoController;
             InitializeGrid();
             FillGrid();
@@ -196,12 +199,48 @@ namespace EZKO.Forms.Dashboard
 
             try
             {
-
+                if (priceSum < 0)
+                {
+                    result = false;
+                    BasicMessagesHandler.ShowInformationMessage("Hodnota výsledného účtu nesmie byť záporná!");
+                }
+                else if (calendarEvent == null)
+                {
+                    result = false;
+                    BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa načítať návštevu");
+                }
             }
             catch (Exception e)
             {
                 result = false;
                 BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        private List<EventBillItem> GetBillItems()
+        {
+            List<EventBillItem> result = new List<EventBillItem>();
+            try
+            {
+                for (int row = 0; row < billingItemsGridView.RowCount - 1; row++)
+                {
+                    DataGridViewRow gridRow = billingItemsGridView.Rows[row];
+                    EventBillItem billItem = new EventBillItem()
+                    {
+                        Name = gridRow.Cells["Name"].Value.ToString().Trim(),
+                        Count = int.Parse(gridRow.Cells["Count"].Value.ToString().Split(new[] { ' ' })[0]),
+                        UnitPrice = decimal.Parse(gridRow.Cells["Price"].Value.ToString().Split(new[] { ' ' })[0]),
+                        Discount = decimal.Parse(gridRow.Cells["Discount"].Value.ToString().Split(new[] { ' ' })[0])
+                    };
+                    result.Add(billItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                result = null;
+                BasicMessagesHandler.ShowErrorMessage("Počas vytvárania položiek účtu sa vyskytla chyba!", ex);
             }
 
             return result;
@@ -214,7 +253,18 @@ namespace EZKO.Forms.Dashboard
                 Cursor = Cursors.WaitCursor;
                 if (ValidateData())
                 {
+                    List<EventBillItem> billItems = GetBillItems();
 
+                    if (billItems == null)
+                        DialogResult = DialogResult.None;
+                    else
+                    {
+                        if(!ezkoController.CreateEventBill(calendarEvent, billItems))
+                        {
+                            DialogResult = DialogResult.None;
+                            BasicMessagesHandler.ShowErrorMessage("Účet sa nepodarilo vytvoriť");
+                        }
+                    }
                 }
                 else
                     DialogResult = DialogResult.None;
@@ -353,15 +403,6 @@ namespace EZKO.Forms.Dashboard
             }
         }
 
-        private void addActionButton_Click(object sender, EventArgs e)
-        {
-            AddActionToBillingForm form = new AddActionToBillingForm();
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                // pridat do gridu
-            }
-        }
-
         private void billingItemsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -409,6 +450,7 @@ namespace EZKO.Forms.Dashboard
             try
             {
                 itemNameTextBox.ReadOnly = false;
+                priceUpDown.ReadOnly = false;
                 DataGridView senderGrid = (DataGridView)sender;
                 DataGridViewRow clickedRow = senderGrid.Rows[e.RowIndex];
                 int lastRowIndex = senderGrid.RowCount - 1;
@@ -428,13 +470,11 @@ namespace EZKO.Forms.Dashboard
                     if (clickedRow.Tag is DatabaseCommunicator.Model.Action)
                     {
                         itemNameTextBox.ReadOnly = true;
-                        priceUpDown.Focus();
+                        priceUpDown.ReadOnly = true;
+                        countUpDown.Focus();
                     }
                     else
-                    {
-                        itemNameTextBox.ReadOnly = false;
                         itemNameTextBox.Focus();
-                    }
                 }
             }
             catch (Exception ex)
@@ -447,7 +487,7 @@ namespace EZKO.Forms.Dashboard
         {
             itemNameTextBox.Tag = null;
             name = "";
-            count = 0;
+            count = 1;
             price = 0;
             discount = 0;
         }
@@ -477,10 +517,21 @@ namespace EZKO.Forms.Dashboard
                 UpdateSumRow();
             }
         }
-        private void itemNameTextBox_KeyDown(object sender, KeyEventArgs e)
+
+        private void countUpDown_ValueChanged(object sender, EventArgs e)
         {
-            //if (e.KeyCode == Keys.Enter)
-            //    addBudgetItemButton_Click(sender, new EventArgs());
+            // update maximum discount value to don't allow to make negative total bill sum
+            decimal maxDiscount = count * price;
+
+            if (discount > maxDiscount)
+                discount = maxDiscount;
+
+            discountUpDown.Maximum = maxDiscount;
+        }
+
+        private void endButton_Click(object sender, EventArgs e)
+        {
+            CreateData();
         }
         #endregion
     }

@@ -72,5 +72,10 @@ namespace ExceptionHandler
                 ShowErrorMessage(e.ToString());
             }
         }
+
+        public static DialogResult ShowWarningMessage(string question)
+        {
+            return MessageBox.Show(question, "Upozornenie", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace DatabaseCommunicator.Model
             this.Actions = new HashSet<Action>();
             this.Users = new HashSet<User>();
             this.CalendarEventExecutedActions = new HashSet<CalendarEventExecutedAction>();
+            this.EventBills = new HashSet<EventBill>();
         }
     
         public int ID { get; set; }
@@ -37,6 +38,7 @@ namespace DatabaseCommunicator.Model
         public string ExecutedActionText { get; set; }
         public int StateID { get; set; }
         public bool IsTemporaryGoogleEvent { get; set; }
+        public Nullable<System.DateTime> PaymentDate { get; set; }
     
         public virtual EventState EventState { get; set; }
         public virtual Patient Patient { get; set; }
@@ -45,5 +47,6 @@ namespace DatabaseCommunicator.Model
         public virtual ICollection<User> Users { get; set; }
         public virtual CalendarEventColor CalendarEventColor { get; set; }
         public virtual ICollection<CalendarEventExecutedAction> CalendarEventExecutedActions { get; set; }
+        public virtual ICollection<EventBill> EventBills { get; set; }
     }
 }

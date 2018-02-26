@@ -223,6 +223,26 @@ namespace EZKO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap euro_sign_black_16 {
+            get {
+                object obj = ResourceManager.GetObject("euro_sign_black_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap euro_sign2_black_16 {
+            get {
+                object obj = ResourceManager.GetObject("euro_sign2_black_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap export_data_black_32 {
             get {
                 object obj = ResourceManager.GetObject("export_data_black_32", resourceCulture);

@@ -136,6 +136,7 @@
             this.filterTextBox.Name = "filterTextBox";
             this.filterTextBox.Size = new System.Drawing.Size(329, 20);
             this.filterTextBox.TabIndex = 1;
+            this.filterTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.filterTextBox_KeyDown);
             // 
             // filterPanel
             // 

@@ -26,6 +26,14 @@ namespace PDFCreator
         {
             get { return PdfDocument.PageSize.Width - PdfDocument.RightMargin; }
         }
+        internal float UY
+        {
+            get { return PdfDocument.TopMargin; }
+        }
+        internal float BY
+        {
+            get { return PdfDocument.BottomMargin; }
+        }
         internal float Y
         {
             get { return pdfWriter.GetVerticalPosition(true); }

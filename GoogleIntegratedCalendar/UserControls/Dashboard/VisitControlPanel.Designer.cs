@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            PresentationControls.CheckBoxProperties checkBoxProperties1 = new PresentationControls.CheckBoxProperties();
             PresentationControls.CheckBoxProperties checkBoxProperties2 = new PresentationControls.CheckBoxProperties();
+            PresentationControls.CheckBoxProperties checkBoxProperties3 = new PresentationControls.CheckBoxProperties();
             this.mainFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.newVisitPanel = new System.Windows.Forms.Panel();
             this.newVisitButton = new EZKO.UserControls.FlatControls.RoundButton();
@@ -90,6 +90,8 @@
             this.saveEventButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.deleteEventButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.infoPanel = new System.Windows.Forms.Panel();
+            this.infoLabel = new System.Windows.Forms.Label();
             this.mainFlowLayoutPanel.SuspendLayout();
             this.newVisitPanel.SuspendLayout();
             this.patientNamePanel.SuspendLayout();
@@ -102,6 +104,7 @@
             this.statePanel.SuspendLayout();
             this.newEventButtonsPanel.SuspendLayout();
             this.updateEventPanel.SuspendLayout();
+            this.infoPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainFlowLayoutPanel
@@ -579,8 +582,8 @@
             // 
             // plannedActionsComboBox
             // 
-            checkBoxProperties1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.plannedActionsComboBox.CheckBoxProperties = checkBoxProperties1;
+            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.plannedActionsComboBox.CheckBoxProperties = checkBoxProperties2;
             this.plannedActionsComboBox.DisplayMemberSingleItem = "";
             this.plannedActionsComboBox.FormattingEnabled = true;
             this.plannedActionsComboBox.Location = new System.Drawing.Point(5, 222);
@@ -678,13 +681,13 @@
             // 
             // doctorsCheckBoxComboBox
             // 
-            checkBoxProperties2.AutoSize = true;
-            checkBoxProperties2.FlatAppearanceBorderColor = System.Drawing.Color.Silver;
-            checkBoxProperties2.FlatAppearanceCheckedBackColor = System.Drawing.Color.Red;
-            checkBoxProperties2.FlatAppearanceMouseDownBackColor = System.Drawing.Color.Lime;
-            checkBoxProperties2.FlatAppearanceMouseOverBackColor = System.Drawing.Color.Cyan;
-            checkBoxProperties2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.doctorsCheckBoxComboBox.CheckBoxProperties = checkBoxProperties2;
+            checkBoxProperties3.AutoSize = true;
+            checkBoxProperties3.FlatAppearanceBorderColor = System.Drawing.Color.Silver;
+            checkBoxProperties3.FlatAppearanceCheckedBackColor = System.Drawing.Color.Red;
+            checkBoxProperties3.FlatAppearanceMouseDownBackColor = System.Drawing.Color.Lime;
+            checkBoxProperties3.FlatAppearanceMouseOverBackColor = System.Drawing.Color.Cyan;
+            checkBoxProperties3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.doctorsCheckBoxComboBox.CheckBoxProperties = checkBoxProperties3;
             this.doctorsCheckBoxComboBox.DisplayMemberSingleItem = "";
             this.doctorsCheckBoxComboBox.FormattingEnabled = true;
             this.doctorsCheckBoxComboBox.Location = new System.Drawing.Point(62, 4);
@@ -797,6 +800,7 @@
             this.createEventButton.Text = "+ Vytvoriť návštevu";
             this.createEventButton.UseVisualStyleBackColor = false;
             this.createEventButton.Click += new System.EventHandler(this.createEventButton_Click);
+            this.createEventButton.Leave += new System.EventHandler(this.deleteEventButton_Leave);
             // 
             // resetEventButton
             // 
@@ -868,6 +872,7 @@
             this.saveEventButton.Text = "Uložiť";
             this.saveEventButton.UseVisualStyleBackColor = false;
             this.saveEventButton.Click += new System.EventHandler(this.saveEventButton_Click);
+            this.saveEventButton.Leave += new System.EventHandler(this.deleteEventButton_Leave);
             // 
             // deleteEventButton
             // 
@@ -888,15 +893,37 @@
             this.deleteEventButton.Text = "Zmazať";
             this.deleteEventButton.UseVisualStyleBackColor = false;
             this.deleteEventButton.Click += new System.EventHandler(this.deleteEventButton_Click);
+            this.deleteEventButton.Leave += new System.EventHandler(this.deleteEventButton_Leave);
             // 
             // panel1
             // 
             this.panel1.AutoSize = true;
-            this.panel1.Location = new System.Drawing.Point(2, 681);
+            this.panel1.Location = new System.Drawing.Point(389, 646);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(0, 0);
             this.panel1.TabIndex = 31;
+            // 
+            // infoPanel
+            // 
+            this.infoPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(200)))), ((int)(((byte)(213)))));
+            this.infoPanel.Controls.Add(this.infoLabel);
+            this.infoPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.infoPanel.Location = new System.Drawing.Point(0, 808);
+            this.infoPanel.Name = "infoPanel";
+            this.infoPanel.Size = new System.Drawing.Size(389, 31);
+            this.infoPanel.TabIndex = 32;
+            // 
+            // infoLabel
+            // 
+            this.infoLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.infoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.infoLabel.Location = new System.Drawing.Point(0, 0);
+            this.infoLabel.Name = "infoLabel";
+            this.infoLabel.Size = new System.Drawing.Size(389, 31);
+            this.infoLabel.TabIndex = 0;
+            this.infoLabel.Text = "label1";
+            this.infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // VisitUserControl
             // 
@@ -904,9 +931,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.mainFlowLayoutPanel);
+            this.Controls.Add(this.infoPanel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "VisitUserControl";
-            this.Size = new System.Drawing.Size(389, 800);
+            this.Size = new System.Drawing.Size(389, 839);
             this.Load += new System.EventHandler(this.VisitUserControl_Load);
             this.mainFlowLayoutPanel.ResumeLayout(false);
             this.mainFlowLayoutPanel.PerformLayout();
@@ -929,6 +957,7 @@
             this.statePanel.PerformLayout();
             this.newEventButtonsPanel.ResumeLayout(false);
             this.updateEventPanel.ResumeLayout(false);
+            this.infoPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -996,5 +1025,7 @@
         private Other.AutoCompleteTextBox doneActionTextBox;
         private System.Windows.Forms.Panel panel1;
         private Other.AutoCompleteTextBox patientNameTextBox;
+        private System.Windows.Forms.Panel infoPanel;
+        private System.Windows.Forms.Label infoLabel;
     }
 }

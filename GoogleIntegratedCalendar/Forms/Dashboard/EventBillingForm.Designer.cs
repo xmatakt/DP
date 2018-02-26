@@ -191,6 +191,7 @@
             this.endButton.TabIndex = 6;
             this.endButton.Text = "Dokončiť";
             this.endButton.UseVisualStyleBackColor = false;
+            this.endButton.Click += new System.EventHandler(this.endButton_Click);
             // 
             // panel1
             // 
@@ -252,7 +253,6 @@
             this.itemNameTextBox.Name = "itemNameTextBox";
             this.itemNameTextBox.Size = new System.Drawing.Size(188, 20);
             this.itemNameTextBox.TabIndex = 14;
-            this.itemNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.itemNameTextBox_KeyDown);
             // 
             // discountLabel
             // 
@@ -317,7 +317,6 @@
             this.discountUpDown.Name = "discountUpDown";
             this.discountUpDown.Size = new System.Drawing.Size(82, 20);
             this.discountUpDown.TabIndex = 11;
-            this.discountUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.itemNameTextBox_KeyDown);
             // 
             // priceUpDown
             // 
@@ -332,7 +331,7 @@
             this.priceUpDown.Name = "priceUpDown";
             this.priceUpDown.Size = new System.Drawing.Size(82, 20);
             this.priceUpDown.TabIndex = 11;
-            this.priceUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.itemNameTextBox_KeyDown);
+            this.priceUpDown.ValueChanged += new System.EventHandler(this.countUpDown_ValueChanged);
             // 
             // countUpDown
             // 
@@ -341,7 +340,7 @@
             this.countUpDown.Name = "countUpDown";
             this.countUpDown.Size = new System.Drawing.Size(75, 20);
             this.countUpDown.TabIndex = 12;
-            this.countUpDown.KeyDown += new System.Windows.Forms.KeyEventHandler(this.itemNameTextBox_KeyDown);
+            this.countUpDown.ValueChanged += new System.EventHandler(this.countUpDown_ValueChanged);
             // 
             // EventBillingForm
             // 

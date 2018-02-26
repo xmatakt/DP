@@ -19,8 +19,6 @@ namespace EZKO.Forms.Dashboard
         public int Count { get; private set; }
         public decimal Price { get; private set; }
 
-        private EzkoController ezkoController;
-        
         #region Private properties
         private string itemName
         {
@@ -52,6 +50,9 @@ namespace EZKO.Forms.Dashboard
         public AddItemToBillingForm()
         {
             InitializeComponent();
+
+            countUpDown.Maximum = int.MaxValue;
+            priceUpDown.Maximum = decimal.MaxValue;
         }
 
         #region Private methods

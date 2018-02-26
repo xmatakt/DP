@@ -54,6 +54,7 @@ namespace System.Windows.Forms.Calendar
         public Rectangle Bounds
         {
             get { return _bounds; }
+            //set { _bounds = value; }
         }
 
         /// <summary>

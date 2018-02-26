@@ -1262,6 +1262,29 @@ namespace DatabaseCommunicator.Controllers
         }
         #endregion
 
+        #region Billing
+        public bool CreateEventBill(CalendarEvent calendarEvent, List<EventBillItem> billItems)
+        {
+            bool result = false;
+            try
+            {
+                EventBill item = new EventBill()
+                {
+                    CalendarEvent = calendarEvent,
+                    EventBillItems = billItems
+                };
+                db.EventBills.Add(item);
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+        #endregion
+
         #region Contacts
         public Contact CreateContact(string email, string phone)
         {
@@ -1683,12 +1706,9 @@ namespace DatabaseCommunicator.Controllers
             }
             catch (Exception e)
             {
-                result = null;
+                result = new List<CalendarEventExecutedAction>();
                 BasicMessagesHandler.LogException(e);
             }
-
-            if (result != null && result.Count <= 0)
-                result = null;
 
             return result;
         }

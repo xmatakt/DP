@@ -93,6 +93,8 @@ namespace DatabaseCommunicator.Model
         {
             get
             {
+                //if (Patient == null)
+                //    return "";
                 string result = Patient.FullName;
 
                 if (Actions.Count > 0)

@@ -33,6 +33,16 @@ namespace EZKO.Forms
                 hourNumericUpDown.Value = value.Value.Hour;
                 minuteNumericUpDown.Value = value.Value.Minute;
             }
+            else
+            {
+                DateTime now = DateTime.Now;
+                datePicker.Value = now;
+                hourNumericUpDown.Value = now.Hour;
+                if (now.Minute % 5 != 0)
+                    minuteNumericUpDown.Value = now.Minute + (5 - now.Minute % 5);
+                else
+                    minuteNumericUpDown.Value = now.Minute;
+            }
 
             PickedDateTime = new DateTime(datePicker.Value.Year, datePicker.Value.Month, datePicker.Value.Day,
                 (int)hourNumericUpDown.Value, (int)minuteNumericUpDown.Value, 0);

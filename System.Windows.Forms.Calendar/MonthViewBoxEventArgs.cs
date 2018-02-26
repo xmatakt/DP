@@ -14,9 +14,11 @@ namespace System.Windows.Forms.Calendar
         private Graphics _graphics;
         private Color _textColor;
         private Color _backgroundColor;
+        private Color _fillColor;
         private string _text;
         private Color _borderColor;
         private Rectangle _bounds;
+        private Rectangle _fillBounds;
         private Font _font;
         private TextFormatFlags _TextFlags;
         #endregion
@@ -76,6 +78,16 @@ namespace System.Windows.Forms.Calendar
         public Rectangle Bounds
         {
             get { return _bounds; }
+            set { _bounds = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the bounds of the area which has to be filled with _fillColor
+        /// </summary>
+        public Rectangle FillBounds
+        {
+            get { return _fillBounds; }
+            set { _fillBounds = value; }
         }
 
         /// <summary>
@@ -120,6 +132,15 @@ namespace System.Windows.Forms.Calendar
         {
             get { return _backgroundColor; }
             set { _backgroundColor = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the color of the filled box
+        /// </summary>
+        public Color FillColor
+        {
+            get { return _fillColor; }
+            set { _fillColor = value; }
         }
 
         /// <summary>
