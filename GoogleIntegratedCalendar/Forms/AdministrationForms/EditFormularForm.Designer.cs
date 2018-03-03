@@ -66,9 +66,9 @@
             this.formTitleLabel.Location = new System.Drawing.Point(8, 8);
             this.formTitleLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.formTitleLabel.Name = "formTitleLabel";
-            this.formTitleLabel.Size = new System.Drawing.Size(262, 20);
+            this.formTitleLabel.Size = new System.Drawing.Size(144, 20);
             this.formTitleLabel.TabIndex = 5;
-            this.formTitleLabel.Text = "Editácia anamnestických formulárov";
+            this.formTitleLabel.Text = "Editácia formulárov";
             // 
             // minimizeFormPictureBox
             // 

@@ -291,6 +291,7 @@ namespace EZKO.Forms.PatientForms
         {
             get
             {
+
                 return phoneTextBox.Text.Trim();
             }
             set { phoneTextBox.Text = value ?? ""; }
@@ -944,6 +945,18 @@ namespace EZKO.Forms.PatientForms
                     bifoTextBox.Focus();
                     result = false;
                 }
+                else if(string.IsNullOrEmpty(phone))
+                {
+                    BasicMessagesHandler.ShowInformationMessage("Musíte zadať telefón pacienta");
+                    phoneTextBox.Focus();
+                    result = false;
+                }
+                else if (string.IsNullOrEmpty(email))
+                {
+                    BasicMessagesHandler.ShowInformationMessage("Musíte zadať email pacienta");
+                    emailTextBox.Focus();
+                    result = false;
+                }
             }
             catch (Exception e)
             {
@@ -1112,7 +1125,7 @@ namespace EZKO.Forms.PatientForms
         private void CloseWindow()
         {
             if (BasicMessagesHandler.ShowWarningMessage("Vykonané zmeny nebudú uložené.\n Želáte si pokračovať?") == DialogResult.Yes)
-                DialogResult = DialogResult.Cancel;
+                DialogResult = DialogResult.OK;
             else
                 DialogResult = DialogResult.None;
         }
@@ -1450,6 +1463,16 @@ namespace EZKO.Forms.PatientForms
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
             FillVisitsGrid();
+        }
+
+        private void refreshButton_Click(object sender, EventArgs e)
+        {
+            FillDocumentsGrid();
+        }
+
+        private void refreshButton2_Click(object sender, EventArgs e)
+        {
+            InitializeTreeViewTab();
         }
         #endregion
     }

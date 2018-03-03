@@ -210,4 +210,23 @@ namespace DatabaseCommunicator.Model
             return Name;
         }
     }
+
+    public partial class Infrastructure
+    {
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
+
+    public partial class CalendarEventColor
+    {
+        public System.Drawing.Color Color
+        {
+            get
+            {
+                return System.Drawing.Color.FromArgb(R, G, B);
+            }
+        }
+    }
 }

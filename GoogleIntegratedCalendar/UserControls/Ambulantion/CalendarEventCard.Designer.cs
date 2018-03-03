@@ -31,6 +31,8 @@
             this.topPanel = new System.Windows.Forms.Panel();
             this.patientNameLabel = new System.Windows.Forms.Label();
             this.patientLabel = new System.Windows.Forms.Label();
+            this.statusLabel = new System.Windows.Forms.Label();
+            this.imageLabel = new System.Windows.Forms.PictureBox();
             this.rightBorderPanel = new System.Windows.Forms.Panel();
             this.leftBorderPanel = new System.Windows.Forms.Panel();
             this.bottomBorderPanel = new System.Windows.Forms.Panel();
@@ -53,25 +55,25 @@
             this.nurseLabel = new System.Windows.Forms.Label();
             this.doctorTextLabel = new System.Windows.Forms.Label();
             this.nurseTextLabel = new System.Windows.Forms.Label();
-            this.imageLabel = new System.Windows.Forms.PictureBox();
             this.topPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageLabel)).BeginInit();
             this.plannedActionsPanel.SuspendLayout();
             this.infrastructurePanel.SuspendLayout();
             this.mainTableLayoutPanel.SuspendLayout();
             this.notePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.patientIamgePictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imageLabel)).BeginInit();
             this.SuspendLayout();
             // 
             // topPanel
             // 
             this.topPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.topPanel.Controls.Add(this.imageLabel);
             this.topPanel.Controls.Add(this.patientNameLabel);
             this.topPanel.Controls.Add(this.patientLabel);
+            this.topPanel.Controls.Add(this.statusLabel);
+            this.topPanel.Controls.Add(this.imageLabel);
             this.topPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topPanel.Location = new System.Drawing.Point(0, 0);
-            this.topPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.topPanel.Margin = new System.Windows.Forms.Padding(2);
             this.topPanel.Name = "topPanel";
             this.topPanel.Size = new System.Drawing.Size(191, 37);
             this.topPanel.TabIndex = 0;
@@ -84,9 +86,9 @@
             this.patientNameLabel.Location = new System.Drawing.Point(65, 11);
             this.patientNameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.patientNameLabel.Name = "patientNameLabel";
-            this.patientNameLabel.Size = new System.Drawing.Size(56, 17);
+            this.patientNameLabel.Size = new System.Drawing.Size(43, 17);
             this.patientNameLabel.TabIndex = 0;
-            this.patientNameLabel.Text = "timusko";
+            this.patientNameLabel.Text = "meno";
             // 
             // patientLabel
             // 
@@ -99,12 +101,35 @@
             this.patientLabel.TabIndex = 0;
             this.patientLabel.Text = "Pacient:";
             // 
+            // statusLabel
+            // 
+            this.statusLabel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabel.Location = new System.Drawing.Point(77, 0);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.statusLabel.Size = new System.Drawing.Size(114, 37);
+            this.statusLabel.TabIndex = 2;
+            this.statusLabel.Text = "status";
+            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // imageLabel
+            // 
+            this.imageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.imageLabel.BackgroundImage = global::EZKO.Properties.Resources.euro_sign2_black_16;
+            this.imageLabel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.imageLabel.Location = new System.Drawing.Point(160, 11);
+            this.imageLabel.Name = "imageLabel";
+            this.imageLabel.Size = new System.Drawing.Size(16, 16);
+            this.imageLabel.TabIndex = 1;
+            this.imageLabel.TabStop = false;
+            // 
             // rightBorderPanel
             // 
             this.rightBorderPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.rightBorderPanel.Dock = System.Windows.Forms.DockStyle.Right;
             this.rightBorderPanel.Location = new System.Drawing.Point(190, 37);
-            this.rightBorderPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rightBorderPanel.Margin = new System.Windows.Forms.Padding(2);
             this.rightBorderPanel.Name = "rightBorderPanel";
             this.rightBorderPanel.Size = new System.Drawing.Size(1, 163);
             this.rightBorderPanel.TabIndex = 2;
@@ -114,7 +139,7 @@
             this.leftBorderPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.leftBorderPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.leftBorderPanel.Location = new System.Drawing.Point(0, 37);
-            this.leftBorderPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.leftBorderPanel.Margin = new System.Windows.Forms.Padding(2);
             this.leftBorderPanel.Name = "leftBorderPanel";
             this.leftBorderPanel.Size = new System.Drawing.Size(1, 163);
             this.leftBorderPanel.TabIndex = 3;
@@ -124,7 +149,7 @@
             this.bottomBorderPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.bottomBorderPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomBorderPanel.Location = new System.Drawing.Point(1, 199);
-            this.bottomBorderPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bottomBorderPanel.Margin = new System.Windows.Forms.Padding(2);
             this.bottomBorderPanel.Name = "bottomBorderPanel";
             this.bottomBorderPanel.Size = new System.Drawing.Size(189, 1);
             this.bottomBorderPanel.TabIndex = 4;
@@ -171,7 +196,7 @@
             this.plannedActionsPanel.Controls.Add(this.plannedActionsFlowLayoutPanel);
             this.plannedActionsPanel.Controls.Add(this.actionsLabel);
             this.plannedActionsPanel.Location = new System.Drawing.Point(2, 2);
-            this.plannedActionsPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.plannedActionsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.plannedActionsPanel.Name = "plannedActionsPanel";
             this.plannedActionsPanel.Size = new System.Drawing.Size(170, 26);
             this.plannedActionsPanel.TabIndex = 15;
@@ -182,7 +207,7 @@
             this.plannedActionsFlowLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.plannedActionsFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.plannedActionsFlowLayoutPanel.Location = new System.Drawing.Point(5, 24);
-            this.plannedActionsFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.plannedActionsFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.plannedActionsFlowLayoutPanel.MaximumSize = new System.Drawing.Size(0, 49);
             this.plannedActionsFlowLayoutPanel.Name = "plannedActionsFlowLayoutPanel";
             this.plannedActionsFlowLayoutPanel.Size = new System.Drawing.Size(0, 0);
@@ -194,7 +219,7 @@
             this.infrastructureFlowLayoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.infrastructureFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.infrastructureFlowLayoutPanel.Location = new System.Drawing.Point(8, 19);
-            this.infrastructureFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.infrastructureFlowLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.infrastructureFlowLayoutPanel.MaximumSize = new System.Drawing.Size(0, 49);
             this.infrastructureFlowLayoutPanel.Name = "infrastructureFlowLayoutPanel";
             this.infrastructureFlowLayoutPanel.Size = new System.Drawing.Size(0, 0);
@@ -207,7 +232,7 @@
             this.infrastructurePanel.Controls.Add(this.infrastructureLabel);
             this.infrastructurePanel.Controls.Add(this.infrastructureFlowLayoutPanel);
             this.infrastructurePanel.Location = new System.Drawing.Point(2, 32);
-            this.infrastructurePanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.infrastructurePanel.Margin = new System.Windows.Forms.Padding(2);
             this.infrastructurePanel.Name = "infrastructurePanel";
             this.infrastructurePanel.Size = new System.Drawing.Size(108, 21);
             this.infrastructurePanel.TabIndex = 17;
@@ -222,7 +247,7 @@
             this.mainTableLayoutPanel.Controls.Add(this.infrastructurePanel, 0, 1);
             this.mainTableLayoutPanel.Controls.Add(this.plannedActionsPanel, 0, 0);
             this.mainTableLayoutPanel.Location = new System.Drawing.Point(2, 119);
-            this.mainTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.mainTableLayoutPanel.Margin = new System.Windows.Forms.Padding(2);
             this.mainTableLayoutPanel.Name = "mainTableLayoutPanel";
             this.mainTableLayoutPanel.RowCount = 3;
             this.mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -238,7 +263,7 @@
             this.notePanel.Controls.Add(this.noteTextLabel);
             this.notePanel.Controls.Add(this.noteLabel);
             this.notePanel.Location = new System.Drawing.Point(2, 57);
-            this.notePanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.notePanel.Margin = new System.Windows.Forms.Padding(2);
             this.notePanel.Name = "notePanel";
             this.notePanel.Size = new System.Drawing.Size(170, 20);
             this.notePanel.TabIndex = 19;
@@ -257,7 +282,7 @@
             // patientIamgePictureBox
             // 
             this.patientIamgePictureBox.Location = new System.Drawing.Point(8, 41);
-            this.patientIamgePictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.patientIamgePictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.patientIamgePictureBox.Name = "patientIamgePictureBox";
             this.patientIamgePictureBox.Size = new System.Drawing.Size(73, 73);
             this.patientIamgePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -352,17 +377,6 @@
             this.nurseTextLabel.TabIndex = 20;
             this.nurseTextLabel.Text = "label2";
             // 
-            // imageLabel
-            // 
-            this.imageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.imageLabel.BackgroundImage = global::EZKO.Properties.Resources.euro_sign2_black_16;
-            this.imageLabel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.imageLabel.Location = new System.Drawing.Point(160, 11);
-            this.imageLabel.Name = "imageLabel";
-            this.imageLabel.Size = new System.Drawing.Size(16, 16);
-            this.imageLabel.TabIndex = 1;
-            this.imageLabel.TabStop = false;
-            // 
             // CalendarEventCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -383,13 +397,14 @@
             this.Controls.Add(this.leftBorderPanel);
             this.Controls.Add(this.rightBorderPanel);
             this.Controls.Add(this.topPanel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CalendarEventCard";
             this.Size = new System.Drawing.Size(191, 200);
             this.Click += new System.EventHandler(this.CalendarEventCard_Click);
             this.Resize += new System.EventHandler(this.CalendarEventCard_Resize);
             this.topPanel.ResumeLayout(false);
             this.topPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageLabel)).EndInit();
             this.plannedActionsPanel.ResumeLayout(false);
             this.plannedActionsPanel.PerformLayout();
             this.infrastructurePanel.ResumeLayout(false);
@@ -399,7 +414,6 @@
             this.notePanel.ResumeLayout(false);
             this.notePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.patientIamgePictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imageLabel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -433,5 +447,6 @@
         private System.Windows.Forms.Label doctorTextLabel;
         private System.Windows.Forms.Label nurseTextLabel;
         private System.Windows.Forms.PictureBox imageLabel;
+        private System.Windows.Forms.Label statusLabel;
     }
 }

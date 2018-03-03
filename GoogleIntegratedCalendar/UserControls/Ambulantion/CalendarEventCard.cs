@@ -41,6 +41,7 @@ namespace EZKO.UserControls.Ambulantion
 
         #region Private properties
         private string patientName { set { patientNameLabel.Text = value; } }
+        private string eventStatus { set { statusLabel.Text = value; } }
         #endregion
 
         #region Private methods
@@ -52,6 +53,7 @@ namespace EZKO.UserControls.Ambulantion
                 {
                     patientLabel.Visible = true;
                     patientName = calendarEvent.Patient.FullName;
+                    eventStatus = calendarEvent.EventState.ToString();
                 }
                 else
                 {

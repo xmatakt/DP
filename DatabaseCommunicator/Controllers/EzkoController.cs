@@ -1309,12 +1309,13 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region CalnedarEvents
-        public CalendarEvent CreateCalendarEvent(Patient eventPatient, List<User> doctors, DateTime eventStartDateTime, decimal eventDuration, string notificationEmails, string eventNote, List<Model.Action> plannedActions, string plannedText, EventState eventState)
+        public CalendarEvent CreateCalendarEvent(Patient eventPatient, List<User> doctors, List<User> nurses, List<Infrastructure> infrastructures, DateTime eventStartDateTime, decimal eventDuration, string notificationEmails, string eventNote, List<Model.Action> plannedActions, string plannedText, EventState eventState)
         {
             CalendarEvent result = null;
 
             try
             {
+                doctors.AddRange(nurses);
                 result = new CalendarEvent()
                 {
                     ColorID = db.CalendarEventColors.First(x => x.EventStateID == eventState.ID).ID,
@@ -1330,6 +1331,7 @@ namespace DatabaseCommunicator.Controllers
                     PlanedActionText = plannedText,
                     EventState = eventState,
                     IsTemporaryGoogleEvent = false,
+                    Infrastructures = infrastructures,
 
                     IsSynchronized = false,
                     IsDeleted = false,
@@ -1383,7 +1385,8 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
-        public bool UpdateCalendarEvent(CalendarEvent calendarEvent, List<User> doctors, DateTime startDate, decimal eventDuration,
+        public bool UpdateCalendarEvent(CalendarEvent calendarEvent, List<User> doctors, List<User> nurses, List<Infrastructure> infrastructures,
+           DateTime startDate, decimal eventDuration,
            string notificationEmails, string eventNote, List<Model.Action> plannedActions, string plannedText, EventState eventState,
            List<DoneActionNotePair> doneActions, string doneText)
         {
@@ -1391,6 +1394,7 @@ namespace DatabaseCommunicator.Controllers
 
             try
             {
+                doctors.AddRange(nurses);
                 calendarEvent.ColorID = db.CalendarEventColors.First(x => x.EventStateID == eventState.ID).ID;
                 calendarEvent.Users = doctors;
                 calendarEvent.StartDate = startDate;
@@ -1403,6 +1407,7 @@ namespace DatabaseCommunicator.Controllers
                 calendarEvent.EventState = eventState;
                 calendarEvent.CalendarEventExecutedActions = GetEventExecutedActions(calendarEvent, doneActions);
                 calendarEvent.ExecutedActionText = doneText;
+                calendarEvent.Infrastructures = infrastructures;
 
                 result = SaveChanges();
             }

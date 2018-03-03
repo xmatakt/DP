@@ -879,9 +879,9 @@ namespace System.Windows.Forms.Calendar
 
                         if (EventsDurationByDate != null &&
                             //!day.Selected &&
-                            EventsDurationByDate.ContainsKey(day.Date))
+                            EventsDurationByDate.ContainsKey(day.Date.Date))
                         {
-                            float percentage = EventsDurationByDate[day.Date] * 100 / (float)(8 * 6000);
+                            float percentage = EventsDurationByDate[day.Date.Date] * 100 / (float)(12 * 6000);
                             int boundsWidth = evtDay.Bounds.Width;
                             int boundsHeight = evtDay.Bounds.Height;
                             if (percentage < 1f)

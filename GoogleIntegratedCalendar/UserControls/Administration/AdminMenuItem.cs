@@ -16,6 +16,7 @@ namespace EZKO.UserControls.Administration
         private Image onHoverMenuItemImage;
         private Color onHoverTextForeColor = Color.Black;
         private Color textForeColor = Color.White;
+        private Color backColor;
 
         #region CustomEventHandlers
         public event EventHandler ListButtonClick;
@@ -65,6 +66,17 @@ namespace EZKO.UserControls.Administration
             set { onHoverMenuItemImage = value; }
         }
 
+        public Color AdminItemBackColor
+        {
+            get
+            { return backColor; }
+            set
+            {
+                backColor = value;
+                BackColor = backColor;
+            }
+        }
+
         public string TooltipText
         {
             get { return toolTip.GetToolTip(descriptionLabel); }
@@ -76,11 +88,13 @@ namespace EZKO.UserControls.Administration
         {
             InitializeComponent();
             showListButton.Click += showListButton_Click;
+            backColor = BackColor;
         }
 
         #region Events
         private void MenuItem_MouseHover(object sender, EventArgs e)
         {
+            BackColor = Color.Gray;
             descriptionLabel.ForeColor = onHoverTextForeColor;
             Cursor = Cursors.Hand;
             if (onHoverMenuItemImage == null)
@@ -91,6 +105,7 @@ namespace EZKO.UserControls.Administration
 
         private void MenuItem_MouseLeave(object sender, EventArgs e)
         {
+            BackColor = backColor;
             descriptionLabel.ForeColor = textForeColor;
             Cursor = Cursors.Default;
             if (onLeaveMenuItemImage == null)

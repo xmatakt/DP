@@ -39,7 +39,22 @@ namespace EZKO.Forms
                 datePicker.Value = now;
                 hourNumericUpDown.Value = now.Hour;
                 if (now.Minute % 5 != 0)
-                    minuteNumericUpDown.Value = now.Minute + (5 - now.Minute % 5);
+                {
+                    decimal newValue = now.Minute + (5 - now.Minute % 5);
+                    if (newValue != 60)
+                        minuteNumericUpDown.Value = newValue;
+                    else
+                    {
+                        minuteNumericUpDown.Value = 0;
+                        if (hourNumericUpDown.Value == 23)
+                        {
+                            hourNumericUpDown.Value = 0;
+                            datePicker.Value.AddDays(1);
+                        }
+                        else
+                            hourNumericUpDown.Value++;
+                    }
+                }
                 else
                     minuteNumericUpDown.Value = now.Minute;
             }

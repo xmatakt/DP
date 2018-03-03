@@ -352,6 +352,14 @@ namespace EZKO.UserControls.Dashboard
 
             ShowItems();
         }
+
+        public void ShowDay(DateTime day)
+        {
+            monthView.SelectionStart = new DateTime(day.Year, day.Month, day.Day, 0, 0, 0);
+            monthView.SelectionEnd = monthView.SelectionStart;
+            monthView.ViewStart = monthView.SelectionStart;
+            monthView.Invalidate();
+        }
         #endregion
 
         #region private methods
@@ -414,14 +422,13 @@ namespace EZKO.UserControls.Dashboard
         #endregion
 
         #region UI events
-        private void calendar_ItemCreated(object sender, CalendarItemCancelEventArgs e)
-        {
-            //calendarItems.Add(e.Item);
-        }
-
         private void calendar_ItemDoubleClick(object sender, CalendarItemEventArgs e)
         {
-            //calendar.ActivateEditMode();
+            if (e.Item != null && e.Item.DatabaseEntityID.HasValue)
+            {
+                visitUserControl.LoadEvent(e.Item.DatabaseEntityID.Value);
+                visitUserControl.SetEventTimes(e.Item.StartDate, e.Item.EndDate);
+            }
         }
 
         private void monthView_SelectionChanged(object sender, EventArgs e)
@@ -467,18 +474,18 @@ namespace EZKO.UserControls.Dashboard
             visitUserControl.SetMaximumHeight(Size.Height);
         }
 
-        private void calendar_ItemClick(object sender, CalendarItemEventArgs e)
-        {
-            if (e.Item != null && e.Item.DatabaseEntityID.HasValue)
-            {
-                visitUserControl.LoadEvent(e.Item.DatabaseEntityID.Value);
-                visitUserControl.SetEventTimes(e.Item.StartDate, e.Item.EndDate);
-            }
-        }
-
         private void calendar_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left)
+            {
+                CalendarTimeScaleUnit item = calendar.HitTest(e.Location) as CalendarTimeScaleUnit;
+                if (item != null)
+                {
+                    visitUserControl.ResetVisitPanel(Enums.WorkingTypeEnum.Creating);
+                    visitUserControl.SetEventStartDate(item.Date);
+                }
+            }
+            else if (e.Button == MouseButtons.Right)
             {
                 monthviewSettingsMenuStrip.Show(calendar, e.Location);
             }

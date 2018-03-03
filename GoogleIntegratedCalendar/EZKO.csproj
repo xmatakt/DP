@@ -587,6 +587,10 @@
       <Project>{99b6b732-f074-45d7-85ea-a56005cc0a27}</Project>
       <Name>GoogleCalendarSynchronizer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mailer\Mailer.csproj">
+      <Project>{2d141ab9-da47-4db5-9777-b31a5a69a404}</Project>
+      <Name>Mailer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PDFCreator\PDFCreator.csproj">
       <Project>{0097533b-b732-41b5-8d67-434bccba243b}</Project>
       <Name>PDFCreator</Name>
@@ -670,6 +674,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\euro_sign2_black_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh_24_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh_20_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh_16_black.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -53,7 +53,7 @@
             this.panelNameLabel.Name = "panelNameLabel";
             this.panelNameLabel.Size = new System.Drawing.Size(735, 53);
             this.panelNameLabel.TabIndex = 2;
-            this.panelNameLabel.Text = "Administrácia anamnestických formulárov";
+            this.panelNameLabel.Text = "Administrácia formulárov";
             this.panelNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dataGridView

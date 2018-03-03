@@ -45,9 +45,10 @@
             this.descriptionLabelPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.descriptionLabelPanel.Controls.Add(this.descriptionLabel);
             this.descriptionLabelPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.descriptionLabelPanel.Location = new System.Drawing.Point(42, 0);
+            this.descriptionLabelPanel.Location = new System.Drawing.Point(28, 0);
+            this.descriptionLabelPanel.Margin = new System.Windows.Forms.Padding(2);
             this.descriptionLabelPanel.Name = "descriptionLabelPanel";
-            this.descriptionLabelPanel.Size = new System.Drawing.Size(183, 43);
+            this.descriptionLabelPanel.Size = new System.Drawing.Size(123, 29);
             this.descriptionLabelPanel.TabIndex = 4;
             // 
             // descriptionLabel
@@ -55,11 +56,12 @@
             this.descriptionLabel.AutoSize = true;
             this.descriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.descriptionLabel.ForeColor = System.Drawing.Color.White;
-            this.descriptionLabel.Location = new System.Drawing.Point(7, 4);
-            this.descriptionLabel.MaximumSize = new System.Drawing.Size(180, 0);
+            this.descriptionLabel.Location = new System.Drawing.Point(5, 3);
+            this.descriptionLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.descriptionLabel.MaximumSize = new System.Drawing.Size(120, 0);
             this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Padding = new System.Windows.Forms.Padding(5);
-            this.descriptionLabel.Size = new System.Drawing.Size(173, 39);
+            this.descriptionLabel.Padding = new System.Windows.Forms.Padding(3);
+            this.descriptionLabel.Size = new System.Drawing.Size(116, 26);
             this.descriptionLabel.TabIndex = 0;
             this.descriptionLabel.Text = "Anamnesticke";
             this.descriptionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -68,7 +70,7 @@
             // showListButton
             // 
             this.showListButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.showListButton.BackgroundImage = global::EZKO.Properties.Resources.list_white_16;
+            this.showListButton.BackgroundImage = global::EZKO.Properties.Resources.list_black_16;
             this.showListButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.showListButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.showListButton.FlatAppearance.BorderSize = 0;
@@ -77,12 +79,13 @@
             this.showListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.showListButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.showListButton.ForeColor = System.Drawing.Color.White;
-            this.showListButton.Location = new System.Drawing.Point(225, 0);
+            this.showListButton.Location = new System.Drawing.Point(151, 0);
+            this.showListButton.Margin = new System.Windows.Forms.Padding(2);
             this.showListButton.Name = "showListButton";
-            this.showListButton.Padding = new System.Windows.Forms.Padding(5);
+            this.showListButton.Padding = new System.Windows.Forms.Padding(3);
             this.showListButton.Radius = 7;
             this.showListButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatRed;
-            this.showListButton.Size = new System.Drawing.Size(58, 43);
+            this.showListButton.Size = new System.Drawing.Size(39, 29);
             this.showListButton.TabIndex = 3;
             this.showListButton.UseVisualStyleBackColor = false;
             this.showListButton.MouseLeave += new System.EventHandler(this.MenuItem_MouseLeave);
@@ -91,7 +94,7 @@
             // addButton
             // 
             this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(184)))), ((int)(((byte)(92)))));
-            this.addButton.BackgroundImage = global::EZKO.Properties.Resources.add_white_16;
+            this.addButton.BackgroundImage = global::EZKO.Properties.Resources.add_black_16;
             this.addButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.addButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.addButton.FlatAppearance.BorderSize = 0;
@@ -100,12 +103,13 @@
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(283, 0);
+            this.addButton.Location = new System.Drawing.Point(190, 0);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2);
             this.addButton.Name = "addButton";
-            this.addButton.Padding = new System.Windows.Forms.Padding(5);
+            this.addButton.Padding = new System.Windows.Forms.Padding(3);
             this.addButton.Radius = 7;
             this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatGreen;
-            this.addButton.Size = new System.Drawing.Size(58, 43);
+            this.addButton.Size = new System.Drawing.Size(39, 29);
             this.addButton.TabIndex = 2;
             this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
@@ -117,27 +121,29 @@
             this.menuItemPictureBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuItemPictureBox.Image = global::EZKO.Properties.Resources.people_32;
             this.menuItemPictureBox.Location = new System.Drawing.Point(0, 0);
+            this.menuItemPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.menuItemPictureBox.Name = "menuItemPictureBox";
-            this.menuItemPictureBox.Padding = new System.Windows.Forms.Padding(5);
-            this.menuItemPictureBox.Size = new System.Drawing.Size(42, 43);
+            this.menuItemPictureBox.Padding = new System.Windows.Forms.Padding(3);
+            this.menuItemPictureBox.Size = new System.Drawing.Size(28, 29);
             this.menuItemPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.menuItemPictureBox.TabIndex = 0;
             this.menuItemPictureBox.TabStop = false;
             // 
             // AdminMenuItem
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.descriptionLabelPanel);
             this.Controls.Add(this.showListButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.menuItemPictureBox);
-            this.Margin = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.Name = "AdminMenuItem";
-            this.Size = new System.Drawing.Size(341, 43);
+            this.Size = new System.Drawing.Size(229, 29);
             this.descriptionLabelPanel.ResumeLayout(false);
             this.descriptionLabelPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.menuItemPictureBox)).EndInit();

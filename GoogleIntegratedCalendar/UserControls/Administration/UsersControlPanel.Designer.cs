@@ -57,9 +57,10 @@
             // 
             // panelNameLabel
             // 
+            this.panelNameLabel.BackColor = System.Drawing.Color.White;
             this.panelNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panelNameLabel.ForeColor = System.Drawing.Color.White;
+            this.panelNameLabel.ForeColor = System.Drawing.Color.Black;
             this.panelNameLabel.Location = new System.Drawing.Point(0, 0);
             this.panelNameLabel.Name = "panelNameLabel";
             this.panelNameLabel.Size = new System.Drawing.Size(763, 53);
@@ -77,14 +78,14 @@
             this.topPanel.Size = new System.Drawing.Size(763, 53);
             this.topPanel.TabIndex = 2;
             // 
-            // UserControlPanel
+            // UsersControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.dataGridView);
-            this.Name = "UserControlPanel";
+            this.Name = "UsersControlPanel";
             this.Size = new System.Drawing.Size(763, 447);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.topPanel.ResumeLayout(false);

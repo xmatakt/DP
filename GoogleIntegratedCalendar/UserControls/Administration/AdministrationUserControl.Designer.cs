@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdministrationUserControl));
             this.controlNamePanel = new System.Windows.Forms.Panel();
             this.controlNameLabel = new System.Windows.Forms.Label();
             this.adminToolsFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -59,18 +58,18 @@
             this.controlNamePanel.Location = new System.Drawing.Point(2, 2);
             this.controlNamePanel.Margin = new System.Windows.Forms.Padding(2);
             this.controlNamePanel.Name = "controlNamePanel";
-            this.controlNamePanel.Size = new System.Drawing.Size(220, 45);
+            this.controlNamePanel.Size = new System.Drawing.Size(222, 45);
             this.controlNamePanel.TabIndex = 2;
             // 
             // controlNameLabel
             // 
             this.controlNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.controlNameLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.controlNameLabel.ForeColor = System.Drawing.Color.Black;
             this.controlNameLabel.Location = new System.Drawing.Point(0, 0);
             this.controlNameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.controlNameLabel.Name = "controlNameLabel";
-            this.controlNameLabel.Size = new System.Drawing.Size(220, 45);
+            this.controlNameLabel.Size = new System.Drawing.Size(222, 45);
             this.controlNameLabel.TabIndex = 0;
             this.controlNameLabel.Text = "Administrácia";
             this.controlNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -79,7 +78,8 @@
             // 
             this.adminToolsFlowPanel.AutoSize = true;
             this.adminToolsFlowPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.adminToolsFlowPanel.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.adminToolsFlowPanel.BackColor = System.Drawing.Color.White;
+            this.adminToolsFlowPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.adminToolsFlowPanel.Controls.Add(this.controlNamePanel);
             this.adminToolsFlowPanel.Controls.Add(this.panel1);
             this.adminToolsFlowPanel.Controls.Add(this.usersMenuItem);
@@ -96,7 +96,7 @@
             this.adminToolsFlowPanel.Margin = new System.Windows.Forms.Padding(2);
             this.adminToolsFlowPanel.Name = "adminToolsFlowPanel";
             this.adminToolsFlowPanel.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.adminToolsFlowPanel.Size = new System.Drawing.Size(227, 567);
+            this.adminToolsFlowPanel.Size = new System.Drawing.Size(231, 567);
             this.adminToolsFlowPanel.TabIndex = 0;
             // 
             // panel1
@@ -108,14 +108,14 @@
             this.panel1.Controls.Add(this.userLoginLabel);
             this.panel1.Location = new System.Drawing.Point(3, 52);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(218, 205);
+            this.panel1.Size = new System.Drawing.Size(220, 205);
             this.panel1.TabIndex = 1;
             // 
             // userPictureBox
             // 
             this.userPictureBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.userPictureBox.Image = global::EZKO.Properties.Resources.noUserImage;
-            this.userPictureBox.Location = new System.Drawing.Point(10, -2);
+            this.userPictureBox.Location = new System.Drawing.Point(11, 4);
             this.userPictureBox.Name = "userPictureBox";
             this.userPictureBox.Size = new System.Drawing.Size(199, 155);
             this.userPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -135,10 +135,11 @@
             // 
             // mainPanel
             // 
+            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(227, 0);
+            this.mainPanel.Location = new System.Drawing.Point(231, 0);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(672, 567);
+            this.mainPanel.Size = new System.Drawing.Size(668, 567);
             this.mainPanel.TabIndex = 1;
             // 
             // editLoggedUserButton
@@ -156,7 +157,7 @@
             this.editLoggedUserButton.Name = "editLoggedUserButton";
             this.editLoggedUserButton.Radius = 5;
             this.editLoggedUserButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatGreen;
-            this.editLoggedUserButton.Size = new System.Drawing.Size(211, 23);
+            this.editLoggedUserButton.Size = new System.Drawing.Size(213, 23);
             this.editLoggedUserButton.TabIndex = 2;
             this.editLoggedUserButton.Text = "Moje konto";
             this.editLoggedUserButton.UseVisualStyleBackColor = false;
@@ -164,176 +165,192 @@
             // 
             // usersMenuItem
             // 
+            this.usersMenuItem.AdminItemBackColor = System.Drawing.Color.White;
             this.usersMenuItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.usersMenuItem.AutoSize = true;
             this.usersMenuItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.usersMenuItem.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.usersMenuItem.BackColor = System.Drawing.Color.White;
+            this.usersMenuItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.usersMenuItem.Location = new System.Drawing.Point(0, 263);
             this.usersMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.usersMenuItem.MenuItemImage = ((System.Drawing.Image)(resources.GetObject("usersMenuItem.MenuItemImage")));
+            this.usersMenuItem.MenuItemImage = global::EZKO.Properties.Resources.people_black_32;
             this.usersMenuItem.MenuItemText = "Používatelia";
             this.usersMenuItem.Name = "usersMenuItem";
             this.usersMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.people_black_32;
             this.usersMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
-            this.usersMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.people_32;
-            this.usersMenuItem.Size = new System.Drawing.Size(224, 29);
+            this.usersMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.people_black_32;
+            this.usersMenuItem.Size = new System.Drawing.Size(226, 31);
             this.usersMenuItem.TabIndex = 4;
-            this.usersMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.usersMenuItem.TextForeColor = System.Drawing.Color.Black;
             this.usersMenuItem.TooltipText = "Pridávajte a modifikujte používateľské kontá";
             this.usersMenuItem.ListButtonClick += new System.EventHandler(this.usersMenuItem_ListButtonClick);
             this.usersMenuItem.AddButtonClick += new System.EventHandler(this.usersMnuItem_AddButtonClick);
             // 
             // insuranceCompaniesMenuItem
             // 
+            this.insuranceCompaniesMenuItem.AdminItemBackColor = System.Drawing.Color.White;
             this.insuranceCompaniesMenuItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.insuranceCompaniesMenuItem.AutoSize = true;
             this.insuranceCompaniesMenuItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.insuranceCompaniesMenuItem.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.insuranceCompaniesMenuItem.Location = new System.Drawing.Point(0, 298);
+            this.insuranceCompaniesMenuItem.BackColor = System.Drawing.Color.White;
+            this.insuranceCompaniesMenuItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.insuranceCompaniesMenuItem.Location = new System.Drawing.Point(0, 300);
             this.insuranceCompaniesMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.insuranceCompaniesMenuItem.MenuItemImage = global::EZKO.Properties.Resources.insuranceCompany_white_32;
+            this.insuranceCompaniesMenuItem.MenuItemImage = global::EZKO.Properties.Resources.insuranceCompany_black_32;
             this.insuranceCompaniesMenuItem.MenuItemText = "Poisťovne";
             this.insuranceCompaniesMenuItem.Name = "insuranceCompaniesMenuItem";
             this.insuranceCompaniesMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.insuranceCompany_black_32;
             this.insuranceCompaniesMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
-            this.insuranceCompaniesMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.insuranceCompany_white_32;
-            this.insuranceCompaniesMenuItem.Size = new System.Drawing.Size(224, 29);
+            this.insuranceCompaniesMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.insuranceCompany_black_32;
+            this.insuranceCompaniesMenuItem.Size = new System.Drawing.Size(226, 31);
             this.insuranceCompaniesMenuItem.TabIndex = 5;
-            this.insuranceCompaniesMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.insuranceCompaniesMenuItem.TextForeColor = System.Drawing.Color.Black;
             this.insuranceCompaniesMenuItem.TooltipText = "Správa poisťovní ";
             this.insuranceCompaniesMenuItem.ListButtonClick += new System.EventHandler(this.insuranceCompaniesMenuItem_ListButtonClick);
             this.insuranceCompaniesMenuItem.AddButtonClick += new System.EventHandler(this.insuranceCompaniesMenuItem_AddButtonClick);
             // 
             // actionsMenuItem
             // 
+            this.actionsMenuItem.AdminItemBackColor = System.Drawing.Color.White;
             this.actionsMenuItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.actionsMenuItem.AutoSize = true;
             this.actionsMenuItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.actionsMenuItem.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.actionsMenuItem.Location = new System.Drawing.Point(0, 333);
+            this.actionsMenuItem.BackColor = System.Drawing.Color.White;
+            this.actionsMenuItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.actionsMenuItem.Location = new System.Drawing.Point(0, 337);
             this.actionsMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.actionsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.action_white_32;
+            this.actionsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.action_black_32;
             this.actionsMenuItem.MenuItemText = "Výkony";
             this.actionsMenuItem.Name = "actionsMenuItem";
             this.actionsMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.action_black_32;
             this.actionsMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
-            this.actionsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.action_white_32;
-            this.actionsMenuItem.Size = new System.Drawing.Size(224, 29);
+            this.actionsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.action_black_32;
+            this.actionsMenuItem.Size = new System.Drawing.Size(226, 31);
             this.actionsMenuItem.TabIndex = 6;
-            this.actionsMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.actionsMenuItem.TextForeColor = System.Drawing.Color.Black;
             this.actionsMenuItem.TooltipText = "Správa výkonov ";
             this.actionsMenuItem.ListButtonClick += new System.EventHandler(this.actionsMenuItem_ListButtonClick);
             this.actionsMenuItem.AddButtonClick += new System.EventHandler(this.actionsMenuItem_AddButtonClick);
             // 
             // infrastructureMenuItem
             // 
+            this.infrastructureMenuItem.AdminItemBackColor = System.Drawing.Color.White;
             this.infrastructureMenuItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.infrastructureMenuItem.AutoSize = true;
             this.infrastructureMenuItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.infrastructureMenuItem.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.infrastructureMenuItem.Location = new System.Drawing.Point(0, 368);
+            this.infrastructureMenuItem.BackColor = System.Drawing.Color.White;
+            this.infrastructureMenuItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.infrastructureMenuItem.Location = new System.Drawing.Point(0, 374);
             this.infrastructureMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.infrastructureMenuItem.MenuItemImage = global::EZKO.Properties.Resources.dentist_chair_white_32;
+            this.infrastructureMenuItem.MenuItemImage = global::EZKO.Properties.Resources.dentist_chair_black_32;
             this.infrastructureMenuItem.MenuItemText = "Infraštruktúra";
             this.infrastructureMenuItem.Name = "infrastructureMenuItem";
             this.infrastructureMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.dentist_chair_black_32;
             this.infrastructureMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
-            this.infrastructureMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.dentist_chair_white_32;
-            this.infrastructureMenuItem.Size = new System.Drawing.Size(224, 29);
+            this.infrastructureMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.dentist_chair_black_32;
+            this.infrastructureMenuItem.Size = new System.Drawing.Size(226, 31);
             this.infrastructureMenuItem.TabIndex = 7;
-            this.infrastructureMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.infrastructureMenuItem.TextForeColor = System.Drawing.Color.Black;
             this.infrastructureMenuItem.TooltipText = "Administrácie kresiel kliniky";
             this.infrastructureMenuItem.ListButtonClick += new System.EventHandler(this.infrastructureMenuItem_ListButtonClick);
             this.infrastructureMenuItem.AddButtonClick += new System.EventHandler(this.infrastructureMenuItem_AddButtonClick);
             // 
             // ezkoSectionsMenuItem
             // 
+            this.ezkoSectionsMenuItem.AdminItemBackColor = System.Drawing.Color.White;
             this.ezkoSectionsMenuItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ezkoSectionsMenuItem.AutoSize = true;
             this.ezkoSectionsMenuItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ezkoSectionsMenuItem.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ezkoSectionsMenuItem.Location = new System.Drawing.Point(0, 403);
+            this.ezkoSectionsMenuItem.BackColor = System.Drawing.Color.White;
+            this.ezkoSectionsMenuItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ezkoSectionsMenuItem.Location = new System.Drawing.Point(0, 411);
             this.ezkoSectionsMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.ezkoSectionsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.list_white_16;
+            this.ezkoSectionsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.list_black_16;
             this.ezkoSectionsMenuItem.MenuItemText = "Sekcie EZKO";
             this.ezkoSectionsMenuItem.Name = "ezkoSectionsMenuItem";
             this.ezkoSectionsMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.list_black_16;
             this.ezkoSectionsMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
-            this.ezkoSectionsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.list_white_16;
-            this.ezkoSectionsMenuItem.Size = new System.Drawing.Size(224, 29);
+            this.ezkoSectionsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.list_black_16;
+            this.ezkoSectionsMenuItem.Size = new System.Drawing.Size(226, 31);
             this.ezkoSectionsMenuItem.TabIndex = 8;
-            this.ezkoSectionsMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.ezkoSectionsMenuItem.TextForeColor = System.Drawing.Color.Black;
             this.ezkoSectionsMenuItem.TooltipText = "Polia ezko do sekcií EZKO. Spravujte ich.";
             this.ezkoSectionsMenuItem.ListButtonClick += new System.EventHandler(this.ezkoSectionsMenuItem_ListButtonClick);
             this.ezkoSectionsMenuItem.AddButtonClick += new System.EventHandler(this.ezkoSectionsMenuItem_AddButtonClick);
             // 
             // budgetsMenuItem
             // 
+            this.budgetsMenuItem.AdminItemBackColor = System.Drawing.Color.White;
             this.budgetsMenuItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.budgetsMenuItem.AutoSize = true;
             this.budgetsMenuItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.budgetsMenuItem.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.budgetsMenuItem.Location = new System.Drawing.Point(0, 438);
+            this.budgetsMenuItem.BackColor = System.Drawing.Color.White;
+            this.budgetsMenuItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.budgetsMenuItem.Location = new System.Drawing.Point(0, 448);
             this.budgetsMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.budgetsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.budget_white_24;
+            this.budgetsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.budget_black_24;
             this.budgetsMenuItem.MenuItemText = "Rozpočty";
             this.budgetsMenuItem.Name = "budgetsMenuItem";
             this.budgetsMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.budget_black_24;
             this.budgetsMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
-            this.budgetsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.budget_white_24;
-            this.budgetsMenuItem.Size = new System.Drawing.Size(224, 29);
+            this.budgetsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.budget_black_24;
+            this.budgetsMenuItem.Size = new System.Drawing.Size(226, 31);
             this.budgetsMenuItem.TabIndex = 9;
-            this.budgetsMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.budgetsMenuItem.TextForeColor = System.Drawing.Color.Black;
             this.budgetsMenuItem.TooltipText = "Správa rozpočtov pre pacientov";
             this.budgetsMenuItem.ListButtonClick += new System.EventHandler(this.budgetsMenuItem_ListButtonClick);
             this.budgetsMenuItem.AddButtonClick += new System.EventHandler(this.budgetsMenuItem_AddButtonClick);
             // 
             // formularsMenuItem
             // 
+            this.formularsMenuItem.AdminItemBackColor = System.Drawing.Color.White;
             this.formularsMenuItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.formularsMenuItem.AutoSize = true;
             this.formularsMenuItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.formularsMenuItem.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.formularsMenuItem.Location = new System.Drawing.Point(0, 473);
+            this.formularsMenuItem.BackColor = System.Drawing.Color.White;
+            this.formularsMenuItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.formularsMenuItem.Location = new System.Drawing.Point(0, 485);
             this.formularsMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.formularsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.formular_white_24;
+            this.formularsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.formular_black_24;
             this.formularsMenuItem.MenuItemText = "Formuláre";
             this.formularsMenuItem.Name = "formularsMenuItem";
             this.formularsMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.formular_black_24;
             this.formularsMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
-            this.formularsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.formular_white_24;
-            this.formularsMenuItem.Size = new System.Drawing.Size(224, 29);
+            this.formularsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.formular_black_24;
+            this.formularsMenuItem.Size = new System.Drawing.Size(226, 31);
             this.formularsMenuItem.TabIndex = 10;
-            this.formularsMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.formularsMenuItem.TextForeColor = System.Drawing.Color.Black;
             this.formularsMenuItem.TooltipText = "Anamnestické formuláre môžete tvoriť z polí Ezko.";
             this.formularsMenuItem.ListButtonClick += new System.EventHandler(this.formularsMenuItem_ListButtonClick);
             this.formularsMenuItem.AddButtonClick += new System.EventHandler(this.formularsMenuItem_AddButtonClick);
             // 
             // ezkoFieldsMenuItem
             // 
+            this.ezkoFieldsMenuItem.AdminItemBackColor = System.Drawing.Color.White;
             this.ezkoFieldsMenuItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ezkoFieldsMenuItem.AutoSize = true;
             this.ezkoFieldsMenuItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ezkoFieldsMenuItem.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.ezkoFieldsMenuItem.Location = new System.Drawing.Point(0, 508);
+            this.ezkoFieldsMenuItem.BackColor = System.Drawing.Color.White;
+            this.ezkoFieldsMenuItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ezkoFieldsMenuItem.Location = new System.Drawing.Point(0, 522);
             this.ezkoFieldsMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.ezkoFieldsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.fields_white_24;
+            this.ezkoFieldsMenuItem.MenuItemImage = global::EZKO.Properties.Resources.fields_black_24;
             this.ezkoFieldsMenuItem.MenuItemText = "Polia EZKO";
             this.ezkoFieldsMenuItem.Name = "ezkoFieldsMenuItem";
             this.ezkoFieldsMenuItem.OnHoverMenuItemImage = global::EZKO.Properties.Resources.fields_black_24;
             this.ezkoFieldsMenuItem.OnHoverTextForeColor = System.Drawing.Color.Black;
-            this.ezkoFieldsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.fields_white_24;
-            this.ezkoFieldsMenuItem.Size = new System.Drawing.Size(224, 29);
+            this.ezkoFieldsMenuItem.OnLeaveMenuItemImage = global::EZKO.Properties.Resources.fields_black_24;
+            this.ezkoFieldsMenuItem.Size = new System.Drawing.Size(226, 31);
             this.ezkoFieldsMenuItem.TabIndex = 11;
-            this.ezkoFieldsMenuItem.TextForeColor = System.Drawing.Color.White;
+            this.ezkoFieldsMenuItem.TextForeColor = System.Drawing.Color.Black;
             this.ezkoFieldsMenuItem.TooltipText = "Spravujte elektronickú kartu pacienta. Pridávajte do nej nové polia.";
             this.ezkoFieldsMenuItem.ListButtonClick += new System.EventHandler(this.ezkoFieldsMenuItem_ListButtonClick);
             this.ezkoFieldsMenuItem.AddButtonClick += new System.EventHandler(this.ezkoFieldsMenuItem_AddButtonClick);

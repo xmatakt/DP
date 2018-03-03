@@ -85,6 +85,38 @@ namespace EZKO.UserControls.Dashboard
                 return result;
             }
         }
+        private List<User> nurses
+        {
+            get
+            {
+                List<User> result = new List<User>();
+                foreach (var item in nursesCheckBoxComboBox.Items)
+                {
+                    if (item is User nurse)
+                    {
+                        if (nursesCheckBoxComboBox.CheckBoxItems[nurse.ToString()].Checked)
+                            result.Add(nurse);
+                    }
+                }
+                return result;
+            }
+        }
+        private List<Infrastructure> infrastructures
+        {
+            get
+            {
+                List<Infrastructure> result = new List<Infrastructure>();
+                foreach (var item in infrastructuresCheckBoxComboBox.Items)
+                {
+                    if (item is Infrastructure infrastructure)
+                    {
+                        if (infrastructuresCheckBoxComboBox.CheckBoxItems[infrastructure.ToString()].Checked)
+                            result.Add(infrastructure);
+                    }
+                }
+                return result;
+            }
+        }
         private string eventStartDateText
         {
             get{ return eventStartTextBox.Text.Trim(); }
@@ -236,6 +268,7 @@ namespace EZKO.UserControls.Dashboard
             mainFlowLayoutPanel.AutoScroll = true;
             //----
 
+            SetEventStartDate(null);
             SetPanelElementsProperties();
         }
 
@@ -271,6 +304,8 @@ namespace EZKO.UserControls.Dashboard
         {
             InitializePatientNameTextBox();
             InitializeDoctorsComboBox();
+            InitializeNursesComboBox();
+            InitializeInfrastructuresComboBox();
             InitializePlannedActionsComboBox();
             InitializeDoneActionsTextBox();
             //InitializeEventStateComboBox();
@@ -320,12 +355,44 @@ namespace EZKO.UserControls.Dashboard
 
         public void SetEventTimes(DateTime startDate, DateTime endDate)
         {
-            eventStartDateTime = startDate;
-            SetEventStartDateText();
-            eventDuration = (int)(endDate - startDate).TotalMinutes;
+            if (calendarEvent != null)
+            {
+                eventStartDateTime = startDate;
+                SetEventStartDateText();
+                eventDuration = (int)(endDate - startDate).TotalMinutes;
 
-            durationNumericUpDown.Invalidate();
-            eventStartTextBox.Invalidate();
+                durationNumericUpDown.Invalidate();
+                eventStartTextBox.Invalidate();
+            }
+        }
+
+        public void SetEventStartDate(DateTime? dateTime)
+        {
+            if (!dateTime.HasValue)
+                dateTime = DateTime.Now;
+
+            int hour = dateTime.Value.Hour;
+            int minute = dateTime.Value.Minute;
+
+            if (minute % 5 != 0)
+            {
+                minute = minute + (5 - minute % 5);
+
+                if (minute == 60)
+                {
+                    minute = 0;
+                    if (hour == 23)
+                    {
+                        hour = 0;
+                        dateTime = dateTime.Value.AddDays(1);
+                    }
+                    else
+                        hour++;
+                }
+            }
+
+            eventStartDateTime = new DateTime(dateTime.Value.Year, dateTime.Value.Month, dateTime.Value.Day, hour, minute, 0);
+            SetEventStartDateText();
         }
         #endregion
 
@@ -352,6 +419,22 @@ namespace EZKO.UserControls.Dashboard
                     doctorsCheckBoxComboBox.CheckBoxItems[doctor.Login].Checked = true;
                 }
             }
+        }
+
+        private void InitializeNursesComboBox()
+        {
+            nursesCheckBoxComboBox.Items.Clear();
+            var nurses = ezkoController.GetNurses();
+            foreach (var nurse in nurses)
+                nursesCheckBoxComboBox.Items.Add(nurse);
+        }
+
+        private void InitializeInfrastructuresComboBox()
+        {
+            infrastructuresCheckBoxComboBox.Items.Clear();
+            var items = ezkoController.GetInfrastructure();
+            foreach (var item in items)
+                infrastructuresCheckBoxComboBox.Items.Add(item);
         }
 
         private void InitializePlannedActionsComboBox()
@@ -531,7 +614,12 @@ namespace EZKO.UserControls.Dashboard
                 {
                     if (item.RoleID == (int)UserRoleEnum.Doctor)
                         doctorsCheckBoxComboBox.CheckBoxItems[item.ToString()].Checked = true;
+                    else if(item.RoleID == (int)UserRoleEnum.Nurse)
+                        nursesCheckBoxComboBox.CheckBoxItems[item.ToString()].Checked = true;
                 }
+
+                foreach (var item in calendarEvent.Infrastructures)
+                    infrastructuresCheckBoxComboBox.CheckBoxItems[item.ToString()].Checked = true;
 
                 foreach (var item in calendarEvent.Actions)
                     plannedActionsComboBox.CheckBoxItems[item.ToString()].Checked = true;
@@ -698,7 +786,7 @@ namespace EZKO.UserControls.Dashboard
         }
 
         #region Reseting panel
-        private void ResetVisitPanel(WorkingTypeEnum type)
+        public void ResetVisitPanel(WorkingTypeEnum type)
         {
             calendarEvent = null;
             workingType = type;
@@ -729,6 +817,8 @@ namespace EZKO.UserControls.Dashboard
         private void ResetComboBoxes(bool setDefaultDoctor)
         {
             SetComboBoxCheckBoxValues(doctorsCheckBoxComboBox, false);
+            SetComboBoxCheckBoxValues(nursesCheckBoxComboBox, false);
+            SetComboBoxCheckBoxValues(infrastructuresCheckBoxComboBox, false);
             SetComboBoxCheckBoxValues(plannedActionsComboBox, false);
 
             if (setDefaultDoctor && GlobalSettings.User != null)
@@ -880,7 +970,7 @@ namespace EZKO.UserControls.Dashboard
                 }
             }
 
-            CalendarEvent newEvent = ezkoController.CreateCalendarEvent(eventPatient, doctors, eventStartDateTime.Value, eventDuration, notificationEmails,
+            CalendarEvent newEvent = ezkoController.CreateCalendarEvent(eventPatient, doctors, nurses, infrastructures, eventStartDateTime.Value, eventDuration, notificationEmails,
                     eventNote, plannedActions, plannedText, eventState);
             if (newEvent != null)
             {
@@ -917,7 +1007,7 @@ namespace EZKO.UserControls.Dashboard
                 }
             }
 
-            if (ezkoController.UpdateCalendarEvent(calendarEvent, doctors, eventStartDateTime.Value, eventDuration, notificationEmails,
+            if (ezkoController.UpdateCalendarEvent(calendarEvent, doctors, nurses, infrastructures, eventStartDateTime.Value, eventDuration, notificationEmails,
                     eventNote, plannedActions, plannedText, eventState, doneActions, doneText))
             {
                 //sync & show
@@ -930,6 +1020,8 @@ namespace EZKO.UserControls.Dashboard
                     ambulantionControl.LoadEvents();
 
                 messageForUser = "Návšteva bola úspešne upravená";
+
+                SendNotificationEmails();
             }
             else
                 BasicMessagesHandler.ShowErrorMessage("Návštevu sa nepodarilo upraviť");
@@ -958,6 +1050,20 @@ namespace EZKO.UserControls.Dashboard
             }
             else
                 BasicMessagesHandler.ShowErrorMessage("Návštevu sa nepodarilo odstrániť");
+        }
+
+        private void SendNotificationEmails()
+        {
+            return; 
+
+            if(notificationEmails != null)
+            {
+                Mailer.SimpleMailer mailer = new Mailer.SimpleMailer();
+                if (!mailer.SendEmail(notificationEmails))
+                {
+                    BasicMessagesHandler.ShowInformationMessage("Pri odosielaní notifikačných emailov došlo ku chybe");
+                }
+            }
         }
         #endregion
 
@@ -994,6 +1100,7 @@ namespace EZKO.UserControls.Dashboard
                     eventStartDateTime = form.PickedDateTime;
 
                     SetEventStartDateText();
+                    ShowPickedDayOnDashboard();
                 };
                 form.StartPosition = FormStartPosition.Manual;
                 form.Location = new Point(locationOnForm.X - 2, locationOnForm.Y + eventStartTextBox.Bounds.Height);
@@ -1003,6 +1110,14 @@ namespace EZKO.UserControls.Dashboard
             catch (Exception ex)
             {
                 BasicMessagesHandler.ShowErrorMessage("Pri výbere termínu návštevy sa vyskytla neočakávaná chyba.", ex);
+            }
+        }
+
+        public void ShowPickedDayOnDashboard()
+        {
+            if(calendarControl != null && eventStartDateTime.HasValue)
+            {
+                calendarControl.ShowDay(eventStartDateTime.Value);
             }
         }
 
@@ -1125,6 +1240,22 @@ namespace EZKO.UserControls.Dashboard
         private void reorderButton_Click(object sender, EventArgs e)
         {
             SetControlWorkingType(WorkingTypeEnum.Recreating);
+        }
+
+        private void eventStateComboBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index >= 0)
+            {
+                EventState eventState = eventStateComboBox.Items[e.Index] as EventState;
+                Color stateColor = eventState.CalendarEventColors.First().Color;
+                if (e.State == DrawItemState.NoFocusRect)
+                    stateColor = Color.Blue;
+                e.Graphics.FillRectangle(new SolidBrush(stateColor), e.Bounds);
+                e.Graphics.DrawString(eventStateComboBox.Items[e.Index].ToString(), e.Font, new SolidBrush(eventStateComboBox.ForeColor), new Point(e.Bounds.X, e.Bounds.Y));
+            }
+
+            if ((e.State & DrawItemState.Selected) != 0)
+                ControlPaint.DrawFocusRectangle(e.Graphics, e.Bounds);
         }
         #endregion
 
