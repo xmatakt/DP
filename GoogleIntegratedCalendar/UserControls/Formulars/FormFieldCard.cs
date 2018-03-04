@@ -34,6 +34,7 @@ namespace EZKO.UserControls.Formulars
                     item.Width = flowPanel.MinimumSize.Width - 7;
             }
         }
+
         public bool Up { get; private set; }
         private FormFieldCard aboveCard;
         public FormFieldCard AboveCard
@@ -55,7 +56,14 @@ namespace EZKO.UserControls.Formulars
         public Field Field { get; set; }
         public string Question
         {
-            get { return questionTextBox.Text.Trim(); }
+            get
+            {
+                string result = questionTextBox.Text.Trim();
+                if (string.IsNullOrEmpty(result) || result == defaultText)
+                    result = null;
+
+                return result;
+            }
             set
             {
                 if (value == null)
@@ -75,6 +83,7 @@ namespace EZKO.UserControls.Formulars
                 }
             }
         }
+        public Panel EditorMainPanel { get; set; }
         #endregion
 
         private bool move = false;
@@ -300,6 +309,8 @@ namespace EZKO.UserControls.Formulars
         {
             if (!isPreview)
             {
+                //EditorMainPanel.AutoScroll = false;
+                Focus();
                 Cursor = Cursors.Hand;
                 OriginalY = Location.Y;
                 move = true;
@@ -309,11 +320,13 @@ namespace EZKO.UserControls.Formulars
 
         private void topPanel_MouseUp(object sender, MouseEventArgs e)
         {
+            //EditorMainPanel.AutoScroll = true;
             Cursor = Cursors.Default;
             move = false;
             Location = new Point(Location.X, OriginalY);
 
             CardMouseUp?.Invoke(sender, e);
+            EditorMainPanel.ScrollControlIntoView(this);
         }
 
         private void topPanel_MouseMove(object sender, MouseEventArgs e)
@@ -321,7 +334,7 @@ namespace EZKO.UserControls.Formulars
             if (move)
             {
                 int diffY = e.Y;
-                if(Location.Y + diffY >= 0)
+                if (Location.Y + diffY >= 0)
                 {
                     Location = new Point(Location.X, Location.Y + diffY);
                     Up = Location.Y < OriginalY;
@@ -333,12 +346,18 @@ namespace EZKO.UserControls.Formulars
 
         private void upButton_Click(object sender, EventArgs e)
         {
+            EditorMainPanel.AutoScroll = false;
             MoveUp(true);
+            EditorMainPanel.AutoScroll = true;
+            EditorMainPanel.ScrollControlIntoView(this);
         }
 
         private void downButton_Click(object sender, EventArgs e)
         {
+            EditorMainPanel.AutoScroll = false;
             MoveDown(true);
+            EditorMainPanel.AutoScroll = true;
+            EditorMainPanel.ScrollControlIntoView(this);
         }
 
         private void removeButton_Click(object sender, EventArgs e)
@@ -357,6 +376,16 @@ namespace EZKO.UserControls.Formulars
         public override string ToString()
         {
             return CardName;
+        }
+
+        private void FormFieldCard_Enter(object sender, EventArgs e)
+        {
+            mainFlowPanel.BackColor = Color.FromName("Highlight");
+        }
+
+        private void FormFieldCard_Leave(object sender, EventArgs e)
+        {
+            mainFlowPanel.BackColor = Color.FromName("Info");
         }
     }
 }

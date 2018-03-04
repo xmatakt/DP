@@ -1455,7 +1455,7 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
-        public bool CreateFormular(string name)
+        public bool CreateFormular(string name, List<FieldForm> formFields)
         {
             bool result = false;
             try
@@ -1463,9 +1463,14 @@ namespace DatabaseCommunicator.Controllers
                 Form item = new Form()
                 {
                     Name = name,
-                    IsDeleted = false
+                    IsDeleted = false,
+                    FieldForms = formFields,
                 };
                 db.Forms.Add(item);
+
+                //foreach (var formField in formFields)
+                //    formField.Form = item;
+
                 result = SaveChanges();
             }
             catch (Exception e)
@@ -1476,13 +1481,19 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
-        public bool EditFormular(Form form, string name)
+        public bool EditFormular(Form form, string name, List<FieldForm> formFields)
         {
             bool result = false;
             try
             {
                 form.Name = name;
                 form.IsDeleted = false;
+
+                var questionsToRemove = form.FieldForms.Select(x => x.Question);
+                db.Questions.RemoveRange(questionsToRemove);
+                db.FieldForms.RemoveRange(form.FieldForms);
+
+                form.FieldForms = formFields;
 
                 result = SaveChanges();
             }

@@ -30,11 +30,11 @@
         {
             this.mainFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.topPanel = new System.Windows.Forms.Panel();
+            this.questionTextBox = new System.Windows.Forms.TextBox();
+            this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.removeButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.downButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.upButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.questionTextBox = new System.Windows.Forms.TextBox();
-            this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.mainFlowPanel.SuspendLayout();
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
@@ -43,6 +43,7 @@
             // 
             this.mainFlowPanel.AutoSize = true;
             this.mainFlowPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.mainFlowPanel.BackColor = System.Drawing.SystemColors.Info;
             this.mainFlowPanel.Controls.Add(this.topPanel);
             this.mainFlowPanel.Controls.Add(this.questionTextBox);
             this.mainFlowPanel.Controls.Add(this.flowPanel);
@@ -68,6 +69,33 @@
             this.topPanel.MouseLeave += new System.EventHandler(this.topPanel_MouseLeave);
             this.topPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseMove);
             this.topPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseUp);
+            // 
+            // questionTextBox
+            // 
+            this.questionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.questionTextBox.Location = new System.Drawing.Point(3, 38);
+            this.questionTextBox.Name = "questionTextBox";
+            this.questionTextBox.Size = new System.Drawing.Size(479, 20);
+            this.questionTextBox.TabIndex = 3;
+            this.questionTextBox.Text = "Otázka do formulára";
+            this.questionTextBox.Enter += new System.EventHandler(this.questionTextBox_Enter);
+            this.questionTextBox.Leave += new System.EventHandler(this.questionTextBox_Leave);
+            // 
+            // flowPanel
+            // 
+            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowPanel.AutoSize = true;
+            this.flowPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowPanel.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowPanel.Location = new System.Drawing.Point(3, 64);
+            this.flowPanel.MinimumSize = new System.Drawing.Size(479, 0);
+            this.flowPanel.Name = "flowPanel";
+            this.flowPanel.Size = new System.Drawing.Size(479, 0);
+            this.flowPanel.TabIndex = 4;
             // 
             // removeButton
             // 
@@ -130,33 +158,6 @@
             this.upButton.UseVisualStyleBackColor = false;
             this.upButton.Click += new System.EventHandler(this.upButton_Click);
             // 
-            // questionTextBox
-            // 
-            this.questionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.questionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questionTextBox.Location = new System.Drawing.Point(3, 38);
-            this.questionTextBox.Name = "questionTextBox";
-            this.questionTextBox.Size = new System.Drawing.Size(479, 20);
-            this.questionTextBox.TabIndex = 3;
-            this.questionTextBox.Text = "Otázka do formulára";
-            this.questionTextBox.Enter += new System.EventHandler(this.questionTextBox_Enter);
-            this.questionTextBox.Leave += new System.EventHandler(this.questionTextBox_Leave);
-            // 
-            // flowPanel
-            // 
-            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowPanel.AutoSize = true;
-            this.flowPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowPanel.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowPanel.Location = new System.Drawing.Point(3, 64);
-            this.flowPanel.MinimumSize = new System.Drawing.Size(479, 0);
-            this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(479, 0);
-            this.flowPanel.TabIndex = 4;
-            // 
             // FormFieldCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -170,6 +171,8 @@
             this.Name = "FormFieldCard";
             this.Size = new System.Drawing.Size(485, 68);
             this.SizeChanged += new System.EventHandler(this.FormFieldCard_SizeChanged);
+            this.Enter += new System.EventHandler(this.FormFieldCard_Enter);
+            this.Leave += new System.EventHandler(this.FormFieldCard_Leave);
             this.mainFlowPanel.ResumeLayout(false);
             this.mainFlowPanel.PerformLayout();
             this.topPanel.ResumeLayout(false);

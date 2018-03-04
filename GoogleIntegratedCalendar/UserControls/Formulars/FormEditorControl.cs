@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DatabaseCommunicator.Model;
+using ExceptionHandler;
 
 namespace EZKO.UserControls.Formulars
 {
@@ -18,6 +19,59 @@ namespace EZKO.UserControls.Formulars
         private int diffX = 30;
         private bool showTools = true;
 
+        #region Public properties
+        public List<FieldForm> FormFields
+        {
+            get
+            {
+                List<FieldForm> result = new List<FieldForm>();
+                try
+                {
+                    FormFieldCard actualCard = FindFirstCard();
+                    int questionIndex = 1;
+
+                    while (actualCard != null)
+                    {
+                        string questionValue = actualCard.Question;
+                        if (questionValue == null)
+                        {
+                            BasicMessagesHandler.ShowInformationMessage("Musíte zadať otázku do formulára");
+                            actualCard.Focus();
+                            mainPanel.ScrollControlIntoView(actualCard);
+                            result = null;
+                            break;
+                        }
+                        else if (actualCard.Field == null)
+                        {
+                            BasicMessagesHandler.ShowInformationMessage("Vyskytla sa chyba pri vytváraní položiek formulára.\nChybná položka je zvýraznená modrou farbou");
+                            actualCard.Focus();
+                            mainPanel.ScrollControlIntoView(actualCard);
+                            result = null;
+                            break;
+                        }
+
+                        Question question = new Question() { Value = questionValue, Index = questionIndex++ };
+                        FieldForm newFieldForm = new FieldForm()
+                        {
+                            Field = actualCard.Field,
+                            Question = question,
+                        };
+
+                        result.Add(newFieldForm);
+                        actualCard = actualCard.BelowCard;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    BasicMessagesHandler.ShowErrorMessage("Počas načítavania polí do formulára sa vyskytla chyba", ex);
+                    result = null;
+                }
+               
+                return result;
+            }
+        }
+        #endregion
+
         public FormEditorControl()
         {
             InitializeComponent();
@@ -26,6 +80,10 @@ namespace EZKO.UserControls.Formulars
         }
 
         #region Public methods
+        /// <summary>
+        /// Loads EZKO formular into mainPanel of the FormEditorControl
+        /// </summary>
+        /// <param name="formular">Formular which has to be loaded</param>
         public void LoadFormular(DatabaseCommunicator.Model.Form formular)
         {
             if (formular == null) return;
@@ -34,12 +92,13 @@ namespace EZKO.UserControls.Formulars
             formNameLabel.Text = formular.Name;
 
             FormFieldCard lastAddedCard = null;
-            foreach (var item in formular.FieldForms.Where(x => !x.Field.IsDeleted))
+            foreach (var item in formular.FieldForms.Where(x => !x.Field.IsDeleted).OrderBy(x => x.Question.Index))
             {
                 FormFieldCard card = new FormFieldCard()
                 {
                     Question = item.Question.Value,
                     CardWidth = mainPanel.Width - diffX,
+                    EditorMainPanel = mainPanel,
                 };
                 card.CardMouseMove += card_MouseMove;
                 card.CardMouseMove += card_MouseMove;
@@ -57,7 +116,14 @@ namespace EZKO.UserControls.Formulars
             RedrawFormular();
         }
 
-        public bool AddField(Field field)
+        /// <summary>
+        /// Add or update in FormEditorControl
+        /// </summary>
+        /// <param name="field">Field to add</param>
+        /// <param name="updateField">Specifies if the field has to be updated in the editor if was founded</param>
+        /// /// <param name="addField">Specifies if the field has to be added into editor if was not founded</param>
+        /// <returns></returns>
+        public bool AddOrUpdateField(Field field, bool updateField, bool addField)
         {
             bool containsField = false;
 
@@ -65,15 +131,20 @@ namespace EZKO.UserControls.Formulars
             {
                 if (item is FormFieldCard cardItem && cardItem.Field.ID == field.ID)
                 {
+                    if(updateField)
+                        cardItem.SetField(field);
+
                     cardItem.Focus();
                     containsField = true;
+                    mainPanel.ScrollControlIntoView(cardItem);
+                    break;
                 }
             }
 
-            if(!containsField)
+            if(!containsField && addField)
             {
                 FormFieldCard lastCard = FindLastCard();
-                FormFieldCard card = new FormFieldCard() { CardWidth = mainPanel.Width - diffX};
+                FormFieldCard card = new FormFieldCard() { CardWidth = mainPanel.Width - diffX, EditorMainPanel = mainPanel };
                 card.CardMouseMove += card_MouseMove;
                 card.CardMouseMove += card_MouseMove;
                 card.CardMouseUp += card_MouseUp;
@@ -87,13 +158,13 @@ namespace EZKO.UserControls.Formulars
                 mainPanel.Controls.Add(card);
                 RedrawFormular();
 
-                card.Focus();
+                mainPanel.ScrollControlIntoView(card);
             }
 
             return containsField;
         }
 
-        public void UpdateField(FieldForm fieldForm)
+        public void UpdateFieldForm(FieldForm fieldForm)
         {
             bool wasUpdated = false;
             foreach (var item in mainPanel.Controls)
@@ -105,6 +176,9 @@ namespace EZKO.UserControls.Formulars
                         card.SetField(fieldForm.Field);
                         card.Question = fieldForm.Question.Value;
                         wasUpdated = true;
+                        RedrawFormular();
+                        card.Focus();
+                        mainPanel.ScrollControlIntoView(card);
                         break;
                     }
                 }
@@ -112,8 +186,6 @@ namespace EZKO.UserControls.Formulars
 
             if (!wasUpdated)
                 AddField(fieldForm);
-
-            RedrawFormular();
         }
 
         public void RemoveField(int fieldId)
@@ -164,8 +236,8 @@ namespace EZKO.UserControls.Formulars
             {
                 Question = fieldForm.Question.Value,
                 CardWidth = mainPanel.Width - diffX,
+                EditorMainPanel = mainPanel,
             };
-            card.CardMouseMove += card_MouseMove;
             card.CardMouseMove += card_MouseMove;
             card.CardMouseUp += card_MouseUp;
             card.RemoveButtonClick += card_RemoveButtonClick;
@@ -176,6 +248,9 @@ namespace EZKO.UserControls.Formulars
                 lastCard.BelowCard = card;
 
             mainPanel.Controls.Add(card);
+            RedrawFormular();
+            card.Focus();
+            mainPanel.ScrollControlIntoView(card);
         }
 
         private FormFieldCard FindFirstCard()

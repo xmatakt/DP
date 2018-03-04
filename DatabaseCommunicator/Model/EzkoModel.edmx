@@ -290,6 +290,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Index" Type="int" />
         </EntityType>
         <EntityType Name="Section">
           <Key>
@@ -1340,6 +1341,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="FieldForms" Relationship="EzkoModel.FK_FieldForm_di943046351291190184" FromRole="Question" ToRole="FieldForm" />
+          <Property Name="Index" Type="Int32" />
         </EntityType>
         <EntityType Name="Section">
           <Key>
@@ -2032,6 +2034,7 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="EzkoModel.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Index" ColumnName="Index" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

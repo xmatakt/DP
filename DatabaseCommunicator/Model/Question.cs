@@ -21,6 +21,7 @@ namespace DatabaseCommunicator.Model
     
         public int ID { get; set; }
         public string Value { get; set; }
+        public Nullable<int> Index { get; set; }
     
         public virtual ICollection<FieldForm> FieldForms { get; set; }
     }

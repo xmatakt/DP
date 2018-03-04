@@ -236,13 +236,15 @@ namespace EZKO.Forms.AdministrationForms
                     break;
             }
         }
-        private bool ValidateData()
+        private bool ValidateData(List<FieldForm> formFields)
         {
             bool result = true;
 
             try
             {
-                if (name == null)
+                if (formFields == null)
+                    result = false;
+                else if (name == null)
                 {
                     BasicMessagesHandler.ShowInformationMessage("Musíte zadať názov formulára");
                     nameTextBox.Focus();
@@ -269,9 +271,10 @@ namespace EZKO.Forms.AdministrationForms
             try
             {
                 Cursor = Cursors.WaitCursor;
-                if (ValidateData())
+                List<FieldForm> formFields = formEditor.FormFields;
+                if (ValidateData(formFields))
                 {
-                    if (ezkoController.CreateFormular(name))
+                    if (ezkoController.CreateFormular(name, formFields))
                         BasicMessagesHandler.ShowInformationMessage("Anamnestický formulár bol úspešne vytvorený");
                     else
                         BasicMessagesHandler.ShowErrorMessage("Počas vytvárania anamnestického formulára sa vyskytla chyba");
@@ -293,9 +296,10 @@ namespace EZKO.Forms.AdministrationForms
             try
             {
                 Cursor = Cursors.WaitCursor;
-                if (ValidateData())
+                List<FieldForm> formFields = formEditor.FormFields;
+                if (ValidateData(formFields))
                 {
-                    if (!ezkoController.EditFormular(formular, name))
+                    if (!ezkoController.EditFormular(formular, name, formFields))
                         BasicMessagesHandler.ShowErrorMessage("Počas úpravy anamnestického formulára sa vyskytla chyba");
                 }
                 else
@@ -320,14 +324,12 @@ namespace EZKO.Forms.AdministrationForms
                     {
                         FieldForm fieldForm = formular.FieldForms.FirstOrDefault(x => x.Field.ID == item.ID);
                         if (fieldForm != null)
-                            formEditor.UpdateField(fieldForm);
+                            formEditor.UpdateFieldForm(fieldForm);
                         else
                             formEditor.RemoveField(item.ID);
                     }
                     else
-                    {
-                        throw new NotImplementedException();
-                    }
+                        formEditor.AddOrUpdateField(item, true, false);
                 }
 
                 SelectRow(item);
@@ -344,7 +346,7 @@ namespace EZKO.Forms.AdministrationForms
         {
             try
             {
-                if (formEditor.AddField(item))
+                if (formEditor.AddOrUpdateField(item, false, true))
                     BasicMessagesHandler.ShowInformationMessage("Toto pole sa už vo formulári nachádza");
             }
             catch (Exception ex)
@@ -429,7 +431,7 @@ namespace EZKO.Forms.AdministrationForms
                         foreach (var item in formular.FieldForms.Where(x => !x.Field.IsDeleted))
                         {
                             if (formular.FieldForms.Any(x => x.Field.ID == item.Field.ID))
-                                formEditor.UpdateField(item);
+                                formEditor.UpdateFieldForm(item);
                         }
                     }
                 }

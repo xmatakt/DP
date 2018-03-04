@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.topPanel = new System.Windows.Forms.Panel();
+            this.showToolsButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.formNameLabel = new System.Windows.Forms.Label();
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.showToolsButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,29 +44,6 @@
             this.topPanel.Name = "topPanel";
             this.topPanel.Size = new System.Drawing.Size(543, 34);
             this.topPanel.TabIndex = 0;
-            // 
-            // formNameLabel
-            // 
-            this.formNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.formNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.formNameLabel.Location = new System.Drawing.Point(0, 0);
-            this.formNameLabel.Name = "formNameLabel";
-            this.formNameLabel.Size = new System.Drawing.Size(543, 34);
-            this.formNameLabel.TabIndex = 0;
-            this.formNameLabel.Text = "Názov formulára";
-            this.formNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // mainPanel
-            // 
-            this.mainPanel.AutoScroll = true;
-            this.mainPanel.AutoSize = true;
-            this.mainPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(0, 34);
-            this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(543, 228);
-            this.mainPanel.TabIndex = 1;
-            this.mainPanel.Resize += new System.EventHandler(this.mainPanel_Resize);
             // 
             // showToolsButton
             // 
@@ -90,6 +67,30 @@
             this.showToolsButton.UseVisualStyleBackColor = false;
             this.showToolsButton.Click += new System.EventHandler(this.showToolsButton_Click);
             // 
+            // formNameLabel
+            // 
+            this.formNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.formNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.formNameLabel.Location = new System.Drawing.Point(0, 0);
+            this.formNameLabel.Name = "formNameLabel";
+            this.formNameLabel.Size = new System.Drawing.Size(543, 34);
+            this.formNameLabel.TabIndex = 0;
+            this.formNameLabel.Text = "Názov formulára";
+            this.formNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainPanel.AutoScroll = true;
+            this.mainPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.mainPanel.Location = new System.Drawing.Point(0, 34);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(543, 228);
+            this.mainPanel.TabIndex = 1;
+            this.mainPanel.Resize += new System.EventHandler(this.mainPanel_Resize);
+            // 
             // FormEditorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -100,7 +101,6 @@
             this.Size = new System.Drawing.Size(543, 262);
             this.topPanel.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
