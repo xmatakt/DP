@@ -596,6 +596,5 @@ namespace EZKO.Forms.AdministrationForms
             insightLabel.Text = nameTextBox.Text.Trim();
         }
         #endregion
-
     }
 }

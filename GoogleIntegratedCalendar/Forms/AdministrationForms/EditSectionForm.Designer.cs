@@ -176,6 +176,7 @@
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(389, 20);
             this.nameTextBox.TabIndex = 3;
+            this.nameTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nameTextBox_KeyUp);
             // 
             // EditSectionForm
             // 

@@ -226,8 +226,12 @@ namespace EZKO.UserControls.Patients
 
             if (e.RowIndex >= 0)
             {
-                Patient item = senderGrid.Rows[e.RowIndex].Tag as Patient;
-                EditItem(item);
+                int colIndex = senderGrid["Last", e.RowIndex].ColumnIndex;
+                if(e.ColumnIndex <= colIndex)
+                {
+                    Patient item = senderGrid.Rows[e.RowIndex].Tag as Patient;
+                    EditItem(item);
+                }
             }
         }
 

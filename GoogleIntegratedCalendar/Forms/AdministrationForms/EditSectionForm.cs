@@ -35,12 +35,12 @@ namespace EZKO.Forms.AdministrationForms
         }
         #endregion
 
-        public EditSectionForm(WorkingTypeEnum workingType)
+        public EditSectionForm()
         {
             InitializeComponent();
 
-            this.ezkoController = GlobalSettings.EzkoController;
-            this.workingType = workingType;
+            ezkoController = GlobalSettings.EzkoController;
+            workingType = WorkingTypeEnum.Creating;
         }
 
         public EditSectionForm(Section section)
@@ -207,6 +207,15 @@ namespace EZKO.Forms.AdministrationForms
         private void addButton_Click(object sender, EventArgs e)
         {
             CreateOrUpdate();
+        }
+
+        private void nameTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                DialogResult = DialogResult.OK;
+                CreateOrUpdate();
+            }
         }
         #endregion
     }

@@ -309,6 +309,18 @@
     <Compile Include="UserControls\FlatControls\RoundButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UserControls\Formulars\FormEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Formulars\FormEditorControl.Designer.cs">
+      <DependentUpon>FormEditorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Formulars\FormFieldCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Formulars\FormFieldCard.Designer.cs">
+      <DependentUpon>FormFieldCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Other\AutoCompleteTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -455,6 +467,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\FlatControls\FlatRichTextBox.resx">
       <DependentUpon>FlatRichTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Formulars\FormEditorControl.resx">
+      <DependentUpon>FormEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Formulars\FormFieldCard.resx">
+      <DependentUpon>FormFieldCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Patients\PatientsUserControl.resx">
       <DependentUpon>PatientsUserControl.cs</DependentUpon>
@@ -683,6 +701,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\refresh_16_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\down_arrow_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\up_arrow_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\down_arrow_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\up_arrow_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_black_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\right_arrow_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hide_black_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\show_black_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

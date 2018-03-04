@@ -161,7 +161,7 @@ namespace EZKO.UserControls.Administration
 
         private void ezkoSectionsMenuItem_AddButtonClick(object sender, EventArgs e)
         {
-            var form = new EditSectionForm(Enums.WorkingTypeEnum.Creating);
+            var form = new EditSectionForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ShowSectionsPanel();

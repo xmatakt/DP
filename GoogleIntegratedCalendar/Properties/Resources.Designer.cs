@@ -223,6 +223,36 @@ namespace EZKO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap down_arrow_16 {
+            get {
+                object obj = ResourceManager.GetObject("down_arrow_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap down_arrow_24 {
+            get {
+                object obj = ResourceManager.GetObject("down_arrow_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap edit_black_16 {
+            get {
+                object obj = ResourceManager.GetObject("edit_black_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap euro_sign_black_16 {
             get {
                 object obj = ResourceManager.GetObject("euro_sign_black_16", resourceCulture);
@@ -336,6 +366,16 @@ namespace EZKO.Properties {
         internal static System.Drawing.Bitmap formular_white_24 {
             get {
                 object obj = ResourceManager.GetObject("formular_white_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hide_black_16 {
+            get {
+                object obj = ResourceManager.GetObject("hide_black_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -573,6 +613,16 @@ namespace EZKO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap right_arrow_16 {
+            get {
+                object obj = ResourceManager.GetObject("right_arrow_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap search_16 {
             get {
                 object obj = ResourceManager.GetObject("search_16", resourceCulture);
@@ -623,6 +673,16 @@ namespace EZKO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap show_black_16 {
+            get {
+                object obj = ResourceManager.GetObject("show_black_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap toTaskbar_32 {
             get {
                 object obj = ResourceManager.GetObject("toTaskbar_32", resourceCulture);
@@ -636,6 +696,26 @@ namespace EZKO.Properties {
         internal static System.Drawing.Bitmap toTaskbar_active_32 {
             get {
                 object obj = ResourceManager.GetObject("toTaskbar_active_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap up_arrow_16 {
+            get {
+                object obj = ResourceManager.GetObject("up_arrow_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap up_arrow_24 {
+            get {
+                object obj = ResourceManager.GetObject("up_arrow_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

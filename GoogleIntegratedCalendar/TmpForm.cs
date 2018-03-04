@@ -16,11 +16,5 @@ namespace EZKO
             //GlobalSettings.Load();
             BasicMessagesHandler.SetLogFilePath(GlobalSettings.LogFilePath);
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            SimpleMailer mailer = new SimpleMailer();
-            mailer.SendEmail("timotej.matak@gmail.com");
-        }
     }
 }

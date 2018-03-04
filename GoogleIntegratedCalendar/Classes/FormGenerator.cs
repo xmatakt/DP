@@ -21,7 +21,7 @@ namespace EZKO.Classes
         {
             //AddSectionLabel(flowPanel, form.Name);
 
-            foreach (var item in form.FieldForms)
+            foreach (var item in form.FieldForms.Where(x => !x.Field.IsDeleted))
             {
                 AddSplitter(flowPanel);
                 AddFieldLabel(flowPanel, item.Question.Value);

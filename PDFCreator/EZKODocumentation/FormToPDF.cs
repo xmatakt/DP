@@ -37,7 +37,7 @@ namespace PDFCreator.EZKODocumentation
 
                     float currentY = Y;
 
-                    foreach (var item in form.FieldForms)
+                    foreach (var item in form.FieldForms.Where(x => !x.Field.IsDeleted))
                     {
                         switch (item.Field.TypeID)
                         {
