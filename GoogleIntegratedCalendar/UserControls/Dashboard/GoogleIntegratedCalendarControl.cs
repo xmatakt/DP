@@ -192,6 +192,7 @@ namespace EZKO.UserControls.Dashboard
                 if (calendar != null && calendar.Items != null && calendar.Items.Count > 0)
                     calendar.Items.Clear();
 
+
                 if (calendarItems == null)
                     return;
 
@@ -426,6 +427,7 @@ namespace EZKO.UserControls.Dashboard
         {
             if (e.Item != null && e.Item.DatabaseEntityID.HasValue)
             {
+                calendar.TimeUnitsOffset = 0;
                 visitUserControl.LoadEvent(e.Item.DatabaseEntityID.Value);
                 visitUserControl.SetEventTimes(e.Item.StartDate, e.Item.EndDate);
             }
@@ -516,5 +518,15 @@ namespace EZKO.UserControls.Dashboard
             calendar.TimeScale = CalendarTimeScale.SixtyMinutes;
         }
         #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //var tmp = calendar.GetTimeUnit(DateTime.Now);
+            calendar.ScrollCalendarControl(27);
+
+            //calendar.TimeUnitsOffset = (int)numericUpDown1.Value;
+
+            //calendar.ScrollCalendarControl((int)numericUpDown1.Value);
+        }
     }
 }

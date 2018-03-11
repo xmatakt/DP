@@ -57,10 +57,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CardCommand.cs" />
     <Compile Include="Classes\ChangesHolder.cs" />
     <Compile Include="Classes\FormGenerator.cs" />
     <Compile Include="Controllers\DirectoriesController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Enums\CardCommandEnum.cs" />
     <Compile Include="Enums\PanelLoadingEnum.cs" />
     <Compile Include="Enums\WorkingTypeEnum.cs" />
     <Compile Include="Forms\AdministrationForms\EditUserForm.cs">
@@ -725,6 +727,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\show_black_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back_arrow_black_16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

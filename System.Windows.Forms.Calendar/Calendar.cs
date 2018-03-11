@@ -1005,6 +1005,30 @@ namespace System.Windows.Forms.Calendar
             return ViewIntersects(item.StartDate, item.EndDate);
         }
 
+        /// <summary>
+        /// Scrolls the time units using the specified delta
+        /// </summary>
+        /// <param name="delta"></param>
+        public void ScrollCalendarControl(int unitIndex)
+        {
+            if (Days != null
+               && Days.Length > 0
+               && Days[0].TimeUnits != null)
+            {
+                _timeUnitsOffset = 0;
+
+                int possible = Days[0].TimeUnits.Length - Renderer.GetVisibleTimeUnits();
+
+                if (Days[0].TimeUnits.Length > unitIndex)
+                    Days[0].TimeUnits[unitIndex].Selected = true;
+
+                if (unitIndex > possible)
+                    unitIndex = possible;
+
+                TimeUnitsOffset = -unitIndex;
+            }
+        }
+
         #endregion
 
         #region Private Methods

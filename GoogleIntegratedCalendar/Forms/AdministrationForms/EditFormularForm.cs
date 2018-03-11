@@ -21,6 +21,7 @@ namespace EZKO.Forms.AdministrationForms
         private WorkingTypeEnum workingType;
         private EzkoController ezkoController;
         private DatabaseCommunicator.Model.Form formular;
+        private Section lastPickedSection = null;
 
         #region Private properties
         private string name
@@ -43,7 +44,10 @@ namespace EZKO.Forms.AdministrationForms
             {
                 sectionsTextBox.Tag = value;
                 if (value != null)
+                {
                     sectionsTextBox.Text = value.Name;
+                    lastPickedSection = value;
+                }
                 else
                     sectionsTextBox.Text = "";
             }
@@ -66,6 +70,7 @@ namespace EZKO.Forms.AdministrationForms
 
             try
             {
+                toolTip.InitialDelay = 100;
                 fieldsLabelText = "Všetky sekcie";
                 ezkoController = GlobalSettings.EzkoController;
                 this.workingType = workingType;
@@ -165,7 +170,7 @@ namespace EZKO.Forms.AdministrationForms
             DataGridViewImageColumn editColumn = new DataGridViewImageColumn()
             {
                 Name = "Edit",
-                HeaderText = "Akcie",
+                HeaderText = "Upraviť pole",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 ImageLayout = DataGridViewImageCellLayout.Normal,
             };
@@ -176,7 +181,7 @@ namespace EZKO.Forms.AdministrationForms
             DataGridViewImageColumn addColumn = new DataGridViewImageColumn()
             {
                 Name = "Add",
-                HeaderText = "",
+                HeaderText = "Pridať do formulára",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 ImageLayout = DataGridViewImageCellLayout.Normal,
 
@@ -330,6 +335,8 @@ namespace EZKO.Forms.AdministrationForms
                     }
                     else
                         formEditor.AddOrUpdateField(item, true, false);
+
+                    FillDataGridView(item.Section.Fields);
                 }
 
                 SelectRow(item);
@@ -366,6 +373,7 @@ namespace EZKO.Forms.AdministrationForms
                 card.SetField(item);
                 formCardFlowPanel.Controls.Add(card);
                 previewLabelText = item.Name;
+                card.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -395,14 +403,23 @@ namespace EZKO.Forms.AdministrationForms
 
         private void editSectionButton_Click(object sender, EventArgs e)
         {
-            Section item = section;
-            if (item != null)
+            string newSectionName = sectionsTextBox.Text.Trim();
+            Section item = ezkoController.GetSectionByName(newSectionName);
+            //Section item = section;
+            if (item == null && lastPickedSection != null)
             {
-                EditSectionForm form = new EditSectionForm(section);
-                if (form.ShowDialog() == DialogResult.OK)
+                if(MessageBox.Show("Naozaj si želáte premenovať sekciu " + lastPickedSection.Name + " na " + newSectionName + "?",
+                    "Upozornenie", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    InitializeSectionsTextBox();
-                    sectionsTextBox.Text = item.Name;
+                    if(ezkoController.EditSection(lastPickedSection, newSectionName))
+                    {
+                        InitializeSectionsTextBox();
+                        sectionsTextBox.Text = newSectionName;
+                        fieldsLabelText = newSectionName;
+                        FillDataGridView(lastPickedSection.Fields);
+                    }
+                    else
+                        BasicMessagesHandler.ShowErrorMessage("Pri editácií sekcie sa vyskytla chyba");
                 }
             }
         }
@@ -467,16 +484,39 @@ namespace EZKO.Forms.AdministrationForms
                 if (e.ColumnIndex <= colIndex)
                 {
                     Field item = dataGridView.Rows[e.RowIndex].Tag as Field;
-                    EditField(item);
+                    if (e.ColumnIndex == dataGridView.Columns["Section"].Index)
+                        section = item.Section;
+                    else
+                        EditField(item);
                 }
             }
         }
 
         private void addSectionButton_Click(object sender, EventArgs e)
         {
-            EditSectionForm form = new EditSectionForm();
-            if (form.ShowDialog() == DialogResult.OK)
-                InitializeSectionsTextBox();
+            string sectionName = sectionsTextBox.Text.Trim();
+            Section existingSection = ezkoController.GetSectionByName(sectionName);
+
+            if(existingSection != null)
+                BasicMessagesHandler.ShowInformationMessage("Sekcia s daným názvom už existuje");
+            else
+            {
+                if (MessageBox.Show("Naozaj si želáte vytvoriť sekciu " + sectionName + "?",
+                    "Upozornenie", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    if (ezkoController.CreateSection(sectionName))
+                    {
+                        existingSection = ezkoController.GetSectionByName(sectionName);
+                        InitializeSectionsTextBox();
+                        sectionsTextBox.Text = sectionName;
+                        fieldsLabelText = sectionName;
+                        FillDataGridView(existingSection.Fields);
+                        lastPickedSection = existingSection;
+                    }
+                    else
+                        BasicMessagesHandler.ShowInformationMessage("Pri vytváraní sekcie sa vyskytla chyba");
+                }
+            }
         }
 
         private void dataGridView_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -491,6 +531,43 @@ namespace EZKO.Forms.AdministrationForms
         private void nameTextBox_TextChanged(object sender, EventArgs e)
         {
             formEditor.ChangeFormularName(name);
+        }
+
+        private void editSectionButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Upraviť sekciu", editSectionButton);
+        }
+
+        private void addSectionButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Vytvoriť sekciu", addSectionButton);
+        }
+
+        private void sectionsTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                case Keys.Tab:
+                    if (sectionsTextBox.Tag is Section item)
+                        lastPickedSection = item;
+                    break;
+            }
+        }
+
+        private void backToLastSectionButton_Click(object sender, EventArgs e)
+        {
+            if(lastPickedSection != null)
+            {
+                section = lastPickedSection;
+                //FillDataGridView(lastPickedSection.ields);
+            }
+        }
+
+        private void EditFormularForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (DialogResult != DialogResult.OK && BasicMessagesHandler.ShowWarningMessage("Vykonané zmeny nebudú uložené, želáte si pokračovať?") != DialogResult.Yes)
+                e.Cancel = true;
         }
         #endregion
 

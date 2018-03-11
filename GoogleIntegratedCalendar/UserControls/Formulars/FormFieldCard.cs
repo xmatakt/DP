@@ -83,7 +83,9 @@ namespace EZKO.UserControls.Formulars
                 }
             }
         }
+        public bool IsRemoved { get; set; }
         public Panel EditorMainPanel { get; set; }
+        public FormEditorControl MainControl { get; set; }
         #endregion
 
         private bool move = false;
@@ -100,6 +102,7 @@ namespace EZKO.UserControls.Formulars
         {
             InitializeComponent();
 
+            IsRemoved = false;
             italicFont = questionTextBox.Font;
             PaddingBottom = 3;
             OriginalY = Location.Y;
@@ -113,13 +116,6 @@ namespace EZKO.UserControls.Formulars
             removeButton.Enabled = !isPreview;
             upButton.Enabled = !isPreview;
             downButton.Enabled = !isPreview;
-        }
-
-        public FormFieldCard(bool isPreview, Field field) : this(isPreview)
-        {
-            this.Field = field;
-
-            InitializeField();
         }
 
         #region Public methods
@@ -185,14 +181,26 @@ namespace EZKO.UserControls.Formulars
             }
         }
 
-        public void RemoveCard()
+        public void RemoveCard(bool removePermanently = false)
         {
-            if (aboveCard != null)
-                aboveCard.BelowCard = belowCard;
-            else if (belowCard != null)
-                belowCard.AboveCard = null;
+            if(removePermanently)
+            {
+                MainControl.RemoveCommands(this);
 
-            Dispose();
+                if (aboveCard != null)
+                    aboveCard.BelowCard = belowCard;
+                else if (belowCard != null)
+                    belowCard.AboveCard = null;
+
+                Dispose();
+            }
+            else
+            {
+                MainControl.Commands.Add(new Classes.CardCommand(this, Enums.CardCommandEnum.Remove));
+                IsRemoved = true;
+            }
+
+            MainControl.UpdateBackButtonVisibility();
         }
 
         public void ChangeTopPanelVisibility(bool isVisible)
@@ -350,6 +358,9 @@ namespace EZKO.UserControls.Formulars
             MoveUp(true);
             EditorMainPanel.AutoScroll = true;
             EditorMainPanel.ScrollControlIntoView(this);
+
+            MainControl.Commands.Add(new Classes.CardCommand(this, Enums.CardCommandEnum.MoveUp));
+            MainControl.UpdateBackButtonVisibility();
         }
 
         private void downButton_Click(object sender, EventArgs e)
@@ -358,6 +369,9 @@ namespace EZKO.UserControls.Formulars
             MoveDown(true);
             EditorMainPanel.AutoScroll = true;
             EditorMainPanel.ScrollControlIntoView(this);
+
+            MainControl.Commands.Add(new Classes.CardCommand(this, Enums.CardCommandEnum.MoveDown));
+            MainControl.UpdateBackButtonVisibility();
         }
 
         private void removeButton_Click(object sender, EventArgs e)

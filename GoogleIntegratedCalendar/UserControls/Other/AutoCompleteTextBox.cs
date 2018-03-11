@@ -99,18 +99,34 @@ namespace EZKO.UserControls.Other
 
         private void this_LostFocus(object sender, EventArgs e)
         {
-            if(_listBox != null)
+            //if(_listBox != null)
+            //{
+            //    _listBox.Visible = _listBox.Focused;
+
+            //    if (_values == null)
+            //        return;
+            //    if (!_listBox.Focused && _values.FirstOrDefault(x => x.ToString().Trim() == Text.Trim()) == null)
+            //    {
+            //        Text = string.Empty;
+            //        Tag = null;
+
+            //        OnTextChanged(new EventArgs());
+            //    }
+            //}
+
+            if (_listBox != null)
             {
                 _listBox.Visible = _listBox.Focused;
 
                 if (_values == null)
                     return;
+
                 if (!_listBox.Focused && _values.FirstOrDefault(x => x.ToString().Trim() == Text.Trim()) == null)
                 {
-                    Text = string.Empty;
+                    //Text = string.Empty;
                     Tag = null;
 
-                    this.OnTextChanged(new EventArgs());
+                    OnTextChanged(new EventArgs());
                 }
             }
         }

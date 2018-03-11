@@ -70,6 +70,8 @@ namespace EZKO.UserControls.Administration
         {
             if (sectionsControlPanel == null)
                 sectionsControlPanel = new EzkoSectionsControlPanel();
+            else
+                sectionsControlPanel.UpdateControl();
 
             AddControlToMainPanel(sectionsControlPanel);
         }

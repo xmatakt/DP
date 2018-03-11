@@ -1525,6 +1525,20 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region Sections
+        public Section GetSectionByName(string name)
+        {
+            Section result = null;
+            try
+            {
+                result = db.Sections.FirstOrDefault(x => !x.IsDeleted && x.Name.Equals(name));
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
         public IQueryable<Section> GetSections()
         {
             IQueryable<Section> result = null;

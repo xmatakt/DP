@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DatabaseCommunicator.Model;
 using ExceptionHandler;
+using EZKO.Classes;
 
 namespace EZKO.UserControls.Formulars
 {
@@ -20,6 +21,7 @@ namespace EZKO.UserControls.Formulars
         private bool showTools = true;
 
         #region Public properties
+        public List<CardCommand> Commands { get; set; }
         public List<FieldForm> FormFields
         {
             get
@@ -32,6 +34,12 @@ namespace EZKO.UserControls.Formulars
 
                     while (actualCard != null)
                     {
+                        if (actualCard.IsRemoved)
+                        {
+                            actualCard = actualCard.BelowCard;
+                            continue;
+                        }
+
                         string questionValue = actualCard.Question;
                         if (questionValue == null)
                         {
@@ -76,6 +84,7 @@ namespace EZKO.UserControls.Formulars
         {
             InitializeComponent();
 
+            Commands = new List<CardCommand>();
             RedrawFormular();
         }
 
@@ -87,6 +96,10 @@ namespace EZKO.UserControls.Formulars
         public void LoadFormular(DatabaseCommunicator.Model.Form formular)
         {
             if (formular == null) return;
+
+            if(Commands == null)
+                Commands = new List<CardCommand>();
+
             mainPanel.Controls.Clear();
 
             formNameLabel.Text = formular.Name;
@@ -99,8 +112,8 @@ namespace EZKO.UserControls.Formulars
                     Question = item.Question.Value,
                     CardWidth = mainPanel.Width - diffX,
                     EditorMainPanel = mainPanel,
+                    MainControl = this,
                 };
-                card.CardMouseMove += card_MouseMove;
                 card.CardMouseMove += card_MouseMove;
                 card.CardMouseUp += card_MouseUp;
                 card.RemoveButtonClick += card_RemoveButtonClick;
@@ -111,6 +124,8 @@ namespace EZKO.UserControls.Formulars
 
                 lastAddedCard = card;
                 mainPanel.Controls.Add(card);
+
+                AddCommand(new CardCommand(card, Enums.CardCommandEnum.Add));
             }
 
             RedrawFormular();
@@ -131,20 +146,25 @@ namespace EZKO.UserControls.Formulars
             {
                 if (item is FormFieldCard cardItem && cardItem.Field.ID == field.ID)
                 {
-                    if(updateField)
-                        cardItem.SetField(field);
+                    if (cardItem.IsRemoved)
+                        cardItem.RemoveCard(true);
+                    else
+                    {
+                        if (updateField)
+                            cardItem.SetField(field);
 
-                    cardItem.Focus();
-                    containsField = true;
-                    mainPanel.ScrollControlIntoView(cardItem);
-                    break;
+                        cardItem.Focus();
+                        containsField = true;
+                        mainPanel.ScrollControlIntoView(cardItem);
+                        break;
+                    }
                 }
             }
 
             if(!containsField && addField)
             {
                 FormFieldCard lastCard = FindLastCard();
-                FormFieldCard card = new FormFieldCard() { CardWidth = mainPanel.Width - diffX, EditorMainPanel = mainPanel };
+                FormFieldCard card = new FormFieldCard() { CardWidth = mainPanel.Width - diffX, EditorMainPanel = mainPanel, MainControl = this };
                 card.CardMouseMove += card_MouseMove;
                 card.CardMouseMove += card_MouseMove;
                 card.CardMouseUp += card_MouseUp;
@@ -159,6 +179,8 @@ namespace EZKO.UserControls.Formulars
                 RedrawFormular();
 
                 mainPanel.ScrollControlIntoView(card);
+                card.Focus();
+                AddCommand(new CardCommand(card, Enums.CardCommandEnum.Add));
             }
 
             return containsField;
@@ -208,6 +230,23 @@ namespace EZKO.UserControls.Formulars
         {
             formNameLabel.Text = newName;
         }
+
+        public void AddCommand(CardCommand command)
+        {
+            Commands.Add(command);
+            UpdateBackButtonVisibility();
+        }
+
+        public void RemoveCommands(FormFieldCard card)
+        {
+            Commands.RemoveAll(x => x.Card == card);
+            UpdateBackButtonVisibility();
+        }
+
+        public void UpdateBackButtonVisibility()
+        {
+            backButton.Visible = Commands.Count > 0;
+        }
         #endregion
 
         #region Private methods
@@ -215,14 +254,39 @@ namespace EZKO.UserControls.Formulars
         {
             mainPanel.AutoScroll = false;
             FormFieldCard actualCard = FindFirstCard();
+            Point actualLocation = new Point(startX, startY);
+            int actualHeight = 0;
+            int actualPaddingBottom = 0;
 
             if (actualCard != null)
             {
-                actualCard.Location = new Point(startX, startY);
+                if (!actualCard.IsRemoved)
+                {
+                    actualCard.Location = actualLocation;
+                    actualHeight = actualCard.Height;
+                    actualPaddingBottom = actualCard.PaddingBottom;
+                }
+                else
+                    actualCard.Visible = !actualCard.IsRemoved;
 
                 while (actualCard.BelowCard != null)
                 {
-                    actualCard.BelowCard.Location = new Point(startX, actualCard.Location.Y + actualCard.Height + actualCard.PaddingBottom);
+                    //if(!actualCard.BelowCard.IsRemoved)
+                    //{
+                    //    actualLocation = new Point(startX, actualCard.Location.Y + actualCard.Height + actualCard.PaddingBottom); ;
+                    //    actualCard.BelowCard.Location = actualLocation;
+                    //}
+
+                    if (!actualCard.BelowCard.IsRemoved)
+                    {
+                        actualLocation = new Point(startX, actualLocation.Y + actualHeight + actualPaddingBottom);
+                        actualCard.BelowCard.Location = actualLocation;
+                        actualHeight = actualCard.BelowCard.Height;
+                        actualPaddingBottom = actualCard.BelowCard.PaddingBottom;
+                    }
+                    else
+                        actualCard.BelowCard.Visible = !actualCard.BelowCard.IsRemoved;
+
                     actualCard = actualCard.BelowCard;
                 }
             }
@@ -237,6 +301,7 @@ namespace EZKO.UserControls.Formulars
                 Question = fieldForm.Question.Value,
                 CardWidth = mainPanel.Width - diffX,
                 EditorMainPanel = mainPanel,
+                MainControl = this,
             };
             card.CardMouseMove += card_MouseMove;
             card.CardMouseUp += card_MouseUp;
@@ -346,6 +411,37 @@ namespace EZKO.UserControls.Formulars
             {
                 showToolsButton.BackgroundImage = Properties.Resources.show_black_16;
                 ChangeCardToolsVisibility(showTools);
+            }
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            CardCommand command = Commands.Last();
+
+            if(command != null)
+            {
+                switch (command.Command)
+                {
+                    case Enums.CardCommandEnum.MoveUp:
+                        command.Card.MoveDown(true);
+                        break;
+                    case Enums.CardCommandEnum.MoveDown:
+                        command.Card.MoveUp(true);
+                        break;
+                    case Enums.CardCommandEnum.Add:
+                        command.Card.RemoveCard(true);
+                        break;
+                    case Enums.CardCommandEnum.Remove:
+                        command.Card.IsRemoved = false;
+                        command.Card.Visible = true;
+                        break;
+                    default:
+                        break;
+                }
+                Commands.Remove(command);
+                UpdateBackButtonVisibility();
+                RedrawFormular();
+                command.Card.Focus();
             }
         }
         #endregion

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditFormularForm));
             this.topMenuPanel = new System.Windows.Forms.Panel();
             this.maximizeFormPictureBox = new System.Windows.Forms.PictureBox();
@@ -35,6 +36,8 @@
             this.minimizeFormPictureBox = new System.Windows.Forms.PictureBox();
             this.closeFormPictureBox = new System.Windows.Forms.PictureBox();
             this.bottomFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.fieldsLabel = new System.Windows.Forms.Label();
             this.sectionLabel = new System.Windows.Forms.Label();
@@ -42,16 +45,16 @@
             this.leftPanel = new System.Windows.Forms.Panel();
             this.formCardFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.previewLabel = new System.Windows.Forms.Label();
-            this.mainPanel = new System.Windows.Forms.Panel();
-            this.formEditor = new EZKO.UserControls.Formulars.FormEditorControl();
             this.sectionsTextBox = new EZKO.UserControls.Other.AutoCompleteTextBox();
+            this.backToLastSectionButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.allSectionsButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.addFiledButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.addSectionButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.editSectionButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.previewLabel = new System.Windows.Forms.Label();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.formEditor = new EZKO.UserControls.Formulars.FormEditorControl();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.topMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.maximizeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).BeginInit();
@@ -148,6 +151,51 @@
             this.bottomFlowPanel.Size = new System.Drawing.Size(1060, 36);
             this.bottomFlowPanel.TabIndex = 1;
             // 
+            // cancelButton
+            // 
+            this.cancelButton.AutoSize = true;
+            this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(173)))), ((int)(((byte)(78)))));
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.FlatAppearance.BorderSize = 0;
+            this.cancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
+            this.cancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.cancelButton.ForeColor = System.Drawing.Color.White;
+            this.cancelButton.Location = new System.Drawing.Point(990, 5);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Radius = 5;
+            this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
+            this.cancelButton.Size = new System.Drawing.Size(62, 23);
+            this.cancelButton.TabIndex = 7;
+            this.cancelButton.Text = "Zatvoriť";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            // 
+            // addButton
+            // 
+            this.addButton.AutoSize = true;
+            this.addButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.addButton.FlatAppearance.BorderSize = 0;
+            this.addButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.addButton.ForeColor = System.Drawing.Color.White;
+            this.addButton.Location = new System.Drawing.Point(865, 5);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2);
+            this.addButton.Name = "addButton";
+            this.addButton.Radius = 5;
+            this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.addButton.Size = new System.Drawing.Size(121, 23);
+            this.addButton.TabIndex = 6;
+            this.addButton.Text = "+ Vytvoriť formulár";
+            this.addButton.UseVisualStyleBackColor = false;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            // 
             // nameTextBox
             // 
             this.nameTextBox.Location = new System.Drawing.Point(12, 29);
@@ -191,6 +239,7 @@
             this.leftPanel.Controls.Add(this.formCardFlowPanel);
             this.leftPanel.Controls.Add(this.dataGridView);
             this.leftPanel.Controls.Add(this.sectionsTextBox);
+            this.leftPanel.Controls.Add(this.backToLastSectionButton);
             this.leftPanel.Controls.Add(this.allSectionsButton);
             this.leftPanel.Controls.Add(this.addFiledButton);
             this.leftPanel.Controls.Add(this.addSectionButton);
@@ -231,33 +280,6 @@
             this.dataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDoubleClick);
             this.dataGridView.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_RowEnter);
             // 
-            // previewLabel
-            // 
-            this.previewLabel.AutoSize = true;
-            this.previewLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.previewLabel.Location = new System.Drawing.Point(9, 332);
-            this.previewLabel.Name = "previewLabel";
-            this.previewLabel.Size = new System.Drawing.Size(49, 13);
-            this.previewLabel.TabIndex = 8;
-            this.previewLabel.Text = "Náhľad";
-            // 
-            // mainPanel
-            // 
-            this.mainPanel.Controls.Add(this.formEditor);
-            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(440, 36);
-            this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(620, 603);
-            this.mainPanel.TabIndex = 16;
-            // 
-            // formEditor
-            // 
-            this.formEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.formEditor.Location = new System.Drawing.Point(0, 0);
-            this.formEditor.Name = "formEditor";
-            this.formEditor.Size = new System.Drawing.Size(620, 603);
-            this.formEditor.TabIndex = 0;
-            // 
             // sectionsTextBox
             // 
             this.sectionsTextBox.Location = new System.Drawing.Point(12, 69);
@@ -266,6 +288,27 @@
             this.sectionsTextBox.TabIndex = 12;
             this.sectionsTextBox.Values = null;
             this.sectionsTextBox.TextChanged += new System.EventHandler(this.sectionsTextBox_TextChanged);
+            this.sectionsTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sectionsTextBox_KeyDown);
+            // 
+            // backToLastSectionButton
+            // 
+            this.backToLastSectionButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.backToLastSectionButton.BackgroundImage = global::EZKO.Properties.Resources.back_arrow_black_16;
+            this.backToLastSectionButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.backToLastSectionButton.FlatAppearance.BorderSize = 0;
+            this.backToLastSectionButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.backToLastSectionButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.backToLastSectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backToLastSectionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.backToLastSectionButton.ForeColor = System.Drawing.Color.White;
+            this.backToLastSectionButton.Location = new System.Drawing.Point(362, 101);
+            this.backToLastSectionButton.Name = "backToLastSectionButton";
+            this.backToLastSectionButton.Radius = 5;
+            this.backToLastSectionButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.backToLastSectionButton.Size = new System.Drawing.Size(28, 20);
+            this.backToLastSectionButton.TabIndex = 13;
+            this.backToLastSectionButton.UseVisualStyleBackColor = false;
+            this.backToLastSectionButton.Click += new System.EventHandler(this.backToLastSectionButton_Click);
             // 
             // allSectionsButton
             // 
@@ -327,6 +370,7 @@
             this.addSectionButton.TabIndex = 13;
             this.addSectionButton.UseVisualStyleBackColor = false;
             this.addSectionButton.Click += new System.EventHandler(this.addSectionButton_Click);
+            this.addSectionButton.MouseHover += new System.EventHandler(this.addSectionButton_MouseHover);
             // 
             // editSectionButton
             // 
@@ -347,51 +391,35 @@
             this.editSectionButton.TabIndex = 14;
             this.editSectionButton.UseVisualStyleBackColor = false;
             this.editSectionButton.Click += new System.EventHandler(this.editSectionButton_Click);
+            this.editSectionButton.MouseHover += new System.EventHandler(this.editSectionButton_MouseHover);
             // 
-            // cancelButton
+            // previewLabel
             // 
-            this.cancelButton.AutoSize = true;
-            this.cancelButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(173)))), ((int)(((byte)(78)))));
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.FlatAppearance.BorderSize = 0;
-            this.cancelButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
-            this.cancelButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(151)))), ((int)(((byte)(31)))));
-            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.cancelButton.ForeColor = System.Drawing.Color.White;
-            this.cancelButton.Location = new System.Drawing.Point(990, 5);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Radius = 5;
-            this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
-            this.cancelButton.Size = new System.Drawing.Size(62, 23);
-            this.cancelButton.TabIndex = 7;
-            this.cancelButton.Text = "Zatvoriť";
-            this.cancelButton.UseVisualStyleBackColor = false;
+            this.previewLabel.AutoSize = true;
+            this.previewLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.previewLabel.Location = new System.Drawing.Point(9, 332);
+            this.previewLabel.Name = "previewLabel";
+            this.previewLabel.Size = new System.Drawing.Size(49, 13);
+            this.previewLabel.TabIndex = 8;
+            this.previewLabel.Text = "Náhľad";
             // 
-            // addButton
+            // mainPanel
             // 
-            this.addButton.AutoSize = true;
-            this.addButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.addButton.FlatAppearance.BorderSize = 0;
-            this.addButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(865, 5);
-            this.addButton.Margin = new System.Windows.Forms.Padding(2);
-            this.addButton.Name = "addButton";
-            this.addButton.Radius = 5;
-            this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.addButton.Size = new System.Drawing.Size(121, 23);
-            this.addButton.TabIndex = 6;
-            this.addButton.Text = "+ Vytvoriť formulár";
-            this.addButton.UseVisualStyleBackColor = false;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            this.mainPanel.Controls.Add(this.formEditor);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Location = new System.Drawing.Point(440, 36);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(620, 603);
+            this.mainPanel.TabIndex = 16;
+            // 
+            // formEditor
+            // 
+            this.formEditor.Commands = null;
+            this.formEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.formEditor.Location = new System.Drawing.Point(0, 0);
+            this.formEditor.Name = "formEditor";
+            this.formEditor.Size = new System.Drawing.Size(620, 603);
+            this.formEditor.TabIndex = 0;
             // 
             // EditFormularForm
             // 
@@ -407,6 +435,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditFormularForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditFormularForm_FormClosing);
             this.Load += new System.EventHandler(this.EditFormularForm_Load);
             this.topMenuPanel.ResumeLayout(false);
             this.topMenuPanel.PerformLayout();
@@ -449,5 +478,7 @@
         private System.Windows.Forms.Label previewLabel;
         private UserControls.FlatControls.RoundButton allSectionsButton;
         private UserControls.FlatControls.RoundButton addFiledButton;
+        private System.Windows.Forms.ToolTip toolTip;
+        private UserControls.FlatControls.RoundButton backToLastSectionButton;
     }
 }

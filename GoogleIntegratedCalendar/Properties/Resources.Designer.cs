@@ -143,6 +143,16 @@ namespace EZKO.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap back_arrow_black_16 {
+            get {
+                object obj = ResourceManager.GetObject("back_arrow_black_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap budget_black_24 {
             get {
                 object obj = ResourceManager.GetObject("budget_black_24", resourceCulture);

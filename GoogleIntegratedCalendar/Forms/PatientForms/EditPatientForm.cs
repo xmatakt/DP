@@ -924,39 +924,52 @@ namespace EZKO.Forms.PatientForms
         private bool ValidateData()
         {
             bool result = true;
+            nameLabel.ForeColor = Color.Black;
+            surnameLabel.ForeColor = Color.Black;
+            bifoLabel.ForeColor = Color.Black;
+            phoneLabel.ForeColor = Color.Black;
+            emailLabel.ForeColor = Color.Black;
 
             try
             {
                 if (name == null)
                 {
-                    BasicMessagesHandler.ShowInformationMessage("Musíte zadať meno pacienta");
+                    //BasicMessagesHandler.ShowInformationMessage("Musíte zadať meno pacienta");
+                    nameLabel.ForeColor = Color.Red;
                     nameTextBox.Focus();
                     result = false;
                 }
-                else if (surname == null)
+                if (surname == null)
                 {
-                    BasicMessagesHandler.ShowInformationMessage("Musíte zadať priezvisko pacienta");
+                    //BasicMessagesHandler.ShowInformationMessage("Musíte zadať priezvisko pacienta");
+                    surnameLabel.ForeColor = Color.Red;
                     surnameTextBox.Focus();
                     result = false;
                 }
-                else if (BIFO != null && BIFO.Length != 10)
+                if (BIFO != null && BIFO.Length != 10)
                 {
                     BasicMessagesHandler.ShowInformationMessage("BIFO musí byť 10 znakový kód");
+                    bifoLabel.ForeColor = Color.Red;
                     bifoTextBox.Focus();
                     result = false;
                 }
-                else if(string.IsNullOrEmpty(phone))
+                if(string.IsNullOrEmpty(phone))
                 {
-                    BasicMessagesHandler.ShowInformationMessage("Musíte zadať telefón pacienta");
+                    //BasicMessagesHandler.ShowInformationMessage("Musíte zadať telefón pacienta");
+                    phoneLabel.ForeColor = Color.Red;
                     phoneTextBox.Focus();
                     result = false;
                 }
-                else if (string.IsNullOrEmpty(email))
+                if (string.IsNullOrEmpty(email))
                 {
-                    BasicMessagesHandler.ShowInformationMessage("Musíte zadať email pacienta");
+                    //BasicMessagesHandler.ShowInformationMessage("Musíte zadať email pacienta");
+                    emailLabel.ForeColor = Color.Red;
                     emailTextBox.Focus();
                     result = false;
                 }
+
+                if(!result)
+                    BasicMessagesHandler.ShowInformationMessage("Musíte vyplniť všetky povinné polia");
             }
             catch (Exception e)
             {

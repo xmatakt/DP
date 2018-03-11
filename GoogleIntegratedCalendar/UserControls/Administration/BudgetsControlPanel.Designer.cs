@@ -31,10 +31,10 @@
             this.topPanel = new System.Windows.Forms.Panel();
             this.panelNameLabel = new System.Windows.Forms.Label();
             this.filterPanel = new System.Windows.Forms.Panel();
-            this.patientLabel = new System.Windows.Forms.Label();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.findButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.patientLabel = new System.Windows.Forms.Label();
             this.patientTextBox = new EZKO.UserControls.Other.AutoCompleteTextBox();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.topPanel.SuspendLayout();
             this.filterPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -53,7 +53,7 @@
             // 
             this.panelNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panelNameLabel.ForeColor = System.Drawing.Color.White;
+            this.panelNameLabel.ForeColor = System.Drawing.Color.Black;
             this.panelNameLabel.Location = new System.Drawing.Point(0, 0);
             this.panelNameLabel.Name = "panelNameLabel";
             this.panelNameLabel.Size = new System.Drawing.Size(756, 53);
@@ -72,34 +72,6 @@
             this.filterPanel.Name = "filterPanel";
             this.filterPanel.Size = new System.Drawing.Size(756, 41);
             this.filterPanel.TabIndex = 1;
-            // 
-            // patientLabel
-            // 
-            this.patientLabel.AutoSize = true;
-            this.patientLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.patientLabel.Location = new System.Drawing.Point(12, 13);
-            this.patientLabel.Name = "patientLabel";
-            this.patientLabel.Size = new System.Drawing.Size(50, 13);
-            this.patientLabel.TabIndex = 1;
-            this.patientLabel.Text = "Pacient";
-            // 
-            // dataGridView
-            // 
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AllowUserToDeleteRows = false;
-            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(3, 97);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(750, 373);
-            this.dataGridView.TabIndex = 2;
-            this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellContentClick);
-            this.dataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDoubleClick);
             // 
             // findButton
             // 
@@ -120,6 +92,16 @@
             this.findButton.UseVisualStyleBackColor = false;
             this.findButton.Click += new System.EventHandler(this.findButton_Click);
             // 
+            // patientLabel
+            // 
+            this.patientLabel.AutoSize = true;
+            this.patientLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patientLabel.Location = new System.Drawing.Point(12, 13);
+            this.patientLabel.Name = "patientLabel";
+            this.patientLabel.Size = new System.Drawing.Size(50, 13);
+            this.patientLabel.TabIndex = 1;
+            this.patientLabel.Text = "Pacient";
+            // 
             // patientTextBox
             // 
             this.patientTextBox.Location = new System.Drawing.Point(68, 10);
@@ -129,11 +111,29 @@
             this.patientTextBox.Values = null;
             this.patientTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.patientTextBox_KeyDown);
             // 
+            // dataGridView
+            // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Location = new System.Drawing.Point(3, 97);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
+            this.dataGridView.Size = new System.Drawing.Size(750, 373);
+            this.dataGridView.TabIndex = 2;
+            this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellContentClick);
+            this.dataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_CellMouseDoubleClick);
+            // 
             // BudgetsControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.filterPanel);
             this.Controls.Add(this.topPanel);
