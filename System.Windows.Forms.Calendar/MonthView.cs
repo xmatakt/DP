@@ -888,7 +888,7 @@ namespace System.Windows.Forms.Calendar
                                 boundsHeight = (int)Math.Ceiling(percentage * evtDay.Bounds.Height);
                             //boundsWidth = (int)Math.Ceiling(percentage * evtDay.Bounds.Width);
 
-                            if(boundsWidth > 3)
+                            if(boundsHeight >= 1)
                             {
                                 evtDay.FillBounds = new Rectangle(evtDay.Bounds.X, evtDay.Bounds.Y + evtDay.Bounds.Height - boundsHeight, boundsWidth, boundsHeight);
                                 //evtDay.BackgroundColor = Color.GreenYellow;

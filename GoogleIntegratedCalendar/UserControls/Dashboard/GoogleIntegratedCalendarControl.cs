@@ -22,6 +22,37 @@ namespace EZKO.UserControls.Dashboard
         private EzkoController ezkoController;
         private GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer;
 
+        public GoogleIntegratedCalendarControl(ref GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer)
+        {
+            InitializeComponent();
+
+            CultureInfo culture = new CultureInfo(GlobalSettings.LanguagePrefix);
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+
+            //Monthview colors
+            monthView.MonthTitleColor = monthView.MonthTitleColorInactive = CalendarColorTable.FromHex("#C2DAFC");
+            monthView.ArrowsColor = CalendarColorTable.FromHex("#77A1D3");
+            monthView.DaySelectedBackgroundColor = CalendarColorTable.FromHex("#F4CC52");
+            monthView.DaySelectedTextColor = monthView.ForeColor;
+
+            DateTime now = DateTime.Now;
+            calendar.ViewStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
+            calendar.ViewEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);
+            findEventUserControl.SetPickedDateLabel(calendar.ViewStart, calendar.ViewEnd);
+
+            ezkoController = GlobalSettings.EzkoController;
+            visitUserControl.SetCalendarControl(this);
+            visitUserControl.SetEzkoController(ezkoController);
+
+            findEventUserControl.SetEzkoController(ezkoController);
+            findEventUserControl.SetVisitUserControl(visitUserControl);
+            findEventUserControl.SetCalendarControl(this);
+
+            InitializeControl();
+            calendarSynchronizer = this.calendarSynchronizer;
+        }
+
         private void InitializeControl()
         {
             try
@@ -30,9 +61,24 @@ namespace EZKO.UserControls.Dashboard
 
                 LoadEvents(DateTime.Now.AddMonths(-6), DateTime.Now.AddYears(1));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                BasicMessagesHandler.ShowErrorMessage("Vyskytla sa chyba pri načítaní udalostí", e);
+                BasicMessagesHandler.ShowErrorMessage("Vyskytla sa chyba pri načítaní udalostí", ex);
+            }
+        }
+
+        private void ScrollToTimeUnit(CalendarTimeScaleUnit timeScaleUnit = null)
+        {
+            try
+            {
+                if (timeScaleUnit == null)
+                    timeScaleUnit = calendar.GetTimeUnit(DateTime.Now, true);
+
+                calendar.ScrollCalendarControl(timeScaleUnit.Index);
+            }
+            catch (Exception ex)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Vyskytla sa chyba pri skrolovaní stredného panelu", ex);
             }
         }
 
@@ -213,36 +259,6 @@ namespace EZKO.UserControls.Dashboard
         #endregion
 
         #region public methods
-        public GoogleIntegratedCalendarControl(ref GoogleCalendarSynchronizer.GoogleCalendarSynchronizer calendarSynchronizer)
-        {
-            InitializeComponent();
-
-            CultureInfo culture = new CultureInfo(GlobalSettings.LanguagePrefix);
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
-
-            //Monthview colors
-            monthView.MonthTitleColor = monthView.MonthTitleColorInactive = CalendarColorTable.FromHex("#C2DAFC");
-            monthView.ArrowsColor = CalendarColorTable.FromHex("#77A1D3");
-            monthView.DaySelectedBackgroundColor = CalendarColorTable.FromHex("#F4CC52");
-            monthView.DaySelectedTextColor = monthView.ForeColor;
-
-            DateTime now = DateTime.Now;
-            calendar.ViewStart = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
-            calendar.ViewEnd = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);
-            findEventUserControl.SetPickedDateLabel(calendar.ViewStart, calendar.ViewEnd);
-
-            ezkoController = GlobalSettings.EzkoController;
-            visitUserControl.SetCalendarControl(this);
-            visitUserControl.SetEzkoController(ezkoController);
-
-            findEventUserControl.SetEzkoController(ezkoController);
-            findEventUserControl.SetVisitUserControl(visitUserControl);
-            findEventUserControl.SetCalendarControl(this);
-
-            InitializeControl();
-            calendarSynchronizer = this.calendarSynchronizer;
-        }
 
         private void UpdateDurations(DateTime startDate, DateTime endDate, bool invalidateMonthView)
         {
@@ -273,7 +289,8 @@ namespace EZKO.UserControls.Dashboard
 
             ShowEvent(calendarEvent);
 
-            calendarSynchronizer.UploadEvent(newItem);
+            if (!calendarSynchronizer.UploadEvent(newItem, ezkoController))
+                BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa uložiť udalosť " + calendarEvent.Summary + " do Google kalendára.");
         }
 
         public void UpdateCalendarEvent(CalendarEvent calendarEvent)
@@ -295,13 +312,13 @@ namespace EZKO.UserControls.Dashboard
 
                 UpdateDurations(calendarEvent.StartDate, calendarEvent.EndDate, true);
 
-                if (calendarSynchronizer.UpdateEvent(calendarItem))
+                if (calendarSynchronizer.UpdateEvent(calendarItem, ezkoController))
                 {
                     //TODO: MessageBox?
                 }
                 else
                 {
-                    //TODO: MessageBox?
+                    BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa aktualizovať udalosť " + calendarEvent.Summary + " v Google kalendári.");
                 }
 
                 ShowItems();
@@ -321,7 +338,7 @@ namespace EZKO.UserControls.Dashboard
 
             UpdateDurations(true, calendarItem.StartDate, calendarItem.EndDate);
 
-            if (calendarSynchronizer.UpdateEvent(calendarItem))
+            if (calendarSynchronizer.UpdateEvent(calendarItem, ezkoController))
             {
                 //TODO: MessageBox?
             }
@@ -338,6 +355,7 @@ namespace EZKO.UserControls.Dashboard
             visitUserControl.InitializeUserControl();
             findEventUserControl.UpdateControl();
             LoadEvents(DateTime.Now.AddMonths(-6), DateTime.Now.AddYears(1));
+            ScrollToTimeUnit();
         }
 
         public void ShowEvent(CalendarEvent calendarEvent)
@@ -352,6 +370,7 @@ namespace EZKO.UserControls.Dashboard
                 matchingCalendarItem.Selected = true;
 
             ShowItems();
+            ScrollToTimeUnit(calendar.GetTimeUnit(calendarEvent.StartDate));
         }
 
         public void ShowDay(DateTime day)
@@ -412,14 +431,6 @@ namespace EZKO.UserControls.Dashboard
 
             //return dbUploadResult && dbUpdateResult && googleUploadResult && googleUpdateResult;
         }
-
-        private void ChangeIsSynchronizedValues(bool value)
-        {
-            foreach (var item in calendarItems)
-            {
-                item.IsSynchronized = value;
-            }
-        }
         #endregion
 
         #region UI events
@@ -427,7 +438,7 @@ namespace EZKO.UserControls.Dashboard
         {
             if (e.Item != null && e.Item.DatabaseEntityID.HasValue)
             {
-                calendar.TimeUnitsOffset = 0;
+                //calendar.TimeUnitsOffset = 0;
                 visitUserControl.LoadEvent(e.Item.DatabaseEntityID.Value);
                 visitUserControl.SetEventTimes(e.Item.StartDate, e.Item.EndDate);
             }
@@ -519,14 +530,9 @@ namespace EZKO.UserControls.Dashboard
         }
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
+        private void GoogleIntegratedCalendarControl_Load(object sender, EventArgs e)
         {
-            //var tmp = calendar.GetTimeUnit(DateTime.Now);
-            calendar.ScrollCalendarControl(27);
-
-            //calendar.TimeUnitsOffset = (int)numericUpDown1.Value;
-
-            //calendar.ScrollCalendarControl((int)numericUpDown1.Value);
+            ScrollToTimeUnit();
         }
     }
 }

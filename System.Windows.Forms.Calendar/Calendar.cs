@@ -825,16 +825,31 @@ namespace System.Windows.Forms.Calendar
         /// </summary>
         /// <param name="dateTime">Date and time of the unit you want to extract</param>
         /// <returns>Matching time unit. <c>null</c> If out of range.</returns>
-        public CalendarTimeScaleUnit GetTimeUnit(DateTime d)
+        public CalendarTimeScaleUnit GetTimeUnit(DateTime d, bool isScrolling = false)
         {
             if (Days != null)
             {
                 foreach (CalendarDay day in Days)
                 {
-                    if (day.Date.Equals(d.Date))
+                    if(!isScrolling)
+                    {
+                        if (day.Date.Equals(d.Date))
+                        {
+                            double duration = Convert.ToDouble((int)TimeScale);
+                            int index =
+                                Convert.ToInt32(
+                                    Math.Floor(
+                                        d.TimeOfDay.TotalMinutes / duration
+                                    )
+                                );
+
+                            return day.TimeUnits[index];
+                        }
+                    }
+                    else
                     {
                         double duration = Convert.ToDouble((int)TimeScale);
-                        int index = 
+                        int index =
                             Convert.ToInt32(
                                 Math.Floor(
                                     d.TimeOfDay.TotalMinutes / duration
@@ -843,6 +858,7 @@ namespace System.Windows.Forms.Calendar
 
                         return day.TimeUnits[index];
                     }
+
                 }
             }
 
@@ -1019,8 +1035,8 @@ namespace System.Windows.Forms.Calendar
 
                 int possible = Days[0].TimeUnits.Length - Renderer.GetVisibleTimeUnits();
 
-                if (Days[0].TimeUnits.Length > unitIndex)
-                    Days[0].TimeUnits[unitIndex].Selected = true;
+                //if (Days[0].TimeUnits.Length > unitIndex)
+                //    Days[0].TimeUnits[unitIndex].Selected = true;
 
                 if (unitIndex > possible)
                     unitIndex = possible;

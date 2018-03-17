@@ -16,6 +16,7 @@ using Google.Apis.Util.Store;
 using ExceptionHandler;
 using DatabaseCommunicator.Controllers;
 using DatabaseCommunicator.Model;
+using System.Net;
 
 namespace GoogleCalendarSynchronizer
 {
@@ -93,7 +94,7 @@ namespace GoogleCalendarSynchronizer
                 request.OrderBy = EventsResource.ListRequest.OrderByEnum.Updated;
 
                 // List events
-                Events events = request.Execute();  
+                Events events = request.Execute(); 
                 if (events.Items != null && events.Items.Count > 0)
                 {
                     foreach (var eventItem in events.Items)
@@ -123,11 +124,12 @@ namespace GoogleCalendarSynchronizer
             List<CalendarItem> result = new List<CalendarItem>();
             try
             {
-                foreach (var eventItem in ezkoController.GetEvents().Where(x => x.StartDate >= startDate && x.EndDate <= endDate))
+                foreach (var eventItem in ezkoController.GetEvents().Where(x => x.StartDate >= startDate && x.EndDate <= endDate && x.IsSynchronized))
                 {
                     var resultItem = new CalendarItem(calendar, eventItem.StartDate, eventItem.EndDate,
                         eventItem.Summary, eventItem.Description, eventItem.IsDeleted);
                     resultItem.GoogleEventID = eventItem.GoogleEventID;
+                    resultItem.DatabaseEntityID = eventItem.ID;
                     result.Add(resultItem);
                 }
             }
@@ -219,8 +221,11 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
-        public bool UploadEvent(CalendarItem newEvent)
+        public bool UploadEvent(CalendarItem newEvent, EzkoController ezkoController)
         {
+            if (!CheckForInternetConnection())
+                return false;
+
             bool result = false;
 
             try
@@ -246,37 +251,6 @@ namespace GoogleCalendarSynchronizer
                     //end.TimeZone = "Europe/Prague";
                     calendarEvent.End = end;
 
-                    //String[] recurrence = new String[] { "RRULE:FREQ=DAILY;COUNT=2" };
-                    //calendarEvent.Recurrence = recurrence;
-
-                    //EventAttendee[] attendees = new EventAttendee[] {
-                    //    new EventAttendee()
-                    //    {
-                    //        Email = "motii131@gmail.com"
-                    //    }
-                    //};
-                    //calendarEvent.Attendees = attendees;
-
-                    //EventReminder[] reminderOverrides = new EventReminder[]
-                    //{
-                    //    new EventReminder()
-                    //    {
-                    //        Method = "email",
-                    //        Minutes = 10
-                    //    },
-                    //    new EventReminder()
-                    //    {
-                    //        Method = "popup",
-                    //        Minutes = 10
-                    //    }
-                    //};
-
-                    //Event.RemindersData reminders = new Event.RemindersData();
-                    //reminders.UseDefault = false;
-                    //reminders.Overrides = reminderOverrides;
-
-                    //calendarEvent.Reminders = reminders;
-
                     service.Events.Insert(calendarEvent, calendarID).Execute();
                 }
             }
@@ -286,11 +260,17 @@ namespace GoogleCalendarSynchronizer
                 BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa vytvoriť Google event", e);
             }
 
+            if(result)
+                result = ezkoController.SetIsSynchronizedStatus(newEvent.DatabaseEntityID, true);
+
             return result;
         }
 
-        public bool UploadEvent(string googleEventId,string summary, string description, DateTime startDate, DateTime endDate)
+        public bool UploadEvent(int databaseEntityID, string googleEventId,string summary, string description, DateTime startDate, DateTime endDate, EzkoController ezkoController)
         {
+            if (!CheckForInternetConnection())
+                return false;
+
             bool result = false;
 
             try
@@ -318,6 +298,9 @@ namespace GoogleCalendarSynchronizer
                 result = false;
                 BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa vytvoriť Google event", e);
             }
+
+            if (result)
+                result = ezkoController.SetIsSynchronizedStatus(databaseEntityID, true);
 
             return result;
         }
@@ -360,8 +343,11 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
-        public bool UpdateEvent(CalendarItem updatedItem)
+        public bool UpdateEvent(CalendarItem updatedItem, EzkoController ezkoController)
         {
+            if (!CheckForInternetConnection())
+                return false;
+
             bool result = true;
             if (updatedItem == null)
                 return result;
@@ -387,11 +373,17 @@ namespace GoogleCalendarSynchronizer
                 BasicMessagesHandler.LogException(e);
             }
 
+            if (result)
+                result = ezkoController.SetIsSynchronizedStatus(updatedItem.DatabaseEntityID, true);
+
             return result;
         }
 
-        public bool UpdateEvent(string googleEventId, string summary, string description, DateTime startDate, DateTime endDate, bool isDeleted)
+        public bool UpdateEvent(int databaseEntityID, string googleEventId, string summary, string description, DateTime startDate, DateTime endDate, bool isDeleted, EzkoController ezkoController)
         {
+            if (!CheckForInternetConnection())
+                return false;
+
             bool result = true;
 
             try
@@ -415,11 +407,17 @@ namespace GoogleCalendarSynchronizer
                 BasicMessagesHandler.LogException(e);
             }
 
+            if (result)
+                result = ezkoController.SetIsSynchronizedStatus(databaseEntityID, true);
+
             return result;
         }
 
         public bool SynchronizeEvents(EzkoController ezkoController)
         {
+            if (!CheckForInternetConnection())
+                return false;
+
             List<CalendarItem> googleItems = GetGoogleCalendarItems(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
             List<CalendarItem> dbItems = GetDbCalendarItems(ezkoController, DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12));
 
@@ -433,19 +431,19 @@ namespace GoogleCalendarSynchronizer
                 if (dbItem != null)
                 {
                     // if event dates were changed in Google Calendar, transfer changes onto database items
-                    if (!dbItem.IsDeleted)
+                    if (!dbItem.IsDeleted && dbItem.IsSynchronized)
                     {
-                        CalendarItem updateItem = new CalendarItem(calendar, dbItem.StartDate, dbItem.EndDate,
+                        CalendarItem updatedItem = new CalendarItem(calendar, dbItem.StartDate, dbItem.EndDate,
                             dbItem.Summary, dbItem.Description, dbItem.IsDeleted);
-                        updateItem.GoogleEventID = dbItem.GoogleEventID;
+                        updatedItem.GoogleEventID = dbItem.GoogleEventID;
 
-                        if (!googleItem.Equals(updateItem))
+                        if (!googleItem.Equals(updatedItem))
                         {
-                            updateItem.StartDate = googleItem.StartDate;
-                            updateItem.EndDate = googleItem.EndDate;
-                            updateItem.DatabaseEntityID = dbItem.ID;
+                            updatedItem.StartDate = googleItem.StartDate;
+                            updatedItem.EndDate = googleItem.EndDate;
+                            updatedItem.DatabaseEntityID = dbItem.ID;
 
-                            dbUpdateItems.Add(updateItem);
+                            dbUpdateItems.Add(updatedItem);
                         }
                     }
                 }
@@ -457,11 +455,18 @@ namespace GoogleCalendarSynchronizer
                 }
             }
 
+            //we need to synchronize unsynchronized events (event created/updated during no internet connection)
+            if (!SynchronizeUnsynchronizedEvents(ezkoController))
+                BasicMessagesHandler.ShowErrorMessage("Počas synchronizácie udalostí v s Google kalendárom sa vyskytla");
+
+            //we need to mark db events as deleted if they were deleted from google calendar
+            MarkAsDeleted(DateTime.Now.AddMonths(-6), DateTime.Now.AddMonths(12), dbItems, dbUpdateItems);
+
             bool dbUploadResult = ezkoController.AddCalendarEvents(dbUploadItems);
             bool dbUpdateResult = ezkoController.UpdateCalendarEvents(dbUpdateItems);
 
             if (!dbUploadResult)
-                BasicMessagesHandler.ShowErrorMessage("Počas vytvárania nových udalostí do databázy sa vyskytla chyba");
+                BasicMessagesHandler.ShowErrorMessage("Počas ukldadania nových udalostí do databázy sa vyskytla chyba");
             if (!dbUpdateResult)
                 BasicMessagesHandler.ShowErrorMessage("Počas synchronizácie udalostí v databáze sa vyskytla chyba");
 
@@ -500,6 +505,108 @@ namespace GoogleCalendarSynchronizer
             });
 
             return service;
+        }
+
+        private bool SynchronizeUnsynchronizedEvents(EzkoController ezkoController)
+        {
+            bool result = true;
+            try
+            {
+                List<CalendarEvent> unsynchronizedEvents = ezkoController.GetEvents().Where(x => !x.IsSynchronized).ToList();
+
+                if (unsynchronizedEvents.Count <= 0)
+                    return result;
+
+                EventsResource.ListRequest request = service.Events.List(calendarID);
+                request.TimeMin = DateTime.Now.AddMonths(-6);
+                request.TimeMax = DateTime.Now.AddMonths(12);
+                request.ShowDeleted = false;
+                request.SingleEvents = false;
+                request.OrderBy = EventsResource.ListRequest.OrderByEnum.Updated;
+
+                Events googleEvents = request.Execute();
+
+                foreach (var unsynchronizedEvent in unsynchronizedEvents)
+                {
+                    if(unsynchronizedEvent.GoogleEventID != null)
+                    {
+                        if(googleEvents.Items.FirstOrDefault(x => x.Id == unsynchronizedEvent.GoogleEventID) == null)
+                        {
+                            UploadEvent(unsynchronizedEvent.ID, unsynchronizedEvent.GoogleEventID, unsynchronizedEvent.Summary,
+                                unsynchronizedEvent.Description, unsynchronizedEvent.StartDate, unsynchronizedEvent.EndDate, ezkoController);
+                        }
+                        else
+                        {
+                            UpdateEvent(unsynchronizedEvent.ID, unsynchronizedEvent.GoogleEventID, unsynchronizedEvent.Summary, unsynchronizedEvent.Description,
+                                unsynchronizedEvent.StartDate, unsynchronizedEvent.EndDate, unsynchronizedEvent.IsDeleted, ezkoController);
+                        }
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                BasicMessagesHandler.LogException(ex);
+                result = false;
+            }
+
+            return result;
+        }
+
+        private void MarkAsDeleted(DateTime startDate, DateTime endDate, List<CalendarItem> dbItems, List<CalendarItem> updateItems)
+        {
+            try
+            {
+                // Define parameters of request.
+                EventsResource.ListRequest request = service.Events.List(calendarID);
+                request.TimeMin = startDate;
+                request.TimeMax = endDate;
+                request.ShowDeleted = false;
+                request.SingleEvents = false;
+                //request.MaxResults = 10;
+                request.OrderBy = EventsResource.ListRequest.OrderByEnum.Updated;
+
+                // List events
+                Events events = request.Execute();
+
+                foreach (var item in dbItems)
+                {
+                    if(events.Items.FirstOrDefault(x => x.Id == item.GoogleEventID) == null)
+                    {
+                        item.IsDeleted = true;
+
+                        if (!updateItems.Contains(item))
+                            updateItems.Add(item);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Vyskytla sa chyba pri synchronizácií Google kalendára.", e);
+            }
+        }
+
+
+        private bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    using (client.OpenRead("http://clients3.google.com/generate_204"))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                BasicMessagesHandler.ShowInformationMessage("Ste offline. Synchronizácia s Google kalendárom neprebehla.");
+                return false;
+            }
         }
         #endregion
     }

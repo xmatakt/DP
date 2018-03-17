@@ -41,6 +41,7 @@
             this.patientsMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
             this.administrationMenuItem = new EZKO.UserControls.Dashboard.MenuItem();
             this.topMenuPanel = new System.Windows.Forms.Panel();
+            this.userNameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.closeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximizeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).BeginInit();
@@ -219,6 +220,7 @@
             // topMenuPanel
             // 
             this.topMenuPanel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.topMenuPanel.Controls.Add(this.userNameLabel);
             this.topMenuPanel.Controls.Add(this.mainMenuFlowPanel);
             this.topMenuPanel.Controls.Add(this.label1);
             this.topMenuPanel.Controls.Add(this.minimizeFormPictureBox);
@@ -230,6 +232,20 @@
             this.topMenuPanel.Size = new System.Drawing.Size(1294, 44);
             this.topMenuPanel.TabIndex = 0;
             this.topMenuPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topMenuPanel_MouseDown);
+            // 
+            // userNameLabel
+            // 
+            this.userNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.userNameLabel.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.userNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userNameLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.userNameLabel.Location = new System.Drawing.Point(712, 9);
+            this.userNameLabel.Name = "userNameLabel";
+            this.userNameLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.userNameLabel.Size = new System.Drawing.Size(484, 23);
+            this.userNameLabel.TabIndex = 4;
+            this.userNameLabel.Text = "Prihlásený používateľ:";
+            this.userNameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // MainForm
             // 
@@ -267,5 +283,6 @@
         private UserControls.Dashboard.MenuItem patientsMenuItem;
         private UserControls.Dashboard.MenuItem administrationMenuItem;
         private System.Windows.Forms.Panel topMenuPanel;
+        private System.Windows.Forms.Label userNameLabel;
     }
 }

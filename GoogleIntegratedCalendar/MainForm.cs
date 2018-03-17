@@ -79,6 +79,7 @@ namespace EZKO
 
                 var workingArea = Screen.FromHandle(Handle).WorkingArea;
                 MaximizedBounds = new Rectangle(-8, -8, workingArea.Width + 16, workingArea.Height + 16);
+                userNameLabel.Text += " " + GlobalSettings.User.Login;
 
                 LoadPanels();
             }

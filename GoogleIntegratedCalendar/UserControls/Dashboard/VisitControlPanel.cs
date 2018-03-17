@@ -979,7 +979,11 @@ namespace EZKO.UserControls.Dashboard
                     calendarControl.AddCalendarEvent(newEvent);
                 // else we need to synchronize (create) new event in the google calendar
                 else if(calendarSynchronizer != null)
-                    calendarSynchronizer.UploadEvent(newEvent.GoogleEventID, newEvent.Summary, newEvent.Description, newEvent.StartDate, newEvent.EndDate);
+                {
+                    if (!calendarSynchronizer.UploadEvent(newEvent.ID, newEvent.GoogleEventID, newEvent.Summary, newEvent.Description, newEvent.StartDate, newEvent.EndDate, ezkoController))
+                        BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa uložiť udalosť " + newEvent.Summary + " do Google kalendára.");
+                }
+
                 if (ambulantionControl != null)
                     ambulantionControl.LoadEvents();
 
@@ -1014,8 +1018,12 @@ namespace EZKO.UserControls.Dashboard
                 if (calendarControl != null)
                     calendarControl.UpdateCalendarEvent(calendarEvent);
                 else if (calendarSynchronizer != null)
-                    calendarSynchronizer.UpdateEvent(calendarEvent.GoogleEventID, calendarEvent.Summary, calendarEvent.Description,
-                        calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.IsDeleted);
+                {
+                    if(!calendarSynchronizer.UpdateEvent(calendarEvent.ID, calendarEvent.GoogleEventID, calendarEvent.Summary, calendarEvent.Description,
+                        calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.IsDeleted, ezkoController))
+                        BasicMessagesHandler.ShowInformationMessage("Nepodarilo sa aktualizovať udalosť " + calendarEvent.Summary + " v Google kalendári.");
+                }
+                    
                 if (ambulantionControl != null)
                     ambulantionControl.LoadEvents();
 
@@ -1040,8 +1048,8 @@ namespace EZKO.UserControls.Dashboard
                 if (calendarControl != null)
                     calendarControl.RemoveCalendarItem(calendarEvent);
                 else if (calendarSynchronizer != null)
-                    calendarSynchronizer.UpdateEvent(calendarEvent.GoogleEventID, calendarEvent.Summary, calendarEvent.Description,
-                        calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.IsDeleted);
+                    calendarSynchronizer.UpdateEvent(calendarEvent.ID, calendarEvent.GoogleEventID, calendarEvent.Summary, calendarEvent.Description,
+                        calendarEvent.StartDate, calendarEvent.EndDate, calendarEvent.IsDeleted, ezkoController);
                 if (ambulantionControl != null)
                     ambulantionControl.LoadEvents();
 

@@ -101,7 +101,6 @@ namespace EZKO.UserControls.Dashboard
                     visitUserControl.LoadEvent(calendarEvent);
                     calendarControl.ShowEvent(calendarEvent);
                     calendarEvent = null;
-
                 }
         }
         #endregion

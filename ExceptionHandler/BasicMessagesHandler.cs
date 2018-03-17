@@ -55,7 +55,7 @@ namespace ExceptionHandler
         /// Logs the exception into text file
         /// </summary>
         /// <param name="ex">Exception to log</param>
-        public static void LogException(Exception ex)
+        public static void LogException(Exception ex, bool showMessage = true)
         {
             try
             {
@@ -69,7 +69,25 @@ namespace ExceptionHandler
             }
             catch(Exception e)
             {
-                ShowErrorMessage(e.ToString());
+                if(showMessage)
+                    ShowErrorMessage(e.ToString());
+            }
+        }
+
+        public static void LogMessage(string message)
+        {
+            try
+            {
+                StreamWriter writer = new StreamWriter(logFilePath, true);
+                writer.WriteLine("####### " + DateTime.Now + " #######");
+
+                writer.WriteLine(message);
+                writer.Flush();
+                writer.Close();
+            }
+            catch (Exception e)
+            {
+                LogException(e, false);
             }
         }
 

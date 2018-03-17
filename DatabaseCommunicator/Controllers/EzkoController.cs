@@ -1408,11 +1408,34 @@ namespace DatabaseCommunicator.Controllers
                 calendarEvent.CalendarEventExecutedActions = GetEventExecutedActions(calendarEvent, doneActions);
                 calendarEvent.ExecutedActionText = doneText;
                 calendarEvent.Infrastructures = infrastructures;
+                calendarEvent.IsSynchronized = false;
 
                 result = SaveChanges();
             }
             catch (Exception e)
             {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        public bool SetIsSynchronizedStatus(int? databaseEntityID, bool isSynchronized)
+        {
+            bool result = true;
+
+            try
+            {
+                CalendarEvent calendarEvent = db.CalendarEvents.FirstOrDefault(x => x.ID == databaseEntityID);
+
+                if (calendarEvent != null)
+                    calendarEvent.IsSynchronized = isSynchronized;
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                result = false;
                 BasicMessagesHandler.LogException(e);
             }
 
