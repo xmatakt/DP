@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.topPanel = new System.Windows.Forms.Panel();
-            this.formNameLabel = new System.Windows.Forms.Label();
-            this.mainPanel = new System.Windows.Forms.Panel();
             this.backButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.showToolsButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.formNameLabel = new System.Windows.Forms.Label();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +48,52 @@
             this.topPanel.Name = "topPanel";
             this.topPanel.Size = new System.Drawing.Size(543, 34);
             this.topPanel.TabIndex = 0;
+            // 
+            // backButton
+            // 
+            this.backButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.backButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.backButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.backButton.BackgroundImage = global::EZKO.Properties.Resources.back_arrow_black_16;
+            this.backButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.backButton.FlatAppearance.BorderSize = 0;
+            this.backButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.backButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.backButton.ForeColor = System.Drawing.Color.White;
+            this.backButton.Location = new System.Drawing.Point(457, 5);
+            this.backButton.Name = "backButton";
+            this.backButton.Radius = 5;
+            this.backButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.backButton.Size = new System.Drawing.Size(29, 23);
+            this.backButton.TabIndex = 1;
+            this.backButton.UseVisualStyleBackColor = false;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            this.backButton.MouseHover += new System.EventHandler(this.backButton_MouseHover);
+            // 
+            // showToolsButton
+            // 
+            this.showToolsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.showToolsButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.showToolsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.showToolsButton.BackgroundImage = global::EZKO.Properties.Resources.hide_black_16;
+            this.showToolsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.showToolsButton.FlatAppearance.BorderSize = 0;
+            this.showToolsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.showToolsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.showToolsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.showToolsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.showToolsButton.ForeColor = System.Drawing.Color.White;
+            this.showToolsButton.Location = new System.Drawing.Point(492, 5);
+            this.showToolsButton.Name = "showToolsButton";
+            this.showToolsButton.Radius = 5;
+            this.showToolsButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.showToolsButton.Size = new System.Drawing.Size(29, 23);
+            this.showToolsButton.TabIndex = 1;
+            this.showToolsButton.UseVisualStyleBackColor = false;
+            this.showToolsButton.Click += new System.EventHandler(this.showToolsButton_Click);
+            this.showToolsButton.MouseHover += new System.EventHandler(this.showToolsButton_MouseHover);
             // 
             // formNameLabel
             // 
@@ -71,50 +119,6 @@
             this.mainPanel.TabIndex = 1;
             this.mainPanel.Resize += new System.EventHandler(this.mainPanel_Resize);
             // 
-            // backButton
-            // 
-            this.backButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.backButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.backButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.backButton.BackgroundImage = global::EZKO.Properties.Resources.back_arrow_black_16;
-            this.backButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.backButton.FlatAppearance.BorderSize = 0;
-            this.backButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.backButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.backButton.ForeColor = System.Drawing.Color.White;
-            this.backButton.Location = new System.Drawing.Point(457, 5);
-            this.backButton.Name = "backButton";
-            this.backButton.Radius = 5;
-            this.backButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.backButton.Size = new System.Drawing.Size(29, 23);
-            this.backButton.TabIndex = 1;
-            this.backButton.UseVisualStyleBackColor = false;
-            this.backButton.Click += new System.EventHandler(this.backButton_Click);
-            // 
-            // showToolsButton
-            // 
-            this.showToolsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.showToolsButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.showToolsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.showToolsButton.BackgroundImage = global::EZKO.Properties.Resources.hide_black_16;
-            this.showToolsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.showToolsButton.FlatAppearance.BorderSize = 0;
-            this.showToolsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.showToolsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.showToolsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.showToolsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.showToolsButton.ForeColor = System.Drawing.Color.White;
-            this.showToolsButton.Location = new System.Drawing.Point(492, 5);
-            this.showToolsButton.Name = "showToolsButton";
-            this.showToolsButton.Radius = 5;
-            this.showToolsButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.showToolsButton.Size = new System.Drawing.Size(29, 23);
-            this.showToolsButton.TabIndex = 1;
-            this.showToolsButton.UseVisualStyleBackColor = false;
-            this.showToolsButton.Click += new System.EventHandler(this.showToolsButton_Click);
-            // 
             // FormEditorControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -135,5 +139,6 @@
         private System.Windows.Forms.Panel mainPanel;
         private FlatControls.RoundButton showToolsButton;
         private FlatControls.RoundButton backButton;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

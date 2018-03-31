@@ -27,6 +27,8 @@ namespace EZKO.UserControls.Dashboard
         public FindEventUserControl()
         {
             InitializeComponent();
+
+            ezkoController = GlobalSettings.EzkoController;
         }
 
         #region Public methods

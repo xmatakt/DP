@@ -122,7 +122,6 @@ namespace EZKO.UserControls.Administration
             }
         }
 
-
         private void EditItem(Field item)
         {
             EditFieldForm form = new EditFieldForm(item);

@@ -20,6 +20,9 @@ namespace DatabaseCommunicator.Controllers
         private bool disposed = false;
         private EzkoEntities db;
 
+        /// <summary>
+        /// Function which was used in very first version of programm for the testing purpose. Can be removed now.
+        /// </summary>
         public void CreateFirstUser()
         {
             var user = new User()
@@ -44,178 +47,7 @@ namespace DatabaseCommunicator.Controllers
             db = new EzkoEntities(connectionString);
         }
 
-        #region Functions for calendar
-        /// <summary>
-        /// Return list of CalendarEvents from the database
-        /// </summary>
-        /// <param name="startDate">Start of required time period</param>
-        /// <param name="endDate">End of required time period</param>
-        /// <returns></returns>
-        public IQueryable<CalendarEvent> GetEvents(DateTime startDate, DateTime endDate)
-        {
-            return db.CalendarEvents.Where(x =>
-                x.StartDate >= startDate &&
-                x.EndDate <= endDate &&
-                !x.IsDeleted);
-        }
-
-        public IEnumerable<CalendarEvent> GetEvents(CalendarEventFilter filter)
-        {
-            IEnumerable<CalendarEvent> result;
-            result = db.CalendarEvents.Where(x => !x.IsDeleted);
-
-            if (filter.Doctor != null)
-                result = result.Where(x => x.Users.Contains(filter.Doctor));
-            if (filter.Nurse != null)
-                result = result.Where(x => x.Users.Contains(filter.Nurse));
-            if (filter.Infrastructure != null)
-                result = result.Where(x => x.Infrastructures.Contains(filter.Infrastructure));
-
-            return result;
-        }
-
-        public IQueryable<CalendarEvent> GetEvents(int patientID)
-        {
-            return db.CalendarEvents.Where(x => x.PatientID == patientID &&
-                !x.IsDeleted);
-        }
-
-        /// <summary>
-        /// Use this method to delete desired CalendarEvents by their ids
-        /// </summary>
-        /// <param name="eventIds">Ids of events to be deleted</param>
-        /// <returns>Value indicating whether items was deleted successfully</returns>
-        public bool DeleteEvents(List<int> eventIds)
-        {
-            bool result = true;
-            try
-            {
-                bool saveChanges = false;
-                foreach (var eventId in eventIds)
-                {
-                    CalendarEvent _event = db.CalendarEvents.FirstOrDefault(x => x.ID == eventId);
-                    if (_event == null)
-                        continue;
-
-                    _event.IsDeleted = true;
-                    saveChanges = true;
-                }
-
-                if (saveChanges)
-                    db.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                BasicMessagesHandler.LogException(e);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Add new CalendarEvents into database
-        /// </summary>
-        /// <param name="newItems">Events to add</param>
-        /// <returns>Value indicating whether items was added successfully</returns>
-        public bool AddCalendarEvents(List<CalendarItem> newItems)
-        {
-            bool result = true;
-            if (newItems.Count == 0)
-                return result;
-
-            try
-            {
-                List<CalendarEvent> newEvents = new List<CalendarEvent>();
-                foreach (var item in newItems)
-                {
-                    var newItem = new CalendarEvent()
-                    {
-                        GoogleEventID = item.GoogleEventID ?? UnixTimestamp(DateTime.Now),
-                        Summary = item.Text,
-                        Description = item.Description,
-                        StartDate = item.StartDate,
-                        EndDate = item.EndDate,
-                        IsSynchronized = true,
-                        IsDeleted = item.IsDeleted,
-                        IsTemporaryGoogleEvent = true,
-                        StateID = (int)EventStateEnum.IsTemporaryGoogleEvent,
-                        ColorID = db.CalendarEventColors.First(x => x.EventStateID == (int)EventStateEnum.IsTemporaryGoogleEvent).ID,
-                    };
-                    newEvents.Add(newItem);
-                    item.GoogleEventID = newItem.GoogleEventID;
-                }
-
-                db.CalendarEvents.AddRange(newEvents);
-                result = SaveChanges();
-            }
-            catch (Exception e)
-            {
-                result = false;
-                BasicMessagesHandler.LogException(e);
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Update CalendarEvents in database
-        /// </summary>
-        /// <param name="items">Events to update</param>
-        /// <returns>Value indicating whether items was updated successfully</returns>
-        public bool UpdateCalendarEvents(List<CalendarItem> items)
-        {
-            bool result = true;
-            if (items.Count == 0)
-                return result;
-
-            try
-            {
-                foreach (var item in items)
-                {
-                    var calendarEvent = db.CalendarEvents.First(x => x.ID == item.DatabaseEntityID.Value);
-
-                    //calendarEvent.GoogleEventID = item.GoogleEventID;
-                    //calendarEvent.Summary = item.Text;
-                    //calendarEvent.Description = item.Description;
-                    calendarEvent.StartDate = item.StartDate;
-                    calendarEvent.EndDate = item.EndDate;
-                    calendarEvent.IsSynchronized = true;
-                    calendarEvent.IsDeleted = item.IsDeleted;
-                }
-
-                result = SaveChanges();
-            }
-            catch (Exception e)
-            {
-                result = false;
-                BasicMessagesHandler.LogException(e);
-            }
-
-            return result;
-        }
-        #endregion
-
         #region Patients
-        /// <summary>
-        /// Get patient names from database
-        /// </summary>
-        /// <returns>Full name string of every nondeleted patient in database</returns>
-        public IEnumerable<string> GetPatientNames()
-        {
-            IEnumerable<string> result = null;
-            try
-            {
-                result = db.Patients.Where(x => !x.IsDeleted)
-                    .Select(x => x.Name + " " + x.Surname);
-            }
-            catch (Exception e)
-            {
-                BasicMessagesHandler.LogException(e);
-            }
-
-            return result;
-        }
-
         /// <summary>
         /// Get nondeleted patients from database
         /// </summary>
@@ -235,6 +67,11 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Get the patients, whose data contains proided text
+        /// </summary>
+        /// <param name="text">Text to look for</param>
+        /// <returns>List of patients</returns>
         public IQueryable<Patient> GetPatients(string text)
         {
             IQueryable<Patient> result = null;
@@ -272,6 +109,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Creates patient nased on provided informations
+        /// </summary>
+        /// <returns>Created patient</returns>
         public Patient CreatePatient(string name, string surame, string email, string phone)
         {
             Patient result = null;
@@ -302,6 +143,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Creates patient based on provided informations
+        /// </summary>
+        /// <returns>Created patient</returns>
         public Patient CreatePatient(string name, string surname, DateTime? birthDate, string BIFO, string legalRepresentative,
             string titleBefore, string titleAfter, string birthNumber, InsuranceCompany insuranceCompany, SexEnum sex, Address address, Contact contact)
         {
@@ -340,6 +185,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Edits provided patient
+        /// </summary>
+        /// <returns>Value indicating wheter the editing of the patient was successfull</returns>
         public bool EditPatient(Patient patient, string name, string surname, DateTime? birthDate, string BIFO, string legalRepresentative, 
             string titleBefore, string titleAfter, string birthNumber, InsuranceCompany insuranceCompany, SexEnum sex,
             string street, string streetNumber, string city, string zip, string country, string phone, string alternativePhone,
@@ -406,6 +255,11 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Removes provided patient from database (sets the IsDeleted attribute to true)
+        /// </summary>
+        /// <param name="item">Patient to remove</param>
+        /// <returns>Value indicating whether the deletion of the patient was successfull</returns>
         public bool RemovePatient(Patient item)
         {
             bool result = false;
@@ -496,6 +350,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Get nurses from the database
+        /// </summary>
+        /// <returns>All nondeleted users with Role = Nurse</returns>
         public IQueryable<User> GetNurses()
         {
             IQueryable<User> result = null;
@@ -512,9 +370,9 @@ namespace DatabaseCommunicator.Controllers
         }
 
         /// <summary>
-        /// Return teh user roles of the system
+        /// Gets the available user roles
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns the user roles of the system</returns>
         public IEnumerable<UserRole> GetUserRoles()
         {
             IEnumerable<UserRole> result = null;
@@ -552,7 +410,10 @@ namespace DatabaseCommunicator.Controllers
             return SaveChanges();
         }
 
-
+        /// <summary>
+        /// Edits provided user
+        /// </summary>
+        /// <returns>VAlue indicating whether the editing of the user was successfull</returns>
         public bool EditUser(User user, string email, int roleID, string password, string avatarImagePath)
         {
             bool result = false;
@@ -578,6 +439,11 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Removes provided user from database (sets the IsDeleted attribute to true)
+        /// </summary>
+        /// <param name="item">Patient to remove</param>
+        /// <returns>Value indicating whether the deletion of the user was successfull</returns>
         public bool RemoveUser(User user)
         {
             bool result = false;
@@ -708,6 +574,10 @@ namespace DatabaseCommunicator.Controllers
             return SaveChanges();
         }
 
+        /// <summary>
+        /// Edits provided insurance company
+        /// </summary>
+        /// <returns>Value indicating whether the editing of the insurance company was successfull</returns>
         public bool EditInsuranceCompany(InsuranceCompany insuranceCompany, string insuranceCompanyName, string insuranceCompanyCode)
         {
             bool result = false;
@@ -727,6 +597,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Removes provided insurance company from database (sets the IsDeleted attribute to true)
+        /// </summary>
+        /// <returns>Value indicating whether the deletion of the insurance company was successfull</returns>
         public bool RemoveInsuranceCompany(InsuranceCompany item)
         {
             bool result = false;
@@ -747,6 +621,30 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region Infrastructure
+
+        /// <summary>
+        /// Gets non deleted infrastructures from database
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<Infrastructure> GetInfrastructure()
+        {
+            IQueryable<Infrastructure> result = null;
+            try
+            {
+                result = db.Infrastructures.Where(x => !x.IsDeleted);
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Removes provided infrastructure from database (sets the IsDeleted attribute to true)
+        /// </summary>
+        /// <returns>Value indicating whether the deletion of the infrastructure was successfull</returns>
         public bool RemoveInfrastructure(Infrastructure item)
         {
             bool result = false;
@@ -765,6 +663,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Creates new infrastructure based on provided informations
+        /// </summary>
+        /// <returns>Value indicating whether the creation of the infrastructure was successfull</returns>
         public bool CreateInfrastructure(string name, string description, decimal costs, decimal margin)
         {
             bool result = false;
@@ -789,6 +691,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Edits provided infrastructure
+        /// </summary>
+        /// <returns>Value indicating whether the editing of the infrastructure was successfull</returns>
         public bool EditInfrastructure(Infrastructure infrastructure, string name, string description, decimal costs, decimal margin)
         {
             bool result = false;
@@ -830,6 +736,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Creates new field based on provided informations
+        /// </summary>
+        /// <returns>Value indicating whether the creation of the field was successfull</returns>
         public bool CreateField(string name, string standardNumber, string otherName, FieldType fieldType, Section section,
             string description, List<FieldValue> fieldValues, List<FieldForm> fieldForms)
         {
@@ -862,6 +772,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Edits provided field
+        /// </summary>
+        /// <returns>Value indicating whether the editing of the field was successfull</returns>
         public bool EditField(Field field, string name, string standardNumber, string otherName, FieldType fieldType,
             Section section, string description, List<FieldValue> fieldValues, List<FieldForm> fieldForms)
         {
@@ -915,6 +829,11 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+
+        /// <summary>
+        /// Removes provided field from database (sets the IsDeleted attribute to true)
+        /// </summary>
+        /// <returns>Value indicating whether the deletion of the field was successfull</returns>
         public bool RemoveField(Field item)
         {
             bool result = false;
@@ -935,6 +854,11 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region FilledFields
+
+        /// <summary>
+        /// Removes filled fields which belongs to provided user and patient
+        /// </summary>
+        /// <returns>Value indicating whether the deletion of the filled fields was successfull</returns>
         public void DeleteFilledFields(Patient patient, User user)
         {
             try
@@ -955,6 +879,10 @@ namespace DatabaseCommunicator.Controllers
             }
         }
 
+        /// <summary>
+        /// Removes filled fields which belongs to provided patient
+        /// </summary>
+        /// <returns>Value indicating whether the deletion of the filled fields was successfull</returns>
         public void DeleteFilledFields(Patient patient)
         {
             try
@@ -975,6 +903,11 @@ namespace DatabaseCommunicator.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates filled fields
+        /// </summary>
+        /// <param name="filledFields"></param>
+        /// <returns>Value indicating whether the creation of the filled fields was successfull</returns>
         public bool CreateFilledFields(List<FilledField> filledFields)
         {
             bool result = true;
@@ -1040,6 +973,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Checks if action with provided name and short name exists in database
+        /// </summary>
+        /// <returns> Vlue indication whether action with provided name and short name exists in database</returns>
         public bool ActionExists(Model.Action action, string actionName, string shortName)
         {
             bool result = true;
@@ -1099,6 +1036,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Edits provided action
+        /// </summary>
+        /// <returns>Value indicating whether the editing of the action was successfull</returns>
         public bool EditAction(Model.Action action, string actionName, string shortName, string longName, string material, int recommendedLength, decimal costs, decimal margin, decimal? insuranceCompanyMargin, InsuranceCompany insuranceCompany, Field field, bool hasSpecification)
         {
             bool result = false;
@@ -1127,6 +1068,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Removes provided action from database (sets the IsDeleted attribute to true)
+        /// </summary>
+        /// <returns>Value indicating whether the deletion of the action was successfull</returns>
         public bool RemoveAction(Model.Action action)
         {
             bool result = false;
@@ -1147,6 +1092,11 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region Addresses
+
+        /// <summary>
+        /// Creates new address based on provided informations
+        /// </summary>
+        /// <returns>Value indicating whether the creation of the address was successfull</returns>
         public Address CreateAddress(string street, string streetNumber, string city, string zip, string country)
         {
             Address result = null;
@@ -1179,6 +1129,10 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region Budgets
+        /// <summary>
+        /// Gets the budgets of provided patient
+        /// </summary>
+        /// <returns>IQueryable of patient's budgets</returns>
         public IQueryable<Budget> GetBudgets(Patient patient)
         {
             IQueryable<Budget> result = null;
@@ -1197,6 +1151,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Creates new budget based on provided informations
+        /// </summary>
+        /// <returns>Value indicating whether the creation of the budget was successfull</returns>
         public bool CreateBudget(string name, Patient patient, List<BudgetItem> items)
         {
             bool result = false;
@@ -1222,6 +1180,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Edits provided budget
+        /// </summary>
+        /// <returns>Value indicating whether the editing of the budget was successfull</returns>
         public bool EditBudget(Budget budget, string name, List<BudgetItem> items)
         {
             bool result = false;
@@ -1243,6 +1205,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Removes provided budget from database (sets the IsDeleted attribute to true)
+        /// </summary>
+        /// <returns>Value indicating whether the deletion of the budget was successfull</returns>
         public bool RemoveBudget(Budget item)
         {
             bool result = false;
@@ -1263,6 +1229,10 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region Billing
+        /// <summary>
+        /// Creates new event bill based on provided informations
+        /// </summary>
+        /// <returns>Value indicating whether the creation of the event bill was successfull</returns>
         public bool CreateEventBill(CalendarEvent calendarEvent, List<EventBillItem> billItems)
         {
             bool result = false;
@@ -1286,6 +1256,10 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region Contacts
+        /// <summary>
+        /// Creates new contact based on provided informations
+        /// </summary>
+        /// <returns>Value indicating whether the creation of the contact was successfull</returns>
         public Contact CreateContact(string email, string phone)
         {
             Contact result = null;
@@ -1308,7 +1282,169 @@ namespace DatabaseCommunicator.Controllers
         }
         #endregion
 
-        #region CalnedarEvents
+        #region CalendarEvents
+        /// <summary>
+        /// Return list of CalendarEvents from the database
+        /// </summary>
+        /// <param name="startDate">Start of required time period</param>
+        /// <param name="endDate">End of required time period</param>
+        /// <returns>List of CalendarEvents between specified dates</returns>
+        public IQueryable<CalendarEvent> GetEvents(DateTime startDate, DateTime endDate)
+        {
+            return db.CalendarEvents.Where(x =>
+                x.StartDate >= startDate &&
+                x.EndDate <= endDate &&
+                !x.IsDeleted);
+        }
+
+        /// <summary>
+        /// Returns the filtered list of CalendarEvents from the database
+        /// </summary>
+        /// <param name="filter">Filter to apply</param>
+        /// <returns>List of filtered CalendarEvents</returns>
+        public IEnumerable<CalendarEvent> GetEvents(CalendarEventFilter filter)
+        {
+            IEnumerable<CalendarEvent> result;
+            result = db.CalendarEvents.Where(x => !x.IsDeleted);
+
+            if (filter.Doctor != null)
+                result = result.Where(x => x.Users.Contains(filter.Doctor));
+            if (filter.Nurse != null)
+                result = result.Where(x => x.Users.Contains(filter.Nurse));
+            if (filter.Infrastructure != null)
+                result = result.Where(x => x.Infrastructures.Contains(filter.Infrastructure));
+
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the list of CalendarEvents of specified patient from the database
+        /// </summary>
+        /// <param name="patientID">The database ID of patient</param>
+        /// <returns>List of CalendarEvents of specified patient</returns>
+        public IQueryable<CalendarEvent> GetEvents(int patientID)
+        {
+            return db.CalendarEvents.Where(x => x.PatientID == patientID &&
+                !x.IsDeleted);
+        }
+
+        /// <summary>
+        /// Use this method to delete desired CalendarEvents by their ids
+        /// </summary>
+        /// <param name="eventIds">Ids of events to be deleted</param>
+        /// <returns>Value indicating whether items was deleted successfully</returns>
+        public bool DeleteEvents(List<int> eventIds)
+        {
+            bool result = true;
+            try
+            {
+                bool saveChanges = false;
+                foreach (var eventId in eventIds)
+                {
+                    CalendarEvent _event = db.CalendarEvents.FirstOrDefault(x => x.ID == eventId);
+                    if (_event == null)
+                        continue;
+
+                    _event.IsDeleted = true;
+                    saveChanges = true;
+                }
+
+                if (saveChanges)
+                    db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Add new CalendarEvents into database
+        /// </summary>
+        /// <param name="newItems">Events to add</param>
+        /// <returns>Value indicating whether items was added successfully</returns>
+        public bool AddCalendarEvents(List<CalendarItem> newItems)
+        {
+            bool result = true;
+            if (newItems.Count == 0)
+                return result;
+
+            try
+            {
+                List<CalendarEvent> newEvents = new List<CalendarEvent>();
+                foreach (var item in newItems)
+                {
+                    var newItem = new CalendarEvent()
+                    {
+                        GoogleEventID = item.GoogleEventID ?? UnixTimestamp(DateTime.Now),
+                        Summary = item.Text,
+                        Description = item.Description,
+                        StartDate = item.StartDate,
+                        EndDate = item.EndDate,
+                        IsSynchronized = true,
+                        IsDeleted = item.IsDeleted,
+                        IsTemporaryGoogleEvent = true,
+                        StateID = (int)EventStateEnum.IsTemporaryGoogleEvent,
+                        ColorID = db.CalendarEventColors.First(x => x.EventStateID == (int)EventStateEnum.IsTemporaryGoogleEvent).ID,
+                    };
+                    newEvents.Add(newItem);
+                    item.GoogleEventID = newItem.GoogleEventID;
+                }
+
+                db.CalendarEvents.AddRange(newEvents);
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                result = false;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Update CalendarEvents in database
+        /// </summary>
+        /// <param name="items">Events to update</param>
+        /// <returns>Value indicating whether items was updated successfully</returns>
+        public bool UpdateCalendarEvents(List<CalendarItem> items)
+        {
+            bool result = true;
+            if (items.Count == 0)
+                return result;
+
+            try
+            {
+                foreach (var item in items)
+                {
+                    var calendarEvent = db.CalendarEvents.First(x => x.ID == item.DatabaseEntityID.Value);
+
+                    //calendarEvent.GoogleEventID = item.GoogleEventID;
+                    //calendarEvent.Summary = item.Text;
+                    //calendarEvent.Description = item.Description;
+                    calendarEvent.StartDate = item.StartDate;
+                    calendarEvent.EndDate = item.EndDate;
+                    calendarEvent.IsSynchronized = true;
+                    calendarEvent.IsDeleted = item.IsDeleted;
+                }
+
+                result = SaveChanges();
+            }
+            catch (Exception e)
+            {
+                result = false;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+        /// <summary>
+        /// Creates new calendar event based on provided informations
+        /// </summary>
+        /// <returns>Value indicating whether the creation of the calendar event was successfull</returns>
         public CalendarEvent CreateCalendarEvent(Patient eventPatient, List<User> doctors, List<User> nurses, List<Infrastructure> infrastructures, DateTime eventStartDateTime, decimal eventDuration, string notificationEmails, string eventNote, List<Model.Action> plannedActions, string plannedText, EventState eventState)
         {
             CalendarEvent result = null;
@@ -1350,10 +1486,20 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Gets the non deleted calendar events from the databse
+        /// </summary>
+        /// <returns>IQueryable of non deleted events</returns>
         public IQueryable<CalendarEvent> GetEvents()
         {
             return db.CalendarEvents.Where(x => !x.IsDeleted);
         }
+
+        /// <summary>
+        /// Gets the calendar event entity with provided ID
+        /// </summary>
+        /// <param name="calendarEventID">CalendarEventID</param>
+        /// <returns>Calendar event entity with provided ID</returns>
         public CalendarEvent GetEvent(int calendarEventID)
         {
             CalendarEvent result = null;
@@ -1369,6 +1515,12 @@ namespace DatabaseCommunicator.Controllers
 
             return result;
         }
+
+        /// <summary>
+        /// Gets the calendar event entity with provided GoogleEventID
+        /// </summary>
+        /// <param name="googleEventID">GoogleEventID</param>
+        /// <returns>Calendar event entity with provided GoogleEventID</returns>
         public CalendarEvent GetEvent(string googleEventID)
         {
             CalendarEvent result = null;
@@ -1385,7 +1537,11 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
-        public bool UpdateCalendarEvent(CalendarEvent calendarEvent, List<User> doctors, List<User> nurses, List<Infrastructure> infrastructures,
+        /// <summary>
+        /// Edits provided calendar event
+        /// </summary>
+        /// <returns>Value indicating whether the editing of the calendar event was successfull</returns>
+        public bool EditCalendarEvent(CalendarEvent calendarEvent, List<User> doctors, List<User> nurses, List<Infrastructure> infrastructures,
            DateTime startDate, decimal eventDuration,
            string notificationEmails, string eventNote, List<Model.Action> plannedActions, string plannedText, EventState eventState,
            List<DoneActionNotePair> doneActions, string doneText)
@@ -1420,6 +1576,12 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Sets the IsSynchronized attribute of the calendar event entity with provided database ID to provided value
+        /// </summary>
+        /// <param name="databaseEntityID">ID of CalendarEvent entity</param>
+        /// <param name="isSynchronized">Wanted value</param>
+        /// <returns>Value indicating whether the editing of the calendar event was successfull</returns>
         public bool SetIsSynchronizedStatus(int? databaseEntityID, bool isSynchronized)
         {
             bool result = true;
@@ -1442,7 +1604,11 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
-        public bool DeleteEvent(CalendarEvent calendarEvent)
+        /// <summary>
+        /// Removes provided calendar event from database (sets the IsDeleted attribute to true)
+        /// </summary>
+        /// <returns>Value indicating whether the deletion of the calendar event was successfull</returns>
+        public bool RemoveEvent(CalendarEvent calendarEvent)
         {
             bool result = false;
 
@@ -1463,6 +1629,10 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region Formulars
+        /// <summary>
+        /// Gets the  non deleted formulars from database
+        /// </summary>
+        /// <returns>IQueryable of non deleted formulars</returns>
         public IQueryable<Form> GetFormulars()
         {
             IQueryable<Form> result = null;
@@ -1477,6 +1647,11 @@ namespace DatabaseCommunicator.Controllers
 
             return result;
         }
+
+        /// <summary>
+        /// Creates new formular based on provided informations
+        /// </summary>
+        /// <returns>Value indicating whether the creation of the formular was successfull</returns>
 
         public bool CreateFormular(string name, List<FieldForm> formFields)
         {
@@ -1504,6 +1679,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Edits provided formular
+        /// </summary>
+        /// <returns>Value indicating whether the editing of the formular was successfull</returns>
         public bool EditFormular(Form form, string name, List<FieldForm> formFields)
         {
             bool result = false;
@@ -1528,6 +1707,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Removes provided formular from database (sets the IsDeleted attribute to true)
+        /// </summary>
+        /// <returns>Value indicating whether the deletion of the formular was successfull</returns>
         public bool RemoveFormular(Form item)
         {
             bool result = false;
@@ -1548,6 +1731,11 @@ namespace DatabaseCommunicator.Controllers
         #endregion
 
         #region Sections
+        /// <summary>
+        /// Gets the section with provided name
+        /// </summary>
+        /// <param name="name">Section name</param>
+        /// <returns>Section with provided name or null</returns>
         public Section GetSectionByName(string name)
         {
             Section result = null;
@@ -1562,6 +1750,10 @@ namespace DatabaseCommunicator.Controllers
 
             return result;
         }
+        /// <summary>
+        /// Gets non deleted sections from database
+        /// </summary>
+        /// <returns>IQueryable of non deleted secitons</returns>
         public IQueryable<Section> GetSections()
         {
             IQueryable<Section> result = null;
@@ -1577,6 +1769,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Creates new section based on provided informations
+        /// </summary>
+        /// <returns>Value indicating whether the creation of the section was successfull</returns>
         public bool CreateSection(string name)
         {
             bool result = false;
@@ -1598,6 +1794,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Edits provided section
+        /// </summary>
+        /// <returns>Value indicating whether the editing of the section was successfull</returns>
         public bool EditSection(Section section, string name)
         {
             bool result = false;
@@ -1616,6 +1816,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Removes provided section from database (sets the IsDeleted attribute to true)
+        /// </summary>
+        /// <returns>Value indicating whether the deletion of the section was successfull</returns>
         public bool RemoveSection(Section item)
         {
             bool result = false;
@@ -1656,21 +1860,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
-        public IQueryable<Infrastructure> GetInfrastructure()
-        {
-            IQueryable<Infrastructure> result = null;
-            try
-            {
-                result = db.Infrastructures.Where(x => !x.IsDeleted);
-            }
-            catch (Exception e)
-            {
-                BasicMessagesHandler.LogException(e);
-            }
-
-            return result;
-        }
-
+        /// <summary>
+        /// Gets field types stored in database
+        /// </summary>
+        /// <returns>Field types</returns>
         public IEnumerable<FieldType> GetFieldTypes()
         {
             IQueryable<FieldType> result = null;
@@ -1704,19 +1897,54 @@ namespace DatabaseCommunicator.Controllers
             }
             return result;
         }
+
+        /// <summary>
+        /// Gets the event state from database
+        /// </summary>
+        /// <param name="state">Wanted state</param>
+        /// <returns>Event state</returns>
+        public EventState GetEventState(EventStateEnum state)
+        {
+            EventState result = null;
+
+            try
+            {
+                result = db.EventStates.FirstOrDefault(x => x.ID == (int)state);
+            }
+            catch (Exception e)
+            {
+                result = null;
+                BasicMessagesHandler.LogException(e);
+            }
+
+            return result;
+        }
+
         #endregion
 
         #region Private methods
+        /// <summary>
+        /// Creates unix time stamp from provided DateTime value
+        /// </summary>
+        /// <returns>Unix time stamp</returns>
         private string UnixTimestamp(DateTime dateTime)
         {
             return ((Int32)(dateTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
         }
 
+        /// <summary>
+        /// Gets the calendar event end date value
+        /// </summary>
+        /// <returns>Calendar event end date value</returns>
         private DateTime GetEventEndDate(DateTime eventStartDateTime, decimal eventDuration)
         {
             return eventStartDateTime.AddMinutes((double)eventDuration);
         }
 
+        /// <summary>
+        /// Creates summary for calendar event based on patient name and planned actions
+        /// </summary>
+        /// <returns>Calendar event summary</returns>
         private string CreateEventSummary(Patient patient, List<Model.Action> actions)
         {
             string result = patient.FullName;
@@ -1739,6 +1967,10 @@ namespace DatabaseCommunicator.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Gets the calendar event executed actions
+        /// </summary>
+        /// <returns>Calendar event executed actions</returns>
         private ICollection<CalendarEventExecutedAction> GetEventExecutedActions(CalendarEvent calendarEvent, List<DoneActionNotePair> doneActions)
         {
             List<CalendarEventExecutedAction> result = new List<CalendarEventExecutedAction>();
@@ -1787,23 +2019,6 @@ namespace DatabaseCommunicator.Controllers
             // Free any unmanaged objects here.
 
             disposed = true;
-        }
-
-        public EventState GetEventState(EventStateEnum state)
-        {
-            EventState result = null;
-
-            try
-            {
-                result = db.EventStates.FirstOrDefault(x => x.ID == (int)state);
-            }
-            catch (Exception e)
-            {
-                result = null;
-                BasicMessagesHandler.LogException(e);
-            }
-
-            return result;
         }
         #endregion
     }

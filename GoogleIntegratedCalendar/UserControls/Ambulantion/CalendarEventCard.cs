@@ -158,11 +158,11 @@ namespace EZKO.UserControls.Ambulantion
             if(calendarEvent != null)
                 visitControl.LoadEvent(calendarEvent);
         }
-        #endregion
 
         private void CalendarEventCard_Resize(object sender, EventArgs e)
         {
-            noteTextLabel.MaximumSize = new Size(this.Width - noteTextLabel.Location.X  - 10, 0);
+            noteTextLabel.MaximumSize = new Size(this.Width - noteTextLabel.Location.X - 10, 0);
         }
+        #endregion
     }
 }

@@ -105,7 +105,6 @@ namespace EZKO.UserControls.Administration
             }
         }
 
-
         private void EditItem(Action item)
         {
             EditActionForm form = new EditActionForm(item);

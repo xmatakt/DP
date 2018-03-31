@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// This file contains mainly overrides of ToString function for database entities
+/// </summary>
 namespace DatabaseCommunicator.Model
 {
     public partial class InsuranceCompany

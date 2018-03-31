@@ -114,7 +114,6 @@ namespace EZKO.UserControls.Administration
             }
         }
 
-
         private void EditItem(Infrastructure item)
         {
             EditInfrastructureForm form = new EditInfrastructureForm(item);

@@ -32,6 +32,8 @@
             this.topPanel = new System.Windows.Forms.Panel();
             this.questionTextBox = new System.Windows.Forms.TextBox();
             this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.fieldNameLabel = new System.Windows.Forms.Label();
+            this.editFieldButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.removeButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.downButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.upButton = new EZKO.UserControls.FlatControls.RoundButton();
@@ -57,6 +59,8 @@
             // topPanel
             // 
             this.topPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(195)))), ((int)(((byte)(195)))));
+            this.topPanel.Controls.Add(this.fieldNameLabel);
+            this.topPanel.Controls.Add(this.editFieldButton);
             this.topPanel.Controls.Add(this.removeButton);
             this.topPanel.Controls.Add(this.downButton);
             this.topPanel.Controls.Add(this.upButton);
@@ -96,6 +100,37 @@
             this.flowPanel.Name = "flowPanel";
             this.flowPanel.Size = new System.Drawing.Size(479, 0);
             this.flowPanel.TabIndex = 4;
+            // 
+            // fieldNameLabel
+            // 
+            this.fieldNameLabel.AutoSize = true;
+            this.fieldNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fieldNameLabel.Location = new System.Drawing.Point(38, 5);
+            this.fieldNameLabel.Name = "fieldNameLabel";
+            this.fieldNameLabel.Size = new System.Drawing.Size(123, 18);
+            this.fieldNameLabel.TabIndex = 3;
+            this.fieldNameLabel.Text = "fieldNameLabel";
+            // 
+            // editFieldButton
+            // 
+            this.editFieldButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.editFieldButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.editFieldButton.BackgroundImage = global::EZKO.Properties.Resources.edit_black_16;
+            this.editFieldButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.editFieldButton.FlatAppearance.BorderSize = 0;
+            this.editFieldButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(48)))), ((int)(((byte)(44)))));
+            this.editFieldButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(48)))), ((int)(((byte)(44)))));
+            this.editFieldButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editFieldButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.editFieldButton.ForeColor = System.Drawing.Color.White;
+            this.editFieldButton.Location = new System.Drawing.Point(383, 2);
+            this.editFieldButton.Name = "editFieldButton";
+            this.editFieldButton.Radius = 5;
+            this.editFieldButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatRed;
+            this.editFieldButton.Size = new System.Drawing.Size(29, 23);
+            this.editFieldButton.TabIndex = 2;
+            this.editFieldButton.UseVisualStyleBackColor = false;
+            this.editFieldButton.Click += new System.EventHandler(this.editFieldButton_Click);
             // 
             // removeButton
             // 
@@ -176,6 +211,7 @@
             this.mainFlowPanel.ResumeLayout(false);
             this.mainFlowPanel.PerformLayout();
             this.topPanel.ResumeLayout(false);
+            this.topPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,5 +226,7 @@
         private FlatControls.RoundButton upButton;
         private System.Windows.Forms.TextBox questionTextBox;
         private System.Windows.Forms.FlowLayoutPanel flowPanel;
+        private System.Windows.Forms.Label fieldNameLabel;
+        private FlatControls.RoundButton editFieldButton;
     }
 }

@@ -14,17 +14,14 @@ namespace EZKO
     {
         //public static string ConnectionString = @"data source=ASUSPC;initial catalog=Ezko2;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework;";
         public static string ConnectionString = @"data source=DELLWIN8;initial catalog=Ezko2;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework;";
-        //public static string User = "";
         public static DatabaseCommunicator.Model.User User = null;
         public static DatabaseCommunicator.Controllers.EzkoController EzkoController = null;
-        //public static string LanguagePrefix = "sk-SK";
+        public static string LanguagePrefix = "sk-SK";
         //public static string LanguagePrefix = "en-US";
-        public static string LanguagePrefix = "";
         public static string EzkoRootFolderPath = @"C:\EZKO";
         public static string UserRootFolderPath = @"C:\EZKO\Users";
         public static string PatientsRootFolderPath = @"C:\EZKO\Patients";
         public static string LogFilePath = @"C:\EZKO\.errorLog.log";
-
         public static string GoogleCalendarUserName = "timo";
 
         /// <summary>

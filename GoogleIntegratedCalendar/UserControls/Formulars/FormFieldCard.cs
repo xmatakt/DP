@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DatabaseCommunicator.Model;
 using DatabaseCommunicator.Enums;
 using EZKO.UserControls.FlatControls;
+using EZKO.Forms.AdministrationForms;
 
 namespace EZKO.UserControls.Formulars
 {
@@ -95,7 +96,7 @@ namespace EZKO.UserControls.Formulars
         private Point? newLocation;
 
         #region Private properties
-       
+       private string fieldName { set { fieldNameLabel.Text = value; } }
         #endregion
 
         public FormFieldCard()
@@ -116,6 +117,7 @@ namespace EZKO.UserControls.Formulars
             removeButton.Enabled = !isPreview;
             upButton.Enabled = !isPreview;
             downButton.Enabled = !isPreview;
+            fieldName = "";
         }
 
         #region Public methods
@@ -216,6 +218,8 @@ namespace EZKO.UserControls.Formulars
 
             if (Field.FieldType != null)
             {
+                fieldName = Field.Name;
+
                 flowPanel.Controls.Clear();
                 int width = flowPanel.MinimumSize.Width - 7;
                 Control newControl = null;
@@ -380,26 +384,33 @@ namespace EZKO.UserControls.Formulars
             RemoveButtonClick?.Invoke(sender, e);
         }
 
+        private void editFieldButton_Click(object sender, EventArgs e)
+        {
+            if (Field == null)
+                return;
+
+           MainControl.UpdateField(Field);
+        }
+
         private void FormFieldCard_SizeChanged(object sender, EventArgs e)
         {
             //MinimumSize = new Size(Width, 70);
             flowPanel.MinimumSize = new Size(questionTextBox.Width, 0);
+        }
+        private void FormFieldCard_Enter(object sender, EventArgs e)
+        {
+            mainFlowPanel.BackColor = Color.FromName("Highlight");
+        }    
+
+        private void FormFieldCard_Leave(object sender, EventArgs e)
+        {
+            mainFlowPanel.BackColor = Color.FromName("Info");
         }
         #endregion
 
         public override string ToString()
         {
             return CardName;
-        }
-
-        private void FormFieldCard_Enter(object sender, EventArgs e)
-        {
-            mainFlowPanel.BackColor = Color.FromName("Highlight");
-        }
-
-        private void FormFieldCard_Leave(object sender, EventArgs e)
-        {
-            mainFlowPanel.BackColor = Color.FromName("Info");
         }
     }
 }

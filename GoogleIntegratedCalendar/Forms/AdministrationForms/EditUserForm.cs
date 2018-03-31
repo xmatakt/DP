@@ -96,23 +96,12 @@ namespace EZKO.Forms.AdministrationForms
         }
         #endregion
 
-        //Constructor just for testing purpose
-        //public EditUserForm(WorkingTypeEnum workingType)
-        //{
-        //    InitializeComponent();
-        //    ezkoController = new EzkoController(GlobalSettings.ConnectionString);
-
-        //    InitializeForm();
-
-        //    this.workingType = workingType;
-        //}
-
-        public EditUserForm(WorkingTypeEnum workingType)
+        public EditUserForm()
         {
             InitializeComponent();
 
             ezkoController = GlobalSettings.EzkoController;
-            this.workingType = workingType;
+            this.workingType = WorkingTypeEnum.Creating;
             InitializeForm();
         }
 
@@ -194,7 +183,6 @@ namespace EZKO.Forms.AdministrationForms
                     DirectoriesController.CopyFile(avatarImagePath, ezkoAvatarImagePath))
                 {
                     BasicMessagesHandler.ShowInformationMessage("Požívateľ bol úspešne vytvorený");
-                    ChangesHolder.DoctorsChanged = true;
                 }
                 else
                 {
@@ -304,7 +292,7 @@ namespace EZKO.Forms.AdministrationForms
             return result;
         }
 
-        #region Events
+        #region UI events
         private void addButton_Click(object sender, EventArgs e)
         {
             CreateOrUpdate();

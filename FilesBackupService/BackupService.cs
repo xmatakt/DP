@@ -14,6 +14,9 @@ using System.Timers;
 
 //https://docs.microsoft.com/en-us/dotnet/framework/windows-services/walkthrough-creating-a-windows-service-application-in-the-component-designer#BK_CreateProject
 
+/// <summary>
+/// Simple Windows service to automatically backup EZKO folder on daily or weekly basis
+/// </summary>
 namespace FilesBackupService
 {
     public partial class BackupService : ServiceBase
@@ -90,23 +93,10 @@ namespace FilesBackupService
             isRunning = false;
         }
 
-        private bool CheckTargetPath()
-        {
-            bool result = true;
-            try
-            {
-                if (!Directory.Exists(Properties.ServiceSettings.Default.TargetFolderPath))
-                    Directory.CreateDirectory(Properties.ServiceSettings.Default.TargetFolderPath);
-            }
-            catch (Exception ex)
-            {
-                result = false;
-                LogErrorMessage(ex);
-            }
-
-            return result;
-        }
-
+        /// <summary>
+        /// Checks if the source folder listed in setting exists
+        /// </summary>
+        /// <returns>Value indicating whether the source folder exists</returns>
         private bool CheckSourcePath()
         {
             bool result = true;
@@ -127,6 +117,31 @@ namespace FilesBackupService
             return result;
         }
 
+        /// <summary>
+        /// Checks if the target folder listed in setting exists, if not, funciton creates that folder
+        /// </summary>
+        /// <returns>Value indicating whether the target folder exists</returns>
+        private bool CheckTargetPath()
+        {
+            bool result = true;
+            try
+            {
+                if (!Directory.Exists(Properties.ServiceSettings.Default.TargetFolderPath))
+                    Directory.CreateDirectory(Properties.ServiceSettings.Default.TargetFolderPath);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                LogErrorMessage(ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get the new .zip file path
+        /// </summary>
+        /// <returns>Path on which the backup file will be saved</returns>
         private string GetZipFileName()
         {
             string result = "";
@@ -145,6 +160,10 @@ namespace FilesBackupService
             return result;
         }
 
+        /// <summary>
+        /// Check if the service has to run
+        /// </summary>
+        /// <returns>Value indicating wheter the service should run</returns>
         private bool CanRunService()
         {
             bool result = false;
@@ -178,6 +197,10 @@ namespace FilesBackupService
             return result;
         }
 
+        /// <summary>
+        /// Loggs message into log file. The name of the file is listed in the service setting
+        /// </summary>
+        /// <param name="message">Message to log</param>
         private void LogMessage(string message)
         {
             try
@@ -193,6 +216,10 @@ namespace FilesBackupService
             }
         }
 
+        /// <summary>
+        /// Loggs thrown exception into log file. The name of the file is listed in the service setting
+        /// </summary>
+        /// <param name="ex">Exception to log</param>
         private void LogErrorMessage(Exception ex)
         {
             try
@@ -208,14 +235,18 @@ namespace FilesBackupService
             }
         }
 
-        private void LogErrorMessage(string message)
+        /// <summary>
+        /// Loggs error message into log file. The name of the file is listed in the service setting
+        /// </summary>
+        /// <param name="errorMessage">The error message to log</param>
+        private void LogErrorMessage(string errorMessage)
         {
             try
             {
                 using (StreamWriter writer = new StreamWriter(Properties.ServiceSettings.Default.LogFilePath, true))
                 {
                     writer.Write(DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss") + "ERROR > ");
-                    writer.WriteLine(message);
+                    writer.WriteLine(errorMessage);
                 }
             }
             catch (Exception)
@@ -223,6 +254,10 @@ namespace FilesBackupService
             }
         }
 
+        /// <summary>
+        /// Get the actual day
+        /// </summary>
+        /// <returns>Enum value of the actual day</returns>
         private DayOfWeek Day()
         {
             switch (Properties.ServiceSettings.Default.DayInWeek)

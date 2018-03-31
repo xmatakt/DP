@@ -122,7 +122,6 @@ namespace EZKO.UserControls.Administration
             }
         }
 
-
         private void EditItem(InsuranceCompany item)
         {
             EditInsuranceCompanyForm form = new EditInsuranceCompanyForm(item);

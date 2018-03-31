@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DatabaseCommunicator.Model;
 using ExceptionHandler;
 using EZKO.Classes;
+using EZKO.Forms.AdministrationForms;
 
 namespace EZKO.UserControls.Formulars
 {
@@ -19,6 +20,7 @@ namespace EZKO.UserControls.Formulars
         private int startY = 0;
         private int diffX = 30;
         private bool showTools = true;
+        EditFormularForm editFormularForm = null;
 
         #region Public properties
         public List<CardCommand> Commands { get; set; }
@@ -210,6 +212,11 @@ namespace EZKO.UserControls.Formulars
                 AddField(fieldForm);
         }
 
+        public void UpdateField(Field field)
+        {
+            editFormularForm.EditField(field);
+        }
+
         public void RemoveField(int fieldId)
         {
             foreach (var item in mainPanel.Controls)
@@ -233,6 +240,9 @@ namespace EZKO.UserControls.Formulars
 
         public void AddCommand(CardCommand command)
         {
+            if (Commands == null)
+                Commands = new List<CardCommand>();
+
             Commands.Add(command);
             UpdateBackButtonVisibility();
         }
@@ -246,6 +256,22 @@ namespace EZKO.UserControls.Formulars
         public void UpdateBackButtonVisibility()
         {
             backButton.Visible = Commands.Count > 0;
+        }
+
+        public void SetEditFormularForm(EditFormularForm editFormularForm)
+        {
+            this.editFormularForm = editFormularForm;
+        }
+
+        public IEnumerable<Field> GetFields()
+        {
+            List<Field> result = new List<Field>();
+
+            foreach (var item in mainPanel.Controls)
+                if (item is FormFieldCard cardItem && cardItem.Field != null)
+                    result.Add(cardItem.Field);
+
+            return result;
         }
         #endregion
 
@@ -348,6 +374,37 @@ namespace EZKO.UserControls.Formulars
             return result;
         }
 
+        private void ApplyLastCommand()
+        {
+            CardCommand command = Commands.Last();
+
+            if (command != null)
+            {
+                switch (command.Command)
+                {
+                    case Enums.CardCommandEnum.MoveUp:
+                        command.Card.MoveDown(true);
+                        break;
+                    case Enums.CardCommandEnum.MoveDown:
+                        command.Card.MoveUp(true);
+                        break;
+                    case Enums.CardCommandEnum.Add:
+                        command.Card.RemoveCard(true);
+                        break;
+                    case Enums.CardCommandEnum.Remove:
+                        command.Card.IsRemoved = false;
+                        command.Card.Visible = true;
+                        break;
+                    default:
+                        break;
+                }
+                Commands.Remove(command);
+                UpdateBackButtonVisibility();
+                RedrawFormular();
+                command.Card.Focus();
+            }
+        }
+
         private void ChangeCardToolsVisibility(bool showTools)
         {
             foreach (FormFieldCard item in mainPanel.Controls)
@@ -416,33 +473,19 @@ namespace EZKO.UserControls.Formulars
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            CardCommand command = Commands.Last();
+            ApplyLastCommand();
+        }
 
-            if(command != null)
-            {
-                switch (command.Command)
-                {
-                    case Enums.CardCommandEnum.MoveUp:
-                        command.Card.MoveDown(true);
-                        break;
-                    case Enums.CardCommandEnum.MoveDown:
-                        command.Card.MoveUp(true);
-                        break;
-                    case Enums.CardCommandEnum.Add:
-                        command.Card.RemoveCard(true);
-                        break;
-                    case Enums.CardCommandEnum.Remove:
-                        command.Card.IsRemoved = false;
-                        command.Card.Visible = true;
-                        break;
-                    default:
-                        break;
-                }
-                Commands.Remove(command);
-                UpdateBackButtonVisibility();
-                RedrawFormular();
-                command.Card.Focus();
-            }
+        private void backButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Späť", backButton);
+        }
+        private void showToolsButton_MouseHover(object sender, EventArgs e)
+        {
+            if(showTools)
+                toolTip.Show("Skryť nástroje", showToolsButton);
+            else
+                toolTip.Show("Zobraziť nástroje", showToolsButton);
         }
         #endregion
     }

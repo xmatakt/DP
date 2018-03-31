@@ -60,6 +60,7 @@
             this.insightGroupBox = new System.Windows.Forms.GroupBox();
             this.insightFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.insightLabel = new System.Windows.Forms.Label();
+            this.recreateButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.topMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximizeFormPictureBox)).BeginInit();
@@ -148,6 +149,7 @@
             this.bottomFlowPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.bottomFlowPanel.Controls.Add(this.cancelButton);
             this.bottomFlowPanel.Controls.Add(this.addButton);
+            this.bottomFlowPanel.Controls.Add(this.recreateButton);
             this.bottomFlowPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.bottomFlowPanel.Location = new System.Drawing.Point(0, 630);
@@ -443,6 +445,29 @@
             this.insightLabel.TabIndex = 0;
             this.insightLabel.Text = "label1";
             // 
+            // recreateButton
+            // 
+            this.recreateButton.AutoSize = true;
+            this.recreateButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.recreateButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.recreateButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.recreateButton.FlatAppearance.BorderSize = 0;
+            this.recreateButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.recreateButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.recreateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.recreateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.recreateButton.ForeColor = System.Drawing.Color.White;
+            this.recreateButton.Location = new System.Drawing.Point(568, 5);
+            this.recreateButton.Margin = new System.Windows.Forms.Padding(2);
+            this.recreateButton.Name = "recreateButton";
+            this.recreateButton.Radius = 5;
+            this.recreateButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.recreateButton.Size = new System.Drawing.Size(135, 23);
+            this.recreateButton.TabIndex = 6;
+            this.recreateButton.Text = "Uložiť ako nové pole";
+            this.recreateButton.UseVisualStyleBackColor = false;
+            this.recreateButton.Click += new System.EventHandler(this.recreateButton_Click);
+            // 
             // EditFieldForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -510,5 +535,6 @@
         private System.Windows.Forms.GroupBox insightGroupBox;
         private System.Windows.Forms.Label insightLabel;
         private System.Windows.Forms.FlowLayoutPanel insightFlowPanel;
+        private UserControls.FlatControls.RoundButton recreateButton;
     }
 }

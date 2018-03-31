@@ -133,7 +133,6 @@ namespace EZKO.UserControls.Administration
             }
         }
 
-
         private void EditItem(Budget item)
         {
             EditBudgetForm form = new EditBudgetForm(item);

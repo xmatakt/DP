@@ -70,13 +70,12 @@ namespace EZKO.Forms.AdministrationForms
         }
         #endregion
 
-        //Just for testing purpose
-        public EditInfrastructureForm(WorkingTypeEnum workingType)
+        public EditInfrastructureForm()
         {
             InitializeComponent();
 
             ezkoController = GlobalSettings.EzkoController;
-            this.workingType = workingType;
+            this.workingType = WorkingTypeEnum.Creating;
         }
 
         public EditInfrastructureForm(Infrastructure infrastructure)

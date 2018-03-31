@@ -34,8 +34,6 @@ namespace GoogleCalendarSynchronizer
         private CalendarService service;
         private System.Windows.Forms.Calendar.Calendar calendar;
 
-        #region Public methods
-
         /// <summary>
         /// Creates new instance of GoogleCalendarSynchronizer class
         /// </summary>
@@ -52,27 +50,13 @@ namespace GoogleCalendarSynchronizer
             {
                 service = GetGoogleService();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa vytvoriť Google Calendar Service", e);
+                BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa vytvoriť Google Calendar Service", ex);
             }
         }
 
-        public GoogleCalendarSynchronizer(string userName, string calendarID = null)
-        {
-            this.userName = userName;
-            this.calendarID = calendarID ?? "primary";
-
-            try
-            {
-                service = GetGoogleService();
-            }
-            catch (Exception e)
-            {
-                BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa vytvoriť Google Calendar Service", e);
-            }
-        }
-
+        #region Public methods
         /// <summary>
         /// Method to obtain google calendar events from required time period
         /// </summary>
@@ -119,6 +103,10 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
+        /// <summary>
+        /// Gets the calendar events from database between provided dates in form of Calendar items
+        /// </summary>
+        /// <returns>List of calendar items</returns>
         public List<CalendarItem> GetDbCalendarItems(EzkoController ezkoController, DateTime startDate, DateTime endDate)
         {
             List<CalendarItem> result = new List<CalendarItem>();
@@ -221,6 +209,10 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
+        /// <summary>
+        /// Creates provided calendar event in Google calendar
+        /// </summary>
+        /// <returns>Value indicating whether the creation of google calendar event was successfull</returns>
         public bool UploadEvent(CalendarItem newEvent, EzkoController ezkoController)
         {
             if (!CheckForInternetConnection())
@@ -266,7 +258,11 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
-        public bool UploadEvent(int databaseEntityID, string googleEventId,string summary, string description, DateTime startDate, DateTime endDate, EzkoController ezkoController)
+        /// <summary>
+        /// Creates provided calendar event in Google calendar
+        /// </summary>
+        /// <returns>Value indicating whether the creation of google calendar event was successfull</returns>
+        public bool UploadEvent(int databaseEntityID, string googleEventId, string summary, string description, DateTime startDate, DateTime endDate, EzkoController ezkoController)
         {
             if (!CheckForInternetConnection())
                 return false;
@@ -308,7 +304,6 @@ namespace GoogleCalendarSynchronizer
         /// <summary>
         /// Updates/deletes existing Google Calendat events
         /// </summary>
-        /// <param name="updatedItems"></param>
         /// <returns>Returs value indicating wheter the update/delete was successfull</returns>
         public bool UpdateEvents(List<CalendarItem> updatedItems)
         {
@@ -343,6 +338,10 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
+        /// <summary>
+        /// Updates/deletes existing Google Calendar event
+        /// </summary>
+        /// <returns>Returs value indicating wheter the update/delete was successfull</returns>
         public bool UpdateEvent(CalendarItem updatedItem, EzkoController ezkoController)
         {
             if (!CheckForInternetConnection())
@@ -379,6 +378,10 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
+        /// <summary>
+        /// Updates/deletes existing Google Calendar event
+        /// </summary>
+        /// <returns>Returs value indicating wheter the update/delete was successfull</returns>
         public bool UpdateEvent(int databaseEntityID, string googleEventId, string summary, string description, DateTime startDate, DateTime endDate, bool isDeleted, EzkoController ezkoController)
         {
             if (!CheckForInternetConnection())
@@ -413,6 +416,10 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
+        /// <summary>
+        /// Synchronizes calendar events stored in database with belonging google calendar events
+        /// </summary>
+        /// <returns>Value indicating whether the synchronization was successfull</returns>
         public bool SynchronizeEvents(EzkoController ezkoController)
         {
             if (!CheckForInternetConnection())
@@ -507,6 +514,10 @@ namespace GoogleCalendarSynchronizer
             return service;
         }
 
+        /// <summary>
+        /// Transfers the unsynchronized changes made on CalendarEvent entities (for example changes which were made during no internet connection)
+        /// </summary>
+        /// <returns>Value indicating whether the synchronization was successfull</returns>
         private bool SynchronizeUnsynchronizedEvents(EzkoController ezkoController)
         {
             bool result = true;
@@ -556,6 +567,9 @@ namespace GoogleCalendarSynchronizer
             return result;
         }
 
+        /// <summary>
+        /// Marks database events which belong to deleted google calendar events as deleted
+        /// </summary>
         private void MarkAsDeleted(DateTime startDate, DateTime endDate, List<CalendarItem> dbItems, List<CalendarItem> updateItems)
         {
             try
@@ -590,6 +604,10 @@ namespace GoogleCalendarSynchronizer
         }
 
 
+        /// <summary>
+        /// Checks if internet connection is available
+        /// </summary>
+        /// <returns>Value indicating if computer is connected into the internet</returns>
         private bool CheckForInternetConnection()
         {
             try

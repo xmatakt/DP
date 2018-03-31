@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DatabaseCommunicator.Enums
 {
     /// <summary>
-    /// Enum to map data from Usertole table
+    /// Enum to map data from UserRole table
     /// </summary>
     public enum UserRoleEnum
     {

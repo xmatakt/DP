@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CardCommand.cs" />
-    <Compile Include="Classes\ChangesHolder.cs" />
     <Compile Include="Classes\FormGenerator.cs" />
     <Compile Include="Controllers\DirectoriesController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />

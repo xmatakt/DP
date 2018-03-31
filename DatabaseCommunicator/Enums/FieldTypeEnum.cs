@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DatabaseCommunicator.Enums
 {
+    /// <summary>
+    /// Enum to map data from FieldType table
+    /// </summary>
     public enum FieldTypeEnum
     {
         Text = 1,

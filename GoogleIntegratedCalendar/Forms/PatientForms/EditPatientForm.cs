@@ -457,140 +457,6 @@ namespace EZKO.Forms.PatientForms
             FillBudgetsGrid();
         }
 
-        private void InitializeDocumentsGrid()
-        {
-            documentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            documentsDataGridView.GridColor = Color.White;
-            documentsDataGridView.AllowUserToResizeRows = false;
-            documentsDataGridView.AllowUserToResizeColumns = true;
-            documentsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            documentsDataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
-            documentsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            documentsDataGridView.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
-            documentsDataGridView.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
-            documentsDataGridView.BackgroundColor = Color.White;
-            documentsDataGridView.EnableHeadersVisualStyles = false;
-            documentsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            documentsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
-            documentsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            documentsDataGridView.RowHeadersVisible = false;
-
-            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn()
-            {
-                Name = "Name",
-                HeaderText = "Názov",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-            };
-            documentsDataGridView.Columns.Add(nameColumn);
-
-            DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
-            {
-                Name = "Last",
-                HeaderText = "",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-            };
-            documentsDataGridView.Columns.Add(fillEmptySpaceColumn);
-
-            DataGridViewButtonColumn showColumn = new DataGridViewButtonColumn()
-            {
-                Name = "Show",
-                HeaderText = "Akcie",
-                FlatStyle = FlatStyle.Flat,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            };
-            showColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorGreen;
-            showColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorGreen;
-            documentsDataGridView.Columns.Add(showColumn);
-
-            DataGridViewButtonColumn removeColumn = new DataGridViewButtonColumn()
-            {
-                Name = "Remove",
-                HeaderText = "",
-                FlatStyle = FlatStyle.Flat,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            };
-            removeColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorRed;
-            removeColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorRed;
-            documentsDataGridView.Columns.Add(removeColumn);
-        }
-
-        private void InitializeBudgetsGrid()
-        {
-            budgetsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            budgetsDataGridView.GridColor = Color.White;
-            budgetsDataGridView.AllowUserToResizeRows = false;
-            budgetsDataGridView.AllowUserToResizeColumns = true;
-            budgetsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            budgetsDataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
-            budgetsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            budgetsDataGridView.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
-            budgetsDataGridView.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
-            budgetsDataGridView.BackgroundColor = Color.White;
-            budgetsDataGridView.EnableHeadersVisualStyles = false;
-            budgetsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            budgetsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
-            budgetsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            budgetsDataGridView.RowHeadersVisible = false;
-
-            DataGridViewTextBoxColumn IDColumn = new DataGridViewTextBoxColumn()
-            {
-                Name = "ID",
-                HeaderText = "ID",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-            };
-            IDColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            budgetsDataGridView.Columns.Add(IDColumn);
-
-            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn()
-            {
-                Name = "Name",
-                HeaderText = "Názov",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-            };
-            budgetsDataGridView.Columns.Add(nameColumn);
-
-            DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
-            {
-                Name = "Last",
-                HeaderText = "",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-            };
-            budgetsDataGridView.Columns.Add(fillEmptySpaceColumn);
-
-            DataGridViewButtonColumn pdfColumn = new DataGridViewButtonColumn()
-            {
-                Name = "Pdf",
-                HeaderText = "Akcie",
-                FlatStyle = FlatStyle.Flat,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            };
-            pdfColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorLightBlue;
-            pdfColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorLightBlue;
-            budgetsDataGridView.Columns.Add(pdfColumn);
-
-            DataGridViewButtonColumn editColumn = new DataGridViewButtonColumn()
-            {
-                Name = "Edit",
-                HeaderText = "",
-                FlatStyle = FlatStyle.Flat,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            };
-            editColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorBlue;
-            editColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorBlue;
-            budgetsDataGridView.Columns.Add(editColumn);
-
-            DataGridViewButtonColumn removeColumn = new DataGridViewButtonColumn()
-            {
-                Name = "Remove",
-                HeaderText = "",
-                FlatStyle = FlatStyle.Flat,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            };
-            removeColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorRed;
-            removeColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorRed;
-            budgetsDataGridView.Columns.Add(removeColumn);
-        }
-
         private void InitializeVisitsTab()
         {
             visitsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -726,6 +592,140 @@ namespace EZKO.Forms.PatientForms
             visitsDataGridView.Columns.Add(viewColumn);
 
             FillVisitsGrid();
+        }
+
+        private void InitializeDocumentsGrid()
+        {
+            documentsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            documentsDataGridView.GridColor = Color.White;
+            documentsDataGridView.AllowUserToResizeRows = false;
+            documentsDataGridView.AllowUserToResizeColumns = true;
+            documentsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            documentsDataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
+            documentsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            documentsDataGridView.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
+            documentsDataGridView.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
+            documentsDataGridView.BackgroundColor = Color.White;
+            documentsDataGridView.EnableHeadersVisualStyles = false;
+            documentsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            documentsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
+            documentsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            documentsDataGridView.RowHeadersVisible = false;
+
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Name",
+                HeaderText = "Názov",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            documentsDataGridView.Columns.Add(nameColumn);
+
+            DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Last",
+                HeaderText = "",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+            };
+            documentsDataGridView.Columns.Add(fillEmptySpaceColumn);
+
+            DataGridViewButtonColumn showColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Show",
+                HeaderText = "Akcie",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            showColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorGreen;
+            showColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorGreen;
+            documentsDataGridView.Columns.Add(showColumn);
+
+            DataGridViewButtonColumn removeColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Remove",
+                HeaderText = "",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            removeColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorRed;
+            removeColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorRed;
+            documentsDataGridView.Columns.Add(removeColumn);
+        }
+
+        private void InitializeBudgetsGrid()
+        {
+            budgetsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            budgetsDataGridView.GridColor = Color.White;
+            budgetsDataGridView.AllowUserToResizeRows = false;
+            budgetsDataGridView.AllowUserToResizeColumns = true;
+            budgetsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            budgetsDataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
+            budgetsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            budgetsDataGridView.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
+            budgetsDataGridView.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
+            budgetsDataGridView.BackgroundColor = Color.White;
+            budgetsDataGridView.EnableHeadersVisualStyles = false;
+            budgetsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            budgetsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
+            budgetsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            budgetsDataGridView.RowHeadersVisible = false;
+
+            DataGridViewTextBoxColumn IDColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "ID",
+                HeaderText = "ID",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            IDColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            budgetsDataGridView.Columns.Add(IDColumn);
+
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Name",
+                HeaderText = "Názov",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            budgetsDataGridView.Columns.Add(nameColumn);
+
+            DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Last",
+                HeaderText = "",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+            };
+            budgetsDataGridView.Columns.Add(fillEmptySpaceColumn);
+
+            DataGridViewButtonColumn pdfColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Pdf",
+                HeaderText = "Akcie",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            pdfColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorLightBlue;
+            pdfColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorLightBlue;
+            budgetsDataGridView.Columns.Add(pdfColumn);
+
+            DataGridViewButtonColumn editColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Edit",
+                HeaderText = "",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            editColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorBlue;
+            editColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorBlue;
+            budgetsDataGridView.Columns.Add(editColumn);
+
+            DataGridViewButtonColumn removeColumn = new DataGridViewButtonColumn()
+            {
+                Name = "Remove",
+                HeaderText = "",
+                FlatStyle = FlatStyle.Flat,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
+            removeColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorRed;
+            removeColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorRed;
+            budgetsDataGridView.Columns.Add(removeColumn);
         }
 
         private void FillDocumentsGrid()

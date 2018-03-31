@@ -64,7 +64,7 @@ namespace EZKO.Forms.AdministrationForms
         }
         #endregion
 
-        public EditFormularForm(WorkingTypeEnum workingType)
+        public EditFormularForm()
         {
             InitializeComponent();
 
@@ -73,7 +73,7 @@ namespace EZKO.Forms.AdministrationForms
                 toolTip.InitialDelay = 100;
                 fieldsLabelText = "Všetky sekcie";
                 ezkoController = GlobalSettings.EzkoController;
-                this.workingType = workingType;
+                this.workingType = WorkingTypeEnum.Creating;
 
                 InitializeSectionsTextBox();
                 InitializeDataGridView();
@@ -106,6 +106,39 @@ namespace EZKO.Forms.AdministrationForms
             }
         }
 
+        #region Public methods
+        public void EditField(Field item)
+        {
+            try
+            {
+                EditFieldForm form = new EditFieldForm(item);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    if (formular != null)
+                    {
+                        FieldForm fieldForm = formular.FieldForms.FirstOrDefault(x => x.Field.ID == item.ID);
+                        if (fieldForm != null)
+                            formEditor.UpdateFieldForm(fieldForm);
+                        else
+                            formEditor.RemoveField(item.ID);
+                    }
+                    else
+                        formEditor.AddOrUpdateField(item, true, false);
+
+                    FillDataGridView(item.Section.Fields);
+                }
+
+                SelectRow(item);
+                fieldsLabelText = item.Section.Name;
+                section = item.Section;
+            }
+            catch (Exception ex)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Počas editovania poľa EZKO sa vyskytla chyba", ex);
+            }
+        }
+        #endregion
+
         #region Private methods
         private void InitializeForm()
         {
@@ -114,6 +147,7 @@ namespace EZKO.Forms.AdministrationForms
                 name = formular.Name;
                 formEditor.LoadFormular(formular);
             }
+            formEditor.SetEditFormularForm(this);
         }
 
         private void InitializeSectionsTextBox()
@@ -318,37 +352,6 @@ namespace EZKO.Forms.AdministrationForms
             Cursor = Cursors.Default;
         }
 
-        private void EditField(Field item)
-        {
-            try
-            {
-                EditFieldForm form = new EditFieldForm(item);
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    if (formular != null)
-                    {
-                        FieldForm fieldForm = formular.FieldForms.FirstOrDefault(x => x.Field.ID == item.ID);
-                        if (fieldForm != null)
-                            formEditor.UpdateFieldForm(fieldForm);
-                        else
-                            formEditor.RemoveField(item.ID);
-                    }
-                    else
-                        formEditor.AddOrUpdateField(item, true, false);
-
-                    FillDataGridView(item.Section.Fields);
-                }
-
-                SelectRow(item);
-                fieldsLabelText = item.Section.Name;
-                section = item.Section;
-            }
-            catch (Exception ex)
-            {
-                BasicMessagesHandler.ShowErrorMessage("Počas editovania poľa EZKO sa vyskytla chyba", ex);
-            }
-        }
-
         private void AddToFormular(Field item)
         {
             try
@@ -408,7 +411,7 @@ namespace EZKO.Forms.AdministrationForms
             //Section item = section;
             if (item == null && lastPickedSection != null)
             {
-                if(MessageBox.Show("Naozaj si želáte premenovať sekciu " + lastPickedSection.Name + " na " + newSectionName + "?",
+                if(MessageBox.Show("Naozaj si želáte premenovať existuj[cu sekciu " + lastPickedSection.Name + " na " + newSectionName + "?",
                     "Upozornenie", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if(ezkoController.EditSection(lastPickedSection, newSectionName))
@@ -424,6 +427,13 @@ namespace EZKO.Forms.AdministrationForms
             }
         }
 
+        private void formularFieldsButton_Click(object sender, EventArgs e)
+        {
+            section = null;
+            fieldsLabelText = "Polia použité vo formulári";
+            FillDataGridView(formEditor.GetFields());
+        }
+
         private void allSectionsButton_Click(object sender, EventArgs e)
         {
             section = null;
@@ -435,7 +445,7 @@ namespace EZKO.Forms.AdministrationForms
         {
             try
             {
-                EditFieldForm form = new EditFieldForm(WorkingTypeEnum.Creating);
+                EditFieldForm form = new EditFieldForm();
                 if(form.ShowDialog() == DialogResult.OK)
                 {
                     section = null;
@@ -501,7 +511,7 @@ namespace EZKO.Forms.AdministrationForms
                 BasicMessagesHandler.ShowInformationMessage("Sekcia s daným názvom už existuje");
             else
             {
-                if (MessageBox.Show("Naozaj si želáte vytvoriť sekciu " + sectionName + "?",
+                if (MessageBox.Show("Naozaj si želáte vytvoriť novú sekciu " + sectionName + "?",
                     "Upozornenie", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if (ezkoController.CreateSection(sectionName))
@@ -536,6 +546,21 @@ namespace EZKO.Forms.AdministrationForms
         private void editSectionButton_MouseHover(object sender, EventArgs e)
         {
             toolTip.Show("Upraviť sekciu", editSectionButton);
+        }
+
+        private void backToLastSectionButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Naposledy vybraná sekcia", backToLastSectionButton);
+        }
+
+        private void formularFieldsButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Polia z formulára", formularFieldsButton);
+        }
+
+        private void allSectionsButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Všetky sekcie", allSectionsButton);
         }
 
         private void addSectionButton_MouseHover(object sender, EventArgs e)

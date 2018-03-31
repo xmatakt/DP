@@ -40,12 +40,12 @@ namespace EZKO.Forms.AdministrationForms
         //    this.workingType = workingType;
         //}
 
-        public EditInsuranceCompanyForm(WorkingTypeEnum workingType)
+        public EditInsuranceCompanyForm()
         {
             InitializeComponent();
 
             ezkoController = GlobalSettings.EzkoController;
-            this.workingType = workingType;
+            this.workingType = WorkingTypeEnum.Creating;
         }
 
         public EditInsuranceCompanyForm(InsuranceCompany insuranceCompany)

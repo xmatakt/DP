@@ -185,12 +185,13 @@ namespace EZKO.Forms.AdministrationForms
         }
         #endregion
 
-        public EditFieldForm(WorkingTypeEnum workingType)
+        public EditFieldForm()
         {
             InitializeComponent();
 
             ezkoController = GlobalSettings.EzkoController;
-            this.workingType = workingType;
+            this.workingType = WorkingTypeEnum.Creating;
+            recreateButton.Visible = false;
 
             InitializeForm();
         }
@@ -202,7 +203,7 @@ namespace EZKO.Forms.AdministrationForms
             workingType = WorkingTypeEnum.Editing;
             ezkoController = GlobalSettings.EzkoController;
             this.field = field;
-            addButton.Text = "Upraviť pole EZKO";
+            addButton.Text = "Uložiť zmeny v poli";
 
             InitializeForm();
         }
@@ -391,6 +392,12 @@ namespace EZKO.Forms.AdministrationForms
                     nameTextBox.Focus();
                     result = false;
                 }
+                else if (ezkoController.GetFields().FirstOrDefault(x => x.Name == name) != null)
+                {
+                    BasicMessagesHandler.ShowInformationMessage("Zvolený názov poľa už existuje");
+                    nameTextBox.Focus();
+                    result = false;
+                }
                 else if (fieldType == null)
                 {
                     BasicMessagesHandler.ShowInformationMessage("Musíte si zvoliť typ poľa EZKO");
@@ -566,6 +573,11 @@ namespace EZKO.Forms.AdministrationForms
         private void addButton_Click(object sender, EventArgs e)
         {
             CreateOrUpdate();
+        }
+
+        private void recreateButton_Click(object sender, EventArgs e)
+        {
+            CreateData();
         }
 
         private void fieldTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)

@@ -10,6 +10,11 @@ namespace Mailer
 {
     public class SimpleMailer
     {
+        /// <summary>
+        /// Function to sending emails to provided recipients.
+        /// </summary>
+        /// <param name="emails">Addresses of email recipients</param>
+        /// <returns>VAlue indicating whether the messages were send successfully</returns>
         public bool SendEmail(string emails)
         {
             bool result = true;

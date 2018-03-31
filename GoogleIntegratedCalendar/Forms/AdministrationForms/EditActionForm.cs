@@ -129,12 +129,12 @@ namespace EZKO.Forms.AdministrationForms
         }
         #endregion
 
-        public EditActionForm(WorkingTypeEnum workingType)
+        public EditActionForm()
         {
             InitializeComponent();
 
             ezkoController = GlobalSettings.EzkoController;
-            this.workingType = workingType;
+            this.workingType = WorkingTypeEnum.Creating;
 
             InitializeForm();
         }
@@ -177,7 +177,8 @@ namespace EZKO.Forms.AdministrationForms
                 BasicMessagesHandler.ShowErrorMessage("Pri načítavaní výkonu sa vyskytla chyba", e);
             }
         }
-        private void InitializeForm(InsuranceCompany company = null)
+
+        private void InitializeForm()
         {
             InitializeInsuranceCompaniesComboBox();
             InitializeEZKOFieldsComboBox();

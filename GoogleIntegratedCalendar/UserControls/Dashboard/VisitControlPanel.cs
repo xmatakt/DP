@@ -278,6 +278,7 @@ namespace EZKO.UserControls.Dashboard
             this.workingType = workingType;
             SetControlWorkingBehavior();
         }
+
         public void SetEzkoController(EzkoController ezkoController)
         {
             this.ezkoController = ezkoController;
@@ -966,7 +967,6 @@ namespace EZKO.UserControls.Dashboard
                     eventPatient.RootDirectoryPath = rootFolderPath;
                     if (!ezkoController.SaveChanges())
                         BasicMessagesHandler.ShowErrorMessage("Nepodarilo sa uložiť cestu ku koreňovému adresáru pacienta.");
-                    ChangesHolder.PatientsChanged = true;
                 }
             }
 
@@ -1011,7 +1011,7 @@ namespace EZKO.UserControls.Dashboard
                 }
             }
 
-            if (ezkoController.UpdateCalendarEvent(calendarEvent, doctors, nurses, infrastructures, eventStartDateTime.Value, eventDuration, notificationEmails,
+            if (ezkoController.EditCalendarEvent(calendarEvent, doctors, nurses, infrastructures, eventStartDateTime.Value, eventDuration, notificationEmails,
                     eventNote, plannedActions, plannedText, eventState, doneActions, doneText))
             {
                 //sync & show
@@ -1043,7 +1043,7 @@ namespace EZKO.UserControls.Dashboard
 
         private void DeleteEvent()
         {
-            if (ezkoController.DeleteEvent(calendarEvent))
+            if (ezkoController.RemoveEvent(calendarEvent))
             {
                 if (calendarControl != null)
                     calendarControl.RemoveCalendarItem(calendarEvent);
@@ -1265,11 +1265,11 @@ namespace EZKO.UserControls.Dashboard
             if ((e.State & DrawItemState.Selected) != 0)
                 ControlPaint.DrawFocusRectangle(e.Graphics, e.Bounds);
         }
-        #endregion
 
         private void deleteEventButton_Leave(object sender, EventArgs e)
         {
             messageForUser = null;
         }
+        #endregion
     }
 }

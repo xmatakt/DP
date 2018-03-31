@@ -123,7 +123,7 @@ namespace EZKO.UserControls.Administration
 
         private void usersMnuItem_AddButtonClick(object sender, EventArgs e)
         {
-            var form = new EditUserForm(Enums.WorkingTypeEnum.Creating);
+            var form = new EditUserForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ShowUsersPanel();
@@ -133,7 +133,7 @@ namespace EZKO.UserControls.Administration
 
         private void insuranceCompaniesMenuItem_AddButtonClick(object sender, EventArgs e)
         {
-            var form = new EditInsuranceCompanyForm(Enums.WorkingTypeEnum.Creating);
+            var form = new EditInsuranceCompanyForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ShowInsurancePanel();
@@ -143,7 +143,7 @@ namespace EZKO.UserControls.Administration
 
         private void actionsMenuItem_AddButtonClick(object sender, EventArgs e)
         {
-            var form = new EditActionForm(Enums.WorkingTypeEnum.Creating);
+            var form = new EditActionForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ShowActionsPanel();
@@ -153,7 +153,7 @@ namespace EZKO.UserControls.Administration
 
         private void infrastructureMenuItem_AddButtonClick(object sender, EventArgs e)
         {
-            var form = new EditInfrastructureForm(Enums.WorkingTypeEnum.Creating);
+            var form = new EditInfrastructureForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ShowInfrastructurePanel();
@@ -183,7 +183,7 @@ namespace EZKO.UserControls.Administration
 
         private void formularsMenuItem_AddButtonClick(object sender, EventArgs e)
         {
-            var form = new EditFormularForm(Enums.WorkingTypeEnum.Creating);
+            var form = new EditFormularForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ShowFormularsPanel();
@@ -193,7 +193,7 @@ namespace EZKO.UserControls.Administration
 
         private void ezkoFieldsMenuItem_AddButtonClick(object sender, EventArgs e)
         {
-            var form = new EditFieldForm(Enums.WorkingTypeEnum.Creating);
+            var form = new EditFieldForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 ShowFieldsPanel();

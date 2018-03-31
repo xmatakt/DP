@@ -61,31 +61,38 @@ namespace EZKO
 
         public MainForm()
         {
-            GlobalSettings.Load();
-            BasicMessagesHandler.SetLogFilePath(GlobalSettings.LogFilePath);
-
-            ezkoController = GlobalSettings.EzkoController;
-            //ezkoController.CreateFirstUser();
-
-            //loggin in the user
-            if (new LoginForm(ezkoController).ShowDialog() == DialogResult.OK)
+            try
             {
-                //Set language for GUI items
-                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo(GlobalSettings.LanguagePrefix);
-                Thread.CurrentThread.CurrentCulture = culture;
-                Thread.CurrentThread.CurrentUICulture = culture;
+                GlobalSettings.Load();
+                BasicMessagesHandler.SetLogFilePath(GlobalSettings.LogFilePath);
 
-                InitializeComponent();
+                ezkoController = GlobalSettings.EzkoController;
+                //ezkoController.CreateFirstUser();
 
-                var workingArea = Screen.FromHandle(Handle).WorkingArea;
-                MaximizedBounds = new Rectangle(-8, -8, workingArea.Width + 16, workingArea.Height + 16);
-                userNameLabel.Text += " " + GlobalSettings.User.Login;
+                //loggin in the user
+                if (new LoginForm(ezkoController).ShowDialog() == DialogResult.OK)
+                {
+                    //Set language for GUI items
+                    System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo(GlobalSettings.LanguagePrefix);
+                    Thread.CurrentThread.CurrentCulture = culture;
+                    Thread.CurrentThread.CurrentUICulture = culture;
 
-                LoadPanels();
+                    InitializeComponent();
+
+                    var workingArea = Screen.FromHandle(Handle).WorkingArea;
+                    MaximizedBounds = new Rectangle(-8, -8, workingArea.Width + 16, workingArea.Height + 16);
+                    userNameLabel.Text += " " + GlobalSettings.User.Login;
+
+                    LoadPanels();
+                }
+                else
+                {
+                    Environment.Exit(0);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Environment.Exit(0);
+                BasicMessagesHandler.ShowErrorMessage("Vyskytla sa neočakávaná chyba!", ex);
             }
         }
 

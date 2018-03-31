@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace DatabaseCommunicator.Classes
 {
+    /// <summary>
+    /// Class representating the filter for CalendarEvents
+    /// </summary>
     public class CalendarEventFilter
     {
         public User Doctor { get; set; }

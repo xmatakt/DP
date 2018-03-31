@@ -47,6 +47,7 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.sectionsTextBox = new EZKO.UserControls.Other.AutoCompleteTextBox();
             this.backToLastSectionButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.formularFieldsButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.allSectionsButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.addFiledButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.addSectionButton = new EZKO.UserControls.FlatControls.RoundButton();
@@ -240,6 +241,7 @@
             this.leftPanel.Controls.Add(this.dataGridView);
             this.leftPanel.Controls.Add(this.sectionsTextBox);
             this.leftPanel.Controls.Add(this.backToLastSectionButton);
+            this.leftPanel.Controls.Add(this.formularFieldsButton);
             this.leftPanel.Controls.Add(this.allSectionsButton);
             this.leftPanel.Controls.Add(this.addFiledButton);
             this.leftPanel.Controls.Add(this.addSectionButton);
@@ -301,7 +303,7 @@
             this.backToLastSectionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backToLastSectionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.backToLastSectionButton.ForeColor = System.Drawing.Color.White;
-            this.backToLastSectionButton.Location = new System.Drawing.Point(362, 101);
+            this.backToLastSectionButton.Location = new System.Drawing.Point(328, 101);
             this.backToLastSectionButton.Name = "backToLastSectionButton";
             this.backToLastSectionButton.Radius = 5;
             this.backToLastSectionButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
@@ -309,6 +311,28 @@
             this.backToLastSectionButton.TabIndex = 13;
             this.backToLastSectionButton.UseVisualStyleBackColor = false;
             this.backToLastSectionButton.Click += new System.EventHandler(this.backToLastSectionButton_Click);
+            this.backToLastSectionButton.MouseHover += new System.EventHandler(this.backToLastSectionButton_MouseHover);
+            // 
+            // formularFieldsButton
+            // 
+            this.formularFieldsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.formularFieldsButton.BackgroundImage = global::EZKO.Properties.Resources.formular_black_24;
+            this.formularFieldsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.formularFieldsButton.FlatAppearance.BorderSize = 0;
+            this.formularFieldsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.formularFieldsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.formularFieldsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.formularFieldsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.formularFieldsButton.ForeColor = System.Drawing.Color.White;
+            this.formularFieldsButton.Location = new System.Drawing.Point(362, 101);
+            this.formularFieldsButton.Name = "formularFieldsButton";
+            this.formularFieldsButton.Radius = 5;
+            this.formularFieldsButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.formularFieldsButton.Size = new System.Drawing.Size(28, 20);
+            this.formularFieldsButton.TabIndex = 13;
+            this.formularFieldsButton.UseVisualStyleBackColor = false;
+            this.formularFieldsButton.Click += new System.EventHandler(this.formularFieldsButton_Click);
+            this.formularFieldsButton.MouseHover += new System.EventHandler(this.formularFieldsButton_MouseHover);
             // 
             // allSectionsButton
             // 
@@ -329,6 +353,7 @@
             this.allSectionsButton.TabIndex = 13;
             this.allSectionsButton.UseVisualStyleBackColor = false;
             this.allSectionsButton.Click += new System.EventHandler(this.allSectionsButton_Click);
+            this.allSectionsButton.MouseHover += new System.EventHandler(this.allSectionsButton_MouseHover);
             // 
             // addFiledButton
             // 
@@ -480,5 +505,6 @@
         private UserControls.FlatControls.RoundButton addFiledButton;
         private System.Windows.Forms.ToolTip toolTip;
         private UserControls.FlatControls.RoundButton backToLastSectionButton;
+        private UserControls.FlatControls.RoundButton formularFieldsButton;
     }
 }

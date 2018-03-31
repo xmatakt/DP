@@ -45,7 +45,7 @@ namespace EZKO.UserControls.Dashboard
             visitUserControl.SetCalendarControl(this);
             visitUserControl.SetEzkoController(ezkoController);
 
-            findEventUserControl.SetEzkoController(ezkoController);
+            //findEventUserControl.SetEzkoController(ezkoController);
             findEventUserControl.SetVisitUserControl(visitUserControl);
             findEventUserControl.SetCalendarControl(this);
 
@@ -528,11 +528,11 @@ namespace EZKO.UserControls.Dashboard
         {
             calendar.TimeScale = CalendarTimeScale.SixtyMinutes;
         }
-        #endregion
-
         private void GoogleIntegratedCalendarControl_Load(object sender, EventArgs e)
         {
             ScrollToTimeUnit();
         }
+
+        #endregion
     }
 }
