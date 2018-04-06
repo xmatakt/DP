@@ -507,26 +507,31 @@ namespace EZKO.UserControls.Dashboard
         private void minuteInterval5ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             calendar.TimeScale = CalendarTimeScale.FiveMinutes;
+            ScrollToTimeUnit();
         }
 
         private void minuteInterval10ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             calendar.TimeScale = CalendarTimeScale.TenMinutes;
+            ScrollToTimeUnit();
         }
 
         private void minuteInterval15ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             calendar.TimeScale = CalendarTimeScale.FifteenMinutes;
+            ScrollToTimeUnit();
         }
 
         private void minuteInterval30ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             calendar.TimeScale = CalendarTimeScale.ThirtyMinutes;
+            ScrollToTimeUnit();
         }
 
         private void minuteInterval60ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             calendar.TimeScale = CalendarTimeScale.SixtyMinutes;
+            ScrollToTimeUnit();
         }
         private void GoogleIntegratedCalendarControl_Load(object sender, EventArgs e)
         {

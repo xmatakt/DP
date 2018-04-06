@@ -173,6 +173,7 @@
           <Property Name="TypeID" Type="int" Nullable="false" />
           <Property Name="SectionID" Type="int" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="FieldAnswer">
           <Key>
@@ -1239,6 +1240,7 @@
           <NavigationProperty Name="FieldForms" Relationship="EzkoModel.FK_FieldForm_di751208784575018668" FromRole="Field" ToRole="FieldForm" />
           <NavigationProperty Name="FieldValues" Relationship="EzkoModel.FK_FieldValue_di229197202395043558" FromRole="Field" ToRole="FieldValue" />
           <NavigationProperty Name="FilledFields" Relationship="EzkoModel.FK_FilledField_di173890722565984799" FromRole="Field" ToRole="FilledField" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FieldForm">
           <Key>
@@ -1938,6 +1940,7 @@
           <EntitySetMapping Name="Fields">
             <EntityTypeMapping TypeName="EzkoModel.Field">
               <MappingFragment StoreEntitySet="Field">
+                <ScalarProperty Name="Question" ColumnName="Question" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="SectionID" ColumnName="SectionID" />
                 <ScalarProperty Name="TypeID" ColumnName="TypeID" />

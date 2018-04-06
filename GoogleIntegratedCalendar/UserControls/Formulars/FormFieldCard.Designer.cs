@@ -30,13 +30,13 @@
         {
             this.mainFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.topPanel = new System.Windows.Forms.Panel();
-            this.questionTextBox = new System.Windows.Forms.TextBox();
-            this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.fieldNameLabel = new System.Windows.Forms.Label();
             this.editFieldButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.removeButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.downButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.upButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.questionTextBox = new System.Windows.Forms.TextBox();
+            this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.mainFlowPanel.SuspendLayout();
             this.topPanel.SuspendLayout();
             this.SuspendLayout();
@@ -73,33 +73,6 @@
             this.topPanel.MouseLeave += new System.EventHandler(this.topPanel_MouseLeave);
             this.topPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseMove);
             this.topPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.topPanel_MouseUp);
-            // 
-            // questionTextBox
-            // 
-            this.questionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.questionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questionTextBox.Location = new System.Drawing.Point(3, 38);
-            this.questionTextBox.Name = "questionTextBox";
-            this.questionTextBox.Size = new System.Drawing.Size(479, 20);
-            this.questionTextBox.TabIndex = 3;
-            this.questionTextBox.Text = "Otázka do formulára";
-            this.questionTextBox.Enter += new System.EventHandler(this.questionTextBox_Enter);
-            this.questionTextBox.Leave += new System.EventHandler(this.questionTextBox_Leave);
-            // 
-            // flowPanel
-            // 
-            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowPanel.AutoSize = true;
-            this.flowPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flowPanel.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowPanel.Location = new System.Drawing.Point(3, 64);
-            this.flowPanel.MinimumSize = new System.Drawing.Size(479, 0);
-            this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(479, 0);
-            this.flowPanel.TabIndex = 4;
             // 
             // fieldNameLabel
             // 
@@ -192,6 +165,34 @@
             this.upButton.TabIndex = 1;
             this.upButton.UseVisualStyleBackColor = false;
             this.upButton.Click += new System.EventHandler(this.upButton_Click);
+            // 
+            // questionTextBox
+            // 
+            this.questionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionTextBox.Enabled = false;
+            this.questionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.questionTextBox.Location = new System.Drawing.Point(3, 38);
+            this.questionTextBox.Name = "questionTextBox";
+            this.questionTextBox.Size = new System.Drawing.Size(479, 20);
+            this.questionTextBox.TabIndex = 3;
+            this.questionTextBox.Text = "Otázka do formulára";
+            this.questionTextBox.Enter += new System.EventHandler(this.questionTextBox_Enter);
+            this.questionTextBox.Leave += new System.EventHandler(this.questionTextBox_Leave);
+            // 
+            // flowPanel
+            // 
+            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowPanel.AutoSize = true;
+            this.flowPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowPanel.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowPanel.Location = new System.Drawing.Point(3, 64);
+            this.flowPanel.MinimumSize = new System.Drawing.Size(479, 0);
+            this.flowPanel.Name = "flowPanel";
+            this.flowPanel.Size = new System.Drawing.Size(479, 0);
+            this.flowPanel.TabIndex = 4;
             // 
             // FormFieldCard
             // 

@@ -111,7 +111,8 @@ namespace EZKO.UserControls.Formulars
             {
                 FormFieldCard card = new FormFieldCard()
                 {
-                    Question = item.Question.Value,
+                    //Question = item.Question.Value,
+                    Question = item.Field.Question,
                     CardWidth = mainPanel.Width - diffX,
                     EditorMainPanel = mainPanel,
                     MainControl = this,
@@ -166,7 +167,7 @@ namespace EZKO.UserControls.Formulars
             if(!containsField && addField)
             {
                 FormFieldCard lastCard = FindLastCard();
-                FormFieldCard card = new FormFieldCard() { CardWidth = mainPanel.Width - diffX, EditorMainPanel = mainPanel, MainControl = this };
+                FormFieldCard card = new FormFieldCard() { CardWidth = mainPanel.Width - diffX, EditorMainPanel = mainPanel, MainControl = this, Question = field.Question };
                 card.CardMouseMove += card_MouseMove;
                 card.CardMouseMove += card_MouseMove;
                 card.CardMouseUp += card_MouseUp;
@@ -198,7 +199,7 @@ namespace EZKO.UserControls.Formulars
                     if(card.Field.ID == fieldForm.Field.ID)
                     {
                         card.SetField(fieldForm.Field);
-                        card.Question = fieldForm.Question.Value;
+                        //card.Question = fieldForm.Question.Value;
                         wasUpdated = true;
                         RedrawFormular();
                         card.Focus();
@@ -273,6 +274,18 @@ namespace EZKO.UserControls.Formulars
 
             return result;
         }
+
+        public IEnumerable<Section> GetSections()
+        {
+            List<Section> result = new List<Section>();
+
+            foreach (var item in mainPanel.Controls)
+                if (item is FormFieldCard cardItem && cardItem.Field != null)
+                    if(!result.Contains(cardItem.Field.Section))
+                        result.Add(cardItem.Field.Section);
+
+            return result;
+        }
         #endregion
 
         #region Private methods
@@ -324,7 +337,7 @@ namespace EZKO.UserControls.Formulars
             FormFieldCard lastCard = FindLastCard();
             FormFieldCard card = new FormFieldCard()
             {
-                Question = fieldForm.Question.Value,
+                //Question = fieldForm.Question.Value,
                 CardWidth = mainPanel.Width - diffX,
                 EditorMainPanel = mainPanel,
                 MainControl = this,

@@ -30,6 +30,7 @@ namespace DatabaseCommunicator.Model
         public int TypeID { get; set; }
         public int SectionID { get; set; }
         public bool IsDeleted { get; set; }
+        public string Question { get; set; }
     
         public virtual ICollection<Action> Actions { get; set; }
         public virtual FieldType FieldType { get; set; }

@@ -87,6 +87,19 @@ namespace EZKO.Forms.AdministrationForms
             set { descriptionRichTextBox.Text = value; }
         }
 
+        private string question
+        {
+            get
+            {
+                string val = questionTextBox.Text.Trim();
+                if (val.Length < 1)
+                    val = null;
+
+                return val;
+            }
+            set { questionTextBox.Text = value; }
+        }
+
         private List<FieldForm> affectedFormulars
         {
             get
@@ -237,6 +250,7 @@ namespace EZKO.Forms.AdministrationForms
                 fieldType = field.FieldType;
                 section = field.Section;
                 description = field.Description;
+                question = field.Question;
 
                 fieldValues = field.FieldValues.ToList();
             }
@@ -392,12 +406,6 @@ namespace EZKO.Forms.AdministrationForms
                     nameTextBox.Focus();
                     result = false;
                 }
-                else if (ezkoController.GetFields().FirstOrDefault(x => x.Name == name) != null)
-                {
-                    BasicMessagesHandler.ShowInformationMessage("Zvolený názov poľa už existuje");
-                    nameTextBox.Focus();
-                    result = false;
-                }
                 else if (fieldType == null)
                 {
                     BasicMessagesHandler.ShowInformationMessage("Musíte si zvoliť typ poľa EZKO");
@@ -410,11 +418,41 @@ namespace EZKO.Forms.AdministrationForms
                     sectionComboBox.Focus();
                     result = false;
                 }
-                else if(affectedFormulars == null)
+                else if (question == null)
                 {
+                    BasicMessagesHandler.ShowInformationMessage("Musíte zadať otázku");
+                    questionTextBox.Focus();
                     result = false;
                 }
-                else if(fieldValues != null && fieldValues.Count == 0)
+                else 
+                {
+                    Field foundedField = ezkoController.GetFields().FirstOrDefault(x => x.Name == name &&
+                    x.SectionID == section.ID &&
+                    x.Question == question &&
+                    x.TypeID == fieldType.ID);
+
+                    if(foundedField != null)
+                    {
+                        if (workingType == WorkingTypeEnum.Editing)
+                        {
+                            if (foundedField.ID != field.ID)
+                            {
+                                BasicMessagesHandler.ShowInformationMessage("Zvolené pole už existuje");
+                                result = false;
+                            }
+                        }
+                        else if (foundedField != null)
+                        {
+                            BasicMessagesHandler.ShowInformationMessage("Zvolené pole už existuje");
+                            result = false;
+                        }
+                    }
+                }
+                //else if(affectedFormulars == null)
+                //{
+                //    result = false;
+                //}
+                if (result && fieldValues != null && fieldValues.Count == 0)
                 {
                     if(fieldType.ID != (int)FieldTypeEnum.Text && fieldType.ID != (int)FieldTypeEnum.LongText)
                     {
@@ -440,7 +478,7 @@ namespace EZKO.Forms.AdministrationForms
                 Cursor = Cursors.WaitCursor;
                 if (ValidateData())
                 {
-                    if (ezkoController.CreateField(name, standardNumber, otherName, fieldType, section, description, fieldValues, affectedFormulars))
+                    if (ezkoController.CreateField(name, standardNumber, otherName, fieldType, section, description, fieldValues, question))
                         BasicMessagesHandler.ShowInformationMessage("Pole EZKO bolo úspešne vytvorené");
                     else
                         BasicMessagesHandler.ShowErrorMessage("Počas vytvárania poľa EZKO sa vyskytla chyba");
@@ -464,7 +502,7 @@ namespace EZKO.Forms.AdministrationForms
                 Cursor = Cursors.WaitCursor;
                 if (ValidateData())
                 {
-                    if (!ezkoController.EditField(field, name, standardNumber, otherName, fieldType, section, description, fieldValues, affectedFormulars))
+                    if (!ezkoController.EditField(field, name, standardNumber, otherName, fieldType, section, description, fieldValues, question))
                         BasicMessagesHandler.ShowErrorMessage("Počas úpravy poľa EZKO sa vyskytla chyba");
                 }
                 else
@@ -577,7 +615,12 @@ namespace EZKO.Forms.AdministrationForms
 
         private void recreateButton_Click(object sender, EventArgs e)
         {
-            CreateData();
+            var wType = workingType;
+            workingType = WorkingTypeEnum.Creating;
+            //CreateData();
+
+            CreateOrUpdate();
+            workingType = wType;
         }
 
         private void fieldTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)

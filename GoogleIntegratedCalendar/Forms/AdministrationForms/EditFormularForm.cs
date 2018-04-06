@@ -73,10 +73,11 @@ namespace EZKO.Forms.AdministrationForms
                 toolTip.InitialDelay = 100;
                 fieldsLabelText = "Všetky sekcie";
                 ezkoController = GlobalSettings.EzkoController;
-                this.workingType = WorkingTypeEnum.Creating;
+                workingType = WorkingTypeEnum.Creating;
 
                 InitializeSectionsTextBox();
-                InitializeDataGridView();
+                InitializeDataGridViews();
+                formEditor.SetEditFormularForm(this);
             }
             catch (Exception ex)
             {
@@ -97,8 +98,8 @@ namespace EZKO.Forms.AdministrationForms
                 fieldsLabelText = "Všetky sekcie";
 
                 InitializeSectionsTextBox();
-                InitializeForm();
-                InitializeDataGridView();
+                InitializeFormular();
+                InitializeDataGridViews();
             }
             catch (Exception ex)
             {
@@ -114,18 +115,18 @@ namespace EZKO.Forms.AdministrationForms
                 EditFieldForm form = new EditFieldForm(item);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    if (formular != null)
-                    {
-                        FieldForm fieldForm = formular.FieldForms.FirstOrDefault(x => x.Field.ID == item.ID);
-                        if (fieldForm != null)
-                            formEditor.UpdateFieldForm(fieldForm);
-                        else
-                            formEditor.RemoveField(item.ID);
-                    }
-                    else
-                        formEditor.AddOrUpdateField(item, true, false);
+                    //if (formular != null)
+                    //{
+                    //    //FieldForm fieldForm = formular.FieldForms.FirstOrDefault(x => x.Field.ID == item.ID);
+                    //    //if (fieldForm != null)
+                    //    //    formEditor.UpdateFieldForm(fieldForm);
+                    //    //else
+                    //    //    formEditor.RemoveField(item.ID);
+                    //}
+                    //else
+                    formEditor.AddOrUpdateField(item, true, false);
 
-                    FillDataGridView(item.Section.Fields);
+                    FillFieldDataGridView(item.Section.Fields);
                 }
 
                 SelectRow(item);
@@ -140,7 +141,7 @@ namespace EZKO.Forms.AdministrationForms
         #endregion
 
         #region Private methods
-        private void InitializeForm()
+        private void InitializeFormular()
         {
             if (formular != null)
             {
@@ -157,24 +158,30 @@ namespace EZKO.Forms.AdministrationForms
             sectionsTextBox.Values = values;
         }
 
-        private void InitializeDataGridView()
+        private void InitializeDataGridViews()
         {
-            dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView.GridColor = Color.White;
-            dataGridView.AllowUserToResizeRows = false;
-            dataGridView.AllowUserToResizeColumns = true;
-            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
-            dataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridView.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
-            dataGridView.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
-            dataGridView.BackgroundColor = Color.White;
-            dataGridView.EnableHeadersVisualStyles = false;
-            dataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
-            dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dataGridView.MultiSelect = false;
-            dataGridView.RowHeadersVisible = false;
+            InitializeFieldsDataGridView();
+            InitializeSectionsDataGridView();
+        }
+
+        private void InitializeFieldsDataGridView()
+        {
+            fieldsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            fieldsDataGridView.GridColor = Color.White;
+            fieldsDataGridView.AllowUserToResizeRows = false;
+            fieldsDataGridView.AllowUserToResizeColumns = true;
+            fieldsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            fieldsDataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
+            fieldsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            fieldsDataGridView.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
+            fieldsDataGridView.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
+            fieldsDataGridView.BackgroundColor = Color.White;
+            fieldsDataGridView.EnableHeadersVisualStyles = false;
+            fieldsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            fieldsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
+            fieldsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            fieldsDataGridView.MultiSelect = false;
+            fieldsDataGridView.RowHeadersVisible = false;
 
 
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn()
@@ -183,7 +190,7 @@ namespace EZKO.Forms.AdministrationForms
                 HeaderText = "Názov poľa",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             };
-            dataGridView.Columns.Add(nameColumn);
+            fieldsDataGridView.Columns.Add(nameColumn);
 
             DataGridViewTextBoxColumn sectionColumn = new DataGridViewTextBoxColumn()
             {
@@ -191,7 +198,7 @@ namespace EZKO.Forms.AdministrationForms
                 HeaderText = "Sekcia",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             };
-            dataGridView.Columns.Add(sectionColumn);
+            fieldsDataGridView.Columns.Add(sectionColumn);
 
             DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
             {
@@ -199,7 +206,7 @@ namespace EZKO.Forms.AdministrationForms
                 HeaderText = "",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
             };
-            dataGridView.Columns.Add(fillEmptySpaceColumn);
+            fieldsDataGridView.Columns.Add(fillEmptySpaceColumn);
 
             DataGridViewImageColumn editColumn = new DataGridViewImageColumn()
             {
@@ -210,7 +217,7 @@ namespace EZKO.Forms.AdministrationForms
             };
             //editColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorGreen;
             //editColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorGreen;
-            dataGridView.Columns.Add(editColumn);
+            fieldsDataGridView.Columns.Add(editColumn);
 
             DataGridViewImageColumn addColumn = new DataGridViewImageColumn()
             {
@@ -222,22 +229,61 @@ namespace EZKO.Forms.AdministrationForms
             };
             //addColumn.CellTemplate.Style.BackColor = Colors.FlatButtonColorGreen;
             //addColumn.CellTemplate.Style.SelectionBackColor = Colors.FlatButtonColorGreen;
-            dataGridView.Columns.Add(addColumn);
+            fieldsDataGridView.Columns.Add(addColumn);
 
-            FillDataGridView(ezkoController.GetFields());
+            FillFieldDataGridView(ezkoController.GetFields());
         }
 
-        private void FillDataGridView(IEnumerable<Field> fields)
+        private void InitializeSectionsDataGridView()
+        {
+            sectionsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            sectionsDataGridView.GridColor = Color.White;
+            sectionsDataGridView.AllowUserToResizeRows = false;
+            sectionsDataGridView.AllowUserToResizeColumns = true;
+            sectionsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            sectionsDataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
+            sectionsDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            sectionsDataGridView.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
+            sectionsDataGridView.DefaultCellStyle.SelectionForeColor = Color.WhiteSmoke;
+            sectionsDataGridView.BackgroundColor = Color.White;
+            sectionsDataGridView.EnableHeadersVisualStyles = false;
+            sectionsDataGridView.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            sectionsDataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(20, 25, 72);
+            sectionsDataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            sectionsDataGridView.MultiSelect = false;
+            sectionsDataGridView.RowHeadersVisible = false;
+
+
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Name",
+                HeaderText = "Názov sekcie",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            sectionsDataGridView.Columns.Add(nameColumn);
+
+            DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Last",
+                HeaderText = "",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+            };
+            sectionsDataGridView.Columns.Add(fillEmptySpaceColumn);
+
+            FillSectionsDataGridView(ezkoController.GetSections());
+        }
+
+        private void FillFieldDataGridView(IEnumerable<Field> fields)
         {
             try
             {
-                dataGridView.Rows.Clear();
+                fieldsDataGridView.Rows.Clear();
 
                 foreach (var item in fields)
                 {
-                    int rowIndex = dataGridView.Rows.Add(new object[]
+                    int rowIndex = fieldsDataGridView.Rows.Add(new object[]
                     {item.Name, item.Section.Name, "", Properties.Resources.edit_black_16, Properties.Resources.right_arrow_16});
-                    dataGridView.Rows[rowIndex].Tag = item;
+                    fieldsDataGridView.Rows[rowIndex].Tag = item;
                 }
             }
             catch (Exception ex)
@@ -246,11 +292,30 @@ namespace EZKO.Forms.AdministrationForms
             }
         }
 
+        private void FillSectionsDataGridView(IEnumerable<Section> sections)
+        {
+            try
+            {
+                sectionsDataGridView.Rows.Clear();
+
+                foreach (var item in sections)
+                {
+                    int rowIndex = sectionsDataGridView.Rows.Add(new object[]
+                    {item.Name, ""});
+                    sectionsDataGridView.Rows[rowIndex].Tag = item;
+                }
+            }
+            catch (Exception ex)
+            {
+                BasicMessagesHandler.ShowErrorMessage("Počas napĺňania prehľadu sekcií sa vyskytla chyba", ex);
+            }
+        }
+
         private void SelectRow(Field item)
         {
             if (item == null) return;
 
-            foreach (DataGridViewRow row in dataGridView.Rows)
+            foreach (DataGridViewRow row in fieldsDataGridView.Rows)
             {
                 if(row.Tag is Field field && field.ID == item.ID)
                 {
@@ -275,6 +340,7 @@ namespace EZKO.Forms.AdministrationForms
                     break;
             }
         }
+
         private bool ValidateData(List<FieldForm> formFields)
         {
             bool result = true;
@@ -338,8 +404,13 @@ namespace EZKO.Forms.AdministrationForms
                 List<FieldForm> formFields = formEditor.FormFields;
                 if (ValidateData(formFields))
                 {
-                    if (!ezkoController.EditFormular(formular, name, formFields))
-                        BasicMessagesHandler.ShowErrorMessage("Počas úpravy anamnestického formulára sa vyskytla chyba");
+                    if (ezkoController.EditFormular(formular, name, formFields))
+                    {
+                        BasicMessagesHandler.ShowInformationMessage("Formulár bol úspešne upravený");
+                        DialogResult = DialogResult.None;
+                    }
+                    else
+                        BasicMessagesHandler.ShowErrorMessage("Počas úpravy formulára sa vyskytla chyba");
                 }
                 else
                     DialogResult = DialogResult.None;
@@ -399,7 +470,7 @@ namespace EZKO.Forms.AdministrationForms
             Section item = section;
             if (item != null)
             {
-                FillDataGridView(item.Fields.Where(x => !x.IsDeleted));
+                FillFieldDataGridView(item.Fields.Where(x => !x.IsDeleted));
                 fieldsLabelText = item.Name;
             }
         }
@@ -419,7 +490,8 @@ namespace EZKO.Forms.AdministrationForms
                         InitializeSectionsTextBox();
                         sectionsTextBox.Text = newSectionName;
                         fieldsLabelText = newSectionName;
-                        FillDataGridView(lastPickedSection.Fields);
+                        FillFieldDataGridView(lastPickedSection.Fields);
+                        FillSectionsDataGridView(ezkoController.GetSections());
                     }
                     else
                         BasicMessagesHandler.ShowErrorMessage("Pri editácií sekcie sa vyskytla chyba");
@@ -431,14 +503,24 @@ namespace EZKO.Forms.AdministrationForms
         {
             section = null;
             fieldsLabelText = "Polia použité vo formulári";
-            FillDataGridView(formEditor.GetFields());
+            FillFieldDataGridView(formEditor.GetFields());
         }
 
         private void allSectionsButton_Click(object sender, EventArgs e)
         {
             section = null;
             fieldsLabelText = "Všetky sekcie";
-            FillDataGridView(ezkoController.GetFields());
+            FillFieldDataGridView(ezkoController.GetFields());
+        }
+
+        private void formularSectionsButton_Click(object sender, EventArgs e)
+        {
+            FillSectionsDataGridView(formEditor.GetSections());
+        }
+
+        private void allSectionsButton2_Click(object sender, EventArgs e)
+        {
+            FillSectionsDataGridView(ezkoController.GetSections());
         }
 
         private void addFiledButton_Click(object sender, EventArgs e)
@@ -450,7 +532,7 @@ namespace EZKO.Forms.AdministrationForms
                 {
                     section = null;
                     fieldsLabelText = "Všetky sekcie";
-                    FillDataGridView(ezkoController.GetFields());
+                    FillFieldDataGridView(ezkoController.GetFields());
 
                     //if new field was added into edited formular
                     if (formular != null)
@@ -471,17 +553,17 @@ namespace EZKO.Forms.AdministrationForms
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView.Columns[e.ColumnIndex] is DataGridViewImageColumn && e.RowIndex >= 0)
+            if (fieldsDataGridView.Columns[e.ColumnIndex] is DataGridViewImageColumn && e.RowIndex >= 0)
             {
-                Field item = dataGridView.Rows[e.RowIndex].Tag as Field;
-                if (dataGridView.Columns[e.ColumnIndex].Name == "Edit")
+                Field item = fieldsDataGridView.Rows[e.RowIndex].Tag as Field;
+                if (fieldsDataGridView.Columns[e.ColumnIndex].Name == "Edit")
                     EditField(item);
-                else if (dataGridView.Columns[e.ColumnIndex].Name == "Add")
+                else if (fieldsDataGridView.Columns[e.ColumnIndex].Name == "Add")
                     AddToFormular(item);
             }
             else if (e.RowIndex >= 0)
             {
-                Field item = dataGridView.Rows[e.RowIndex].Tag as Field;
+                Field item = fieldsDataGridView.Rows[e.RowIndex].Tag as Field;
                 ShowPreview(item);
             }
         }
@@ -490,14 +572,27 @@ namespace EZKO.Forms.AdministrationForms
         {
             if (e.RowIndex >= 0)
             {
-                int colIndex = dataGridView["Last", e.RowIndex].ColumnIndex;
+                int colIndex = fieldsDataGridView["Last", e.RowIndex].ColumnIndex;
                 if (e.ColumnIndex <= colIndex)
                 {
-                    Field item = dataGridView.Rows[e.RowIndex].Tag as Field;
-                    if (e.ColumnIndex == dataGridView.Columns["Section"].Index)
+                    Field item = fieldsDataGridView.Rows[e.RowIndex].Tag as Field;
+                    if (e.ColumnIndex == fieldsDataGridView.Columns["Section"].Index)
                         section = item.Section;
                     else
                         EditField(item);
+                }
+            }
+        }
+        private void sectionsDataGridView_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                int colIndex = sectionsDataGridView["Last", e.RowIndex].ColumnIndex;
+                if (e.ColumnIndex <= colIndex)
+                {
+                    Section item = sectionsDataGridView.Rows[e.RowIndex].Tag as Section;
+                    //if (e.ColumnIndex == fieldsDataGridView.Columns["Section"].Index)
+                        section = item;
                 }
             }
         }
@@ -520,8 +615,9 @@ namespace EZKO.Forms.AdministrationForms
                         InitializeSectionsTextBox();
                         sectionsTextBox.Text = sectionName;
                         fieldsLabelText = sectionName;
-                        FillDataGridView(existingSection.Fields);
+                        FillFieldDataGridView(existingSection.Fields);
                         lastPickedSection = existingSection;
+                        FillSectionsDataGridView(ezkoController.GetSections());
                     }
                     else
                         BasicMessagesHandler.ShowInformationMessage("Pri vytváraní sekcie sa vyskytla chyba");
@@ -533,7 +629,7 @@ namespace EZKO.Forms.AdministrationForms
         {
             if(e.RowIndex >= 0)
             {
-                Field item = dataGridView.Rows[e.RowIndex].Tag as Field;
+                Field item = fieldsDataGridView.Rows[e.RowIndex].Tag as Field;
                 ShowPreview(item);
             }
         }
@@ -566,6 +662,16 @@ namespace EZKO.Forms.AdministrationForms
         private void addSectionButton_MouseHover(object sender, EventArgs e)
         {
             toolTip.Show("Vytvoriť sekciu", addSectionButton);
+        }
+
+        private void formularSectionsButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Sekcie z formulára", formularSectionsButton);
+        }
+
+        private void allSectionsButton2_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Všetky sekcie", allSectionsButton2);
         }
 
         private void sectionsTextBox_KeyDown(object sender, KeyEventArgs e)

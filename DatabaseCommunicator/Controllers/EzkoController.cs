@@ -8,6 +8,7 @@ using System.Windows.Forms.Calendar;
 using ExceptionHandler;
 using DatabaseCommunicator.Enums;
 using DatabaseCommunicator.Classes;
+using System.Data.Entity;
 
 namespace DatabaseCommunicator.Controllers
 {
@@ -741,7 +742,7 @@ namespace DatabaseCommunicator.Controllers
         /// </summary>
         /// <returns>Value indicating whether the creation of the field was successfull</returns>
         public bool CreateField(string name, string standardNumber, string otherName, FieldType fieldType, Section section,
-            string description, List<FieldValue> fieldValues, List<FieldForm> fieldForms)
+            string description, List<FieldValue> fieldValues, string question)
         {
             bool result = false;
             try
@@ -754,7 +755,7 @@ namespace DatabaseCommunicator.Controllers
                     Description = description,
                     FieldType = fieldType,
                     Section = section,
-                    FieldForms = fieldForms,
+                    Question = question,
                     IsDeleted = false
                 };
 
@@ -777,7 +778,7 @@ namespace DatabaseCommunicator.Controllers
         /// </summary>
         /// <returns>Value indicating whether the editing of the field was successfull</returns>
         public bool EditField(Field field, string name, string standardNumber, string otherName, FieldType fieldType,
-            Section section, string description, List<FieldValue> fieldValues, List<FieldForm> fieldForms)
+            Section section, string description, List<FieldValue> fieldValues, string question)
         {
             bool result = false;
 
@@ -786,7 +787,11 @@ namespace DatabaseCommunicator.Controllers
 
             try
             {
-                db.Questions.RemoveRange(field.FieldForms.Select(x => x.Question));
+                foreach (var formQuestion in field.FieldForms.Select(x => x.Question))
+                {
+                    formQuestion.Value = question;
+                }
+                //db.Questions.RemoveRange(field.FieldForms.Select(x => x.Question));
 
                 //we have to remove those FieldValueAnswers, which was connected to FieldValues, which will be removed
                 if (valuesToRemove.Count > 0)
@@ -807,7 +812,8 @@ namespace DatabaseCommunicator.Controllers
                 field.FieldType = fieldType;
                 field.Section = section;
                 field.Description = description;
-                field.FieldForms = fieldForms;
+                //field.FieldForms = fieldForms;
+                field.Question = question;
                 field.IsDeleted = false;
 
                 if (fieldType.ID != (int)FieldTypeEnum.Text && fieldType.ID != (int)FieldTypeEnum.LongText

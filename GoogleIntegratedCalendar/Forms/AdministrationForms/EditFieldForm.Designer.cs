@@ -37,6 +37,7 @@
             this.bottomFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.recreateButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.commonInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.descriptionRichTextBox = new EZKO.UserControls.FlatControls.FlatRichTextBox();
             this.sectionComboBox = new System.Windows.Forms.ComboBox();
@@ -60,7 +61,8 @@
             this.insightGroupBox = new System.Windows.Forms.GroupBox();
             this.insightFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.insightLabel = new System.Windows.Forms.Label();
-            this.recreateButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.questionLabel = new System.Windows.Forms.Label();
+            this.questionTextBox = new System.Windows.Forms.TextBox();
             this.topMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maximizeFormPictureBox)).BeginInit();
@@ -204,6 +206,29 @@
             this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
+            // recreateButton
+            // 
+            this.recreateButton.AutoSize = true;
+            this.recreateButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.recreateButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
+            this.recreateButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.recreateButton.FlatAppearance.BorderSize = 0;
+            this.recreateButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.recreateButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
+            this.recreateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.recreateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.recreateButton.ForeColor = System.Drawing.Color.White;
+            this.recreateButton.Location = new System.Drawing.Point(568, 5);
+            this.recreateButton.Margin = new System.Windows.Forms.Padding(2);
+            this.recreateButton.Name = "recreateButton";
+            this.recreateButton.Radius = 5;
+            this.recreateButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
+            this.recreateButton.Size = new System.Drawing.Size(135, 23);
+            this.recreateButton.TabIndex = 6;
+            this.recreateButton.Text = "Uložiť ako nové pole";
+            this.recreateButton.UseVisualStyleBackColor = false;
+            this.recreateButton.Click += new System.EventHandler(this.recreateButton_Click);
+            // 
             // commonInfoGroupBox
             // 
             this.commonInfoGroupBox.Controls.Add(this.descriptionRichTextBox);
@@ -211,7 +236,9 @@
             this.commonInfoGroupBox.Controls.Add(this.fieldTypeComboBox);
             this.commonInfoGroupBox.Controls.Add(this.descriptionLabel);
             this.commonInfoGroupBox.Controls.Add(this.sectionLabel);
+            this.commonInfoGroupBox.Controls.Add(this.questionTextBox);
             this.commonInfoGroupBox.Controls.Add(this.valuesTextBox);
+            this.commonInfoGroupBox.Controls.Add(this.questionLabel);
             this.commonInfoGroupBox.Controls.Add(this.snomedTextBox);
             this.commonInfoGroupBox.Controls.Add(this.valuesLabel);
             this.commonInfoGroupBox.Controls.Add(this.fieldTypeLabel);
@@ -224,7 +251,7 @@
             this.commonInfoGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.commonInfoGroupBox.Location = new System.Drawing.Point(12, 41);
             this.commonInfoGroupBox.Name = "commonInfoGroupBox";
-            this.commonInfoGroupBox.Size = new System.Drawing.Size(443, 397);
+            this.commonInfoGroupBox.Size = new System.Drawing.Size(443, 433);
             this.commonInfoGroupBox.TabIndex = 2;
             this.commonInfoGroupBox.TabStop = false;
             this.commonInfoGroupBox.Text = "Všeobecné";
@@ -278,7 +305,7 @@
             // 
             // valuesTextBox
             // 
-            this.valuesTextBox.Location = new System.Drawing.Point(6, 356);
+            this.valuesTextBox.Location = new System.Drawing.Point(6, 393);
             this.valuesTextBox.Name = "valuesTextBox";
             this.valuesTextBox.Size = new System.Drawing.Size(430, 20);
             this.valuesTextBox.TabIndex = 5;
@@ -295,7 +322,7 @@
             // 
             this.valuesLabel.AutoSize = true;
             this.valuesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.valuesLabel.Location = new System.Drawing.Point(3, 340);
+            this.valuesLabel.Location = new System.Drawing.Point(3, 377);
             this.valuesLabel.Name = "valuesLabel";
             this.valuesLabel.Size = new System.Drawing.Size(54, 13);
             this.valuesLabel.TabIndex = 4;
@@ -360,7 +387,7 @@
             // 
             this.valuesInfolabel.AutoSize = true;
             this.valuesInfolabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.valuesInfolabel.Location = new System.Drawing.Point(3, 376);
+            this.valuesInfolabel.Location = new System.Drawing.Point(3, 413);
             this.valuesInfolabel.Name = "valuesInfolabel";
             this.valuesInfolabel.Size = new System.Drawing.Size(129, 13);
             this.valuesInfolabel.TabIndex = 8;
@@ -372,12 +399,13 @@
             this.formularsGroupBox.Controls.Add(this.formularLabel);
             this.formularsGroupBox.Controls.Add(this.formularQuestionLabel);
             this.formularsGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.formularsGroupBox.Location = new System.Drawing.Point(12, 445);
+            this.formularsGroupBox.Location = new System.Drawing.Point(12, 526);
             this.formularsGroupBox.Name = "formularsGroupBox";
-            this.formularsGroupBox.Size = new System.Drawing.Size(443, 180);
+            this.formularsGroupBox.Size = new System.Drawing.Size(443, 99);
             this.formularsGroupBox.TabIndex = 3;
             this.formularsGroupBox.TabStop = false;
             this.formularsGroupBox.Text = "Anamnestické formuláre";
+            this.formularsGroupBox.Visible = false;
             // 
             // formularsTablePanel
             // 
@@ -445,28 +473,23 @@
             this.insightLabel.TabIndex = 0;
             this.insightLabel.Text = "label1";
             // 
-            // recreateButton
+            // questionLabel
             // 
-            this.recreateButton.AutoSize = true;
-            this.recreateButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.recreateButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(139)))), ((int)(((byte)(202)))));
-            this.recreateButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.recreateButton.FlatAppearance.BorderSize = 0;
-            this.recreateButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.recreateButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(113)))), ((int)(((byte)(169)))));
-            this.recreateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.recreateButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.recreateButton.ForeColor = System.Drawing.Color.White;
-            this.recreateButton.Location = new System.Drawing.Point(568, 5);
-            this.recreateButton.Margin = new System.Windows.Forms.Padding(2);
-            this.recreateButton.Name = "recreateButton";
-            this.recreateButton.Radius = 5;
-            this.recreateButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
-            this.recreateButton.Size = new System.Drawing.Size(135, 23);
-            this.recreateButton.TabIndex = 6;
-            this.recreateButton.Text = "Uložiť ako nové pole";
-            this.recreateButton.UseVisualStyleBackColor = false;
-            this.recreateButton.Click += new System.EventHandler(this.recreateButton_Click);
+            this.questionLabel.AutoSize = true;
+            this.questionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.questionLabel.Location = new System.Drawing.Point(3, 338);
+            this.questionLabel.Name = "questionLabel";
+            this.questionLabel.Size = new System.Drawing.Size(47, 13);
+            this.questionLabel.TabIndex = 4;
+            this.questionLabel.Text = "Otázka";
+            // 
+            // questionTextBox
+            // 
+            this.questionTextBox.Location = new System.Drawing.Point(6, 354);
+            this.questionTextBox.Name = "questionTextBox";
+            this.questionTextBox.Size = new System.Drawing.Size(430, 20);
+            this.questionTextBox.TabIndex = 5;
+            this.questionTextBox.TextChanged += new System.EventHandler(this.valuesTextBox_TextChanged);
             // 
             // EditFieldForm
             // 
@@ -536,5 +559,7 @@
         private System.Windows.Forms.Label insightLabel;
         private System.Windows.Forms.FlowLayoutPanel insightFlowPanel;
         private UserControls.FlatControls.RoundButton recreateButton;
+        private System.Windows.Forms.TextBox questionTextBox;
+        private System.Windows.Forms.Label questionLabel;
     }
 }

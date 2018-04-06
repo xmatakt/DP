@@ -70,13 +70,29 @@ namespace EZKO.UserControls.Administration
             };
             dataGridView.Columns.Add(nameColumn);
 
-            DataGridViewTextBoxColumn codeColumn = new DataGridViewTextBoxColumn()
+            DataGridViewTextBoxColumn sectionColumn = new DataGridViewTextBoxColumn()
             {
                 Name = "Section",
                 HeaderText = "Sekcia",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             };
-            dataGridView.Columns.Add(codeColumn);
+            dataGridView.Columns.Add(sectionColumn);
+
+            DataGridViewTextBoxColumn typeColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Type",
+                HeaderText = "Typ poľa",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            dataGridView.Columns.Add(typeColumn);
+
+            DataGridViewTextBoxColumn questionColumn = new DataGridViewTextBoxColumn()
+            {
+                Name = "Question",
+                HeaderText = "Otázka",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            };
+            dataGridView.Columns.Add(questionColumn);
 
             DataGridViewTextBoxColumn fillEmptySpaceColumn = new DataGridViewTextBoxColumn()
             {
@@ -116,7 +132,7 @@ namespace EZKO.UserControls.Administration
             foreach (var item in ezkoController.GetFields())
             {
                 int rowIndex = dataGridView.Rows.Add(new object[]
-                { item.ID, item.Name, item.Section.ToString(), "", "Upraviť", "Zmazať", " " });
+                { item.ID, item.Name, item.Section.ToString(), item.FieldType.ToString(), item.Question, "", "Upraviť", "Zmazať", " " });
 
                 dataGridView.Rows[rowIndex].Tag = item;
             }

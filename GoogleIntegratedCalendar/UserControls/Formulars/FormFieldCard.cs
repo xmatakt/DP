@@ -59,11 +59,16 @@ namespace EZKO.UserControls.Formulars
         {
             get
             {
-                string result = questionTextBox.Text.Trim();
-                if (string.IsNullOrEmpty(result) || result == defaultText)
-                    result = null;
+                if (Field == null)
+                    return null;
+                else
+                    return Field.Question.Trim();
 
-                return result;
+                //string result = questionTextBox.Text.Trim();
+                //if (string.IsNullOrEmpty(result) || result == defaultText)
+                //    result = null;
+
+                //return result;
             }
             set
             {
@@ -105,7 +110,7 @@ namespace EZKO.UserControls.Formulars
 
             IsRemoved = false;
             italicFont = questionTextBox.Font;
-            PaddingBottom = 3;
+            PaddingBottom = 12;
             OriginalY = Location.Y;
         }
 
@@ -216,8 +221,10 @@ namespace EZKO.UserControls.Formulars
         {
             if (Field == null) return;
 
+
             if (Field.FieldType != null)
             {
+                Question = Field.Question;
                 fieldName = Field.Name;
 
                 flowPanel.Controls.Clear();
