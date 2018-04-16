@@ -96,8 +96,8 @@ namespace DatabaseCommunicator.Model
         {
             get
             {
-                //if (Patient == null)
-                //    return "";
+                if (Patient == null)
+                    return "Návšteva vytvorená v Google Kalendári";
                 string result = Patient.FullName;
 
                 if (Actions.Count > 0)
@@ -159,7 +159,7 @@ namespace DatabaseCommunicator.Model
                 case (int)Enums.EventStateEnum.Payed:
                     return "Uhradená";
                 case (int)Enums.EventStateEnum.IsTemporaryGoogleEvent:
-                    return "Event vytvorený v google kalendári";
+                    return "Dočasná";
                 default:
                     return "Neznámy stav";
             }

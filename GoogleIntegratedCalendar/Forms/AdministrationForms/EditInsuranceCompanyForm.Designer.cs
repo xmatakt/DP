@@ -54,7 +54,7 @@
             this.topMenuPanel.Controls.Add(this.closeFormPictureBox);
             this.topMenuPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topMenuPanel.Location = new System.Drawing.Point(0, 0);
-            this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2);
             this.topMenuPanel.Name = "topMenuPanel";
             this.topMenuPanel.Size = new System.Drawing.Size(304, 36);
             this.topMenuPanel.TabIndex = 0;
@@ -77,7 +77,7 @@
             this.minimizeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.minimizeFormPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("minimizeFormPictureBox.Image")));
             this.minimizeFormPictureBox.Location = new System.Drawing.Point(251, 8);
-            this.minimizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.minimizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.minimizeFormPictureBox.Name = "minimizeFormPictureBox";
             this.minimizeFormPictureBox.Size = new System.Drawing.Size(20, 19);
             this.minimizeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -92,7 +92,7 @@
             this.closeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closeFormPictureBox.Image = global::EZKO.Properties.Resources.closeForm_32;
             this.closeFormPictureBox.Location = new System.Drawing.Point(276, 8);
-            this.closeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.closeFormPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.closeFormPictureBox.Name = "closeFormPictureBox";
             this.closeFormPictureBox.Size = new System.Drawing.Size(20, 19);
             this.closeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -116,7 +116,7 @@
             // insuranceNameTextBox
             // 
             this.insuranceNameTextBox.Location = new System.Drawing.Point(14, 63);
-            this.insuranceNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.insuranceNameTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.insuranceNameTextBox.Name = "insuranceNameTextBox";
             this.insuranceNameTextBox.Size = new System.Drawing.Size(277, 20);
             this.insuranceNameTextBox.TabIndex = 0;
@@ -135,7 +135,7 @@
             // insuranceCodeTextBox
             // 
             this.insuranceCodeTextBox.Location = new System.Drawing.Point(14, 101);
-            this.insuranceCodeTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.insuranceCodeTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.insuranceCodeTextBox.Name = "insuranceCodeTextBox";
             this.insuranceCodeTextBox.Size = new System.Drawing.Size(277, 20);
             this.insuranceCodeTextBox.TabIndex = 1;
@@ -150,7 +150,7 @@
             this.bottomFlowPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.bottomFlowPanel.Location = new System.Drawing.Point(0, 130);
-            this.bottomFlowPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bottomFlowPanel.Margin = new System.Windows.Forms.Padding(2);
             this.bottomFlowPanel.Name = "bottomFlowPanel";
             this.bottomFlowPanel.Padding = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.bottomFlowPanel.Size = new System.Drawing.Size(304, 40);
@@ -169,9 +169,9 @@
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.cancelButton.ForeColor = System.Drawing.Color.White;
             this.cancelButton.Location = new System.Drawing.Point(230, 5);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelButton.Padding = new System.Windows.Forms.Padding(2);
             this.cancelButton.Radius = 5;
             this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
             this.cancelButton.Size = new System.Drawing.Size(66, 27);
@@ -192,9 +192,9 @@
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.addButton.ForeColor = System.Drawing.Color.White;
             this.addButton.Location = new System.Drawing.Point(90, 5);
-            this.addButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2);
             this.addButton.Name = "addButton";
-            this.addButton.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addButton.Padding = new System.Windows.Forms.Padding(2);
             this.addButton.Radius = 5;
             this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
             this.addButton.Size = new System.Drawing.Size(136, 27);
@@ -217,10 +217,12 @@
             this.Controls.Add(this.topMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditInsuranceCompanyForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.EditInsuranceCompanyForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditInsuranceCompanyForm_KeyDown);
             this.topMenuPanel.ResumeLayout(false);
             this.topMenuPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).EndInit();

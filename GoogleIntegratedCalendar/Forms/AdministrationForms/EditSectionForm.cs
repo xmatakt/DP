@@ -217,6 +217,12 @@ namespace EZKO.Forms.AdministrationForms
                 CreateOrUpdate();
             }
         }
+
+        private void EditSectionForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                DialogResult = DialogResult.Cancel;
+        }
         #endregion
     }
 }

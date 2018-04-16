@@ -71,7 +71,7 @@
             this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2);
             this.topMenuPanel.Name = "topMenuPanel";
             this.topMenuPanel.Size = new System.Drawing.Size(465, 36);
-            this.topMenuPanel.TabIndex = 0;
+            this.topMenuPanel.TabIndex = 1;
             this.topMenuPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topMenuPanel_MouseDown);
             // 
             // formTitleLabel
@@ -83,7 +83,7 @@
             this.formTitleLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.formTitleLabel.Name = "formTitleLabel";
             this.formTitleLabel.Size = new System.Drawing.Size(139, 20);
-            this.formTitleLabel.TabIndex = 5;
+            this.formTitleLabel.TabIndex = 0;
             this.formTitleLabel.Text = "Editácia rozpočtov";
             // 
             // minimizeFormPictureBox
@@ -144,7 +144,7 @@
             this.bottomFlowPanel.Name = "bottomFlowPanel";
             this.bottomFlowPanel.Padding = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.bottomFlowPanel.Size = new System.Drawing.Size(465, 36);
-            this.bottomFlowPanel.TabIndex = 1;
+            this.bottomFlowPanel.TabIndex = 6;
             // 
             // cancelButton
             // 
@@ -206,7 +206,7 @@
             this.nameTextBox.Location = new System.Drawing.Point(16, 64);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(430, 20);
-            this.nameTextBox.TabIndex = 3;
+            this.nameTextBox.TabIndex = 0;
             // 
             // patientLabel
             // 
@@ -223,7 +223,7 @@
             this.patientTextBox.Location = new System.Drawing.Point(16, 106);
             this.patientTextBox.Name = "patientTextBox";
             this.patientTextBox.Size = new System.Drawing.Size(430, 20);
-            this.patientTextBox.TabIndex = 4;
+            this.patientTextBox.TabIndex = 1;
             this.patientTextBox.Values = null;
             // 
             // itemNameLabel
@@ -241,7 +241,7 @@
             this.itemNameTextBox.Location = new System.Drawing.Point(16, 161);
             this.itemNameTextBox.Name = "itemNameTextBox";
             this.itemNameTextBox.Size = new System.Drawing.Size(213, 20);
-            this.itemNameTextBox.TabIndex = 3;
+            this.itemNameTextBox.TabIndex = 2;
             // 
             // countLabel
             // 
@@ -259,7 +259,7 @@
             this.countUpDown.Location = new System.Drawing.Point(241, 162);
             this.countUpDown.Name = "countUpDown";
             this.countUpDown.Size = new System.Drawing.Size(75, 20);
-            this.countUpDown.TabIndex = 5;
+            this.countUpDown.TabIndex = 3;
             // 
             // priceUpDown
             // 
@@ -273,7 +273,7 @@
             this.priceUpDown.Location = new System.Drawing.Point(325, 162);
             this.priceUpDown.Name = "priceUpDown";
             this.priceUpDown.Size = new System.Drawing.Size(82, 20);
-            this.priceUpDown.TabIndex = 5;
+            this.priceUpDown.TabIndex = 4;
             // 
             // priceLabel
             // 
@@ -319,7 +319,7 @@
             this.addBudgetItemButton.Radius = 5;
             this.addBudgetItemButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatGreen;
             this.addBudgetItemButton.Size = new System.Drawing.Size(32, 24);
-            this.addBudgetItemButton.TabIndex = 7;
+            this.addBudgetItemButton.TabIndex = 5;
             this.addBudgetItemButton.UseVisualStyleBackColor = false;
             this.addBudgetItemButton.Click += new System.EventHandler(this.addBudgetItemButton_Click);
             // 
@@ -345,10 +345,12 @@
             this.Controls.Add(this.bottomFlowPanel);
             this.Controls.Add(this.topMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditBudgetForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.EditBudgetForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditBudgetForm_KeyDown);
             this.topMenuPanel.ResumeLayout(false);
             this.topMenuPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).EndInit();

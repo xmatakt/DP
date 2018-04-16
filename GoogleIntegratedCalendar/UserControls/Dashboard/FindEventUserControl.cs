@@ -24,6 +24,7 @@ namespace EZKO.UserControls.Dashboard
                 searchInEventsTextBox.Text = "";
             }
         }
+
         public FindEventUserControl()
         {
             InitializeComponent();
@@ -32,11 +33,6 @@ namespace EZKO.UserControls.Dashboard
         }
 
         #region Public methods
-        public void SetEzkoController(EzkoController ezkoController)
-        {
-            this.ezkoController = ezkoController;
-            InitializeSearchInEventsTextBox();
-        }
 
         public void SetVisitUserControl(VisitUserControl visitUserControl)
         {

@@ -218,7 +218,7 @@ namespace GoogleCalendarSynchronizer
             if (!CheckForInternetConnection())
                 return false;
 
-            bool result = false;
+            bool result = true;
 
             try
             {
@@ -267,7 +267,7 @@ namespace GoogleCalendarSynchronizer
             if (!CheckForInternetConnection())
                 return false;
 
-            bool result = false;
+            bool result = true;
 
             try
             {

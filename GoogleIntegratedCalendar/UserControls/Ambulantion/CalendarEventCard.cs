@@ -49,11 +49,11 @@ namespace EZKO.UserControls.Ambulantion
         {
             try
             {
+                eventStatus = calendarEvent.EventState.ToString();
                 if (!calendarEvent.IsTemporaryGoogleEvent)
                 {
                     patientLabel.Visible = true;
                     patientName = calendarEvent.Patient.FullName;
-                    eventStatus = calendarEvent.EventState.ToString();
                 }
                 else
                 {

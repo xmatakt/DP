@@ -46,10 +46,10 @@
             this.iamgeLabel = new System.Windows.Forms.Label();
             this.roleComboBox = new System.Windows.Forms.ComboBox();
             this.bottomFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
-            this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.showPasswordCheckBox = new System.Windows.Forms.CheckBox();
+            this.cancelButton = new EZKO.UserControls.FlatControls.RoundButton();
+            this.addButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.chooseImageButton = new EZKO.UserControls.FlatControls.RoundButton();
             this.topMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).BeginInit();
@@ -66,7 +66,7 @@
             this.topMenuPanel.Controls.Add(this.closeFormPictureBox);
             this.topMenuPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topMenuPanel.Location = new System.Drawing.Point(0, 0);
-            this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2);
             this.topMenuPanel.Name = "topMenuPanel";
             this.topMenuPanel.Size = new System.Drawing.Size(376, 36);
             this.topMenuPanel.TabIndex = 0;
@@ -89,7 +89,7 @@
             this.minimizeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.minimizeFormPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("minimizeFormPictureBox.Image")));
             this.minimizeFormPictureBox.Location = new System.Drawing.Point(324, 8);
-            this.minimizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.minimizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.minimizeFormPictureBox.Name = "minimizeFormPictureBox";
             this.minimizeFormPictureBox.Size = new System.Drawing.Size(20, 19);
             this.minimizeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -104,7 +104,7 @@
             this.closeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closeFormPictureBox.Image = global::EZKO.Properties.Resources.closeForm_32;
             this.closeFormPictureBox.Location = new System.Drawing.Point(348, 8);
-            this.closeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.closeFormPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.closeFormPictureBox.Name = "closeFormPictureBox";
             this.closeFormPictureBox.Size = new System.Drawing.Size(20, 19);
             this.closeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -117,7 +117,7 @@
             // avatarPictureBox
             // 
             this.avatarPictureBox.Location = new System.Drawing.Point(5, 55);
-            this.avatarPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.avatarPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.avatarPictureBox.Name = "avatarPictureBox";
             this.avatarPictureBox.Size = new System.Drawing.Size(131, 132);
             this.avatarPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -138,7 +138,7 @@
             // userNameTextBox
             // 
             this.userNameTextBox.Location = new System.Drawing.Point(143, 55);
-            this.userNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.userNameTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.userNameTextBox.MaxLength = 25;
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(227, 20);
@@ -158,7 +158,7 @@
             // emailTextBox
             // 
             this.emailTextBox.Location = new System.Drawing.Point(143, 90);
-            this.emailTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.emailTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(227, 20);
             this.emailTextBox.TabIndex = 1;
@@ -188,7 +188,7 @@
             // passwordTextBox
             // 
             this.passwordTextBox.Location = new System.Drawing.Point(141, 162);
-            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.passwordTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.PasswordChar = '*';
             this.passwordTextBox.Size = new System.Drawing.Size(230, 20);
@@ -208,7 +208,7 @@
             // confirmPasswordTextBox
             // 
             this.confirmPasswordTextBox.Location = new System.Drawing.Point(141, 198);
-            this.confirmPasswordTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.confirmPasswordTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.confirmPasswordTextBox.Name = "confirmPasswordTextBox";
             this.confirmPasswordTextBox.PasswordChar = '*';
             this.confirmPasswordTextBox.Size = new System.Drawing.Size(230, 20);
@@ -231,7 +231,7 @@
             this.roleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.roleComboBox.FormattingEnabled = true;
             this.roleComboBox.Location = new System.Drawing.Point(143, 125);
-            this.roleComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.roleComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.roleComboBox.Name = "roleComboBox";
             this.roleComboBox.Size = new System.Drawing.Size(227, 21);
             this.roleComboBox.TabIndex = 2;
@@ -245,11 +245,25 @@
             this.bottomFlowPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.bottomFlowPanel.Location = new System.Drawing.Point(0, 249);
-            this.bottomFlowPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bottomFlowPanel.Margin = new System.Windows.Forms.Padding(2);
             this.bottomFlowPanel.Name = "bottomFlowPanel";
             this.bottomFlowPanel.Padding = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.bottomFlowPanel.Size = new System.Drawing.Size(376, 40);
             this.bottomFlowPanel.TabIndex = 8;
+            // 
+            // showPasswordCheckBox
+            // 
+            this.showPasswordCheckBox.AutoSize = true;
+            this.showPasswordCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.showPasswordCheckBox.Location = new System.Drawing.Point(141, 219);
+            this.showPasswordCheckBox.Margin = new System.Windows.Forms.Padding(2);
+            this.showPasswordCheckBox.Name = "showPasswordCheckBox";
+            this.showPasswordCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.showPasswordCheckBox.Size = new System.Drawing.Size(90, 17);
+            this.showPasswordCheckBox.TabIndex = 9;
+            this.showPasswordCheckBox.Text = "Zobraziť heslo";
+            this.showPasswordCheckBox.UseVisualStyleBackColor = true;
+            this.showPasswordCheckBox.CheckedChanged += new System.EventHandler(this.showPasswordCheckBox_CheckedChanged);
             // 
             // cancelButton
             // 
@@ -263,9 +277,9 @@
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.cancelButton.ForeColor = System.Drawing.Color.White;
             this.cancelButton.Location = new System.Drawing.Point(302, 5);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelButton.Padding = new System.Windows.Forms.Padding(2);
             this.cancelButton.Radius = 5;
             this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
             this.cancelButton.Size = new System.Drawing.Size(66, 27);
@@ -286,9 +300,9 @@
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.addButton.ForeColor = System.Drawing.Color.White;
             this.addButton.Location = new System.Drawing.Point(149, 5);
-            this.addButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2);
             this.addButton.Name = "addButton";
-            this.addButton.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addButton.Padding = new System.Windows.Forms.Padding(2);
             this.addButton.Radius = 5;
             this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
             this.addButton.Size = new System.Drawing.Size(149, 27);
@@ -296,20 +310,6 @@
             this.addButton.Text = "+ Vytvoriť používateľa";
             this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
-            // 
-            // showPasswordCheckBox
-            // 
-            this.showPasswordCheckBox.AutoSize = true;
-            this.showPasswordCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.showPasswordCheckBox.Location = new System.Drawing.Point(141, 219);
-            this.showPasswordCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.showPasswordCheckBox.Name = "showPasswordCheckBox";
-            this.showPasswordCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.showPasswordCheckBox.Size = new System.Drawing.Size(90, 17);
-            this.showPasswordCheckBox.TabIndex = 9;
-            this.showPasswordCheckBox.Text = "Zobraziť heslo";
-            this.showPasswordCheckBox.UseVisualStyleBackColor = true;
-            this.showPasswordCheckBox.CheckedChanged += new System.EventHandler(this.showPasswordCheckBox_CheckedChanged);
             // 
             // chooseImageButton
             // 
@@ -321,12 +321,12 @@
             this.chooseImageButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.chooseImageButton.ForeColor = System.Drawing.Color.White;
             this.chooseImageButton.Location = new System.Drawing.Point(5, 191);
-            this.chooseImageButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chooseImageButton.Margin = new System.Windows.Forms.Padding(2);
             this.chooseImageButton.Name = "chooseImageButton";
             this.chooseImageButton.Radius = 5;
             this.chooseImageButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
             this.chooseImageButton.Size = new System.Drawing.Size(131, 24);
-            this.chooseImageButton.TabIndex = 2;
+            this.chooseImageButton.TabIndex = 5;
             this.chooseImageButton.Text = "Vybrať...";
             this.chooseImageButton.UseVisualStyleBackColor = false;
             this.chooseImageButton.Click += new System.EventHandler(this.chooseImageButton_Click);
@@ -355,10 +355,12 @@
             this.Controls.Add(this.topMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditUserForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.EditUserForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditUserForm_KeyDown);
             this.topMenuPanel.ResumeLayout(false);
             this.topMenuPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).EndInit();

@@ -63,7 +63,7 @@
             this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2);
             this.topMenuPanel.Name = "topMenuPanel";
             this.topMenuPanel.Size = new System.Drawing.Size(318, 36);
-            this.topMenuPanel.TabIndex = 0;
+            this.topMenuPanel.TabIndex = 1;
             this.topMenuPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topMenuPanel_MouseDown);
             // 
             // formTitleLabel
@@ -75,7 +75,7 @@
             this.formTitleLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.formTitleLabel.Name = "formTitleLabel";
             this.formTitleLabel.Size = new System.Drawing.Size(162, 20);
-            this.formTitleLabel.TabIndex = 5;
+            this.formTitleLabel.TabIndex = 0;
             this.formTitleLabel.Text = "Editácia infraštruktúry";
             // 
             // minimizeFormPictureBox
@@ -121,7 +121,7 @@
             this.bottomFlowPanel.Name = "bottomFlowPanel";
             this.bottomFlowPanel.Padding = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.bottomFlowPanel.Size = new System.Drawing.Size(318, 36);
-            this.bottomFlowPanel.TabIndex = 1;
+            this.bottomFlowPanel.TabIndex = 4;
             // 
             // cancelButton
             // 
@@ -175,7 +175,7 @@
             this.nameLabel.Location = new System.Drawing.Point(9, 48);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(48, 13);
-            this.nameLabel.TabIndex = 2;
+            this.nameLabel.TabIndex = 0;
             this.nameLabel.Text = "Názov*";
             // 
             // nameTextBox
@@ -192,7 +192,7 @@
             this.descriptionLabel.Location = new System.Drawing.Point(9, 87);
             this.descriptionLabel.Name = "descriptionLabel";
             this.descriptionLabel.Size = new System.Drawing.Size(43, 13);
-            this.descriptionLabel.TabIndex = 2;
+            this.descriptionLabel.TabIndex = 1;
             this.descriptionLabel.Text = "Popis*";
             // 
             // descriptionRichTextBox
@@ -239,7 +239,7 @@
             this.marginLabel.Location = new System.Drawing.Point(165, 184);
             this.marginLabel.Name = "marginLabel";
             this.marginLabel.Size = new System.Drawing.Size(46, 13);
-            this.marginLabel.TabIndex = 2;
+            this.marginLabel.TabIndex = 3;
             this.marginLabel.Text = "Marža*";
             // 
             // marginNumericUpDown
@@ -279,10 +279,12 @@
             this.Controls.Add(this.topMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditInfrastructureForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.EditInfrastructureForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditInfrastructureForm_KeyDown);
             this.topMenuPanel.ResumeLayout(false);
             this.topMenuPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).EndInit();

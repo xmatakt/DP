@@ -55,7 +55,7 @@
             this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2);
             this.topMenuPanel.Name = "topMenuPanel";
             this.topMenuPanel.Size = new System.Drawing.Size(416, 36);
-            this.topMenuPanel.TabIndex = 0;
+            this.topMenuPanel.TabIndex = 1;
             this.topMenuPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topMenuPanel_MouseDown);
             // 
             // formTitleLabel
@@ -113,7 +113,7 @@
             this.bottomFlowPanel.Name = "bottomFlowPanel";
             this.bottomFlowPanel.Padding = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.bottomFlowPanel.Size = new System.Drawing.Size(416, 36);
-            this.bottomFlowPanel.TabIndex = 1;
+            this.bottomFlowPanel.TabIndex = 3;
             // 
             // cancelButton
             // 
@@ -175,7 +175,7 @@
             this.nameTextBox.Location = new System.Drawing.Point(12, 67);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(389, 20);
-            this.nameTextBox.TabIndex = 3;
+            this.nameTextBox.TabIndex = 0;
             this.nameTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nameTextBox_KeyUp);
             // 
             // EditSectionForm
@@ -189,10 +189,12 @@
             this.Controls.Add(this.bottomFlowPanel);
             this.Controls.Add(this.topMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditSectionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.EditSectionForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditSectionForm_KeyDown);
             this.topMenuPanel.ResumeLayout(false);
             this.topMenuPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).EndInit();

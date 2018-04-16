@@ -426,21 +426,26 @@ namespace EZKO.Forms.PatientForms
 
         private void InitializeTreeViewTab()
         {
-            //treeView.Nodes.Clear();
-
-            if (patient != null && patient.RootDirectoryPath != null)
+            try
             {
-                DirectoryInfo directoryInfo = new DirectoryInfo(patient.RootDirectoryPath);
-                BuildTree(directoryInfo, treeView.Nodes);
-            }
+                if (patient != null && patient.RootDirectoryPath != null)
+                {
+                    DirectoryInfo directoryInfo = new DirectoryInfo(patient.RootDirectoryPath);
+                    BuildTree(directoryInfo, treeView.Nodes);
+                }
 
-            if(expandNodes)
+                if (expandNodes)
+                {
+                    expandNodes = false;
+                    treeView.ExpandAll();
+                }
+
+                RemoveDeletedFilesFromTree(treeView.Nodes);
+            }
+            catch (Exception ex)
             {
-                expandNodes = false;
-                treeView.ExpandAll();
+                BasicMessagesHandler.LogException(ex);
             }
-
-            RemoveDeletedFilesFromTree(treeView.Nodes);
         }
 
         private void InitializeTextDocumentationTab()
@@ -912,6 +917,9 @@ namespace EZKO.Forms.PatientForms
         {
             foreach (TreeNode item in nodes)
             {
+                if (item == null)
+                    continue;
+
                 FileInfo fileInfo = new FileInfo(item.Name);
                 if (!string.IsNullOrEmpty(fileInfo.Extension))
                     if (!File.Exists(item.Name))
@@ -1256,6 +1264,8 @@ namespace EZKO.Forms.PatientForms
             alternativePhoneTextBox.MaxLength = 20;
             fbTextBox.MaxLength = 80;
             idTextBox.TextAlign = HorizontalAlignment.Right;
+
+            nameTextBox.Focus();
         }
 
         private void birthDatePicker_ValueChanged(object sender, EventArgs e)
@@ -1486,6 +1496,12 @@ namespace EZKO.Forms.PatientForms
         private void refreshButton2_Click(object sender, EventArgs e)
         {
             InitializeTreeViewTab();
+        }
+
+        private void EditPatientForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                CloseWindow();
         }
         #endregion
     }

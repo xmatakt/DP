@@ -330,7 +330,12 @@ namespace EZKO.Forms.AdministrationForms
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            //DirectoriesController.CreateUserFolderStructure("timusko");
+        }
+
+        private void EditUserForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                DialogResult = DialogResult.Cancel;
         }
         #endregion
 

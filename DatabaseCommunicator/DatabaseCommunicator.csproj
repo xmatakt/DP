@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Model\EzkoModel.edmx.diagram">
       <DependentUpon>EzkoModel.edmx</DependentUpon>
     </None>

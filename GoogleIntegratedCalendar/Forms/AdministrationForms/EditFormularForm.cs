@@ -482,7 +482,7 @@ namespace EZKO.Forms.AdministrationForms
             //Section item = section;
             if (item == null && lastPickedSection != null)
             {
-                if(MessageBox.Show("Naozaj si želáte premenovať existuj[cu sekciu " + lastPickedSection.Name + " na " + newSectionName + "?",
+                if(MessageBox.Show("Naozaj si želáte premenovať existujúcu sekciu " + lastPickedSection.Name + " na " + newSectionName + "?",
                     "Upozornenie", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if(ezkoController.EditSection(lastPickedSection, newSectionName))
@@ -699,6 +699,12 @@ namespace EZKO.Forms.AdministrationForms
         {
             if (DialogResult != DialogResult.OK && BasicMessagesHandler.ShowWarningMessage("Vykonané zmeny nebudú uložené, želáte si pokračovať?") != DialogResult.Yes)
                 e.Cancel = true;
+        }
+
+        private void EditFormularForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                DialogResult = DialogResult.Cancel;
         }
         #endregion
 

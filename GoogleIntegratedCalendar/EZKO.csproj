@@ -484,6 +484,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Resources\addEvent.png" />
     <None Include="client_secret.json">

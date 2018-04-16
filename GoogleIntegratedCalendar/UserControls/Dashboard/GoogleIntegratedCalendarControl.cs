@@ -48,6 +48,7 @@ namespace EZKO.UserControls.Dashboard
             //findEventUserControl.SetEzkoController(ezkoController);
             findEventUserControl.SetVisitUserControl(visitUserControl);
             findEventUserControl.SetCalendarControl(this);
+            findEventUserControl.UpdateControl();
 
             InitializeControl();
             calendarSynchronizer = this.calendarSynchronizer;

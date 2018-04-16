@@ -75,7 +75,7 @@
             this.topMenuPanel.Controls.Add(this.closeFormPictureBox);
             this.topMenuPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.topMenuPanel.Location = new System.Drawing.Point(0, 0);
-            this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.topMenuPanel.Margin = new System.Windows.Forms.Padding(2);
             this.topMenuPanel.Name = "topMenuPanel";
             this.topMenuPanel.Size = new System.Drawing.Size(567, 36);
             this.topMenuPanel.TabIndex = 0;
@@ -98,7 +98,7 @@
             this.minimizeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.minimizeFormPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("minimizeFormPictureBox.Image")));
             this.minimizeFormPictureBox.Location = new System.Drawing.Point(515, 8);
-            this.minimizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.minimizeFormPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.minimizeFormPictureBox.Name = "minimizeFormPictureBox";
             this.minimizeFormPictureBox.Size = new System.Drawing.Size(20, 19);
             this.minimizeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -113,7 +113,7 @@
             this.closeFormPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closeFormPictureBox.Image = global::EZKO.Properties.Resources.closeForm_32;
             this.closeFormPictureBox.Location = new System.Drawing.Point(539, 8);
-            this.closeFormPictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.closeFormPictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.closeFormPictureBox.Name = "closeFormPictureBox";
             this.closeFormPictureBox.Size = new System.Drawing.Size(20, 19);
             this.closeFormPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -132,7 +132,7 @@
             this.bottomFlowPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.bottomFlowPanel.Location = new System.Drawing.Point(0, 277);
-            this.bottomFlowPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bottomFlowPanel.Margin = new System.Windows.Forms.Padding(2);
             this.bottomFlowPanel.Name = "bottomFlowPanel";
             this.bottomFlowPanel.Padding = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.bottomFlowPanel.Size = new System.Drawing.Size(567, 40);
@@ -151,9 +151,9 @@
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.cancelButton.ForeColor = System.Drawing.Color.White;
             this.cancelButton.Location = new System.Drawing.Point(493, 5);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelButton.Padding = new System.Windows.Forms.Padding(2);
             this.cancelButton.Radius = 5;
             this.cancelButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatOrange;
             this.cancelButton.Size = new System.Drawing.Size(66, 27);
@@ -174,9 +174,9 @@
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.addButton.ForeColor = System.Drawing.Color.White;
             this.addButton.Location = new System.Drawing.Point(375, 5);
-            this.addButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2);
             this.addButton.Name = "addButton";
-            this.addButton.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addButton.Padding = new System.Windows.Forms.Padding(2);
             this.addButton.Radius = 5;
             this.addButton.RoundButtonStyle = EZKO.UserControls.RoundButtonStylesEnum.FlatBlue;
             this.addButton.Size = new System.Drawing.Size(114, 27);
@@ -199,10 +199,10 @@
             // actionNameTextBox
             // 
             this.actionNameTextBox.Location = new System.Drawing.Point(11, 62);
-            this.actionNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.actionNameTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.actionNameTextBox.Name = "actionNameTextBox";
             this.actionNameTextBox.Size = new System.Drawing.Size(292, 20);
-            this.actionNameTextBox.TabIndex = 1;
+            this.actionNameTextBox.TabIndex = 0;
             // 
             // actionShortcutLabel
             // 
@@ -218,10 +218,10 @@
             // actionShortcutTextBox
             // 
             this.actionShortcutTextBox.Location = new System.Drawing.Point(11, 99);
-            this.actionShortcutTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.actionShortcutTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.actionShortcutTextBox.Name = "actionShortcutTextBox";
             this.actionShortcutTextBox.Size = new System.Drawing.Size(292, 20);
-            this.actionShortcutTextBox.TabIndex = 2;
+            this.actionShortcutTextBox.TabIndex = 1;
             // 
             // longNameLabel
             // 
@@ -237,10 +237,10 @@
             // longNameTextBox
             // 
             this.longNameTextBox.Location = new System.Drawing.Point(11, 135);
-            this.longNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.longNameTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.longNameTextBox.Name = "longNameTextBox";
             this.longNameTextBox.Size = new System.Drawing.Size(292, 20);
-            this.longNameTextBox.TabIndex = 3;
+            this.longNameTextBox.TabIndex = 2;
             // 
             // materialLabel
             // 
@@ -279,20 +279,20 @@
             // 
             this.costsUpDown.LabelText = "€";
             this.costsUpDown.Location = new System.Drawing.Point(325, 61);
-            this.costsUpDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.costsUpDown.Margin = new System.Windows.Forms.Padding(2);
             this.costsUpDown.Name = "costsUpDown";
             this.costsUpDown.Size = new System.Drawing.Size(141, 20);
-            this.costsUpDown.TabIndex = 6;
+            this.costsUpDown.TabIndex = 5;
             this.costsUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // recommendedLengthUpDown
             // 
             this.recommendedLengthUpDown.LabelText = "minút";
             this.recommendedLengthUpDown.Location = new System.Drawing.Point(130, 244);
-            this.recommendedLengthUpDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.recommendedLengthUpDown.Margin = new System.Windows.Forms.Padding(2);
             this.recommendedLengthUpDown.Name = "recommendedLengthUpDown";
             this.recommendedLengthUpDown.Size = new System.Drawing.Size(172, 20);
-            this.recommendedLengthUpDown.TabIndex = 5;
+            this.recommendedLengthUpDown.TabIndex = 4;
             this.recommendedLengthUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // materialRichTextBox
@@ -301,16 +301,16 @@
             this.materialRichTextBox.Location = new System.Drawing.Point(11, 178);
             this.materialRichTextBox.Name = "materialRichTextBox";
             this.materialRichTextBox.Size = new System.Drawing.Size(291, 56);
-            this.materialRichTextBox.TabIndex = 4;
+            this.materialRichTextBox.TabIndex = 3;
             // 
             // marginUpDown
             // 
             this.marginUpDown.LabelText = "€";
             this.marginUpDown.Location = new System.Drawing.Point(325, 99);
-            this.marginUpDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.marginUpDown.Margin = new System.Windows.Forms.Padding(2);
             this.marginUpDown.Name = "marginUpDown";
             this.marginUpDown.Size = new System.Drawing.Size(141, 20);
-            this.marginUpDown.TabIndex = 7;
+            this.marginUpDown.TabIndex = 6;
             this.marginUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // marginLabel
@@ -328,10 +328,10 @@
             // 
             this.companyMarginUpDown.LabelText = "€";
             this.companyMarginUpDown.Location = new System.Drawing.Point(325, 135);
-            this.companyMarginUpDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.companyMarginUpDown.Margin = new System.Windows.Forms.Padding(2);
             this.companyMarginUpDown.Name = "companyMarginUpDown";
             this.companyMarginUpDown.Size = new System.Drawing.Size(141, 20);
-            this.companyMarginUpDown.TabIndex = 8;
+            this.companyMarginUpDown.TabIndex = 7;
             this.companyMarginUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // companyMrginLabel
@@ -371,10 +371,10 @@
             // 
             this.hasSpecificationCheckBox.AutoSize = true;
             this.hasSpecificationCheckBox.Location = new System.Drawing.Point(325, 244);
-            this.hasSpecificationCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.hasSpecificationCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.hasSpecificationCheckBox.Name = "hasSpecificationCheckBox";
             this.hasSpecificationCheckBox.Size = new System.Drawing.Size(100, 17);
-            this.hasSpecificationCheckBox.TabIndex = 11;
+            this.hasSpecificationCheckBox.TabIndex = 10;
             this.hasSpecificationCheckBox.Text = "Má špecifikáciu";
             this.hasSpecificationCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -383,20 +383,20 @@
             this.companyCodeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.companyCodeComboBox.FormattingEnabled = true;
             this.companyCodeComboBox.Location = new System.Drawing.Point(325, 178);
-            this.companyCodeComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.companyCodeComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.companyCodeComboBox.Name = "companyCodeComboBox";
             this.companyCodeComboBox.Size = new System.Drawing.Size(235, 21);
-            this.companyCodeComboBox.TabIndex = 9;
+            this.companyCodeComboBox.TabIndex = 8;
             // 
             // ezkoFieldComboBox
             // 
             this.ezkoFieldComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ezkoFieldComboBox.FormattingEnabled = true;
             this.ezkoFieldComboBox.Location = new System.Drawing.Point(325, 215);
-            this.ezkoFieldComboBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ezkoFieldComboBox.Margin = new System.Windows.Forms.Padding(2);
             this.ezkoFieldComboBox.Name = "ezkoFieldComboBox";
             this.ezkoFieldComboBox.Size = new System.Drawing.Size(235, 21);
-            this.ezkoFieldComboBox.TabIndex = 10;
+            this.ezkoFieldComboBox.TabIndex = 9;
             // 
             // EditActionForm
             // 
@@ -429,11 +429,13 @@
             this.Controls.Add(this.topMenuPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditActionForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.EditActionForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditActionForm_KeyDown);
             this.topMenuPanel.ResumeLayout(false);
             this.topMenuPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimizeFormPictureBox)).EndInit();

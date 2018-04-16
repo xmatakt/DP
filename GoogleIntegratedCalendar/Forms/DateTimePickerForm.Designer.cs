@@ -38,21 +38,23 @@
             // 
             // datePicker
             // 
-            this.datePicker.Location = new System.Drawing.Point(12, 12);
+            this.datePicker.Location = new System.Drawing.Point(9, 10);
+            this.datePicker.Margin = new System.Windows.Forms.Padding(2);
             this.datePicker.Name = "datePicker";
-            this.datePicker.Size = new System.Drawing.Size(200, 22);
+            this.datePicker.Size = new System.Drawing.Size(151, 20);
             this.datePicker.TabIndex = 0;
             // 
             // hourNumericUpDown
             // 
-            this.hourNumericUpDown.Location = new System.Drawing.Point(218, 12);
+            this.hourNumericUpDown.Location = new System.Drawing.Point(164, 10);
+            this.hourNumericUpDown.Margin = new System.Windows.Forms.Padding(2);
             this.hourNumericUpDown.Maximum = new decimal(new int[] {
             23,
             0,
             0,
             0});
             this.hourNumericUpDown.Name = "hourNumericUpDown";
-            this.hourNumericUpDown.Size = new System.Drawing.Size(57, 22);
+            this.hourNumericUpDown.Size = new System.Drawing.Size(43, 20);
             this.hourNumericUpDown.TabIndex = 1;
             // 
             // minuteNumericUpDown
@@ -62,14 +64,15 @@
             0,
             0,
             0});
-            this.minuteNumericUpDown.Location = new System.Drawing.Point(281, 12);
+            this.minuteNumericUpDown.Location = new System.Drawing.Point(211, 10);
+            this.minuteNumericUpDown.Margin = new System.Windows.Forms.Padding(2);
             this.minuteNumericUpDown.Maximum = new decimal(new int[] {
             55,
             0,
             0,
             0});
             this.minuteNumericUpDown.Name = "minuteNumericUpDown";
-            this.minuteNumericUpDown.Size = new System.Drawing.Size(57, 22);
+            this.minuteNumericUpDown.Size = new System.Drawing.Size(43, 20);
             this.minuteNumericUpDown.TabIndex = 2;
             this.minuteNumericUpDown.ValueChanged += new System.EventHandler(this.minuteNumericUpDown_ValueChanged);
             this.minuteNumericUpDown.KeyUp += new System.Windows.Forms.KeyEventHandler(this.minuteNumericUpDown_KeyUp);
@@ -78,27 +81,31 @@
             // 
             this.infoLabel.AutoSize = true;
             this.infoLabel.ForeColor = System.Drawing.Color.Red;
-            this.infoLabel.Location = new System.Drawing.Point(130, 37);
+            this.infoLabel.Location = new System.Drawing.Point(98, 30);
+            this.infoLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.infoLabel.Name = "infoLabel";
-            this.infoLabel.Size = new System.Drawing.Size(208, 17);
+            this.infoLabel.Size = new System.Drawing.Size(162, 13);
             this.infoLabel.TabIndex = 3;
             this.infoLabel.Text = "Číslo musí byť násobkom čísla 5";
             // 
             // DateTimePickerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(352, 52);
+            this.ClientSize = new System.Drawing.Size(266, 44);
             this.ControlBox = false;
             this.Controls.Add(this.infoLabel);
             this.Controls.Add(this.minuteNumericUpDown);
             this.Controls.Add(this.hourNumericUpDown);
             this.Controls.Add(this.datePicker);
-            this.MaximumSize = new System.Drawing.Size(370, 70);
-            this.MinimumSize = new System.Drawing.Size(370, 70);
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximumSize = new System.Drawing.Size(282, 60);
+            this.MinimumSize = new System.Drawing.Size(282, 60);
             this.Name = "DateTimePickerForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DateTimePickerForm_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DateTimePickerForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.hourNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.minuteNumericUpDown)).EndInit();
             this.ResumeLayout(false);

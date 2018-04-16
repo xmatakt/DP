@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -203,7 +204,7 @@ namespace EZKO.Forms.AdministrationForms
             InitializeComponent();
 
             ezkoController = GlobalSettings.EzkoController;
-            this.workingType = WorkingTypeEnum.Creating;
+            workingType = WorkingTypeEnum.Creating;
             recreateButton.Visible = false;
 
             InitializeForm();
@@ -254,6 +255,8 @@ namespace EZKO.Forms.AdministrationForms
 
                 fieldValues = field.FieldValues.ToList();
             }
+
+            nameTextBox.Focus();
         }
 
         private void InitializeFieldTypeComboBox()
@@ -267,6 +270,8 @@ namespace EZKO.Forms.AdministrationForms
 
         private void InitializeSectionsComboBox()
         {
+            sectionComboBox.Items.Clear();
+
             foreach (var item in ezkoController.GetSections())
                 sectionComboBox.Items.Add(item);
 
@@ -649,6 +654,24 @@ namespace EZKO.Forms.AdministrationForms
         private void nameTextBox_TextChanged(object sender, EventArgs e)
         {
             insightLabel.Text = nameTextBox.Text.Trim();
+        }
+
+        private void addSectionButton_Click(object sender, EventArgs e)
+        {
+            EditSectionForm form = new EditSectionForm();
+            if (form.ShowDialog() == DialogResult.OK)
+                InitializeSectionsComboBox();
+        }
+
+        private void addSectionButton_MouseHover(object sender, EventArgs e)
+        {
+            toolTip.Show("Pridať sekciu", addSectionButton);
+        }
+
+        private void EditFieldForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                DialogResult = DialogResult.Cancel;
         }
         #endregion
     }

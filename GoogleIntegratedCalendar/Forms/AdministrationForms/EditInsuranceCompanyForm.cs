@@ -244,6 +244,12 @@ namespace EZKO.Forms.AdministrationForms
             insuranceNameTextBox.MaxLength = 30;
             insuranceCodeTextBox.MaxLength = 12;
         }
+
+        private void EditInsuranceCompanyForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                DialogResult = DialogResult.Cancel;
+        }
         #endregion
     }
 }
