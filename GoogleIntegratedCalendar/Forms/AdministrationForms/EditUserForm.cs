@@ -1,7 +1,6 @@
 ﻿using DatabaseCommunicator.Controllers;
 using DatabaseCommunicator.Enums;
 using ExceptionHandler;
-using EZKO.Classes;
 using EZKO.Controllers;
 using EZKO.Enums;
 using System;
